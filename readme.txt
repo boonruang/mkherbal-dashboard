@@ -27,3 +27,6 @@ create dark mode color
 and invert
 ctrl + p
 > sort line descending
+
+please
+react-pro-sidebar": "^0.7.1"
