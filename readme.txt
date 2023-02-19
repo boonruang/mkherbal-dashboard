@@ -1,4 +1,4 @@
-npm i @mui/material @emotion/react @emotion/styled @mui/x-data-grid @mui/icons-material react-router-dom@6 react-pro-sidebar formik yup @fullcalendar/core @fullcalendar/daygrid @fullcalendar/timegrid @fullcalendar/list @nivo/core @nivo/pie @nivo/line @nivo/bar @nivo/geo
+npm i @mui/material @emotion/react @emotion/styled @mui/x-data-grid @mui/icons-material react-router-dom@6 react-pro-sidebar formik yup @fullcalendar/react @fullcalendar/interaction @fullcalendar/core @fullcalendar/daygrid @fullcalendar/timegrid @fullcalendar/list @nivo/core @nivo/pie @nivo/line @nivo/bar @nivo/geo
 
 delete folders
 setupTests.js
@@ -30,3 +30,20 @@ ctrl + p
 
 please
 react-pro-sidebar": "^0.7.1"
+
+x-Datagrid
+selector 
+& .MuiDataGrid : {}
+& > div : {}
+
+Formik
+RegExg
+
+Fullcalendar.io
+
+short hand
+<Box flex="1 1 20%">
+row shink width
+
+fix install
+@fullcalendar/react @fullcalendar/interaction 
