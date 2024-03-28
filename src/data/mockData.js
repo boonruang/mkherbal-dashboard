@@ -432,51 +432,51 @@ export const mockPieData = [
 
 export const mockLineData = [
   {
-    id: "japan",
+    id: "Khon Kaen",
     color: tokens("dark").greenAccent[500],
     data: [
       {
-        x: "plane",
+        x: "กระเพรา",
         y: 101,
       },
       {
-        x: "helicopter",
+        x: "ฟ้าทะลายโจร",
         y: 75,
       },
       {
-        x: "boat",
+        x: "ขิง",
         y: 36,
       },
       {
-        x: "train",
+        x: "ข่า",
         y: 216,
       },
       {
-        x: "subway",
+        x: "ตะไคร้",
         y: 35,
       },
       {
-        x: "bus",
+        x: "สะเดา",
         y: 236,
       },
       {
-        x: "car",
+        x: "ขมิ้น",
         y: 88,
       },
       {
-        x: "moto",
+        x: "กัญชา",
         y: 232,
       },
       {
-        x: "bicycle",
+        x: "ก้านพลู",
         y: 281,
       },
       {
-        x: "horse",
+        x: "ว่านหางจระเข้",
         y: 1,
       },
       {
-        x: "skateboard",
+        x: "กระชาย",
         y: 35,
       },
       {
@@ -486,51 +486,51 @@ export const mockLineData = [
     ],
   },
   {
-    id: "france",
+    id: "Roi-Et",
     color: tokens("dark").yellowAccent[300],
     data: [
       {
-        x: "plane",
+        x: "กระเพรา",
         y: 212,
       },
       {
-        x: "helicopter",
+        x: "ฟ้าทะลายโจร",
         y: 190,
       },
       {
-        x: "boat",
+        x: "ขิง",
         y: 270,
       },
       {
-        x: "train",
+        x: "ข่า",
         y: 9,
       },
       {
-        x: "subway",
+        x: "ตะไคร้",
         y: 75,
       },
       {
-        x: "bus",
+        x: "สะเดา",
         y: 175,
       },
       {
-        x: "car",
+        x: "ขมิ้น",
         y: 33,
       },
       {
-        x: "moto",
+        x: "กัญชา",
         y: 189,
       },
       {
-        x: "bicycle",
+        x: "ก้านพลู",
         y: 97,
       },
       {
-        x: "horse",
+        x: "ว่านหางจระเข้",
         y: 87,
       },
       {
-        x: "skateboard",
+        x: "กระชาย",
         y: 299,
       },
       {
@@ -540,51 +540,51 @@ export const mockLineData = [
     ],
   },
   {
-    id: "us",
+    id: "Mahasarakham",
     color: tokens("dark").redAccent[200],
     data: [
       {
-        x: "plane",
+        x: "กระเพรา",
         y: 191,
       },
       {
-        x: "helicopter",
+        x: "ฟ้าทะลายโจร",
         y: 136,
       },
       {
-        x: "boat",
+        x: "ขิง",
         y: 91,
       },
       {
-        x: "train",
+        x: "ข่า",
         y: 190,
       },
       {
-        x: "subway",
+        x: "ตะไคร้",
         y: 211,
       },
       {
-        x: "bus",
+        x: "สะเดา",
         y: 152,
       },
       {
-        x: "car",
+        x: "ขมิ้น",
         y: 189,
       },
       {
-        x: "moto",
+        x: "กัญชา",
         y: 152,
       },
       {
-        x: "bicycle",
+        x: "ก้านพลู",
         y: 8,
       },
       {
-        x: "horse",
+        x: "ว่านหางจระเข้",
         y: 197,
       },
       {
-        x: "skateboard",
+        x: "กระชาย",
         y: 107,
       },
       {
