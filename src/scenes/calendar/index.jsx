@@ -48,7 +48,7 @@ const Calendar = () => {
     }
 
     return <Box m="20px">
-        <Header title="CALENDAR" subtitle="Full Calendar Interactive Page" />
+        <Header title="ปฏิทิน" subtitle="ตารางกิจกรรม" />
         <Box display="flex" justifyContent="space-between">
             {/* CALENDAR SIDEBAR */}
             <Box
@@ -57,12 +57,12 @@ const Calendar = () => {
                 p="15px"
                 borderRadius="4px"
             >
-                <Typography variant='h5'>Events</Typography>
+                <Typography variant='h5'>กิจกรรม</Typography>
                 <List>
                     {currentEvents.map((event) => (
                         <ListItem
                             key={event.id}
-                            sx={{ backgroundColor: colors.greenAccent[500], margin: "10px 0", borderRadius: "2px" }}
+                            sx={{ backgroundColor: colors.yellowAccent[500], margin: "10px 0", borderRadius: "2px" }}
                         >
                             <ListItemText
                                 primary={event.title}

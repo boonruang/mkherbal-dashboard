@@ -6,6 +6,7 @@ import "react-pro-sidebar/dist/css/styles.css"
 import { tokens } from "../../theme"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
+import SummarizeIcon from '@mui/icons-material/Summarize';
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined"
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined"
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
@@ -53,10 +54,10 @@ const Sidebar = () => {
                     padding: "5px 35px 5px 20px !important"
                 },
                 "& .pro-inner-item:hover": {
-                    color: "#868dfb !important"
+                    color: "#71884c !important"
                 },
                 "& .pro-menu-item.active": {
-                    color: "#8670fa !important"
+                    color: "#71910c !important"
                 }
             }}
         >
@@ -79,7 +80,7 @@ const Sidebar = () => {
                                 ml="15px"
                             >
                                 <Typography variant='h3' color={colors.grey[100]}>
-                                    ADMINIS
+                                    {/* ADMINIS */}
                                 </Typography>
                                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                                     <MenuOutlinedIcon />
@@ -91,27 +92,17 @@ const Sidebar = () => {
                     {/* USER */}
                     {!isCollapsed && (
                         <Box mb="25px">
-                            <Box display="flex" justifyContent="center" alignContent="center">
-                                <img
-                                    alt="profile-user"
-                                    width="100px"
-                                    height="100px"
-                                    src={`../../assets/user.png`}
-                                    style={{ cursor: "pointer", borderRadius: "50%" }}
-                                />
-                            </Box>
-
                             <Box textAlign={"center"}>
                                 <Typography
-                                    variant='h2' color={colors.grey[100]}
+                                    variant='h4' color={colors.grey[100]}
                                     fontWeight="bold"
                                     sx={{ m: "10px 0 0 0" }}
                                 >
-                                    System
+                                    ระบบจัดการสมุนไพร
                                 </Typography>
                                 <Typography
                                     variant='h5' color={colors.greenAccent[500]}
-                                >MSU Admin</Typography>
+                                >มหาวิทยาลัยมหาสารคาม</Typography>
                             </Box>
                         </Box>
                     )}
@@ -120,7 +111,7 @@ const Sidebar = () => {
                     {/* MENU ITEMS */}
                     <Box paddingLeft={isCollapsed ? undefined : '10%'}>
                         <Item
-                            title="Dashbaord"
+                            title="แดชบอร์ด"
                             to="/"
                             icon={<HomeOutlinedIcon />}
                             selected={selected}
@@ -131,54 +122,47 @@ const Sidebar = () => {
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
                         >
-                            Data
+                            ข้อมูล
                         </Typography>
                         <Item
-                            title="Manage Team"
+                            title="รายการนักวิจัย"
                             to="/team"
                             icon={<PeopleOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="Contacts Information"
-                            to="/contacts"
-                            icon={<ContactsOutlinedIcon />}
+                            title="รายการเกษตรกร"
+                            to="/team"
+                            icon={<PeopleOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />
+                        />       
                         <Item
-                            title="Invoices Balances"
-                            to="/invoices"
-                            icon={<ReceiptOutlinedIcon />}
+                            title="รายการสมุนไพร"
+                            to="/team"
+                            icon={<SummarizeIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />
+                        />                                            
                         <Typography
                             variant='h6'
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
                         >
-                            Pages
+                            หน้า
                         </Typography>
                         <Item
-                            title="Profile Form"
+                            title="ข้อมูลผู้ใช้"
                             to="/form"
                             icon={<PersonOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="Calendar"
+                            title="ปฏิทินกิจกรรม"
                             to="/calendar"
                             icon={<CalendarTodayOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="FAQ Page"
-                            to="/faq"
-                            icon={<HelpOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
@@ -187,36 +171,64 @@ const Sidebar = () => {
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
                         >
-                            Charts
+                            แผนภูมิข้อมูล
                         </Typography>
                         <Item
-                            title="Bar Chart"
+                            title="แผนภูมิแท่ง"
                             to="/bar"
                             icon={<BarChartOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="Pie Chart"
+                            title="แผนภูมิวงกลม"
                             to="/pie"
                             icon={<PieChartOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="Line Chart"
+                            title="แผนภูมิเส้น"
                             to="/line"
                             icon={<TimelineOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
+                        <Typography
+                            variant='h6'
+                            color={colors.grey[300]}
+                            sx={{ m: "15px 0 5px 20px" }}
+                        >
+                            ข้อมูลทางภูมิศาสตร์
+                        </Typography>       
                         <Item
-                            title="Geography Chart"
+                            title="จ.มหาสารคาม"
                             to="/geography"
                             icon={<MapOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
+                        <Item
+                            title="จ.ขอนแก่น"
+                            to="/geography"
+                            icon={<MapOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />     
+                        <Item
+                            title="จ.กาฬสินธุ์"
+                            to="/geography"
+                            icon={<MapOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Item
+                            title="จ.ร้อยเอ็ด"
+                            to="/geography"
+                            icon={<MapOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />                                                                                                        
                     </Box>
                 </Menu>
             </ProSidebar>

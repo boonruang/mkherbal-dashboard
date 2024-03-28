@@ -16,30 +16,23 @@ const Team = () => {
         { field: 'id', headerName: 'ID' },
         {
             field: 'name',
-            headerName: 'Name',
+            headerName: 'ชื่อ',
             flex: 1,
             cellClassName: "name-column--cell"
         },
         {
-            field: 'age',
-            headerName: 'Age',
-            type: "number",
-            headerAlign: "left",
-            align: "left",
-        },
-        {
             field: 'phone',
-            headerName: 'Phone Numbe',
+            headerName: 'เบอร์โทรศัพท์',
             flex: 1,
         },
         {
             field: 'email',
-            headerName: 'Email',
+            headerName: 'อีเมล์',
             flex: 1,
         },
         {
             field: 'access',
-            headerName: 'Access Level',
+            headerName: 'สิทธิ์การใช้งาน',
             flex: 1,
             renderCell: ({ row: { access } }) => {
                 return (
@@ -75,7 +68,7 @@ const Team = () => {
 
     return (
         <Box m="20px">
-            <Header title="TEAM" subtitle="Managing the Team Memobers" />
+            <Header title="ข้อมูล" subtitle="การจัดข้อมูลสมาชิก" />
             <Box m="40px 0 0 0" height="75vh" sx={{
                 "& .MuiDataGrid-root": {
                     border: "none"
@@ -88,14 +81,14 @@ const Team = () => {
                 },
                 "& .MuiDataGrid-columnHeader": {
                     borderBottom: "none",
-                    backgroundColor: colors.blueAccent[700],
+                    backgroundColor: colors.yellowAccent[700],
                 },
                 "& .MuiDataGrid-virtualScroller": {
                     backgroundColor: colors.primary[400]
                 },
                 "& .MuiDataGrid-footerContainer": {
                     borderTop: "none",
-                    backgroundColor: colors.blueAccent[700],
+                    backgroundColor: colors.yellowAccent[700],
                 }
             }}>
                 <DataGrid

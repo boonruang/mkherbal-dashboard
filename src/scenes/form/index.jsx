@@ -36,7 +36,7 @@ const Form = () => {
     }
 
     return <Box m="20px">
-        <Header title="CREATE USER" subtitle="Create a New User Profile" />
+        <Header title="เพิ่มผู้ใช้" subtitle="เพิ่มข้อมูลผู้ใช้ใหม่" />
 
         <Formik
             onSubmit={handleFormSubmit}
@@ -57,7 +57,7 @@ const Form = () => {
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="First Name"
+                            label="ชื่อ"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.firstName}
@@ -70,7 +70,7 @@ const Form = () => {
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="Last Name"
+                            label="นามสกุล"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.lastName}
@@ -83,7 +83,7 @@ const Form = () => {
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="Email"
+                            label="อีเมล์"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.email}
@@ -96,7 +96,7 @@ const Form = () => {
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="Contact Number"
+                            label="เบอร์โทรศัพท์"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.contact}
@@ -109,7 +109,7 @@ const Form = () => {
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="Address 1"
+                            label="ที่อยู่ 1"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.address1}
@@ -122,7 +122,7 @@ const Form = () => {
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="Address 2"
+                            label="ที่อยู่ 2"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.address2}
@@ -138,7 +138,7 @@ const Form = () => {
                             color='secondary'
                             variant='contained'
                         >
-                            Create New User
+                            เพิ่มผู้ใช้
                         </Button>
                     </Box>
                 </form>
