@@ -261,7 +261,7 @@ const Dashbaord = () => {
                         >
                             50,558,352 การสร้างรายได้
                         </Typography>
-                        <Typography>Includes extra misc expanditures and costs</Typography>
+                        <Typography>รวมค่าดำเนินการและค่าบริหาร</Typography>
                     </Box>
                 </Box>
 
