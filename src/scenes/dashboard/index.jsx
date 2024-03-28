@@ -231,7 +231,7 @@ const Dashbaord = () => {
                             <Box color={colors.grey[100]}>{transaction.date}</Box>
 
                             <Box backgroundColor={colors.greenAccent[500]} p="5px 10px" borderRadius="4px">
-                                ${transaction.cost}
+                                {transaction.cost}
                             </Box>
                         </Box>
                     ))}
