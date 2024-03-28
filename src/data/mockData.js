@@ -3,7 +3,7 @@ import { tokens } from "../theme";
 export const mockDataTeam = [
   {
     id: 1,
-    name: "Jon Snow",
+    name: "สมศักดิ์ แสนจันทร์",
     email: "jonsnow@gmail.com",
     age: 35,
     phone: "(665)121-5454",
@@ -11,7 +11,7 @@ export const mockDataTeam = [
   },
   {
     id: 2,
-    name: "Cersei Lannister",
+    name: "รัศมี แก่งกระจาน",
     email: "cerseilannister@gmail.com",
     age: 42,
     phone: "(421)314-2288",
@@ -19,7 +19,7 @@ export const mockDataTeam = [
   },
   {
     id: 3,
-    name: "Jaime Lannister",
+    name: "เจพานุ สมมาก",
     email: "jaimelannister@gmail.com",
     age: 45,
     phone: "(422)982-6739",
@@ -27,7 +27,7 @@ export const mockDataTeam = [
   },
   {
     id: 4,
-    name: "Anya Stark",
+    name: "แอนนา ทองงาม",
     email: "anyastark@gmail.com",
     age: 16,
     phone: "(921)425-6742",
@@ -35,7 +35,7 @@ export const mockDataTeam = [
   },
   {
     id: 5,
-    name: "Daenerys Targaryen",
+    name: "เด่นเวอร์ สมหล่อ",
     email: "daenerystargaryen@gmail.com",
     age: 31,
     phone: "(421)445-1189",
@@ -43,7 +43,7 @@ export const mockDataTeam = [
   },
   {
     id: 6,
-    name: "Ever Melisandre",
+    name: "อีวาน เกเกอ",
     email: "evermelisandre@gmail.com",
     age: 150,
     phone: "(232)545-6483",
@@ -51,7 +51,7 @@ export const mockDataTeam = [
   },
   {
     id: 7,
-    name: "Ferrara Clifford",
+    name: "เฟอราน พอ",
     email: "ferraraclifford@gmail.com",
     age: 44,
     phone: "(543)124-0123",
@@ -59,7 +59,7 @@ export const mockDataTeam = [
   },
   {
     id: 8,
-    name: "Rossini Frances",
+    name: "รอนนี่ ทำนา",
     email: "rossinifrances@gmail.com",
     age: 36,
     phone: "(222)444-5555",
@@ -67,7 +67,7 @@ export const mockDataTeam = [
   },
   {
     id: 9,
-    name: "Harvey Roxie",
+    name: "สุ่มสี สมสวย",
     email: "harveyroxie@gmail.com",
     age: 65,
     phone: "(444)555-6239",
