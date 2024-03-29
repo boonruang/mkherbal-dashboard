@@ -126,21 +126,21 @@ const Sidebar = () => {
                         </Typography>
                         <Item
                             title="รายการนักวิจัย"
-                            to="/team"
+                            to="/researchers"
                             icon={<PeopleOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
                             title="รายการเกษตรกร"
-                            to="/team"
+                            to="/farmers"
                             icon={<PeopleOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />       
                         <Item
                             title="รายการสมุนไพร"
-                            to="/team"
+                            to="/herbals"
                             icon={<SummarizeIcon />}
                             selected={selected}
                             setSelected={setSelected}

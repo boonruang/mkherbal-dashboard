@@ -6,12 +6,15 @@ import Sidebar from "./scenes/global/Sidebar";
 import Dashbaord from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Contacts from "./scenes/contacts";
+import Farmers from "./scenes/farmers";
 import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
 import Bar from "./scenes/bar";
 import Pie from "./scenes/pie";
 import Line from "./scenes/line";
 import Geography from "./scenes/geography";
+import Herbals from "./scenes/herbals";
+import Researchers from "./scenes/researchers";
 
 function App() {
   const [theme, colorMode] = useMode()
@@ -27,6 +30,9 @@ function App() {
                   <Route path="/" element={<Dashbaord />} />
                   <Route path="/team" element={<Team />} />
                   <Route path="/contacts" element={<Contacts />} />
+                  <Route path="/researchers" element={<Researchers />} />
+                  <Route path="/farmers" element={<Farmers />} />
+                  <Route path="/herbals" element={<Herbals />} />
                   <Route path="/form" element={<Form />} />
                   <Route path="/calendar" element={<Calendar />} />
                   <Route path="/bar" element={<Bar />} />

@@ -275,7 +275,7 @@ const Dashbaord = () => {
                         fontWeight="600"
                         sx={{ p: "30px 30px 0 30px" }}
                     >
-                        จำนวนยอดขาย
+                        ยอดขาย
                     </Typography>
                     <Box
                         height="250px"

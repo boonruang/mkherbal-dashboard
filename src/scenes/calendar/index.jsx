@@ -106,8 +106,8 @@ const Calendar = () => {
                     eventClick={handleEventClick}
                     eventsSet={(events) => setCurrentEvents(events)}
                     initialEvents={[
-                        { id: "1234", title: "All-day event", date: "2023-02-19" },
-                        { id: "2535", title: "Timed event", date: "2023-02-28" },
+                        { id: "1", title: "All-day event", date: "2024-03-30" },
+                        { id: "2", title: "Customers meeting", date: "2024-04-02" },
                     ]}
                 />
             </Box>
