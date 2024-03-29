@@ -154,7 +154,7 @@ const Sidebar = () => {
                         </Typography>
                         <Item
                             title="ข้อมูลผู้ใช้"
-                            to="/form"
+                            to="/farmers"
                             icon={<PersonOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
