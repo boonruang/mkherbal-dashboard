@@ -81,7 +81,7 @@ const Farmers = () => {
 
     return (
         <Box m="20px">
-            <Header title="ข้อมูลเกษตร" subtitle="รายการข้อมูลเกษตรกร" />
+            <Header title="ข้อมูลเกษตรกร" subtitle="รายการข้อมูลเกษตรกร" />
             <Box m="40px 0 0 0" height="75vh" sx={{
                 "& .MuiDataGrid-root": {
                     border: "none"

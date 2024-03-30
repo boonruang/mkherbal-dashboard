@@ -7,11 +7,16 @@ import { tokens } from "../../theme"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import ParkIcon from '@mui/icons-material/Park';
+import LandslideIcon from '@mui/icons-material/Landslide';
+import LanguageIcon from '@mui/icons-material/Language';
+import LandscapeIcon from '@mui/icons-material/Landscape';
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined"
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined"
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined"
 import HelpOutlinedIcon from "@mui/icons-material/HelpOutlined"
+import WarehouseIcon from '@mui/icons-material/Warehouse';
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined"
 import PieChartOutlinedIcon from "@mui/icons-material/PieChartOutlined"
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined"
@@ -98,7 +103,7 @@ const Sidebar = () => {
                                     fontWeight="bold"
                                     sx={{ m: "10px 0 0 0" }}
                                 >
-                                    ระบบจัดการสมุนไพร
+                                    ระบบฐานข้อมูลสมุนไพร
                                 </Typography>
                                 <Typography
                                     variant='h5' color={colors.greenAccent[500]}
@@ -125,12 +130,12 @@ const Sidebar = () => {
                             ข้อมูล
                         </Typography>
                         <Item
-                            title="รายการนักวิจัย"
-                            to="/researchers"
-                            icon={<PeopleOutlinedIcon />}
+                            title="รายการสมุนไพร"
+                            to="/herbals"
+                            icon={<ParkIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />
+                        />                          
                         <Item
                             title="รายการเกษตรกร"
                             to="/farmers"
@@ -139,30 +144,51 @@ const Sidebar = () => {
                             setSelected={setSelected}
                         />       
                         <Item
-                            title="รายการสมุนไพร"
-                            to="/herbals"
-                            icon={<SummarizeIcon />}
+                            title="รายการกลุ่มเกษตรกร"
+                            to="/researchers"
+                            icon={<PeopleOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />                                            
+                        />                        
+                        <Item
+                            title="รายการกลุ่มบริษัท/ธุรกิจ"
+                            to="/researchers"
+                            icon={<WarehouseIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />                         
                         <Typography
                             variant='h6'
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
                         >
-                            หน้า
-                        </Typography>
+                            ข้อมูลดิน
+                        </Typography>       
                         <Item
-                            title="ข้อมูลผู้ใช้"
-                            to="/farmers"
-                            icon={<PersonOutlinedIcon />}
+                            title="มหาสารคาม"
+                            to="/soilmkmap"
+                            icon={<LandslideIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="ปฏิทินกิจกรรม"
-                            to="/calendar"
-                            icon={<CalendarTodayOutlinedIcon />}
+                            title="ขอนแก่น"
+                            to="/geography"
+                            icon={<LanguageIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />     
+                        <Item
+                            title="กาฬสินธุ์"
+                            to="/geography"
+                            icon={<MapOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Item
+                            title="ร้อยเอ็ด"
+                            to="/geography"
+                            icon={<LandscapeIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
@@ -193,42 +219,7 @@ const Sidebar = () => {
                             icon={<TimelineOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />
-                        <Typography
-                            variant='h6'
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
-                            ข้อมูลทางภูมิศาสตร์
-                        </Typography>       
-                        <Item
-                            title="จ.มหาสารคาม"
-                            to="/geography"
-                            icon={<MapOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="จ.ขอนแก่น"
-                            to="/geography"
-                            icon={<MapOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />     
-                        <Item
-                            title="จ.กาฬสินธุ์"
-                            to="/geography"
-                            icon={<MapOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="จ.ร้อยเอ็ด"
-                            to="/geography"
-                            icon={<MapOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />                                                                                                        
+                        />                                                                                                                                
                     </Box>
                 </Menu>
             </ProSidebar>

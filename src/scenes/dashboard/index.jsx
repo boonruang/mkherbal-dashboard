@@ -3,6 +3,7 @@ import { tokens } from "../../theme"
 import Header from '../../components/Header'
 import { mockTransactions } from "../../data/mockData"
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined"
+import ParkIcon from '@mui/icons-material/Park';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
@@ -62,11 +63,11 @@ const Dashbaord = () => {
                 >
                     <StatBox
                         title="361"
-                        subtitle="จำนวนสมุนไพรในระบบ"
+                        subtitle="จำนวนสมุนไพร"
                         progress="0.75"
                         increase="+14%"
                         icon={
-                            <SummarizeIcon
+                            <ParkIcon
                                 sx={{
                                     color: colors.greenAccent[600],
                                     fontSize: "26px"
@@ -84,8 +85,8 @@ const Dashbaord = () => {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="431,225"
-                        subtitle="จำนวนผู้ผลิตทั้งหมด"
+                        title="5,512"
+                        subtitle="จำนวนเกษตรกร"
                         progress="0.5"
                         increase="+21%"
                         icon={
@@ -107,8 +108,8 @@ const Dashbaord = () => {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="32,441"
-                        subtitle="จำนวนเกษตรกรทั้งหมด"
+                        title="541"
+                        subtitle="จำนวนกลุ่มเกษตรกร"
                         progress="0.30"
                         increase="+5%"
                         icon={
@@ -130,8 +131,8 @@ const Dashbaord = () => {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="5,134"
-                        subtitle="จำนวนผู้ประกอบการ"
+                        title="134"
+                        subtitle="จำนวนกลุ่มบริษัท/ธุรกิจ"
                         progress="0.80"
                         increase="+43%"
                         icon={
@@ -164,7 +165,7 @@ const Dashbaord = () => {
                                 fontWeight="600"
                                 color={colors.grey[100]}
                             >
-                                ผลผลิตเกษตรกร
+                                ผลผลิตสมุนไพร
                             </Typography>
                         </Box>
 
