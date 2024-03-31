@@ -168,6 +168,13 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />     
+                        <Item
+                            title="ข้อมูลเกลือ"
+                            to="https://thunbergii.app.carto.com/map/41262f60-ff79-47a5-88c2-e1b26f2034fd"
+                            icon={<LanguageIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />     
                         <Typography
                             variant='h6'
                             color={colors.grey[300]}
