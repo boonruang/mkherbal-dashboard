@@ -12,6 +12,13 @@ import LanguageIcon from '@mui/icons-material/Language';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined"
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined"
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import HomeWorkIcon from '@mui/icons-material/HomeWork';
+import StoreIcon from '@mui/icons-material/Store';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import MoreIcon from '@mui/icons-material/More';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme()
@@ -117,7 +124,7 @@ const Sidebar = () => {
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
                         >
-                            ข้อมูล
+                            ทรัพยากร
                         </Typography>
                         <Item
                             title="รายการสมุนไพร"
@@ -139,7 +146,7 @@ const Sidebar = () => {
                             icon={<PeopleOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />                        
+                        />   
                         <Item
                             title="รายการกลุ่มบริษัท/ธุรกิจ"
                             to="/businessgroup"
@@ -147,6 +154,76 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />                         
+                        <Typography
+                            variant='h6'
+                            color={colors.grey[300]}
+                            sx={{ m: "15px 0 5px 20px" }}
+                        >
+                            ผู้ประกอบการสมุนไพร
+                        </Typography>                                             
+                        <Item
+                            title="ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร"
+                            to="/businessgroup"
+                            icon={<LocalHospitalIcon/>}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />      
+                        <Item
+                            title="ผู้ประกอบการผลิตภัณฑ์สมุนไพร"
+                            to="/businessgroup"
+                            icon={<HealthAndSafetyIcon  />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />                                  
+                        <Typography
+                            variant='h6'
+                            color={colors.grey[300]}
+                            sx={{ m: "15px 0 5px 20px" }}
+                        >
+                            แหล่งแปรรูป
+                        </Typography>                                             
+                        <Item
+                            title="แหล่งแปรรูปขั้นต้น"
+                            to="/businessgroup"
+                            icon={<HomeWorkIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />                           
+                        <Typography
+                            variant='h6'
+                            color={colors.grey[300]}
+                            sx={{ m: "15px 0 5px 20px" }}
+                        >
+                            แหล่งการตลาด
+                        </Typography>                                             
+                        <Item
+                            title="แหล่งขายตามพิกัด"
+                            to="/businessgroup"
+                            icon={<StoreIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />                        
+                        <Typography
+                            variant='h6'
+                            color={colors.grey[300]}
+                            sx={{ m: "15px 0 5px 20px" }}
+                        >
+                            องค์ความรู้
+                        </Typography>
+                        <Item
+                            title="งานวิจัยและนวัตกรรม"
+                            to="/herbals"
+                            icon={<LibraryBooksIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />                          
+                        <Item
+                            title="องค์ความรู้และศาสตร์การแพทย์ฯ"
+                            to="/farmers"
+                            icon={<MenuBookIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />                                    
                         <Typography
                             variant='h6'
                             color={colors.grey[300]}
@@ -171,18 +248,18 @@ const Sidebar = () => {
                         <Item
                             title="ข้อมูลเกลือ"
                             to="https://thunbergii.app.carto.com/map/41262f60-ff79-47a5-88c2-e1b26f2034fd"
-                            icon={<LanguageIcon />}
+                            icon={<MoreIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />     
-                        <Typography
+                        {/* <Typography
                             variant='h6'
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
                         >
                             รายงาน
                         </Typography>
-                        {/* <Item
+                        <Item
                             title="แผนภูมิแท่ง"
                             to="/bar"
                             icon={<BarChartOutlinedIcon />}
@@ -195,14 +272,14 @@ const Sidebar = () => {
                             icon={<PieChartOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        /> */}
+                        />
                         <Item
                             title="ผลผลิดสุมนไพร"
                             to="/line"
                             icon={<TimelineOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />                                                                                                                                
+                        />                                                                                                                                 */}
                     </Box>
                 </Menu>
             </ProSidebar>
