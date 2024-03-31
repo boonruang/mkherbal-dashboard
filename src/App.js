@@ -1,6 +1,6 @@
 import { ColorModeContext, useMode } from "./theme"
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Routes,Route} from "react-router-dom";
+import { Routes,Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashbaord from "./scenes/dashboard";
@@ -15,32 +15,31 @@ import Line from "./scenes/line";
 import Geography from "./scenes/geography";
 import Herbals from "./scenes/herbals";
 import Researchers from "./scenes/researchers";
-import SoilMkMaps from "./components/views/SoilMkMaps";
-import { IntlProvider } from 'react-intl';
-import { lazy } from 'react';
-
-const MapContainer = lazy(() =>
-  import(/* webpackChunkName: 'map-container' */ './components/views/main/MapContainer')
-);
+import FarmerGroup from "scenes/farmergroup";
+import BusinessGroup from "scenes/businessgroup";
 
 function App() {
   const [theme, colorMode] = useMode()
   return ( 
-    <IntlProvider locale='en'>
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
             <div className="app">
               <Sidebar />
               <main className='content' >
-                <Topbar />
-                <MapContainer />
+                <Topbar /> 
                 <Routes>
                     <Route path="/" element={<Dashbaord />} />
+                    {/* <Route path="/soilmkmap" element={<DefaultView><SoilMkMaps /><Main /></DefaultView>} /> */}
+                    <Route path="/dashboard" element={<Dashbaord />} />
+                    
+                    {/* <Route path="/" element={<Dashbaord />} /> */}
                     <Route path="/team" element={<Team />} />
                     <Route path="/contacts" element={<Contacts />} />
                     <Route path="/researchers" element={<Researchers />} />
                     <Route path="/farmers" element={<Farmers />} />
+                    <Route path="/farmergroup" element={<FarmerGroup />} />
+                    <Route path="/businessgroup" element={<BusinessGroup />} />
                     <Route path="/herbals" element={<Herbals />} />
                     <Route path="/form" element={<Form />} />
                     <Route path="/calendar" element={<Calendar />} />
@@ -48,13 +47,14 @@ function App() {
                     <Route path="/pie" element={<Pie />} />
                     <Route path="/line" element={<Line />} />
                     <Route path="/geography" element={<Geography />} />
-                    <Route path="/soilmkmap" element={<SoilMkMaps />} />
+                    {/* <Route path="/soilmkmap" element={<SoilMkMaps />} /> */}
+                    {/* <Route path="/soilmkmap" element={<DefaultView><SoilMkMaps /><Main /></DefaultView>} /> */}
+                    {/* <Route path="/soilmkmap" element={<DefaultView><Main /></DefaultView>} /> */}
                 </Routes>
               </main>
             </div>
           </ThemeProvider>
         </ColorModeContext.Provider>
-      </IntlProvider>
   )
 }
 

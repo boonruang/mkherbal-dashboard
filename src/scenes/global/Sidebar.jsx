@@ -6,22 +6,12 @@ import "react-pro-sidebar/dist/css/styles.css"
 import { tokens } from "../../theme"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
-import SummarizeIcon from '@mui/icons-material/Summarize';
 import ParkIcon from '@mui/icons-material/Park';
 import LandslideIcon from '@mui/icons-material/Landslide';
 import LanguageIcon from '@mui/icons-material/Language';
-import LandscapeIcon from '@mui/icons-material/Landscape';
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined"
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined"
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined"
-import HelpOutlinedIcon from "@mui/icons-material/HelpOutlined"
 import WarehouseIcon from '@mui/icons-material/Warehouse';
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined"
-import PieChartOutlinedIcon from "@mui/icons-material/PieChartOutlined"
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined"
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined"
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined"
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme()
@@ -117,7 +107,7 @@ const Sidebar = () => {
                     <Box paddingLeft={isCollapsed ? undefined : '10%'}>
                         <Item
                             title="แดชบอร์ด"
-                            to="/"
+                            to="/dashboard"
                             icon={<HomeOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
@@ -145,14 +135,14 @@ const Sidebar = () => {
                         />       
                         <Item
                             title="รายการกลุ่มเกษตรกร"
-                            to="/researchers"
+                            to="/farmergroup"
                             icon={<PeopleOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />                        
                         <Item
                             title="รายการกลุ่มบริษัท/ธุรกิจ"
-                            to="/researchers"
+                            to="/businessgroup"
                             icon={<WarehouseIcon />}
                             selected={selected}
                             setSelected={setSelected}
@@ -165,41 +155,27 @@ const Sidebar = () => {
                             ข้อมูลดิน
                         </Typography>       
                         <Item
-                            title="มหาสารคาม"
-                            to="/soilmkmap"
+                            title="จ.มหาสารคาม"
+                            to="https://thunbergii.app.carto.com/map/f212e308-4c6d-4bb4-9129-eae86f1d4bee"
                             icon={<LandslideIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                         <Item
-                            title="ขอนแก่น"
-                            to="/geography"
+                            title="การใช้ที่ดิน"
+                            to="https://thunbergii.app.carto.com/map/40fc77a9-019a-4238-b1c7-07d475863b20"
                             icon={<LanguageIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />     
-                        <Item
-                            title="กาฬสินธุ์"
-                            to="/geography"
-                            icon={<MapOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="ร้อยเอ็ด"
-                            to="/geography"
-                            icon={<LandscapeIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
                         <Typography
                             variant='h6'
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
                         >
-                            แผนภูมิข้อมูล
+                            รายงาน
                         </Typography>
-                        <Item
+                        {/* <Item
                             title="แผนภูมิแท่ง"
                             to="/bar"
                             icon={<BarChartOutlinedIcon />}
@@ -212,9 +188,9 @@ const Sidebar = () => {
                             icon={<PieChartOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />
+                        /> */}
                         <Item
-                            title="แผนภูมิเส้น"
+                            title="ผลผลิดสุมนไพร"
                             to="/line"
                             icon={<TimelineOutlinedIcon />}
                             selected={selected}
