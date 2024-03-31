@@ -246,7 +246,7 @@ const Sidebar = () => {
                             setSelected={setSelected}
                         />     
                         <Item
-                            title="ข้อมูลเกลือ"
+                            title="ข้อมูลคราบเกลือ"
                             to="https://thunbergii.app.carto.com/map/41262f60-ff79-47a5-88c2-e1b26f2034fd"
                             icon={<MoreIcon />}
                             selected={selected}
