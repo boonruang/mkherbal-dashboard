@@ -18,6 +18,10 @@ import Researchers from "./scenes/researchers";
 import FarmerGroup from "scenes/farmergroup";
 import BusinessGroup from "scenes/businessgroup";
 import Geomap from "scenes/geomap";
+import GeoGmaps from "scenes/geogmaps";
+import GeoSoilMk from "scenes/geosoilmk";
+import GeoLandMk from "scenes/geolandmk";
+import GeoSaltMk from "scenes/geosaltmk";
 
 function App() {
   const [theme, colorMode] = useMode()
@@ -31,10 +35,7 @@ function App() {
                 <Topbar /> 
                 <Routes>
                     <Route path="/" element={<Dashbaord />} />
-                    {/* <Route path="/soilmkmap" element={<DefaultView><SoilMkMaps /><Main /></DefaultView>} /> */}
                     <Route path="/dashboard" element={<Dashbaord />} />
-                    
-                    {/* <Route path="/" element={<Dashbaord />} /> */}
                     <Route path="/team" element={<Team />} />
                     <Route path="/contacts" element={<Contacts />} />
                     <Route path="/researchers" element={<Researchers />} />
@@ -49,9 +50,10 @@ function App() {
                     <Route path="/line" element={<Line />} />
                     <Route path="/geography" element={<Geography />} />
                     <Route path="/geomap" element={<Geomap />} />
-                    {/* <Route path="/soilmkmap" element={<SoilMkMaps />} /> */}
-                    {/* <Route path="/soilmkmap" element={<DefaultView><SoilMkMaps /><Main /></DefaultView>} /> */}
-                    {/* <Route path="/soilmkmap" element={<DefaultView><Main /></DefaultView>} /> */}
+                    <Route path="/geogmaps" element={<GeoGmaps />} />
+                    <Route path="/geosoilmk" element={<GeoSoilMk />} />
+                    <Route path="/geolandmk" element={<GeoLandMk />} />
+                    <Route path="/geosaltmk" element={<GeoSaltMk />} />
                 </Routes>
               </main>
             </div>
