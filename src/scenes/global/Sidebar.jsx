@@ -124,7 +124,7 @@ const Sidebar = () => {
                             color={colors.grey[300]}
                             sx={{ m: "15px 0 5px 20px" }}
                         >
-                            ทรัพยากร
+                            แหล่งข้อมูล
                         </Typography>
                         <Item
                             title="รายการสมุนไพร"
@@ -170,7 +170,7 @@ const Sidebar = () => {
                         />      
                         <Item
                             title="ผู้ประกอบการผลิตภัณฑ์สมุนไพร"
-                            to="/businessgroup"
+                            to="/geomap"
                             icon={<HealthAndSafetyIcon  />}
                             selected={selected}
                             setSelected={setSelected}

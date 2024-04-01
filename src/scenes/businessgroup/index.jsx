@@ -3,7 +3,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import { tokens } from "../../theme"
 
 import Header from "../../components/Header"
-import { mockDataResearchers } from "../../data/mockDataResearchers"
+import { mockDataBusiness } from "../../data/mockDataBusiness"
 
 const BusinessGroup = () => {
     const theme = useTheme()
@@ -11,72 +11,35 @@ const BusinessGroup = () => {
 
     const columns = [
         { field: 'id', headerName: 'ID', flex: 0.5 },
-        { field: 'username', headerName: 'Username' },
         {
-            field: 'firstname',
-            headerName: 'ชื่อ',
+            field: 'aeng',
+            headerName: 'บริษัท',
+            flex: 1,
+            cellClassName: "name-column--cell"
+        },
+        { field: 'tthai', headerName: 'ตำบล', flex: 1, cellClassName: "name-column--cell" },
+        {
+            field: 'athai',
+            headerName: 'อำเภอ',
             flex: 1,
             cellClassName: "name-column--cell"
         },
         {
-            field: 'lastname',
-            headerName: 'นามสกุล',
+            field: 'pthai',
+            headerName: 'จังหวัด',
             flex: 1,
             cellClassName: "name-column--cell"
         },              
         {
-            field: 'hno',
-            headerName: 'บ้านเลขที่',
-            type: "number",
-            headerAlign: "left",
-            align: "left",
-        },
-        {
-            field: 'moo',
-            headerName: 'หมู่',
-            type: "number",
-            headerAlign: "left",
-            align: "left",
-        },        
-        {
-            field: 'thumbol',
-            headerName: 'ตำบล',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },  
-        {
-            field: 'amphur',
-            headerName: 'อำเภอ',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },          
-        {
-            field: 'province',
-            headerName: 'จังหวัด',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },                  
-        {
-            field: 'tel',
-            headerName: 'เบอร์ติดต่อ',
+            field: 'lat',
+            headerName: 'Latitude',
             flex: 1,
         },
         {
-            field: 'cert',
-            headerName: 'รหัสใบรับรอง',
+            field: 'long',
+            headerName: 'Longitude',
             flex: 1,
         },
-        {
-            field: 'cert_date',
-            headerName: 'วันได้รับ',
-            flex: 1,
-        },
-        {
-            field: 'cert_expire_date',
-            headerName: 'วันหมดอายุ',
-            flex: 1,
-        },
-
     ]
 
     return (
@@ -108,7 +71,7 @@ const BusinessGroup = () => {
                 }
             }}>
                 <DataGrid
-                    rows={mockDataResearchers}
+                    rows={mockDataBusiness}
                     columns={columns}
                     components={{ Toolbar: GridToolbar }}
                 />

@@ -17,6 +17,7 @@ import Herbals from "./scenes/herbals";
 import Researchers from "./scenes/researchers";
 import FarmerGroup from "scenes/farmergroup";
 import BusinessGroup from "scenes/businessgroup";
+import Geomap from "scenes/geomap";
 
 function App() {
   const [theme, colorMode] = useMode()
@@ -47,6 +48,7 @@ function App() {
                     <Route path="/pie" element={<Pie />} />
                     <Route path="/line" element={<Line />} />
                     <Route path="/geography" element={<Geography />} />
+                    <Route path="/geomap" element={<Geomap />} />
                     {/* <Route path="/soilmkmap" element={<SoilMkMaps />} /> */}
                     {/* <Route path="/soilmkmap" element={<DefaultView><SoilMkMaps /><Main /></DefaultView>} /> */}
                     {/* <Route path="/soilmkmap" element={<DefaultView><Main /></DefaultView>} /> */}
