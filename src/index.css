@@ -15,24 +15,6 @@ body,
   position: relative;
 }
 
-/* .content {
-  display: flex;
-  position: relative;
-} */
-
-/* .content {
-  height: 100%;
-  width: 100%;
-  font-family: 'Kanit', sans-serif;
-} */
-
-/* .content {
-  flex: '1 1 auto';
-  flex-direction: 'column';
-  overflow: 'hidden';
-} */
-
-
 ::-webkit-scrollbar {
   width: 10px;
 }

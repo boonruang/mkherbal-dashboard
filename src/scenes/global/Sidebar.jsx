@@ -10,7 +10,6 @@ import ParkIcon from '@mui/icons-material/Park';
 import LandslideIcon from '@mui/icons-material/Landslide';
 import LanguageIcon from '@mui/icons-material/Language';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined"
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined"
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
@@ -148,7 +147,7 @@ const Sidebar = () => {
                             setSelected={setSelected}
                         />   
                         <Item
-                            title="รายการกลุ่มบริษัท/ธุรกิจ"
+                            title="รายการบริษัท/ธุรกิจ"
                             to="/businessgroup"
                             icon={<WarehouseIcon />}
                             selected={selected}
@@ -162,14 +161,14 @@ const Sidebar = () => {
                             ผู้ประกอบการสมุนไพร
                         </Typography>                                             
                         <Item
-                            title="ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร"
+                            title="ด้านการแพทย์แผนไทย"
                             to="/businessgroup"
                             icon={<LocalHospitalIcon/>}
                             selected={selected}
                             setSelected={setSelected}
                         />      
                         <Item
-                            title="ผู้ประกอบการผลิตภัณฑ์สมุนไพร"
+                            title="ผลิตภัณฑ์สมุนไพร"
                             to="/geogmaps"
                             icon={<HealthAndSafetyIcon  />}
                             selected={selected}
@@ -218,7 +217,7 @@ const Sidebar = () => {
                             setSelected={setSelected}
                         />                          
                         <Item
-                            title="องค์ความรู้และศาสตร์การแพทย์ฯ"
+                            title="ศาสตร์การแพทย์ฯ"
                             to="/farmers"
                             icon={<MenuBookIcon />}
                             selected={selected}
