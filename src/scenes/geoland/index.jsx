@@ -14,6 +14,8 @@ import Backdrop from '@mui/material/Backdrop';
 import axios from 'axios';
 import Header from "../../components/Header"
 
+const mapBoxKey = process.env.REACT_APP_MAPBOX_API
+
 const GeoLand = () => {
 
     const dispatch = useDispatch();
@@ -76,7 +78,7 @@ const GeoLand = () => {
                     {({height, width}) => (
                     <KeplerGl
                     id="land"
-                    mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API}
+                    mapboxApiAccessToken={mapBoxKey}
                     height={height}               
                     width={width}
                     />
