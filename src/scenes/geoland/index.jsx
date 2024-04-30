@@ -15,6 +15,7 @@ import axios from 'axios';
 import Header from "../../components/Header"
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
+const serviceUrl = process.env.REACT_APP_SERVIC_URL
 
 const GeoLand = () => {
 
@@ -24,7 +25,7 @@ const GeoLand = () => {
     const [data, setData] = useState()
     
       const getLandKlc = async () => {
-        await axios.get('http://localhost:8080/api/v2/geoland/list')
+        await axios.get(`${serviceUrl}/api/v2/geoland/list`)
         .then(response => {
           // console.log(response.data.result)
           setData(response.data.result)
