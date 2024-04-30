@@ -11,6 +11,11 @@
     "@fullcalendar/list": "^6.1.4",
     "@fullcalendar/react": "^6.1.4",
     "@fullcalendar/timegrid": "^6.1.4",
+    "@kepler.gl/actions": "^3.0.0",
+    "@kepler.gl/components": "^3.0.0",
+    "@kepler.gl/processors": "^3.0.0",
+    "@kepler.gl/reducers": "^3.0.0",
+    "@kepler.gl/schemas": "^3.0.0",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
     "@mui/x-data-grid": "^5.17.24",
@@ -19,18 +24,25 @@
     "@nivo/geo": "^0.80.0",
     "@nivo/line": "^0.80.0",
     "@nivo/pie": "^0.80.0",
-    "@reduxjs/toolkit": "1.9.3",
+    "@reduxjs/toolkit": "^2.2.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "assert": "^2.1.0",
+    "axios": "^1.6.8",
     "formik": "^2.2.9",
+    "kepler.gl": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-iframe": "^1.8.5",
     "react-pro-sidebar": "^0.7.1",
-    "react-redux": "8.0.5",
-    "react-router-dom": "^6.8.1",
+    "react-redux": "^9.1.1",
+    "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
+    "react-virtualized": "^9.22.5",
+    "redux": "^5.0.1",
+    "redux-actions": "^3.0.0",
+    "redux-logger": "^3.0.6",
     "web-vitals": "^2.1.0",
     "yup": "^1.0.0"
   },
@@ -57,5 +69,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

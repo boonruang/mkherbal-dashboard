@@ -13,7 +13,8 @@ const GeoMapIframe = ({ url }) => {
               id=""
               className=""
               display="block"
-              position="relative"/>        
+              position="relative"
+              />        
         </Box>
 
 }

@@ -1,6 +1,7 @@
 import { ColorModeContext, useMode } from "./theme"
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Routes,Route } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashbaord from "./scenes/dashboard";
@@ -17,15 +18,17 @@ import Herbals from "./scenes/herbals";
 import Researchers from "./scenes/researchers";
 import FarmerGroup from "scenes/farmergroup";
 import BusinessGroup from "scenes/businessgroup";
+import GeoLand from "scenes/geoland";
 import Geomap from "scenes/geomap";
 import GeoGmaps from "scenes/geogmaps";
-import GeoSoilMk from "scenes/geosoilmk";
-import GeoLandMk from "scenes/geolandmk";
-import GeoSaltMk from "scenes/geosaltmk";
+// import GeoSoilMk from "scenes/geosoilmk";
+// import GeoLandMk from "scenes/geolandmk";
+// import GeoSaltMk from "scenes/geosaltmk";
 
 function App() {
   const [theme, colorMode] = useMode()
   return ( 
+    <BrowserRouter>
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -51,14 +54,15 @@ function App() {
                     <Route path="/geography" element={<Geography />} />
                     <Route path="/geomap" element={<Geomap />} />
                     <Route path="/geogmaps" element={<GeoGmaps />} />
-                    <Route path="/geosoilmk" element={<GeoSoilMk />} />
-                    <Route path="/geolandmk" element={<GeoLandMk />} />
-                    <Route path="/geosaltmk" element={<GeoSaltMk />} />
+                    <Route path="/geoland" element={<GeoLand />} />
+                    {/* <Route path="/geosoilmk" element={<GeoSoilMk />} />
+                    <Route path="/geosaltmk" element={<GeoSaltMk />} /> */}
                 </Routes>
               </main>
             </div>
           </ThemeProvider>
         </ColorModeContext.Provider>
+      </BrowserRouter>
   )
 }
 

@@ -18,6 +18,9 @@ import StoreIcon from '@mui/icons-material/Store';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MoreIcon from '@mui/icons-material/More';
+import { useDispatch } from 'react-redux';
+import { showSidebar } from '../../app-reducer'
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme()
@@ -41,6 +44,10 @@ const Sidebar = () => {
     const colors = tokens(theme.palette.mode)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [selected, setSelected] = useState("Dashboard")
+
+    const dispatch = useDispatch()
+
+    dispatch(showSidebar(!isCollapsed))      
 
     return (
         <Box
@@ -233,12 +240,12 @@ const Sidebar = () => {
                         <Item
                             title="จ.มหาสารคาม"
                             // to="https://thunbergii.app.carto.com/map/f212e308-4c6d-4bb4-9129-eae86f1d4bee"
-                            to="/geosoilmk"
+                            to="/geoland"
                             icon={<LandslideIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        <Item
+                        {/* <Item
                             title="การใช้ที่ดิน"
                             // to="https://thunbergii.app.carto.com/map/40fc77a9-019a-4238-b1c7-07d475863b20"
                             to="/geolandmk"
@@ -253,7 +260,7 @@ const Sidebar = () => {
                             icon={<MoreIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />     
+                        />      */}
                         {/* <Typography
                             variant='h6'
                             color={colors.grey[300]}
