@@ -47,3 +47,7 @@ row shink width
 
 fix install
 @fullcalendar/react @fullcalendar/interaction 
+
+npx update-browserslist-db@latest
+yarn add @loaders.gl/schema
+yarn add @math.gl/web-mercator 
