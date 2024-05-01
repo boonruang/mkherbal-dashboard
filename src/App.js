@@ -35,7 +35,7 @@ function App() {
             <div className="app">
               <Sidebar />
               <main className='content' >
-                <Topbar /> 
+                {/* <Topbar />  */}
                 <Routes>
                     <Route path="/" element={<Dashbaord />} />
                     <Route path="/dashboard" element={<Dashbaord />} />
