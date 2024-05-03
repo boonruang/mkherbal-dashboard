@@ -153,7 +153,7 @@ const GeoSoil = (props) => {
                       Update visData
                     </Button>                     */}
 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',updateVisState(keplerGlReducer))) }>
+                    {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',updateVisState(keplerGlReducer))) }>
                       Update visState
                     </Button>                    
 
@@ -163,7 +163,7 @@ const GeoSoil = (props) => {
 
                     <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',updateMap({latitude: 103.250034, longitude: 16.245516, width: 800, height: 1200}))) }>
                       Update Map
-                    </Button>
+                    </Button> */}
 
                     <Select
                       labelId="demo-select-small-label"
@@ -205,7 +205,7 @@ const GeoSoil = (props) => {
                       <MenuItem value={"03"}>จ.กาฬสินธุ์</MenuItem>
                       <MenuItem value={"04"}>จ.ร้อยเอ็ด</MenuItem>
                     </Select>   
-                    <Button variant="contained" color="primary" onClick={() => dispatch(wrapTo("soilmk1",(toggleSplitMap)))}>
+                    <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilmk1",(toggleSplitMap)))}>
                       Toggle Split Map
                     </Button>  
 
@@ -213,7 +213,7 @@ const GeoSoil = (props) => {
                       Toggle Perspective
                     </Button>                                         
 
-                    <Button variant="contained" color="neutral" onClick={() => dispatch(wrapTo('soilmk1',toggleSidePanel())) }>
+                    <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo('soilmk1',toggleSidePanel())) }>
                       Toggle Side Panel
                     </Button> 
 
