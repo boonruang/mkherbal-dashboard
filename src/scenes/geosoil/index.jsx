@@ -67,7 +67,6 @@ const GeoSoil = (props) => {
                     label: 'Soil Mahasarakham',
                     id: 'soilmk1'
                   },
-                  // data: data
                   data: []
                 },     
                 config: soikmk_config
@@ -225,7 +224,7 @@ const GeoSoil = (props) => {
                               รหัสอำเภอ {ampCode} รหัสจังหวัด {provCode}
                       </Typography>
               </Box>
-              <Box height="84vh" width="100%" borderRadius="4px" >
+              <Box height="80vh" width="100%" borderRadius="4px" >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

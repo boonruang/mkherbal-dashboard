@@ -52,7 +52,7 @@ const GeoLand = () => {
                     label: 'Land',
                     id: 'klc1'
                   },
-                  data: processGeojson(data)
+                  data: []
                 },     
                 config: klc_config
                 })
@@ -62,36 +62,60 @@ const GeoLand = () => {
         }
       }, [dispatch,data,ludesen]);
     
-    if (data) {
-      console.log('processGeojson(data) geoland',processGeojson(data))
-    } else {
-      console.log('no processGeojson(data) geoland');
-    }
+    // if (data) {
+    //   console.log('processGeojson(data) geoland',processGeojson(data))
+    // } else {
+    //   console.log('no processGeojson(data) geoland');
+    // }
     
     const [checked, setChecked] = useState(false);
 
+    useEffect(() => {
+      if (data && ludesen) {
+            dispatch(
+              wrapTo(
+                "land",
+                addDataToMap({
+                  datasets: {
+                    info: {
+                      label: 'Land',
+                      id: 'klc1'
+                    },
+                    data: processGeojson(data)
+                  },  
+                  options: {
+                    centerMap: true,
+                  },             
+                  config: klc_config
+                  })
+                ))
+                console.log('replace data with amp_code => ',ludesen)
+          }
+        setOpen(false)
+    },[dispatch, ludesen, data ])
+
+    const handleSelect = async (event) => {
+      setLudesen(event.target.value);
+      // console.log('event.target.value',event.target.value)
+      // console.log('amp_code in handleSelect',ampCode)
+    };  
 
     const handleChange = (event) => {
       setChecked(event.target.checked);
       dispatch(wrapTo('land',toggleSplitMap()));
     };
 
-    const handleSelect = (event) => {
-      setLudesen(event.target.value);
-    };    
-
       return (
         <Box m="20px">
               <Header title="ข้อมูลแผนที่" subtitle="การใช้ดิน"/>
-              <Box
-                            component="form"
-                            sx={{
-                              '& > :not(style)': { m: 1, width: '25ch' },
-                            }}
-                            noValidate
-                            autoComplete="off"
-                          >
-                      <FormControlLabel control={<Checkbox
+              <Box component="form"
+                  sx={{
+                    '& > :not(style)': { m: 1, width: '25ch' },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                      {/* <FormControlLabel control={<Checkbox
                           checked={checked}
                           onChange={handleChange}
                           inputProps={{ 'aria-label': 'controlled' }}
@@ -102,7 +126,7 @@ const GeoLand = () => {
                             },
                           }}
                         />
-                        } label="แบ่งแผนที่" />
+                        } label="แบ่งแผนที่" /> */}
                     <Select
                       labelId="demo-select-small-label"
                       id="demo-select-small"
@@ -132,7 +156,7 @@ const GeoLand = () => {
                               {ludesen}
                       </Typography>
               </Box>
-              <Box height="84vh" width="100%" borderRadius="4px" >
+              <Box height="80vh" width="100%" borderRadius="4px" >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

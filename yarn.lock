@@ -2748,16 +2748,9 @@
   dependencies:
     "@types/geojson" "^7946.0.7"
 
-"@loaders.gl/schema@4.2.1":
+"@loaders.gl/schema@4.2.1", "@loaders.gl/schema@^4.2.1":
   version "4.2.1"
   resolved "https://registry.npmjs.org/@loaders.gl/schema/-/schema-4.2.1.tgz"
-  integrity sha512-uhcQmeOJDmosWGlGRVEwx5zCTcME6Fy7QiR+IuEZaUyEkcFJZU8Ccit4d5ap9gHz1avANzan/+h2dECSpjd8wg==
-  dependencies:
-    "@types/geojson" "^7946.0.7"
-
-"@loaders.gl/schema@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@loaders.gl/schema/-/schema-4.2.1.tgz#645bf795ecc9309fb05a05d9efa9e583a1bc3018"
   integrity sha512-uhcQmeOJDmosWGlGRVEwx5zCTcME6Fy7QiR+IuEZaUyEkcFJZU8Ccit4d5ap9gHz1avANzan/+h2dECSpjd8wg==
   dependencies:
     "@types/geojson" "^7946.0.7"
