@@ -197,7 +197,7 @@
       "splitMapViewports": []
     },
     "mapStyle": {
-      "styleType": "voyager",
+      "styleType": "voyagerDark",
       "topLayerGroups": {},
       "visibleLayerGroups": {
         "label": true,

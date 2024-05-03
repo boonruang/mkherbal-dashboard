@@ -18,10 +18,10 @@ import Herbals from "./scenes/herbals";
 import Researchers from "./scenes/researchers";
 import FarmerGroup from "scenes/farmergroup";
 import BusinessGroup from "scenes/businessgroup";
-import GeoLand from "scenes/geoland";
 import Geomap from "scenes/geomap";
 import GeoGmaps from "scenes/geogmaps";
-// import GeoSoilMk from "scenes/geosoilmk";
+import GeoLand from "scenes/geoland";
+import GeoSoil from "scenes/geosoil";
 // import GeoLandMk from "scenes/geolandmk";
 // import GeoSaltMk from "scenes/geosaltmk";
 
@@ -55,8 +55,8 @@ function App() {
                     <Route path="/geomap" element={<Geomap />} />
                     <Route path="/geogmaps" element={<GeoGmaps />} />
                     <Route path="/geoland" element={<GeoLand />} />
-                    {/* <Route path="/geosoilmk" element={<GeoSoilMk />} />
-                    <Route path="/geosaltmk" element={<GeoSaltMk />} /> */}
+                    <Route path="/geosoil" element={<GeoSoil />} />
+                    {/* <Route path="/geosaltmk" element={<GeoSaltMk />} /> */}
                 </Routes>
               </main>
             </div>

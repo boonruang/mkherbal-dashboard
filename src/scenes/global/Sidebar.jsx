@@ -238,22 +238,22 @@ const Sidebar = () => {
                             ข้อมูลดิน
                         </Typography>       
                         <Item
-                            title="จ.มหาสารคาม"
+                            title="การใช้ดิน ต.แก่งเลิงจาน"
                             // to="https://thunbergii.app.carto.com/map/f212e308-4c6d-4bb4-9129-eae86f1d4bee"
                             to="/geoland"
                             icon={<LandslideIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        {/* <Item
-                            title="การใช้ที่ดิน"
+                        <Item
+                            title="ข้อมูลดิน จ.มหาสารคาม"
                             // to="https://thunbergii.app.carto.com/map/40fc77a9-019a-4238-b1c7-07d475863b20"
-                            to="/geolandmk"
+                            to="/geosoil"
                             icon={<LanguageIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />     
-                        <Item
+                        {/* <Item
                             title="ข้อมูลคราบเกลือ"
                             // to="https://thunbergii.app.carto.com/map/41262f60-ff79-47a5-88c2-e1b26f2034fd"
                             to="/geosaltmk"

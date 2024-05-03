@@ -153,6 +153,7 @@ export const themeSettings = (mode) => {
             ? {
                 primary: {
                     main: colors.primary[500],
+                    // contrastText: '#ffffff'
                 },
                 secondary: {
                     main: colors.greenAccent[500],
@@ -164,7 +165,7 @@ export const themeSettings = (mode) => {
                 },
                 background: {
                     default: colors.primary[500]
-                }              
+                }                              
             } 
             : {
                 primary: {

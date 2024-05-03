@@ -1,5 +1,5 @@
-import { combineReducers } from "redux";
-import keplerGlReducer, { enhanceReduxMiddleware, uiStateUpdaters  } from "@kepler.gl/reducers";
+import { createStore, combineReducers,applyMiddleware, compose } from "redux";
+import keplerGlReducer, { enhanceReduxMiddleware, uiStateUpdaters, visStateUpdaters  } from "@kepler.gl/reducers";
 
 // import { taskMiddleware } from "react-palm/tasks";
 import appReducer from "./app-reducer";
@@ -29,20 +29,59 @@ const customizedKeplerGlReducer = keplerGlReducer
         readOnly: !state.uiState.readOnly
       }
     })
-  });
+  })
+  .plugin({
+    UPDATE_VIS_STATE: (state, action) => ({
+      ...state,
+      keplerGl: {
+        ...state.keplerGl,
+        // 'soilmk' is the id of the keplerGl instance
+        soilmk1: {
+          ...state.keplerGl.soilmk1,
+          visState: visStateUpdaters.updateVisDataUpdater(state.keplerGl.soilmk1.visState, {
+            datasets: action.payload
+          })
+        }
+      }
+    })
+  });  
 
 const reducers = combineReducers({
-  keplerKlc: keplerGlReducer,
+  // keplerKlc: keplerGlReducer,
   keplerGl: customizedKeplerGlReducer,
   app: appReducer
 });
 
+// const middlewares = enhanceReduxMiddleware([]);
+
+// export const middlewares = enhanceReduxMiddleware([thunk, routerMiddleware(browserHistory)]);
+
 const middlewares = enhanceReduxMiddleware([]);
+
+
+// const enhancers = [applyMiddleware(...middlewares)];
+
+const enhancers = [applyMiddleware(...middlewares,logger)];
 
 const initialState = {};
 
-export default configureStore({
-  reducer: reducers,
-  preloadedState : initialState,
-  middleware: () => new Tuple(logger, ...middlewares)
-})
+let composeEnhancers = compose;
+
+// export default configureStore({
+//   reducer: reducers,
+//   preloadedState : initialState,
+//   middleware: () => new Tuple(logger, ...middlewares)
+// })
+
+
+if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+  composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    actionsBlacklist: [
+      '@@kepler.gl/MOUSE_MOVE',
+      '@@kepler.gl/UPDATE_MAP',
+      '@@kepler.gl/LAYER_HOVER'
+    ]
+  });
+}
+
+export default createStore(reducers, initialState, composeEnhancers(...enhancers));
