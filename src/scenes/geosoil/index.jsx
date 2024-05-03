@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from 'react';
 import { useDispatch,connect, useSelector } from "react-redux";
-import KeplerGl from '@kepler.gl/components';
+// import KeplerGl from '@kepler.gl/components';
 import { addDataToMap,toggleSplitMap,togglePerspective, replaceDataInMap } from "@kepler.gl/actions";
 import { Processors, processGeojson } from '@kepler.gl/processors';
 // import klc_geojson from '../../data/land_kanglerngchan.json';
@@ -19,12 +19,27 @@ import { tokens } from '../../theme';
 import { updateMap, updateVisData, querySuccess  } from '../../app-reducer'
 import KeplerGlSchema from '@kepler.gl/schemas';
 import {createAction} from 'redux-actions';
+import {injectComponents, PanelHeaderFactory} from '@kepler.gl/components';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 const serviceUrl = process.env.REACT_APP_SERVIC_URL
 
 const updateVisState = createAction('UPDATE_VIS_STATE');
 const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
+
+const CustomHeader = () => (
+<Typography
+  variant="h5"
+  sx={{ textAlign: 'center' }}
+>
+      HerbHuk
+</Typography>);
+
+const myCustomHeaderFactory = () => CustomHeader;
+
+const KeplerGl = injectComponents([
+  [PanelHeaderFactory, myCustomHeaderFactory]
+]);
 
 const GeoSoil = (props) => {
   const dispatch = useDispatch();
