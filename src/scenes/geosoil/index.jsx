@@ -19,7 +19,9 @@ import { tokens } from '../../theme';
 import { updateMap, updateVisData, querySuccess  } from '../../app-reducer'
 import KeplerGlSchema from '@kepler.gl/schemas';
 import {createAction} from 'redux-actions';
-import {injectComponents, PanelHeaderFactory} from '@kepler.gl/components';
+import {injectComponents, PanelHeaderFactory,SidebarFactory} from '@kepler.gl/components';
+import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
+import CustomSidebarFactory from 'components/keplergl/side-bar'
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 const serviceUrl = process.env.REACT_APP_SERVIC_URL
@@ -27,18 +29,11 @@ const serviceUrl = process.env.REACT_APP_SERVIC_URL
 const updateVisState = createAction('UPDATE_VIS_STATE');
 const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
 
-const CustomHeader = () => (
-<Typography
-  variant="h5"
-  sx={{ textAlign: 'center' }}
->
-      HerbHuk
-</Typography>);
-
-const myCustomHeaderFactory = () => CustomHeader;
+const myCustomHeaderFactory = () => CustomHeaderFactory
 
 const KeplerGl = injectComponents([
-  [PanelHeaderFactory, myCustomHeaderFactory]
+  [PanelHeaderFactory, myCustomHeaderFactory],
+  [SidebarFactory, CustomSidebarFactory],
 ]);
 
 const GeoSoil = (props) => {
