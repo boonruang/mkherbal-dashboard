@@ -6,7 +6,7 @@ import { addDataToMap,toggleSplitMap,togglePerspective, replaceDataInMap } from 
 import { Processors, processGeojson } from '@kepler.gl/processors';
 // import klc_geojson from '../../data/land_kanglerngchan.json';
 import { Box,Checkbox,Button, InputLabel,MenuItem,FormControl,Select,TextField,FormControlLabel,Typography,useTheme  } from "@mui/material"
-import soikmk_config from '../../data/soilmk_config.json';
+import saltmk_config from '../../data/saltmk_config.json';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import {wrapTo, forwardTo} from '@kepler.gl/actions';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -35,7 +35,7 @@ const KeplerGl = injectComponents([
   [SidebarFactory, CustomSidebarFactory],
 ]);
 
-const GeoSoil = (props) => {
+const GeoSalt = (props) => {
   const dispatch = useDispatch();
 
     const theme = useTheme()
@@ -45,7 +45,7 @@ const GeoSoil = (props) => {
     
     const [data, setData] = useState()
 
-    const [ampCode, setAmpCode] = useState('01');
+    const [Id, setId] = useState('6');
 
     const [provCode, setProvCode] = useState('01');
 
@@ -54,31 +54,31 @@ const GeoSoil = (props) => {
     // console.log('keplerGlReducer',keplerGlReducer)   
       
      useEffect(() => {
-      if (ampCode) {
-         axios.get(`${serviceUrl}/api/v2/geosoil/list/${ampCode}`)
+      if (Id) {
+         axios.get(`${serviceUrl}/api/v2/geosalt/list/${Id}`)
         .then(response => {
           // console.log(response.data.result)
           setData(response.data.result)
         })
         .catch(error => {console.log(error)})       
       }
-        // console.log('amp_code useEffect',ampCode)
-     },[ampCode])
+        // console.log('amp_code useEffect',Id)
+     },[Id])
       
       useEffect(() => {
         if (data){
           dispatch(
             wrapTo(
-              "soilmk1",
+              "salt",
                 addDataToMap({
                 datasets: {
                   info: {
                     label: 'Soil Mahasarakham',
-                    id: 'soilmk1'
+                    id: 'salkmk1'
                   },
                   data: []
                 },     
-                config: soikmk_config
+                config: saltmk_config
                 })
           ))
           setOpen(false)
@@ -94,46 +94,46 @@ const GeoSoil = (props) => {
 
     // const handleSelect = (event) => {
     //   clearData();
-    //   setAmpCode(event.target.value);
+    //   setId(event.target.value);
     //   // dispatch(updateMap());
     //   setOpen(true)
-    //   if (ampCode) {
+    //   if (Id) {
     //     replaceData();
-    //     console.log('come!!!!!!!!',ampCode)
+    //     console.log('come!!!!!!!!',Id)
     //   }
     // };    
 
 
-    // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.soilmk1)
+    // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.salkmk1)
 
     useEffect(() => {
-      if (data && ampCode) {
+      if (data && Id) {
             dispatch(
               wrapTo(
-                "soilmk1",
+                "salt",
                 addDataToMap({
                   datasets: {
                     info: {
                       label: 'Soil Mahasarakham',
-                      id: 'soilmk1'
+                      id: 'salkmk1'
                     },
                     data: processGeojson(data)
                   },  
                   options: {
                     centerMap: true,
                   },             
-                  config: soikmk_config
+                  config: saltmk_config
                   })
                 ))
-                console.log('replace data with amp_code => ',ampCode)
+                console.log('replace data with amp_code => ',Id)
           }
         setOpen(false)
-    },[dispatch, ampCode, data ])
+    },[dispatch, Id, data ])
 
     const handleSelect = async (event) => {
-      setAmpCode(event.target.value);
+      setId(event.target.value);
       // console.log('event.target.value',event.target.value)
-      // console.log('amp_code in handleSelect',ampCode)
+      // console.log('amp_code in handleSelect',Id)
     };    
 
     const handleSelectProv = (event) => {
@@ -152,50 +152,44 @@ const GeoSoil = (props) => {
                             autoComplete="off"
                           >
                     {/* 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo("soilmk1",(updateVisData(KeplerGlSchema.getDatasetToSave(keplerGlReducer.soilmk1)))))}>
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo("salkmk1",(updateVisData(KeplerGlSchema.getDatasetToSave(keplerGlReducer.salkmk1)))))}>
                       Update visData
                     </Button> */}
 
 
-                    {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',(updateVisData(keplerGlReducer)))) }>
+                    {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salkmk1',(updateVisData(keplerGlReducer)))) }>
                       Update visData
                     </Button>                     */}
 
-                    {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',updateVisState(keplerGlReducer))) }>
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salkmk1',updateVisState(keplerGlReducer))) }>
                       Update visState
                     </Button>                    
 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',querySuccess(keplerGlReducer))) }>
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salkmk1',querySuccess(keplerGlReducer))) }>
                       Do Query Success
                     </Button>
 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',updateMap({latitude: 103.250034, longitude: 16.245516, width: 800, height: 1200}))) }>
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salkmk1',updateMap({latitude: 103.250034, longitude: 16.245516, width: 800, height: 1200}))) }>
                       Update Map
-                    </Button> */}
+                    </Button>
 
                     <Select
                       labelId="demo-select-small-label"
                       id="demo-select-small"
-                      value={ampCode}
+                      value={Id}
                       label="AmphueCode"
                       onChange={handleSelect}
                     >
                       <MenuItem value={""}>
                         <em>ไม่ระบุ</em>
                       </MenuItem>
-                      <MenuItem value={"01"} defaultChecked>อ.เมืองมหาสารคาม</MenuItem>
-                      <MenuItem value={"02"}>อ.แกดำ</MenuItem>
-                      <MenuItem value={"03"}>อ.โกสุมพิสัย</MenuItem>
-                      <MenuItem value={"04"}>อ.กันทรวิชัย</MenuItem>
-                      <MenuItem value={"05"}>อ.เชียงยืน</MenuItem>
-                      <MenuItem value={"06"}>อ.บรบือ</MenuItem>
-                      <MenuItem value={"07"}>อ.นาเชือก</MenuItem>
-                      <MenuItem value={"08"}>อ.พยัคฆภูมิพิสัย</MenuItem>
-                      <MenuItem value={"09"}>อ.วาปีปทุม</MenuItem>
-                      <MenuItem value={"10"}>อ.นาดูน</MenuItem>
-                      <MenuItem value={"11"}>อ.ยางสีสุราช</MenuItem>
-                      <MenuItem value={"12"}>อ.กุดรัง</MenuItem>
-                      <MenuItem value={"13"}>อ.ชื่นชม</MenuItem>
+                      <MenuItem value={1} defaultChecked>บริเวณที่พบคราบเกลือบนผิวดินมากกว่า 50%</MenuItem>
+                      <MenuItem value={2}>บริเวณที่พบคราบเกลือบนผิวดิน 10-50%</MenuItem>
+                      <MenuItem value={3}>บริเวณที่พบคราบเกลือบนผิวดิน 1-10%</MenuItem>
+                      <MenuItem value={4}>บริเวณที่พบคราบเกลือบนผิวดินน้อยกว่า 1%</MenuItem>
+                      <MenuItem value={5}>บริเวณที่สูง มีหินเกลือรองรับอยู่ข้างล่าง</MenuItem>
+                      <MenuItem value={6}>บริเวณที่ไม่มีผลกระทบจากคราบเกลือ</MenuItem>
+
                     </Select>
 
                     <Select
@@ -213,15 +207,15 @@ const GeoSoil = (props) => {
                       <MenuItem value={"03"}>จ.กาฬสินธุ์</MenuItem>
                       <MenuItem value={"04"}>จ.ร้อยเอ็ด</MenuItem>
                     </Select>   
-                    <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilmk1",(toggleSplitMap)))}>
+                    <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("salt",(toggleSplitMap)))}>
                       Toggle Split Map
                     </Button>  
 
-                    <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilmk1",(togglePerspective)))}>
+                    <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("salt",(togglePerspective)))}>
                       Toggle Perspective
                     </Button>                                         
 
-                    <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo('soilmk1',toggleSidePanel())) }>
+                    <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo('salt',toggleSidePanel())) }>
                       Toggle Side Panel
                     </Button> 
 
@@ -229,7 +223,7 @@ const GeoSoil = (props) => {
                           variant="h5"
                           color={colors.greenAccent[400]}
                       >
-                              รหัสอำเภอ {ampCode} รหัสจังหวัด {provCode}
+                              รหัสอำเภอ {Id} รหัสจังหวัด {provCode}
                       </Typography>
               </Box>
               <Box height="80vh" width="100%" borderRadius="4px" >
@@ -242,7 +236,7 @@ const GeoSoil = (props) => {
                   <AutoSizer>
                     {({height, width}) => (
                     <KeplerGl
-                    id="soilmk1"
+                    id="salt"
                     mapboxApiAccessToken={mapBoxKey}
                     height={height}               
                     width={width}
@@ -262,4 +256,4 @@ const GeoSoil = (props) => {
     }
 
 
-export default GeoSoil;
+export default GeoSalt;

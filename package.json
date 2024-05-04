@@ -16,6 +16,7 @@
     "@kepler.gl/processors": "^3.0.0",
     "@kepler.gl/reducers": "^3.0.0",
     "@kepler.gl/schemas": "^3.0.0",
+    "@kepler.gl/styles": "^3.0.0",
     "@loaders.gl/schema": "^4.2.1",
     "@math.gl/web-mercator": "^4.0.1",
     "@mui/icons-material": "^5.11.9",

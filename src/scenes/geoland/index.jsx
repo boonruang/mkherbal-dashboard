@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import KeplerGl from '@kepler.gl/components';
 import { addDataToMap,toggleSplitMap } from "@kepler.gl/actions";
 import { processGeojson } from '@kepler.gl/processors';
 // import klc_geojson from '../../data/land_kanglerngchan.json';
-import { Box,Checkbox, InputLabel,MenuItem,FormControl,Select,TextField,FormControlLabel,Typography,useTheme  } from "@mui/material"
+import { Box,Button, Checkbox, InputLabel,MenuItem,FormControl,Select,TextField,FormControlLabel,Typography,useTheme  } from "@mui/material"
 import klc_config from '../../data/klc_config.json';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import {wrapTo, forwardTo} from '@kepler.gl/actions';
@@ -16,9 +16,45 @@ import Header from "../../components/Header";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { green } from '@mui/material/colors';
 import { tokens } from '../../theme';
+import { updateMap, updateVisData, querySuccess, setMapConfig } from '../../app-reducer'
+import {createAction} from 'redux-actions';
+import styled from 'styled-components'
+import {theme} from '@kepler.gl/styles';
+import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 const serviceUrl = process.env.REACT_APP_SERVIC_URL
+
+const StyledMapConfigDisplay = styled.div`
+  position: absolute;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  background-color: ${theme.sidePanelBg};
+  font-size: 11px;
+  width: 300px;
+  color: ${theme.textColor};
+  word-wrap: break-word;
+  height: 35%;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+`;
+
+const herbals = [
+  'กล้วยน้ำว้า',
+  'มะม่วง',
+  'ไผ่เลี้ยง',
+  'พริก',
+  'มะเขือเปราะ',
+  'ข้าวโพด',
+  'ตะไคร้',
+  'มะนาว',
+  'มะพร้าว',
+  'ขมิ้นชัน',
+  'ไพล',
+  'พุทรา',
+];
 
 const GeoLand = () => {
   const dispatch = useDispatch();
@@ -30,7 +66,33 @@ const GeoLand = () => {
     
     const [data, setData] = useState()
 
-    const [ludesen, setLudesen] = useState('Paddy field');
+    const [ludesen, setLudesen] = useState('');
+
+    const keplerGlReducer = useSelector((state) => state.keplerGl)    
+
+    const [herbalName, setHerbalName] = useState([]);
+
+    const [provCode, setProvCode] = useState('01')
+
+    const handleChangeMultiple = (event) => {
+      const { options } = event.target;
+      const value = [];
+      for (let i = 0, l = options.length; i < l; i += 1) {
+        if (options[i].selected) {
+          value.push(options[i].value);
+        }
+      }
+      setHerbalName(value);
+    };
+
+    useEffect(() => {
+      axios.get(`${serviceUrl}/api/v2/geoland/list/all`)
+      .then(response => {
+        // console.log(response.data.result)
+        setData(response.data.result)
+      })
+      .catch(error => {console.log(error)})
+   },[])
       
      useEffect(() => {
         axios.get(`${serviceUrl}/api/v2/geoland/list/${ludesen}`)
@@ -42,7 +104,7 @@ const GeoLand = () => {
      },[ludesen])
       
       useEffect(() => {
-        if (data && ludesen){
+        if (data){
           dispatch(
             wrapTo(
               'land',
@@ -60,7 +122,7 @@ const GeoLand = () => {
           )
           setOpen(false)
         }
-      }, [dispatch,data,ludesen]);
+      }, [dispatch,data]);
     
     // if (data) {
     //   console.log('processGeojson(data) geoland',processGeojson(data))
@@ -71,7 +133,7 @@ const GeoLand = () => {
     const [checked, setChecked] = useState(false);
 
     useEffect(() => {
-      if (data && ludesen) {
+      if (data) {
             dispatch(
               wrapTo(
                 "land",
@@ -82,17 +144,13 @@ const GeoLand = () => {
                       id: 'klc1'
                     },
                     data: processGeojson(data)
-                  },  
-                  options: {
-                    centerMap: true,
-                  },             
+                  },            
                   config: klc_config
                   })
                 ))
-                console.log('replace data with amp_code => ',ludesen)
           }
         setOpen(false)
-    },[dispatch, ludesen, data ])
+    },[dispatch, data ])
 
     const handleSelect = async (event) => {
       setLudesen(event.target.value);
@@ -100,10 +158,14 @@ const GeoLand = () => {
       // console.log('amp_code in handleSelect',ampCode)
     };  
 
-    const handleChange = (event) => {
-      setChecked(event.target.checked);
-      dispatch(wrapTo('land',toggleSplitMap()));
-    };
+    const handleSelectProv = (event) => {
+      setProvCode(event.target.value);
+    };  
+
+    
+    const readConfig = () => {
+      console.log('Map Config', keplerGlReducer.land)
+    }
 
       return (
         <Box m="20px">
@@ -149,6 +211,14 @@ const GeoLand = () => {
                       <TextField id="outlined-basic" label="ตำบล" variant="outlined" />
                       <TextField id="outlined-basic" label="อำเภอ" variant="outlined" />
                       <TextField id="outlined-basic" label="จังหวัด" variant="outlined" />
+
+
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('land',setMapConfig(keplerGlReducer))) }>
+                      บันทึกการตั้งค่า
+                    </Button>                         
+                    <Button variant="contained" color="success" onClick={() => readConfig() }>
+                      อ่านค่า
+                    </Button>                      
                       <Typography
                           variant="h5"
                           color={colors.greenAccent[400]}
@@ -180,6 +250,54 @@ const GeoLand = () => {
                     />
                     )}
                   </AutoSizer >
+                  <StyledMapConfigDisplay>
+                    <CustomHeaderFactory />   
+                    <Box component="form"
+                          sx={{
+                            '& > :not(style)': { mt: 5 },
+                          }}
+                          noValidate
+                          autoComplete="off"
+                        >
+                      <FormControl variant="standard" sx={{ m: 1, minWidth: 250, maxWidth: 300, minHeight: 300, maxHeight: 600 }}>
+                        <InputLabel shrink htmlFor="select-multiple-native">
+                          สุมนไพร
+                        </InputLabel>
+                        <Select
+                          multiple
+                          native
+                          value={herbalName}
+                          onChange={handleChangeMultiple}
+                          label="Native"
+                          inputProps={{
+                            id: 'select-multiple-native',
+                          }}
+                          sx={{ mb: 5 }}
+                        >
+                          {herbals.map((herbal) => (
+                            <option key={herbal} value={herbal}>
+                              {herbal}
+                            </option>
+                          ))}
+                        </Select>
+                        <Select
+                      labelId="demo-select-small-label"
+                      id="demo-select-small"
+                      value={provCode}
+                      label="ProvinceCode"
+                      onChange={handleSelectProv}
+                    >
+                      <MenuItem value={""}>
+                        <em>ไม่ระบุ</em>
+                      </MenuItem>
+                      <MenuItem value={"01"} defaultChecked>จ.มหาสารคาม</MenuItem>
+                      <MenuItem value={"02"}>จ.ขอนแก่น</MenuItem>
+                      <MenuItem value={"03"}>จ.กาฬสินธุ์</MenuItem>
+                      <MenuItem value={"04"}>จ.ร้อยเอ็ด</MenuItem>
+                    </Select> 
+                      </FormControl>
+                    </Box>
+                  </StyledMapConfigDisplay>                  
                 </Box>
           </Box>
       );

@@ -8,7 +8,7 @@ import logger from 'redux-logger'
 
 const customizedKeplerGlReducer = keplerGlReducer
   .initialState({
-      uiState: {
+   uiState: {
         activeSidePanel: null,  
         currentModal: null,      
         readOnly: true,    
@@ -36,14 +36,17 @@ const customizedKeplerGlReducer = keplerGlReducer
       keplerGl: {
         ...state.keplerGl,
         // 'soilmk' is the id of the keplerGl instance
-        soilmk1: {
-          ...state.keplerGl.soilmk1,
-          visState: visStateUpdaters.updateVisDataUpdater(state.keplerGl.soilmk1.visState, {
+        land: {
+          ...state.keplerGl.land,
+          visState: visStateUpdaters.updateVisDataUpdater(state.keplerGl.land.visState, {
             datasets: action.payload
           })
         }
       }
     })
+  .plugin({
+    SET_FILTER: (state, action) => state    
+  })
   });  
 
 const reducers = combineReducers({

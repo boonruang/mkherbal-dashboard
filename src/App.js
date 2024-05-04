@@ -22,6 +22,7 @@ import Geomap from "scenes/geomap";
 import GeoGmaps from "scenes/geogmaps";
 import GeoLand from "scenes/geoland";
 import GeoSoil from "scenes/geosoil";
+import GeoSalt from "scenes/geosalt";
 // import GeoLandMk from "scenes/geolandmk";
 // import GeoSaltMk from "scenes/geosaltmk";
 
@@ -56,7 +57,7 @@ function App() {
                     <Route path="/geogmaps" element={<GeoGmaps />} />
                     <Route path="/geoland" element={<GeoLand />} />
                     <Route path="/geosoil" element={<GeoSoil />} />
-                    {/* <Route path="/geosaltmk" element={<GeoSaltMk />} /> */}
+                    <Route path="/geosalt" element={<GeoSalt />} />
                 </Routes>
               </main>
             </div>

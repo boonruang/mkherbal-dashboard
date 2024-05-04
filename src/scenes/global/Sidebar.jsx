@@ -247,20 +247,18 @@ const Sidebar = () => {
                         />
                         <Item
                             title="ข้อมูลดิน จ.มหาสารคาม"
-                            // to="https://thunbergii.app.carto.com/map/40fc77a9-019a-4238-b1c7-07d475863b20"
                             to="/geosoil"
                             icon={<LanguageIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />     
-                        {/* <Item
+                        <Item
                             title="ข้อมูลคราบเกลือ"
-                            // to="https://thunbergii.app.carto.com/map/41262f60-ff79-47a5-88c2-e1b26f2034fd"
-                            to="/geosaltmk"
+                            to="/geosalt"
                             icon={<MoreIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />      */}
+                        />     
                         {/* <Typography
                             variant='h6'
                             color={colors.grey[300]}
