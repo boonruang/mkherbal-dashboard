@@ -13,14 +13,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import axios from 'axios';
 import Header from "../../components/Header";
-// import 'mapbox-gl/dist/mapbox-gl.css';
 import { tokens } from '../../theme';
 import { updateMap, updateVisData, querySuccess  } from '../../app-reducer'
 import KeplerGlSchema from '@kepler.gl/schemas';
 import {createAction} from 'redux-actions';
 import {injectComponents, PanelHeaderFactory,SidebarFactory} from '@kepler.gl/components';
 import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
-import CustomSidebarFactory from 'components/keplergl/side-bar'
+import CustomSidebarFactory from 'components/keplergl/Side-bar'
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 const serviceUrl = process.env.REACT_APP_SERVIC_URL
@@ -52,6 +51,15 @@ const GeoSalt = (props) => {
     const keplerGlReducer = useSelector((state) => state.keplerGl)
 
     // console.log('keplerGlReducer',keplerGlReducer)   
+
+    useEffect(() => {
+      axios.get(`${serviceUrl}/api/v2/geosalt/list/all`)
+      .then(response => {
+        // console.log(response.data.result)
+        setData(response.data.result)
+      })
+      .catch(error => {console.log(error)})
+   },[])    
       
      useEffect(() => {
       if (Id) {
@@ -73,8 +81,8 @@ const GeoSalt = (props) => {
                 addDataToMap({
                 datasets: {
                   info: {
-                    label: 'Soil Mahasarakham',
-                    id: 'salkmk1'
+                    label: 'Salt Mahasarakham',
+                    id: 'saltmk1'
                   },
                   data: []
                 },     
@@ -85,37 +93,18 @@ const GeoSalt = (props) => {
         }
       }, [dispatch,data]);
     
-    // if (data) {
-    //   console.log('processGeojson(data)',processGeojson(data))
-    // } else {
-    //   console.log('no processGeojson(data)');
-    // }
-
-
-    // const handleSelect = (event) => {
-    //   clearData();
-    //   setId(event.target.value);
-    //   // dispatch(updateMap());
-    //   setOpen(true)
-    //   if (Id) {
-    //     replaceData();
-    //     console.log('come!!!!!!!!',Id)
-    //   }
-    // };    
-
-
     // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.salkmk1)
 
     useEffect(() => {
-      if (data && Id) {
+      if (data) {
             dispatch(
               wrapTo(
                 "salt",
                 addDataToMap({
                   datasets: {
                     info: {
-                      label: 'Soil Mahasarakham',
-                      id: 'salkmk1'
+                      label: 'Salt Mahasarakham',
+                      id: 'saltmk1'
                     },
                     data: processGeojson(data)
                   },  
@@ -125,10 +114,9 @@ const GeoSalt = (props) => {
                   config: saltmk_config
                   })
                 ))
-                console.log('replace data with amp_code => ',Id)
           }
         setOpen(false)
-    },[dispatch, Id, data ])
+    },[dispatch,data])
 
     const handleSelect = async (event) => {
       setId(event.target.value);
@@ -226,7 +214,7 @@ const GeoSalt = (props) => {
                               รหัสอำเภอ {Id} รหัสจังหวัด {provCode}
                       </Typography>
               </Box>
-              <Box height="80vh" width="100%" borderRadius="4px" >
+              <Box height="80vh" width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

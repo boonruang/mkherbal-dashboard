@@ -13,14 +13,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import axios from 'axios';
 import Header from "../../components/Header";
-// import 'mapbox-gl/dist/mapbox-gl.css';
 import { tokens } from '../../theme';
 import { updateMap, updateVisData, querySuccess  } from '../../app-reducer'
 import KeplerGlSchema from '@kepler.gl/schemas';
 import {createAction} from 'redux-actions';
-import {injectComponents, PanelHeaderFactory,SidebarFactory} from '@kepler.gl/components';
+import {injectComponents, PanelHeaderFactory,SidebarFactory, MapLegendFactory} from '@kepler.gl/components';
 import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
-import CustomSidebarFactory from 'components/keplergl/side-bar'
+import CustomSidebarFactory from 'components/keplergl/Side-bar'
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 const serviceUrl = process.env.REACT_APP_SERVIC_URL
@@ -35,7 +34,11 @@ const KeplerGl = injectComponents([
   [SidebarFactory, CustomSidebarFactory],
 ]);
 
+
 const GeoSoil = (props) => {
+console.log('SidebarFactory',SidebarFactory)
+console.log('MapLegendFactory',MapLegendFactory)
+
   const dispatch = useDispatch();
 
     const theme = useTheme()
@@ -232,7 +235,7 @@ const GeoSoil = (props) => {
                               รหัสอำเภอ {ampCode} รหัสจังหวัด {provCode}
                       </Typography>
               </Box>
-              <Box height="80vh" width="100%" borderRadius="4px" >
+              <Box height="80vh" width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}
@@ -242,7 +245,7 @@ const GeoSoil = (props) => {
                   <AutoSizer>
                     {({height, width}) => (
                     <KeplerGl
-                    id="soilmk1"
+                    id="soilmk1"d
                     mapboxApiAccessToken={mapBoxKey}
                     height={height}               
                     width={width}

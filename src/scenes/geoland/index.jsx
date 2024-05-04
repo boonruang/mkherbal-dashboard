@@ -13,7 +13,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import axios from 'axios';
 import Header from "../../components/Header";
-import 'mapbox-gl/dist/mapbox-gl.css';
 import { green } from '@mui/material/colors';
 import { tokens } from '../../theme';
 import { updateMap, updateVisData, querySuccess, setMapConfig } from '../../app-reducer'
@@ -226,7 +225,7 @@ const GeoLand = () => {
                               {ludesen}
                       </Typography>
               </Box>
-              <Box height="80vh" width="100%" borderRadius="4px" >
+              <Box height="80vh" width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}
