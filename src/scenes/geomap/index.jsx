@@ -17,7 +17,7 @@ import KeplerGlSchema from '@kepler.gl/schemas';
 import {createAction} from 'redux-actions';
 import {injectComponents, PanelHeaderFactory,SidebarFactory} from '@kepler.gl/components';
 import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
-import CustomSidebarFactory from 'components/keplergl/Side-bar'
+import CustomSidebarFactory from 'components/keplergl/CustomSidebarFactory'
 import SearchIcon from "@mui/icons-material/Search"
 import PlaceIcon from '@mui/icons-material/Place';
 import styled from 'styled-components'

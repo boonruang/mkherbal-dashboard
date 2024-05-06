@@ -19,7 +19,7 @@ import KeplerGlSchema from '@kepler.gl/schemas';
 import {createAction} from 'redux-actions';
 import {injectComponents, PanelHeaderFactory,SidebarFactory, MapLegendFactory} from '@kepler.gl/components';
 import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
-import CustomSidebarFactory from 'components/keplergl/Side-bar'
+import CustomSidebarFactory from 'components/keplergl/CustomSidebarFactory'
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 const serviceUrl = process.env.REACT_APP_SERVIC_URL
