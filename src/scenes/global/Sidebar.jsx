@@ -204,7 +204,7 @@ const Sidebar = () => {
                         </Typography>                                             
                         <Item
                             title="แหล่งขายตามพิกัด"
-                            to="/businessgroup"
+                            to="/geomap"
                             icon={<StoreIcon />}
                             selected={selected}
                             setSelected={setSelected}

@@ -22,6 +22,20 @@ const customizedKeplerGlReducer = keplerGlReducer
     }
   })
   .plugin({
+    HIDE_AND_SHOW_MAP_LEGEND: (state, action) => ({
+      ...state,
+      uiState: {
+        ...state.uiState,
+        mapControls: {
+          ...uiStateUpdaters.DEFAULT_MAP_CONTROLS,
+          mapLegend: {        
+              show: false
+          }
+        }
+      }
+    })
+  })  
+  .plugin({
     HIDE_AND_SHOW_SIDE_PANEL: (state, action) => ({
       ...state,
       uiState: {
