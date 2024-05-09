@@ -14,7 +14,7 @@ import Backdrop from '@mui/material/Backdrop';
 import axios from 'axios';
 import Header from "../../components/Header";
 import { tokens } from '../../theme';
-import { updateMap, updateVisData, querySuccess  } from '../../app-reducer'
+// import { updateMap, updateVisData, querySuccess  } from '../../app-reducer'
 import KeplerGlSchema from '@kepler.gl/schemas';
 import {createAction} from 'redux-actions';
 import {injectComponents, PanelHeaderFactory,SidebarFactory, MapLegendFactory} from '@kepler.gl/components';
@@ -36,8 +36,8 @@ const KeplerGl = injectComponents([
 
 
 const GeoSoil = (props) => {
-console.log('SidebarFactory',SidebarFactory)
-console.log('MapLegendFactory',MapLegendFactory)
+// console.log('SidebarFactory',SidebarFactory)
+// console.log('MapLegendFactory',MapLegendFactory)
 
   const dispatch = useDispatch();
 
@@ -53,6 +53,8 @@ console.log('MapLegendFactory',MapLegendFactory)
     const [provCode, setProvCode] = useState('01');
 
     const keplerGlReducer = useSelector((state) => state.keplerGl)
+
+    const sidebarState = useSelector((state) => state.app.appReducer)
 
     // console.log('keplerGlReducer',keplerGlReducer)   
       
@@ -108,6 +110,14 @@ console.log('MapLegendFactory',MapLegendFactory)
 
 
     // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.soilmk1)
+    let mapConfig
+    if (keplerGlReducer.soilmk1) {
+      mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.soilmk1)
+      // mapConfig.config.mapStyle.styleType = "voyagerDark";
+      console.log('soilmk1 mapConfig',mapConfig)
+    }
+
+
 
     useEffect(() => {
       if (data && ampCode) {
@@ -154,21 +164,20 @@ console.log('MapLegendFactory',MapLegendFactory)
                             noValidate
                             autoComplete="off"
                           >
-                    {/* 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo("soilmk1",(updateVisData(KeplerGlSchema.getDatasetToSave(keplerGlReducer.soilmk1)))))}>
+                    {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo("soilmk1",(updateVisData(KeplerGlSchema.getDatasetToSave(keplerGlReducer.soilmk1)))))}>
                       Update visData
-                    </Button> */}
+                    </Button>  */}
 
 
                     {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',(updateVisData(keplerGlReducer)))) }>
                       Update visData
                     </Button>                     */}
 
-                    {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',updateVisState(keplerGlReducer))) }>
-                      Update visState
-                    </Button>                    
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',(updateVisState(mapConfig)))) }>
+                      Update visState MapStyle
+                    </Button>  
 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',querySuccess(keplerGlReducer))) }>
+                    {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',querySuccess(keplerGlReducer))) }>
                       Do Query Success
                     </Button>
 
@@ -235,7 +244,7 @@ console.log('MapLegendFactory',MapLegendFactory)
                               รหัสอำเภอ {ampCode} รหัสจังหวัด {provCode}
                       </Typography>
               </Box>
-              <Box height="80vh" width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Box height={ sidebarState.sidebar ? "76vh" : "81vh" } borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

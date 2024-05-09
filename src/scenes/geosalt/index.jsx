@@ -14,7 +14,7 @@ import Backdrop from '@mui/material/Backdrop';
 import axios from 'axios';
 import Header from "../../components/Header";
 import { tokens } from '../../theme';
-import { updateMap, updateVisData, querySuccess  } from '../../app-reducer'
+// import { updateMap, updateVisData, querySuccess,clickToTogglePerspective  } from '../../app-reducer'
 import KeplerGlSchema from '@kepler.gl/schemas';
 import {createAction} from 'redux-actions';
 import {injectComponents, PanelHeaderFactory,SidebarFactory} from '@kepler.gl/components';
@@ -49,6 +49,8 @@ const GeoSalt = (props) => {
     const [provCode, setProvCode] = useState('01');
 
     const keplerGlReducer = useSelector((state) => state.keplerGl)
+
+    const sidebarState = useSelector((state) => state.app.appReducer)
 
     // console.log('keplerGlReducer',keplerGlReducer)   
 
@@ -118,6 +120,14 @@ const GeoSalt = (props) => {
         setOpen(false)
     },[dispatch,data])
 
+
+    let mapConfig
+    if (keplerGlReducer.salt) {
+      mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.salt)
+      // mapConfig.config.mapStyle.styleType = "voyagerDark";
+      console.log('salt mapConfig',mapConfig)
+    }
+
     const handleSelect = async (event) => {
       setId(event.target.value);
       // console.log('event.target.value',event.target.value)
@@ -140,26 +150,27 @@ const GeoSalt = (props) => {
                             autoComplete="off"
                           >
                     {/* 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo("salkmk1",(updateVisData(KeplerGlSchema.getDatasetToSave(keplerGlReducer.salkmk1)))))}>
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo("salt",(updateVisData(KeplerGlSchema.getDatasetToSave(keplerGlReducer.salt)))))}>
                       Update visData
                     </Button> */}
 
 
-                    {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salkmk1',(updateVisData(keplerGlReducer)))) }>
+                    {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salt',(updateVisData(keplerGlReducer)))) }>
                       Update visData
                     </Button>                     */}
+                  
 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salkmk1',updateVisState(keplerGlReducer))) }>
-                      Update visState
-                    </Button>                    
-
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salkmk1',querySuccess(keplerGlReducer))) }>
-                      Do Query Success
+                    {/* <Button variant="contained" color="success" onClick={() => dispatch(clickToTogglePerspective()) }>
+                     Toogle Spective via Updater
                     </Button>
 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salkmk1',updateMap({latitude: 103.250034, longitude: 16.245516, width: 800, height: 1200}))) }>
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salt',querySuccess(mapConfig))) }>
+                     Test Do Query AppReducer
+                    </Button>
+
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('salt',updateMap({latitude: 103.250034, longitude: 16.245516, width: 800, height: 1200, zoom: 15}))) }>
                       Update Map
-                    </Button>
+                    </Button> */}
 
                     <Select
                       labelId="demo-select-small-label"
@@ -214,7 +225,7 @@ const GeoSalt = (props) => {
                               รหัสอำเภอ {Id} รหัสจังหวัด {provCode}
                       </Typography>
               </Box>
-              <Box height="80vh" width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Box height={ sidebarState.sidebar ? "76vh" : "81vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

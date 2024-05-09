@@ -41,7 +41,7 @@ const Herbals = () => {
     return (
         <Box m="20px">
             <Header title="รายการผักสมุนไพร" subtitle="รายการข้อมูลผักสมุนไพร" />
-            <Box m="40px 0 0 0" height="75vh" sx={{
+            <Box m="40px 0 0 0" height="83vh" sx={{
                 "& .MuiDataGrid-root": {
                     border: "none"
                 },

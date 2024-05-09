@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import "react-pro-sidebar/dist/css/styles.css"
 import { tokens } from "../../theme"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
 import ParkIcon from '@mui/icons-material/Park';
 import LandslideIcon from '@mui/icons-material/Landslide';
@@ -19,7 +20,8 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MoreIcon from '@mui/icons-material/More';
 import { useDispatch } from 'react-redux';
-import { showSidebar } from '../../app-reducer'
+// import { showSidebar } from '../../app-reducer'
+import { showSidebar } from '../../actions/app.action'
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -36,6 +38,19 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
             <Link to={to} />
         </MenuItem>
 
+    )
+}
+
+const CollapsedIcon = () => {
+    return (
+        <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        ml="28px"
+        >
+            <RadioButtonUncheckedIcon />
+        </Box>        
     )
 }
 
@@ -125,13 +140,22 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        <Typography
-                            variant='h6'
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
-                            แหล่งข้อมูล
-                        </Typography>
+                        {!isCollapsed ? (
+                            <Box
+                                display="flex"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                ml="15px"
+                            >
+                                <Typography
+                                    variant='h6'
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >
+                                    แหล่งข้อมูล
+                                </Typography>
+                            </Box>
+                        ) :  <CollapsedIcon /> }                        
                         <Item
                             title="รายการสมุนไพร"
                             to="/herbals"
@@ -159,14 +183,23 @@ const Sidebar = () => {
                             icon={<WarehouseIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />                         
-                        <Typography
-                            variant='h6'
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
-                            ผู้ประกอบการสมุนไพร
-                        </Typography>                                             
+                        />   
+                        {!isCollapsed ? (
+                            <Box
+                                display="flex"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                ml="15px"
+                            >
+                                <Typography
+                                    variant='h6'
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >
+                                    ผู้ประกอบการสมุนไพร
+                                </Typography>  
+                            </Box>
+                        ) :  <CollapsedIcon /> }                                                
                         <Item
                             title="ด้านการแพทย์แผนไทย"
                             to="/businessgroup"
@@ -180,42 +213,69 @@ const Sidebar = () => {
                             icon={<HealthAndSafetyIcon  />}
                             selected={selected}
                             setSelected={setSelected}
-                        />                                                                
-                        <Typography
-                            variant='h6'
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
-                            แหล่งแปรรูป
-                        </Typography>                                             
+                        /> 
+                        {!isCollapsed ? (
+                            <Box
+                                display="flex"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                ml="15px"
+                            >
+                                <Typography
+                                    variant='h6'
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >
+                                    แหล่งแปรรูป
+                                </Typography>  
+                            </Box>
+                        ) :  <CollapsedIcon /> }                                                                                      
                         <Item
                             title="แหล่งแปรรูปขั้นต้น"
                             to="/businessgroup"
                             icon={<HomeWorkIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />                           
-                        <Typography
-                            variant='h6'
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
-                            แหล่งการตลาด
-                        </Typography>                                             
+                        />   
+                        {!isCollapsed ? (
+                            <Box
+                                display="flex"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                ml="15px"
+                            >
+                                <Typography
+                                    variant='h6'
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >
+                                    แหล่งการตลาด
+                                </Typography>  
+                            </Box>
+                        ) :  <CollapsedIcon /> }                                                                                            
                         <Item
                             title="แหล่งขายตามพิกัด"
                             to="/geomap"
                             icon={<StoreIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />                        
-                        <Typography
-                            variant='h6'
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
-                            องค์ความรู้
-                        </Typography>
+                        />  
+                        {!isCollapsed ? (
+                            <Box
+                                display="flex"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                ml="15px"
+                            >
+                                <Typography
+                                    variant='h6'
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >
+                                    องค์ความรู้
+                                </Typography>  
+                            </Box>
+                        ) :  <CollapsedIcon /> }                                             
                         <Item
                             title="งานวิจัยและนวัตกรรม"
                             to="/herbals"
@@ -229,14 +289,23 @@ const Sidebar = () => {
                             icon={<MenuBookIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />                                    
-                        <Typography
-                            variant='h6'
-                            color={colors.grey[300]}
-                            sx={{ m: "15px 0 5px 20px" }}
-                        >
-                            ข้อมูลดิน
-                        </Typography>       
+                        />   
+                        {!isCollapsed ? (
+                            <Box
+                                display="flex"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                ml="15px"
+                            >
+                                <Typography
+                                    variant='h6'
+                                    color={colors.grey[300]}
+                                    sx={{ m: "15px 0 5px 20px" }}
+                                >
+                                    ข้อมูลดิน
+                                </Typography>  
+                            </Box>
+                        ) :  <CollapsedIcon /> }                                                              
                         <Item
                             title="การใช้ดิน ต.แก่งเลิงจาน"
                             // to="https://thunbergii.app.carto.com/map/f212e308-4c6d-4bb4-9129-eae86f1d4bee"

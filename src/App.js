@@ -1,7 +1,8 @@
 import { ColorModeContext, useMode } from "./theme"
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Routes,Route } from "react-router-dom";
-import { BrowserRouter } from 'react-router-dom';
+import { useSelector } from "react-redux";
+// import { Routes,Route } from "react-router-dom";
+import { BrowserRouter,Switch,Routes,Route } from 'react-router-dom';
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashbaord from "./scenes/dashboard";
@@ -23,20 +24,28 @@ import GeoGmaps from "scenes/geogmaps";
 import GeoLand from "scenes/geoland";
 import GeoSoil from "scenes/geosoil";
 import GeoSalt from "scenes/geosalt";
+import Login from 'components/Login'
 // import GeoLandMk from "scenes/geolandmk";
 // import GeoSaltMk from "scenes/geosaltmk";
 
 function App() {
   const [theme, colorMode] = useMode()
+
+  // const sidebarState = useSelector((state) => state.app.appReducer)
+  // console.log('sidebarState', sidebarState)
+
   return ( 
     <BrowserRouter>
-      <ColorModeContext.Provider value={colorMode}>
+    {/* <Routes>
+      <Route path="/" element={<Login />} />
+    </Routes> */}
+     <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
             <div className="app">
               <Sidebar />
               <main className='content' >
-                {/* <Topbar />  */}
+                <Topbar /> 
                 <Routes>
                     <Route path="/" element={<Dashbaord />} />
                     <Route path="/dashboard" element={<Dashbaord />} />
@@ -60,7 +69,7 @@ function App() {
                     <Route path="/geosalt" element={<GeoSalt />} />
                 </Routes>
               </main>
-            </div>
+            </div> 
           </ThemeProvider>
         </ColorModeContext.Provider>
       </BrowserRouter>

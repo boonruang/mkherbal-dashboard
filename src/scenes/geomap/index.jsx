@@ -12,7 +12,7 @@ import Backdrop from '@mui/material/Backdrop';
 import axios from 'axios';
 import Header from "../../components/Header";
 import { tokens } from '../../theme';
-import { updateMap, updateVisData, querySuccess  } from '../../app-reducer'
+// import { updateMap, updateVisData, querySuccess  } from '../../app-reducer'
 import KeplerGlSchema from '@kepler.gl/schemas';
 import {createAction} from 'redux-actions';
 import {injectComponents, PanelHeaderFactory,SidebarFactory} from '@kepler.gl/components';
@@ -29,9 +29,9 @@ import { Column } from 'react-virtualized';
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 const serviceUrl = process.env.REACT_APP_SERVIC_URL
 
-const updateVisState = createAction('UPDATE_VIS_STATE');
-const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
-const toggleMapLegend = createAction('HIDE_AND_SHOW_MAP_LEGEND');
+// const updateVisState = createAction('UPDATE_VIS_STATE');
+// const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
+const closeMapLegend = createAction('HIDE_AND_SHOW_MAP_LEGEND');
     
 const StyledMapConfigDisplay = styled.div`
 position: absolute;
@@ -79,7 +79,7 @@ const Geomap = (props) => {
     const [checked4, setChecked4] = useState(false);
     const [textSearch, setTextSearch] = useState('all');
 
-
+    const sidebarState = useSelector((state) => state.app.appReducer)
 
     const keplerGlReducer = useSelector((state) => state.keplerGl)
 
@@ -124,7 +124,7 @@ const Geomap = (props) => {
           ))
           setOpen(false)
         }
-        dispatch(wrapTo('mkplc',toggleMapLegend()))
+        dispatch(wrapTo('mkplc',closeMapLegend()))
       }, [dispatch,data]);
     
     // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.salkmk1)
@@ -351,7 +351,7 @@ const Geomap = (props) => {
                               รหัสอำเภอ {Id} รหัสจังหวัด {provCode}
                       </Typography> */}
               </Box>
-              <Box height="80vh" width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Box height={ sidebarState.sidebar ? "82vh" : "86vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

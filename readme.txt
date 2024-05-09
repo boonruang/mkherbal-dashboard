@@ -51,3 +51,8 @@ fix install
 npx update-browserslist-db@latest
 yarn add @loaders.gl/schema
 yarn add @math.gl/web-mercator 
+
+yarn add redux-thunk
+yarn add url-join
+
+npx crcf src\components\Login
