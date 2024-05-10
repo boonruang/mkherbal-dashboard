@@ -209,7 +209,7 @@ const Sidebar = () => {
                         />      
                         <Item
                             title="ผลิตภัณฑ์สมุนไพร"
-                            to="/geogmaps"
+                            to="/geomap"
                             icon={<HealthAndSafetyIcon  />}
                             selected={selected}
                             setSelected={setSelected}
@@ -255,7 +255,7 @@ const Sidebar = () => {
                         ) :  <CollapsedIcon /> }                                                                                            
                         <Item
                             title="แหล่งขายตามพิกัด"
-                            to="/geomap"
+                            to="/marketplace"
                             icon={<StoreIcon />}
                             selected={selected}
                             setSelected={setSelected}

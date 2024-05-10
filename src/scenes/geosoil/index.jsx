@@ -8,7 +8,7 @@ import { Processors, processGeojson } from '@kepler.gl/processors';
 import { Box,Checkbox,Button, InputLabel,MenuItem,FormControl,Select,TextField,FormControlLabel,Typography,useTheme  } from "@mui/material"
 import soikmk_config from '../../data/soilmk_config.json';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-import {wrapTo, forwardTo} from '@kepler.gl/actions';
+import {wrapTo, forwardTo, updateMap} from '@kepler.gl/actions';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import axios from 'axios';
@@ -54,7 +54,7 @@ const GeoSoil = (props) => {
 
     const keplerGlReducer = useSelector((state) => state.keplerGl)
 
-    const sidebarState = useSelector((state) => state.app.appReducer)
+    const { sidebar } = useSelector((state) => state.app.appReducer)
 
     // console.log('keplerGlReducer',keplerGlReducer)   
       
@@ -173,17 +173,17 @@ const GeoSoil = (props) => {
                       Update visData
                     </Button>                     */}
 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',(updateVisState(mapConfig)))) }>
-                      Update visState MapStyle
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',(updateVisState("voyagerDark")))) }>
+                      Update MapStyle
                     </Button>  
 
                     {/* <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',querySuccess(keplerGlReducer))) }>
                       Do Query Success
-                    </Button>
+                    </Button>  */}
 
-                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',updateMap({latitude: 103.250034, longitude: 16.245516, width: 800, height: 1200}))) }>
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',updateMap({latitude: 16.245516, longitude: 103.250034, width: 800, height: 1200},1))) }>
                       Update Map
-                    </Button> */}
+                    </Button> 
 
                     <Select
                       labelId="demo-select-small-label"
@@ -244,7 +244,7 @@ const GeoSoil = (props) => {
                               รหัสอำเภอ {ampCode} รหัสจังหวัด {provCode}
                       </Typography>
               </Box>
-              <Box height={ sidebarState.sidebar ? "76vh" : "81vh" } borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Box height={ sidebar ? "76vh" : "81vh" } borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

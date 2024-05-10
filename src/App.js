@@ -25,6 +25,7 @@ import GeoLand from "scenes/geoland";
 import GeoSoil from "scenes/geosoil";
 import GeoSalt from "scenes/geosalt";
 import Login from 'components/Login'
+import Marketplace from "scenes/marketplace";
 // import GeoLandMk from "scenes/geolandmk";
 // import GeoSaltMk from "scenes/geosaltmk";
 
@@ -63,10 +64,11 @@ function App() {
                     <Route path="/line" element={<Line />} />
                     <Route path="/geography" element={<Geography />} />
                     <Route path="/geomap" element={<Geomap />} />
-                    <Route path="/geogmaps" element={<GeoGmaps />} />
+                    {/* <Route path="/geogmaps" element={<GeoGmaps />} /> */}
                     <Route path="/geoland" element={<GeoLand />} />
                     <Route path="/geosoil" element={<GeoSoil />} />
                     <Route path="/geosalt" element={<GeoSalt />} />
+                    <Route path="/marketplace" element={<Marketplace />} />
                 </Routes>
               </main>
             </div> 

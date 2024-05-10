@@ -20,9 +20,15 @@ import {createAction} from 'redux-actions';
 import styled from 'styled-components'
 import {theme} from '@kepler.gl/styles';
 import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
+import { visStateUpdaters, mapStateUpdaters } from '@kepler.gl/reducers';
+import {ActionTypes, updateMap } from '@kepler.gl/actions';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 const serviceUrl = process.env.REACT_APP_SERVIC_URL
+
+const setMapPerspective = createAction('SET_MAP_PERSPECTIVE'); 
+// const updateKeplerMap = createAction('[ActionTypes.UPDATE_MAP]'); 
+const { togglePerspectiveUpdater } = mapStateUpdaters
 
 const StyledMapConfigDisplay = styled.div`
   position: absolute;
@@ -73,7 +79,7 @@ const GeoLand = () => {
 
     const [provCode, setProvCode] = useState('01')
 
-    const sidebarState = useSelector((state) => state.app.appReducer)
+    const { sidebar } = useSelector((state) => state.app.appReducer)
 
     const handleChangeMultiple = (event) => {
       const { options } = event.target;
@@ -224,6 +230,15 @@ const GeoLand = () => {
                     <Button variant="contained" color="success" onClick={() => readConfig() }>
                       อ่านค่า
                     </Button>                      
+
+                    <Button variant="contained" color="success" onClick={() => {dispatch(wrapTo('land',setMapPerspective()))}}>
+                      set pecspective
+                    </Button>  
+
+                    <Button variant="contained" color="success" onClick={() => {dispatch(wrapTo('land',updateMap({latitude: 16.245516, longitude: 103.250034, width: 800, height: 1200}, 1)))}}>
+                    UPDATE_MAP
+                    </Button>  
+
                       <Typography
                           variant="h5"
                           color={colors.greenAccent[400]}
@@ -231,7 +246,7 @@ const GeoLand = () => {
                               {ludesen}
                       </Typography>
               </Box>
-              <Box height={ sidebarState.sidebar ? "78vh" : "84vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Box height={ sidebar ? "78vh" : "84vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

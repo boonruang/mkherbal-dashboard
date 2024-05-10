@@ -1,15 +1,12 @@
+import {ActionTypes} from '@kepler.gl/actions';
+
 import {
-  INIT,
   SHOW_SIDEBAR,
   SET_MAP_CONFIG,
   QUERY_SUCCESS,
-  CLICK_BUTTON
+  // SET_MAP_PERSPECTIVE
 } from '../constants'
 
-const appInit = (payload) => ({
-  type: INIT,
-  payload,
-})
 
 export const showSidebar = (payload) => ({
   type: SHOW_SIDEBAR,
@@ -23,12 +20,12 @@ export const querySuccess = () => ({
   type: QUERY_SUCCESS,
 })
 
-export const clickToTogglePerspective = () => ({
-  type: CLICK_BUTTON,
+export const updateKeplerMap = (payload) => ({
+  type: ActionTypes.UPDATE_MAP,
+  payload
 })
 
-export const getApp = () => {
-  return (dispatch) => {
-    dispatch(appInit())
-  }
-}
+// export const setMapPerspective = (payload) => ({
+//   type: SET_MAP_PERSPECTIVE,
+//   payload
+// })

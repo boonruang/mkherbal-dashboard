@@ -70,9 +70,18 @@ const Geomap = (props) => {
 
     const [Id, setId] = useState('');
 
+    const [provCode, setProvCode] = useState('01');
+
+    const [checked, setChecked] = useState(false);
+    const [checked1, setChecked1] = useState(false);
+    const [checked2, setChecked2] = useState(false);
+    const [checked3, setChecked3] = useState(false);
+    const [checked4, setChecked4] = useState(false);
     const [textSearch, setTextSearch] = useState('all');
 
     const { sidebar } = useSelector((state) => state.app.appReducer)
+
+    const keplerGlReducer = useSelector((state) => state.keplerGl)
 
     // console.log('keplerGlReducer',keplerGlReducer)   
 
@@ -143,6 +152,12 @@ const Geomap = (props) => {
         setOpen(false)
     },[dispatch,data])
 
+    const handleSelect = async (event) => {
+      setId(event.target.value);
+      // console.log('event.target.value',event.target.value)
+      // console.log('amp_code in handleSelect',Id)
+    };    
+
     useEffect(() => {
       axios.get(`${serviceUrl}/api/v2/marketplace/list/${textSearch}`)
       .then(response => {
@@ -152,6 +167,31 @@ const Geomap = (props) => {
       .catch(error => {console.log(error)})      
 
     },[textSearch])
+
+    const handleSelectProv = (event) => {
+      setProvCode(event.target.value);
+    };  
+
+    const handleChange = () => {
+      setChecked(!checked);
+      setTextSearch('all')
+    };  
+    const handleChange1 = () => {
+      setChecked1(!checked1);
+      setTextSearch('สารคาม')
+    };  
+    const handleChange2 = () => {
+      setChecked2(!checked2);
+      setTextSearch('ขอนแก่น')
+    };  
+    const handleChange3 = () => {
+      setChecked3(!checked3);
+      // setTextSearch('กาฬสินธุ์')
+    };  
+    const handleChange4 = () => {
+      setChecked4(!checked4);
+      // setTextSearch('ร้อยเอ็ด')
+    };  
 
     let arrayDataItems
     if (data) {
@@ -204,6 +244,66 @@ const Geomap = (props) => {
                             <SearchIcon />
                         </IconButton>
                     </Box>     
+                     <FormControlLabel control={<Checkbox
+                          checked={checked}
+                          onChange={handleChange}
+                          inputProps={{ 'aria-label': 'controlled' }}
+                          sx={{
+                            color: green[800],
+                            '&.Mui-checked': {
+                              color: green[600],
+                            },
+                          }}
+                        />
+                        } label="ทั้งหมด" />                      
+                     <FormControlLabel control={<Checkbox
+                          checked={checked1}
+                          onChange={handleChange1}
+                          inputProps={{ 'aria-label': 'controlled' }}
+                          sx={{
+                            color: green[800],
+                            '&.Mui-checked': {
+                              color: green[600],
+                            },
+                          }}
+                        />
+                        } label="มหาสารคาม" />                      
+                     <FormControlLabel control={<Checkbox
+                          checked={checked2}
+                          onChange={handleChange2}
+                          inputProps={{ 'aria-label': 'controlled' }}
+                          sx={{
+                            color: green[800],
+                            '&.Mui-checked': {
+                              color: green[600],
+                            },
+                          }}
+                        />
+                        } label="ขอนแก่น" />                      
+                     <FormControlLabel control={<Checkbox
+                          checked={checked3}
+                          onChange={handleChange3}
+                          inputProps={{ 'aria-label': 'controlled' }}
+                          sx={{
+                            color: green[800],
+                            '&.Mui-checked': {
+                              color: green[600],
+                            },
+                          }}
+                        />
+                        } label="กาฬสินธุ์" />                      
+                     <FormControlLabel control={<Checkbox
+                          checked={checked4}
+                          onChange={handleChange4}
+                          inputProps={{ 'aria-label': 'controlled' }}
+                          sx={{
+                            color: green[800],
+                            '&.Mui-checked': {
+                              color: green[600],
+                            },
+                          }}
+                        />
+                        } label="ร้อยเอ็ด" />                      
               </Box>
               <Box height={ sidebar ? "82vh" : "86vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop

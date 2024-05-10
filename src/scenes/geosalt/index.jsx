@@ -50,7 +50,7 @@ const GeoSalt = (props) => {
 
     const keplerGlReducer = useSelector((state) => state.keplerGl)
 
-    const sidebarState = useSelector((state) => state.app.appReducer)
+    const { sidebar } = useSelector((state) => state.app.appReducer)
 
     // console.log('keplerGlReducer',keplerGlReducer)   
 
@@ -225,7 +225,7 @@ const GeoSalt = (props) => {
                               รหัสอำเภอ {Id} รหัสจังหวัด {provCode}
                       </Typography>
               </Box>
-              <Box height={ sidebarState.sidebar ? "76vh" : "81vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Box height={ sidebar ? "76vh" : "81vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}
