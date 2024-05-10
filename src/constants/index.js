@@ -63,7 +63,8 @@ export const UPLOAD_PHOTO_FAIL_MESSAGE =
   'An error has occurred. The photo was unable to upload.'
 
 // export const apiUrl = 'https://coral-app-hwkgh.ondigitalocean.app/api/v2'
-export const apiUrl = 'http://localhost:8080/api/v2'
+const serviceUrl = process.env.REACT_APP_SERVIC_URL
+export const apiUrl = `${serviceUrl}/api/v2`
 
 // export const imageUrl = 'http://61.19.101.249:3000'
 export const imageUrl = 'http://localhost:3000'
