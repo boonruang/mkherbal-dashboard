@@ -67,7 +67,7 @@ const serviceUrl = process.env.REACT_APP_SERVIC_URL
 export const apiUrl = `${serviceUrl}/api/v2`
 
 // export const imageUrl = 'http://61.19.101.249:3000'
-export const imageUrl = 'http://localhost:3000'
+export const imageUrl = `${serviceUrl}:3000`
 
 export const YES = 'YES'
 export const NO = 'NO'
