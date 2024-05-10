@@ -21,33 +21,17 @@ import List from '../../components/List'
 import styled from 'styled-components'
 import {theme} from '@kepler.gl/styles';
 import { getMarketplaces } from '../../actions/marketplace.action'
-import { addDataToMap, wrapTo, updateMap } from '@kepler.gl/actions'
-import useSWR from 'swr'
+import { addDataToMap, wrapTo, updateMap, removeDataset as removeDatasetFromKepler } from '@kepler.gl/actions'
+// import useSWR from 'swr'
+import KeplerGlSchema from '@kepler.gl/schemas';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 const serviceUrl = process.env.REACT_APP_SERVIC_URL
 
-// const updateVisState = createAction('UPDATE_VIS_STATE');
+const updateVisState = createAction('UPDATE_VIS_STATE');
 // const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
 const closeMapLegend = createAction('HIDE_AND_SHOW_MAP_LEGEND');
-
-const StyledMapConfigDisplay = styled.div`
-position: absolute;
-z-index: 100;
-top: 0px;
-left: 0px;
-background-color: ${theme.sidePanelBg};
-font-size: 11px;
-width: 300px;
-color: ${theme.textColor};
-/* word-wrap: break-word; */
-height: 100%;
-min-height: 60px;
-max-height: 100%;
-padding: 10px;
-`;
-
-    
+  
 const myCustomHeaderFactory = () => CustomHeaderFactory
 
 const KeplerGl = injectComponents([
@@ -77,9 +61,21 @@ const Marketplace = (props) => {
 
     const { result, isFetching, isError } = useSelector((state) => state.app.marketplaceReducer)
 
+    // const { mkplc } = useSelector((state) => state.keplerGl)
+
+    // if (mkplc) {
+    //   console.log('mkplc',mkplc)
+    // }
+    
+    // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.mkplc)
+
+    // useEffect(() => {
+    //   dispatch(removeDatasetFromKepler('mkplc1'))
+    // },[dispatch])
     
     useEffect(() => {
       if (result) {
+            dispatch(removeDatasetFromKepler('mkplc1'))
             dispatch(
               wrapTo(
                 "mkplc",
@@ -98,8 +94,12 @@ const Marketplace = (props) => {
                   })
                 ))
           dispatch(wrapTo('mkplc',closeMapLegend()))
-          }
-      setOpen(false)            
+          console.log('i am running in useEffect ')
+          setTimeout(() => {
+            dispatch(wrapTo('mkplc',updateVisState()))
+          },500)
+        }
+        setOpen(false)            
     },[dispatch,result])
 
       return (
@@ -125,7 +125,10 @@ const Marketplace = (props) => {
                     </Box>   
                     {/* <Button variant="contained" color="success" onClick={() => {dispatch(wrapTo('mkplc',updateMap({latitude: 16.245516, longitude: 103.250034, width: 800, height: 1200}, 1)))}}>
                     UPDATE_MAP
-                    </Button>                        */}
+                    </Button> */}
+                    {/* <Button variant="contained" color="success" onClick={() => {dispatch(wrapTo('mkplc',updateVisState()))}}>
+                    UPDATE VISSTATE
+                    </Button> */}
               </Box>
               <Box height={ sidebar ? "82vh" : "86vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop

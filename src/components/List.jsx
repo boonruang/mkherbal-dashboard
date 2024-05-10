@@ -21,6 +21,8 @@ word-wrap: break-word;
 min-height: 60px;
 max-height: 100%;
 padding: 10px;
+overflow-x: hidden;
+overflow-y: auto;
 `;
 
 const List = ({searchTerm}) => {
