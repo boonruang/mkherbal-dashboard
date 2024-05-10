@@ -55,10 +55,10 @@ export const customizedKeplerGlReducer = keplerGlReducer
      mapState: mapStateUpdaters.togglePerspectiveUpdater(state.mapState) 
    })
  }) 
- .plugin({
-// for listening updateMap action
-  [ActionTypes.UPDATE_MAP]: (state, action) => ({
-    ...state,
-    viewport: action.payload 
-  })
-})  
+//  .plugin({
+// // for listening updateMap action
+//   [ActionTypes.UPDATE_MAP]: (state, action) => ({
+//     ...state,
+//     viewport: action.payload 
+//   })
+// })  

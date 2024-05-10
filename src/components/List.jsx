@@ -41,21 +41,22 @@ const List = ({searchTerm}) => {
   let content
   if (isFetching) content = <Box>Loading...</Box>
   else if (isError) content = <Box>Something went wrong..</Box>
-  else 
-  if (result?.features) {
+  else if (result?.features ) {
     const results = result?.features
-    console.log('result?.features',result?.features)
-    console.log('results??',results)
-    console.log('result??',result)
     content = (
       <StyledMapConfigDisplay>
           {
             Object.values(results).map(result => {
-              console.log('result item => ',result)
               return <Item key={result.properties.Id} result={result} />
             })
             }
       </StyledMapConfigDisplay>  
+    )
+  } else {
+    content = (
+      <StyledMapConfigDisplay>
+        อุ้ย หาไม่เจออ่ะ
+      </StyledMapConfigDisplay>      
     )
   } 
   return content

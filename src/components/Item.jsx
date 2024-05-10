@@ -27,8 +27,8 @@ const Item = ({result}) => {
             </Typography>            
         </Box>     
         <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 2 }} >
-          <Box>{result.properties.address}, {result.properties.tambon}, {result.properties.amphoe}</Box>
-          <Box>{result.properties.province}, {result.properties.postcode}</Box>
+          <Box>{result.properties.address} {result.properties.tambon} {result.properties.amphoe}</Box>
+          <Box>{result.properties.province} {result.properties.postcode}</Box>
         </Box>    
       </Box>
   )

@@ -1,13 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState, useCallback  } from 'react';
+import React, { useEffect, useState  } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { processGeojson } from '@kepler.gl/processors';
-import { Box,Typography,useTheme, InputBase,IconButton,Button  } from "@mui/material"
+import { Box, useTheme, InputBase,IconButton,Button  } from "@mui/material"
 import mkplc_config from '../../data/mkplc_config.json';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
-import axios from 'axios';
 import Header from "../../components/Header";
 import { tokens } from '../../theme';
 import {createAction} from 'redux-actions';
@@ -15,18 +14,13 @@ import {injectComponents, PanelHeaderFactory,SidebarFactory} from '@kepler.gl/co
 import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
 import CustomSidebarFactory from 'components/keplergl/CustomSidebarFactory'
 import SearchIcon from "@mui/icons-material/Search"
-import PlaceIcon from '@mui/icons-material/Place';
 import useDebounce from 'hooks/useDebounce';
 import List from '../../components/List'
-import styled from 'styled-components'
-import {theme} from '@kepler.gl/styles';
-import { getMarketplaces } from '../../actions/marketplace.action'
 import { addDataToMap, wrapTo, updateMap, removeDataset as removeDatasetFromKepler } from '@kepler.gl/actions'
 // import useSWR from 'swr'
 import KeplerGlSchema from '@kepler.gl/schemas';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
-const serviceUrl = process.env.REACT_APP_SERVIC_URL
 
 const updateVisState = createAction('UPDATE_VIS_STATE');
 // const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
@@ -51,15 +45,13 @@ const Marketplace = (props) => {
 
     const [open, setOpen] = useState(true);
     
-    const [data, setData] = useState()
-
-    const [Id, setId] = useState('');
-
-    const [textSearch, setTextSearch] = useState('all');
-
     const { sidebar } = useSelector((state) => state.app.appReducer)
 
-    const { result, isFetching, isError } = useSelector((state) => state.app.marketplaceReducer)
+    const { result } = useSelector((state) => state.app.marketplaceReducer)
+
+    if (result) {
+      console.log('result check',result)
+    }
 
     // const { mkplc } = useSelector((state) => state.keplerGl)
 
@@ -69,10 +61,6 @@ const Marketplace = (props) => {
     
     // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.mkplc)
 
-    // useEffect(() => {
-    //   dispatch(removeDatasetFromKepler('mkplc1'))
-    // },[dispatch])
-    
     useEffect(() => {
       if (result) {
             dispatch(removeDatasetFromKepler('mkplc1'))
