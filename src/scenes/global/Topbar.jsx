@@ -15,11 +15,11 @@ const Topbar = () => {
     const colors = tokens(theme.palette.mode)
     const colorMode = useContext(ColorModeContext)
 
-  const { sidebar } = useSelector((state) => state.app.appReducer)
-  console.log('sidebar',sidebar)    
+  const { isSidebar } = useSelector((state) => state.app.appReducer)
+//   console.log('isSidebar',isSidebar)    
 
     // return (<Box display="flex" justifyContent="space-between" p={2}>
-    return ( sidebar && (<Box display="flex" justifyContent="end" p={2} pb={0}>
+    return ( isSidebar && (<Box display="flex" justifyContent="end" p={2} pb={0}>
         {/* SEARCH BAR */}
         {/* <Box
             display="flex"

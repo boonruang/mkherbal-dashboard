@@ -20,8 +20,8 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MoreIcon from '@mui/icons-material/More';
 import { useDispatch } from 'react-redux';
-// import { showSidebar } from '../../app-reducer'
 import { showSidebar } from '../../actions/app.action'
+import { useSelector } from 'react-redux'
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -57,12 +57,16 @@ const CollapsedIcon = () => {
 const Sidebar = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
-    const [isCollapsed, setIsCollapsed] = useState(false)
+    // const [isCollapsed, setIsCollapsed] = useState(false)
     const [selected, setSelected] = useState("Dashboard")
 
     const dispatch = useDispatch()
 
-    dispatch(showSidebar(!isCollapsed))      
+    // dispatch(showSidebar(!isCollapsed))   
+    
+    const { isSidebar } = useSelector((state) => state.app.appReducer)
+    console.log('isSidebar in Sidebar',isSidebar)  
+    // console.log('isCollapsed',isCollapsed)  
 
     return (
         <Box
@@ -84,18 +88,18 @@ const Sidebar = () => {
                 }
             }}
         >
-            <ProSidebar collapsed={isCollapsed}>
+            <ProSidebar collapsed={!isSidebar}>
                 <Menu iconShape='square'>
                     {/* LOGO AND MENU ICON */}
                     <MenuItem
-                        onClick={() => setIsCollapsed(!isCollapsed)}
-                        icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+                        onClick={() => {dispatch(showSidebar(!isSidebar)) }}
+                        icon={!isSidebar ? <MenuOutlinedIcon /> : undefined}
                         style={{
                             margin: "10px 0 20px 0",
                             color: colors.grey[100]
                         }}
                     >
-                        {!isCollapsed && (
+                        {isSidebar && (
                             <Box
                                 display="flex"
                                 justifyContent="space-between"
@@ -105,7 +109,7 @@ const Sidebar = () => {
                                 <Typography variant='h3' color={colors.grey[100]}>
                                     {/* ADMINIS */}
                                 </Typography>
-                                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                                <IconButton onClick={() => dispatch(showSidebar(!isSidebar))}>
                                     <MenuOutlinedIcon />
                                 </IconButton>
                             </Box>
@@ -113,7 +117,7 @@ const Sidebar = () => {
                     </MenuItem>
 
                     {/* USER */}
-                    {!isCollapsed && (
+                    {isSidebar && (
                         <Box mb="25px">
                             <Box textAlign={"center"}>
                                 <Typography
@@ -132,7 +136,7 @@ const Sidebar = () => {
 
 
                     {/* MENU ITEMS */}
-                    <Box paddingLeft={isCollapsed ? undefined : '10%'}>
+                    <Box paddingLeft={!isSidebar ? undefined : '10%'}>
                         <Item
                             title="แดชบอร์ด"
                             to="/dashboard"
@@ -140,7 +144,7 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        {!isCollapsed ? (
+                        {isSidebar ? (
                             <Box
                                 display="flex"
                                 justifyContent="space-between"
@@ -184,7 +188,7 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />   
-                        {!isCollapsed ? (
+                        {isSidebar ? (
                             <Box
                                 display="flex"
                                 justifyContent="space-between"
@@ -214,7 +218,7 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         /> 
-                        {!isCollapsed ? (
+                        {isSidebar ? (
                             <Box
                                 display="flex"
                                 justifyContent="space-between"
@@ -237,7 +241,7 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />   
-                        {!isCollapsed ? (
+                        {isSidebar ? (
                             <Box
                                 display="flex"
                                 justifyContent="space-between"
@@ -260,7 +264,7 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />  
-                        {!isCollapsed ? (
+                        {isSidebar ? (
                             <Box
                                 display="flex"
                                 justifyContent="space-between"
@@ -290,7 +294,7 @@ const Sidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />   
-                        {!isCollapsed ? (
+                        {isSidebar ? (
                             <Box
                                 display="flex"
                                 justifyContent="space-between"

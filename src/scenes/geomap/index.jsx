@@ -72,7 +72,7 @@ const Geomap = (props) => {
 
     const [textSearch, setTextSearch] = useState('all');
 
-    const { sidebar } = useSelector((state) => state.app.appReducer)
+    const { isSidebar } = useSelector((state) => state.app.appReducer)
 
     // console.log('keplerGlReducer',keplerGlReducer)   
 
@@ -205,7 +205,7 @@ const Geomap = (props) => {
                         </IconButton>
                     </Box>     
               </Box>
-              <Box height={ sidebar ? "82vh" : "86vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Box height={ isSidebar ? "82vh" : "86vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

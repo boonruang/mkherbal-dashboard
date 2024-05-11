@@ -79,7 +79,7 @@ const GeoLand = () => {
 
     const [provCode, setProvCode] = useState('01')
 
-    const { sidebar } = useSelector((state) => state.app.appReducer)
+    const { isSidebar } = useSelector((state) => state.app.appReducer)
 
     const handleChangeMultiple = (event) => {
       const { options } = event.target;
@@ -246,7 +246,7 @@ const GeoLand = () => {
                               {ludesen}
                       </Typography>
               </Box>
-              <Box height={ sidebar ? "78vh" : "84vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Box height={ isSidebar ? "78vh" : "84vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

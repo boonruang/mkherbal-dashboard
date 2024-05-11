@@ -9,7 +9,7 @@ import {
 const initialState = {
   appName: 'herbhuk',
   loaded: false,
-  sidebar: false
+  isSidebar: true
 };
 
 const appReducer= (state = initialState, { type, payload }) => {
@@ -17,7 +17,7 @@ const appReducer= (state = initialState, { type, payload }) => {
     case SHOW_SIDEBAR:
       return {
         ...state,
-        sidebar: payload
+        isSidebar: payload
         }
     case SET_MAP_CONFIG:
       return {

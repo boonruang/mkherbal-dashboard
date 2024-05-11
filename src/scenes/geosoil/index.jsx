@@ -54,7 +54,7 @@ const GeoSoil = (props) => {
 
     const keplerGlReducer = useSelector((state) => state.keplerGl)
 
-    const { sidebar } = useSelector((state) => state.app.appReducer)
+    const { isSidebar } = useSelector((state) => state.app.appReducer)
 
     // console.log('keplerGlReducer',keplerGlReducer)   
       
@@ -244,7 +244,7 @@ const GeoSoil = (props) => {
                               รหัสอำเภอ {ampCode} รหัสจังหวัด {provCode}
                       </Typography>
               </Box>
-              <Box height={ sidebar ? "76vh" : "81vh" } borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Box height={ isSidebar ? "76vh" : "81vh" } borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}

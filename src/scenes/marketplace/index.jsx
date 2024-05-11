@@ -19,6 +19,7 @@ import List from '../../components/List'
 import { addDataToMap, wrapTo, updateMap, removeDataset as removeDatasetFromKepler } from '@kepler.gl/actions'
 // import useSWR from 'swr'
 import KeplerGlSchema from '@kepler.gl/schemas';
+import { showSidebar } from 'actions/app.action';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 
@@ -45,7 +46,7 @@ const Marketplace = (props) => {
 
     const [open, setOpen] = useState(true);
     
-    const { sidebar } = useSelector((state) => state.app.appReducer)
+    const { isSidebar } = useSelector((state) => state.app.appReducer)
 
     const { result } = useSelector((state) => state.app.marketplaceReducer)
 
@@ -85,6 +86,7 @@ const Marketplace = (props) => {
           console.log('i am running in useEffect ')
           setTimeout(() => {
             dispatch(wrapTo('mkplc',updateVisState()))
+            dispatch(showSidebar(false))
           },500)
         }
         setOpen(false)            
@@ -118,7 +120,7 @@ const Marketplace = (props) => {
                     UPDATE VISSTATE
                     </Button> */}
               </Box>
-              <Box height={ sidebar ? "82vh" : "86vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Box height={ isSidebar ? "82vh" : "86vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
               <Backdrop
                   sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                   open={open}
