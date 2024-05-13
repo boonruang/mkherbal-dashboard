@@ -2,7 +2,6 @@ import { useEffect,useState } from "react";
 // import useSWR from "swr";
 // import Item from './Item'
 import { useSelector, useDispatch } from "react-redux";
-import { getFarmergroupByKeyword } from '../actions/farmergroup.action'
 import { Box, Button, Typography,IconButton,useTheme  } from "@mui/material"
 import styled from 'styled-components'
 import {theme} from '@kepler.gl/styles';
@@ -20,11 +19,12 @@ import Collapse from '@mui/material/Collapse';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Place from '@mui/icons-material/Place';
 import ParkIcon from '@mui/icons-material/Park';
+import Divider from '@mui/material/Divider';
 
 const StyledDetailDisplay = styled.div`
 position: absolute;
 z-index: 100;
-top: 3px;
+top: 40px;
 left: 302px;
 /* background-color: ${theme.sidePanelBg}; */
 font-size: 11px;
@@ -39,37 +39,6 @@ overflow-x: hidden;
 overflow-y: auto;
 border-radius: 10px;
 `;
-
-const Item = ({ result }) => {
-  const theme = useTheme()
-  const colors = tokens(theme.palette.mode)
-  return (
-      <Box  backgroundColor={colors.primary[400]} sx={{ m: 1 }} >
-          <Box
-              display="flex"
-              // backgroundColor={colors.blueAccent[400]}
-              borderRadius="3px"
-              // justifyContent="center"
-              alignItems="center"
-          >
-              <IconButton type="button" sx={{ p: 1 }} >
-                  <PlaceIcon />
-              </IconButton>
-              <Typography
-              variant="h5"
-              color={colors.greenAccent[400]}
-              >
-                      {"ทดสอบ"}
-              </Typography>            
-          </Box>     
-          <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 2 }} >
-            {/* <Box>{result.properties.address} {result.properties.tambon} {result.properties.amphoe}</Box>
-            <Box>{result.properties.province} {result.properties.postcode}</Box> */}
-          </Box>    
-      </Box>
-
-  )
-}
 
 const ExpandMore = mStyled((props) => {
   const { expand, ...other } = props;
@@ -108,9 +77,13 @@ const CardDetail = ({ selectedResult}) => {
         {selectedResult.farmergroupname}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        ID: {selectedResult.Id} Address: {selectedResult.address}
+          <Box display="flex" flexDirection="column" justifyContent="center" >
+            <Box>{selectedResult.address} {selectedResult.tambon} {selectedResult.amphoe}</Box>
+            <Box>{selectedResult.province} {selectedResult.postcode}</Box>
+          </Box>          
         </Typography>
       </CardContent>
+      <Divider />
       <CardActions disableSpacing>
         <IconButton aria-label="park lover">
           <ParkIcon />
@@ -134,17 +107,44 @@ const CardDetail = ({ selectedResult}) => {
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>
-          {selectedResult.tambon}
-          </Typography>
-          <Typography paragraph>
-          {selectedResult.amphoe}
-          </Typography>
-          <Typography>
-          {selectedResult.province}
-          </Typography>
-        </CardContent>
+        <Box sx={{ m: 1, ml: 2}}>
+          <Box display="flex" borderRadius="3px" alignItems="center" >
+            <IconButton sx={{ p: 1 }} >
+                    <ParkIcon />
+            </IconButton>
+            <Typography variant="h5" sx={{ ml: 1}}>
+            {selectedResult.tambon}
+            </Typography>            
+          </Box>
+
+          <Box display="flex" borderRadius="3px" alignItems="center" >
+            <IconButton sx={{ p: 1 }} >
+                    <PlaceIcon />
+            </IconButton>
+            <Typography variant="h5" sx={{ ml: 1}}>
+            {selectedResult.amphoe}
+            </Typography>            
+          </Box>          
+
+          <Box display="flex" borderRadius="3px" alignItems="center" >
+            <IconButton sx={{ p: 1 }} >
+                    <FavoriteIcon />
+            </IconButton>
+            <Typography variant="h5" sx={{ ml: 1}}>
+            {selectedResult.province}
+            </Typography>            
+          </Box>  
+
+          <Box display="flex" borderRadius="3px" alignItems="center" >
+            <IconButton sx={{ p: 1 }} >
+                    <ShareIcon />
+            </IconButton>
+            <Typography variant="h5" sx={{ ml: 1}}>
+            Share
+            </Typography>            
+          </Box>  
+
+        </Box>
       </Collapse>
     </Card>    
   )
@@ -152,12 +152,7 @@ const CardDetail = ({ selectedResult}) => {
 
 
 const FarmergroupDetail = ({props}) => {
-  const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   dispatch(getFarmergroupByKeyword(searchTerm))
-  //   console.log('useEffect is called', searchTerm)
-  // },[dispatch,searchTerm])
+  // const dispatch = useDispatch()
 
   const { selectedResult, isFetching, isError } = useSelector((state) => state.app.farmergroupReducer)
   if (selectedResult) {
