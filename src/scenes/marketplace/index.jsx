@@ -15,7 +15,7 @@ import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
 import CustomSidebarFactory from 'components/keplergl/CustomSidebarFactory'
 import SearchIcon from "@mui/icons-material/Search"
 import useDebounce from 'hooks/useDebounce';
-import List from '../../components/List'
+import MarketplaceList from '../../components/MarketplaceList'
 import { addDataToMap, wrapTo, updateMap, removeDataset as removeDatasetFromKepler } from '@kepler.gl/actions'
 // import useSWR from 'swr'
 import KeplerGlSchema from '@kepler.gl/schemas';
@@ -144,7 +144,7 @@ const Marketplace = (props) => {
                     )}
                   </AutoSizer >     
                    {/* LIST HERE    */}
-                      <List searchTerm={debouncedSearchValue} />
+                      <MarketplaceList searchTerm={debouncedSearchValue} />
                 </Box>
           </Box>
       );

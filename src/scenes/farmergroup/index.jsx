@@ -1,120 +1,156 @@
-import { Box, useTheme } from "@mui/material"
-import { DataGrid, GridToolbar } from "@mui/x-data-grid"
-import { tokens } from "../../theme"
-import { mockDataFarmers } from "../../data/mockDataFarmers"
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useState  } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { processGeojson } from '@kepler.gl/processors';
+import { Box, useTheme, InputBase,IconButton,Button  } from "@mui/material"
+import fmg_config from '../../data/fmg_config.json';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
+import Header from "../../components/Header";
+import { tokens } from '../../theme';
+import {createAction} from 'redux-actions';
+import {injectComponents, PanelHeaderFactory,SidebarFactory} from '@kepler.gl/components';
+import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
+import CustomSidebarFactory from 'components/keplergl/CustomSidebarFactory'
+import SearchIcon from "@mui/icons-material/Search"
+import useDebounce from 'hooks/useDebounce';
+import FarmergroupList from '../../components/FarmergroupList'
+import { addDataToMap, wrapTo, updateMap, removeDataset as removeDatasetFromKepler } from '@kepler.gl/actions'
+// import useSWR from 'swr'
+import KeplerGlSchema from '@kepler.gl/schemas';
+import { showSidebar } from 'actions/app.action';
+import FarmergroupDetail from 'components/FarmergroupDetail';
 
-import Header from "../../components/Header"
+const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 
-const FarmerGroup = () => {
+const updateVisState = createAction('UPDATE_VIS_STATE');
+// const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
+const closeMapLegend = createAction('HIDE_AND_SHOW_MAP_LEGEND');
+  
+const myCustomHeaderFactory = () => CustomHeaderFactory
+
+const KeplerGl = injectComponents([
+  [PanelHeaderFactory, myCustomHeaderFactory],
+  [SidebarFactory, CustomSidebarFactory],
+]);
+
+const Farmergroup = (props) => {
+
+  const [searchValue, setSearchValue] = useState('')
+  const debouncedSearchValue = useDebounce(searchValue, 1000)
+  
+  const dispatch = useDispatch();
+
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
-    const columns = [
-        { field: 'id', headerName: 'ID', flex: 0.5 },
-        { field: 'username', headerName: 'Username' },
-        {
-            field: 'firstname',
-            headerName: 'ชื่อ',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },
-        {
-            field: 'lastname',
-            headerName: 'นามสกุล',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },              
-        {
-            field: 'hno',
-            headerName: 'บ้านเลขที่',
-            type: "number",
-            headerAlign: "left",
-            align: "left",
-        },
-        {
-            field: 'moo',
-            headerName: 'หมู่',
-            type: "number",
-            headerAlign: "left",
-            align: "left",
-        },        
-        {
-            field: 'thumbol',
-            headerName: 'ตำบล',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },  
-        {
-            field: 'amphur',
-            headerName: 'อำเภอ',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },          
-        {
-            field: 'province',
-            headerName: 'จังหวัด',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },                  
-        {
-            field: 'tel',
-            headerName: 'เบอร์ติดต่อ',
-            flex: 1,
-        },
-        {
-            field: 'cert',
-            headerName: 'รหัสใบรับรอง',
-            flex: 1,
-        },
-        {
-            field: 'cert_date',
-            headerName: 'วันได้รับ',
-            flex: 1,
-        },
-        {
-            field: 'cert_expire_date',
-            headerName: 'วันหมดอายุ',
-            flex: 1,
-        },
+    const [open, setOpen] = useState(true);
+    
+    const { isSidebar } = useSelector((state) => state.app.appReducer)
 
-    ]
+    const { result, selectedResult } = useSelector((state) => state.app.farmergroupReducer)
 
-    return (
+    if (result) {
+      console.log('result check',result)
+    }
+
+    // const { mkplc } = useSelector((state) => state.keplerGl)
+
+    // if (mkplc) {
+    //   console.log('mkplc',mkplc)
+    // }
+    
+    // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.mkplc)
+
+    useEffect(() => {
+      if (result) {
+            dispatch(removeDatasetFromKepler('fmg1'))
+            dispatch(
+              wrapTo(
+                "farmergroup",
+                addDataToMap({
+                  datasets: {
+                    info: {
+                      label: 'Farmergroup',
+                      id: 'fmg1'
+                    },
+                    data: processGeojson(result)
+                  },  
+                  options: {
+                    centerMap: true,
+                  },             
+                  config: fmg_config
+                  })
+                ))
+          dispatch(wrapTo('farmergroup',closeMapLegend()))
+          console.log('i am running in useEffect ')
+          setTimeout(() => {
+            dispatch(wrapTo('farmergroup',updateVisState()))
+            dispatch(showSidebar(false))
+          },500)
+        }
+        setOpen(false)            
+    },[dispatch,result])
+
+      return (
         <Box m="20px">
-            <Header title="ข้อมูลกลุ่มเกษตรกร" subtitle="รายการข้อมูลกลุ่มเกษตรกร" />
-            <Box m="40px 0 0 0" height="75vh" sx={{
-                "& .MuiDataGrid-root": {
-                    border: "none"
-                },
-                "& .MuiDataGrid-cell": {
-                    boderBottom: "none"
-                },
-                "& .name-column--cell": {
-                    color: colors.greenAccent[300]
-                },
-                "& .MuiDataGrid-columnHeader": {
-                    borderBottom: "none",
-                    backgroundColor: colors.yellowAccent[700],
-                },
-                "& .MuiDataGrid-virtualScroller": {
-                    backgroundColor: colors.primary[400]
-                },
-                "& .MuiDataGrid-footerContainer": {
-                    borderTop: "none",
-                    backgroundColor: colors.yellowAccent[700],
-                },
-                "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                    color: `${colors.grey[100]} !important`
-                }
-            }}>
-                <DataGrid
-                    rows={mockDataFarmers}
-                    columns={columns}
-                    components={{ Toolbar: GridToolbar }}
-                />
-            </Box>
-        </Box>
-    )
-}
+            <Header title="ข้อมูลแผนที่" subtitle="กลุ่มเกษตรกร" />
+              <Box  display="flex" justifyContent="space-between" component="form" 
+                            sx={{
+                              '& > :not(style)': { ml: 0, mb: 1, width: '30ch'},
+                            }}
+                            noValidate
+                            autoComplete="off"
+                          >
+                    {/* SEARCH BAR */}
+                    <Box
+                        display="flex"
+                        backgroundColor={colors.primary[400]}
+                        borderRadius="3px"
+                    >
+                        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                        <IconButton type="button" sx={{ p: 1 }} >
+                            <SearchIcon />
+                        </IconButton>
+                    </Box>   
+                    {/* <Button variant="contained" color="success" onClick={() => {dispatch(wrapTo('mkplc',updateMap({latitude: 16.245516, longitude: 103.250034, width: 800, height: 1200}, 1)))}}>
+                    UPDATE_MAP
+                    </Button> */}
+                    {/* <Button variant="contained" color="success" onClick={() => {dispatch(wrapTo('mkplc',updateVisState()))}}>
+                    UPDATE VISSTATE
+                    </Button> */}
+              </Box>
+              <Box height={ isSidebar ? "82vh" : "86vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
+              <Backdrop
+                  sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+                  <AutoSizer>
+                    {({height, width}) => (
+                    <KeplerGl
+                    id="farmergroup"
+                    mapboxApiAccessToken={mapBoxKey}
+                    height={height}               
+                    width={width}
+                    sx={{
+                      "& .mapboxgl-children": {
+                        style : {
+                          height: "0%"
+                        }}
+                      }}                    
+                    />
+                    )}
+                  </AutoSizer >     
+                   {/* LIST HERE    */}
+                      <FarmergroupList searchTerm={debouncedSearchValue} />
+                      { selectedResult ? <FarmergroupDetail /> : undefined}
+                </Box>
+          </Box>
+      );
+    }
 
-export default FarmerGroup
+
+export default Farmergroup;

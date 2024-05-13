@@ -26,6 +26,7 @@ import GeoSoil from "scenes/geosoil";
 import GeoSalt from "scenes/geosalt";
 import Login from 'components/Login'
 import Marketplace from "scenes/marketplace";
+import Farmergroup from "scenes/farmergroup";
 // import GeoLandMk from "scenes/geolandmk";
 // import GeoSaltMk from "scenes/geosaltmk";
 
@@ -54,7 +55,7 @@ function App() {
                     <Route path="/contacts" element={<Contacts />} />
                     <Route path="/researchers" element={<Researchers />} />
                     <Route path="/farmers" element={<Farmers />} />
-                    <Route path="/farmergroup" element={<FarmerGroup />} />
+                    <Route path="/farmergroup" element={<Farmergroup />} />
                     <Route path="/businessgroup" element={<BusinessGroup />} />
                     <Route path="/herbals" element={<Herbals />} />
                     <Route path="/form" element={<Form />} />

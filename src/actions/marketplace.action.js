@@ -1,6 +1,3 @@
-import { addDataToMap, wrapTo, } from '@kepler.gl/actions'
-import { processGeojson } from '@kepler.gl/processors';
-
 import {
   HTTP_MARKETPLACE_FAILED,
   HTTP_MARKETPLACE_FETCHING,
@@ -26,7 +23,7 @@ export const getMarketplaceById = (id) => {
   return (dispatch) => {
     dispatch(setStateMarketplaceToFetching());
     httpClient
-      .get(`${server.PRODUCT_URL}/${id}`)
+      .get(`${server.FARM_URL}/${id}`)
       .then((result) => {
         dispatch(setStateMarketplaceToSuccess(result.data));
       })
@@ -61,7 +58,7 @@ export const getMarketplaceByKeyword = (searchTerm) => {
 export const deleteMarketplace = (id) => {
   return async (dispatch) => {
     dispatch(setStateMarketplaceToFetching());
-    await httpClient.delete(`${server.PRODUCT_URL}/${id}`);
+    await httpClient.delete(`${server.MARKETPLACE_URL}/${id}`);
     await doGetMarketplaces(dispatch);
   };
 };

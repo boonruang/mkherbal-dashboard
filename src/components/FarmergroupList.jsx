@@ -1,15 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import useSWR from "swr";
 // import Item from './Item'
 import { useSelector, useDispatch } from "react-redux";
-import { getMarketplaceByKeyword } from '../actions/marketplace.action'
+import { getFarmergroupByKeyword, setStateFarmergroupToSelected } from '../actions/farmergroup.action'
 import { Box,Typography,IconButton,useTheme  } from "@mui/material"
 import styled from 'styled-components'
 import {theme} from '@kepler.gl/styles';
 import { tokens } from '../theme';
 import PlaceIcon from '@mui/icons-material/Place';
 
-const StyledMapConfigDisplay = styled.div`
+const StyledListDisplay = styled.div`
 position: absolute;
 z-index: 100;
 top: 0px;
@@ -30,23 +30,40 @@ overflow-y: auto;
 const Item = ({ result }) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
+  const dispatch = useDispatch()
+
+  const [isDetail, setIsDetail] = useState(false)
+
+  const handleClick = (e,selectedProp) => {
+    e.preventDefault()
+    setIsDetail(!isDetail)
+    console.log('isDetail',isDetail)
+    console.log('selectedProp',selectedProp)
+    dispatch(setStateFarmergroupToSelected(selectedProp))
+  }
+
   return (
-      <Box  backgroundColor={colors.primary[400]} key={result.properties.Id} sx={{ m: 1 }} >
+      <>
+      <Box  backgroundColor={colors.primary[400]} key={result.properties.Id} sx={{ m: 1,cursor: 'pointer' }} 
+      onClick={(e) => handleClick(e, result.properties)}
+      >
           <Box
               display="flex"
               // backgroundColor={colors.blueAccent[400]}
               borderRadius="3px"
               // justifyContent="center"
               alignItems="center"
+
           >
-              <IconButton type="button" sx={{ p: 1 }} >
+              <IconButton sx={{ p: 1 }} >
                   <PlaceIcon />
               </IconButton>
               <Typography
               variant="h5"
               color={colors.greenAccent[400]}
+
               >
-                      {result.properties.marketplacename}
+                      {result.properties.farmergroupname}
               </Typography>            
           </Box>     
           <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 2 }} >
@@ -54,20 +71,20 @@ const Item = ({ result }) => {
             <Box>{result.properties.province} {result.properties.postcode}</Box>
           </Box>    
       </Box>
-
+      </>
   )
 }
 
 
-const List = ({searchTerm}) => {
+const FarmergroupList = ({searchTerm}) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getMarketplaceByKeyword(searchTerm))
+    dispatch(getFarmergroupByKeyword(searchTerm))
     console.log('useEffect is called', searchTerm)
   },[dispatch,searchTerm])
 
-  const { result, isFetching, isError } = useSelector((state) => state.app.marketplaceReducer)
+  const { result, isFetching, isError } = useSelector((state) => state.app.farmergroupReducer)
   // if (result) {
   //   console.log('see result',result)
   // }
@@ -78,21 +95,21 @@ const List = ({searchTerm}) => {
   else if (result?.features ) {
     const results = result?.features
     content = (
-      <StyledMapConfigDisplay>
+      <StyledListDisplay>
           {
             Object.values(results).map(result => {
               return <Item key={result.properties.Id} result={result} />
             })
-            }
-      </StyledMapConfigDisplay>  
+          }
+      </StyledListDisplay>  
     )
   } else {
     content = (
-      <StyledMapConfigDisplay>
+      <StyledListDisplay>
         อุ้ย หาไม่เจออ่ะ
-      </StyledMapConfigDisplay>      
+      </StyledListDisplay>      
     )
   } 
   return content
 }
-export default List
+export default FarmergroupList

@@ -8,8 +8,8 @@
           "id": "9q3xiz",
           "type": "icon",
           "config": {
-            "dataId": "mkplc1",
-            "label": "Marketplace",
+            "dataId": "fmg1",
+            "label": "FarmerGroup",
             "color": [
               181,
               18,
@@ -53,7 +53,7 @@
             "textLabel": [
               {
                 "field": {
-                  "name": "marketplacename",
+                  "name": "farmergroupname",
                   "type": "string"
                 },
                 "color": [
@@ -99,7 +99,7 @@
           "fieldsToShow": {
             "xnhmxc": [
               {
-                "name": "marketplacename",
+                "name": "farmergroupname",
                 "format": null
               },
               {
