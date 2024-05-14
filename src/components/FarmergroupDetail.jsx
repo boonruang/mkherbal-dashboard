@@ -68,35 +68,28 @@ const CardDetail = ({ selectedResult}) => {
     <Card sx={{ maxWidth: 345, backgroundColor : colors.primary[400] }}>
       <CardMedia
         sx={{ height: 180, borderRadius: 2 }}
-        image= { selectedResult.Id % 2 === 0 ? "./images/hero.jpg" : "./images/image1.jpg"}
+        image= { "./images/"+ selectedResult.cover}
         title="Farmer Group"
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div" color={colors.greenAccent[400]}>
+      <CardContent >
+        <Typography gutterBottom variant="h6" component="div" color={colors.greenAccent[400]}>
         {/* Mueang Khon Kaen */}
         {selectedResult.farmergroupname}
         </Typography>
+        <Divider sx={{ mb: 1}}/>
         <Typography variant="body2" color="text.secondary">
           <Box display="flex" flexDirection="column" justifyContent="center" >
-            <Box>{selectedResult.address} {selectedResult.tambon} {selectedResult.amphoe}</Box>
+            <Box>{selectedResult.no} {selectedResult.moo} {selectedResult.village}</Box>
+            <Box>{selectedResult.tambon} {selectedResult.amphoe}</Box>
             <Box>{selectedResult.province} {selectedResult.postcode}</Box>
           </Box>          
         </Typography>
+        <Divider sx={{ mt: 1}}/>
       </CardContent>
-      <Divider />
-      <CardActions disableSpacing>
-        <IconButton aria-label="park lover">
-          <ParkIcon />
-        </IconButton>
-        <IconButton aria-label="add to place">
-          <Place />
-        </IconButton>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+      <CardActions disableSpacing >
+        <Typography variant="h5" sx={{ ml: 1}} color={colors.greenAccent[400]}>
+            รายละเอียด
+        </Typography>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -108,42 +101,35 @@ const CardDetail = ({ selectedResult}) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <Box sx={{ m: 1, ml: 2}}>
+         <Divider sx={{ mb: 1}}/>
           <Box display="flex" borderRadius="3px" alignItems="center" >
-            <IconButton sx={{ p: 1 }} >
-                    <ParkIcon />
-            </IconButton>
-            <Typography variant="h5" sx={{ ml: 1}}>
-            {selectedResult.tambon}
+            <Typography variant="h6" sx={{ mr: 1}} color={colors.greenAccent[400]}>
+            ประธานกลุ่ม: 
             </Typography>            
+            <Box>{selectedResult.leader}</Box>
           </Box>
 
           <Box display="flex" borderRadius="3px" alignItems="center" >
-            <IconButton sx={{ p: 1 }} >
-                    <PlaceIcon />
-            </IconButton>
-            <Typography variant="h5" sx={{ ml: 1}}>
-            {selectedResult.amphoe}
-            </Typography>            
+            <Typography variant="h6" sx={{ mr: 1}} color={colors.greenAccent[400]}>
+            มาตรฐานที่ได้รับ: 
+            </Typography>
+            <Box>{selectedResult.cert}</Box>            
           </Box>          
 
           <Box display="flex" borderRadius="3px" alignItems="center" >
-            <IconButton sx={{ p: 1 }} >
-                    <FavoriteIcon />
-            </IconButton>
-            <Typography variant="h5" sx={{ ml: 1}}>
-            {selectedResult.province}
-            </Typography>            
+            <Typography variant="h6" sx={{ mr: 1}}color={colors.greenAccent[400]}>
+            จำนวนสมาชิก:
+            </Typography>        
+            <Box>{selectedResult.member}</Box>     
           </Box>  
 
           <Box display="flex" borderRadius="3px" alignItems="center" >
-            <IconButton sx={{ p: 1 }} >
-                    <ShareIcon />
-            </IconButton>
-            <Typography variant="h5" sx={{ ml: 1}}>
-            Share
-            </Typography>            
+            <Typography variant="h6" sx={{ mr: 1}} color={colors.greenAccent[400]}>
+            พื้นที่:
+            </Typography>          
+            <Box>{selectedResult.area}</Box>    
           </Box>  
-
+          <Divider sx={{ mt: 1}}/>
         </Box>
       </Collapse>
     </Card>    

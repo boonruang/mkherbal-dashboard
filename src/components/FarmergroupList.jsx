@@ -37,15 +37,15 @@ const Item = ({ result }) => {
           <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 1, maxWidth: 140 }} >
             <Box>
               <Typography
-                variant="h5"
+                variant="h6"
                 color={colors.greenAccent[400]}
                 >
                 {result.properties.farmergroupname}
               </Typography>                
             </Box>
-            <Box>{result.properties.address} {result.properties.tambon}</Box>
-            <Box>{result.properties.amphoe} {result.properties.province}</Box>
-            <Box>{result.properties.postcode}</Box>
+            <Box>{result.properties.no} {result.properties.moo} {result.properties.village}</Box>
+            <Box>{result.properties.tambon} {result.properties.amphoe}</Box>
+            <Box>{result.properties.province} {result.properties.postcode}</Box>
           </Box>    
           <Divider sx={{ mt: 1.5 }}/>
       </Box>
@@ -58,7 +58,7 @@ const Item = ({ result }) => {
                 borderRadius: 0.5,
               }}    
               alt="The photo of farmergroup"  
-              src={ result.properties.Id % 2 === 0 ? "./images/hero.jpg" : "./images/image1.jpg"}
+              src={"./images/"+ result.properties.cover}
               >
           </Box>
       </Box>
