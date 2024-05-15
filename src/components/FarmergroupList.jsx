@@ -21,8 +21,7 @@ const Item = ({ result }) => {
 
   const [isDetail, setIsDetail] = useState(false)
 
-  const handleClick = (e,selectedProp) => {
-    e.preventDefault()
+  const handleClick = (selectedProp) => {
     setIsDetail(!isDetail)
     console.log('isDetail',isDetail)
     console.log('selectedProp',selectedProp)
@@ -32,7 +31,7 @@ const Item = ({ result }) => {
   return (
     <Box  key={result.properties.Id} display="flex" justifyContent="space-between" alignItems="center">
       <Box sx={{ m: 1,cursor: 'pointer' }} 
-      onClick={(e) => handleClick(e, result.properties)}
+      onClick={() => handleClick(result.properties)}
       >
           <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 1, maxWidth: 140 }} >
             <Box>
@@ -58,7 +57,7 @@ const Item = ({ result }) => {
                 borderRadius: 0.5,
               }}    
               alt="The photo of farmergroup"  
-              src={"./images/"+ result.properties.cover}
+              src={result.properties.cover ? "./images/"+ result.properties.cover : "./images/image6.jpg"}
               >
           </Box>
       </Box>

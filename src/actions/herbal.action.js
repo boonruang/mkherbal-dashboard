@@ -2,7 +2,6 @@ import {
   HTTP_HERBAL_FAILED,
   HTTP_HERBAL_FETCHING,
   HTTP_HERBAL_SUCCESS,
-  HTTP_HERBAL_SELECTED,
   server
 } from '../constants';
 import { httpClient } from '../utils/HttpClient';
@@ -18,11 +17,6 @@ const setStateHerbalToFetching = () => ({
 
 const setStateHerbalToFailed = () => ({
   type: HTTP_HERBAL_FAILED
-});
-
-export const setStateHerbalToSelected = (payload) => ({
-  type: HTTP_HERBAL_SELECTED,
-  payload
 });
 
 export const getHerbalById = (id) => {

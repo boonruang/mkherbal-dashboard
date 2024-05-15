@@ -4,12 +4,14 @@ import {
   SHOW_SIDEBAR,
   SET_MAP_CONFIG,
   QUERY_SUCCESS,
+  // SHOW_FARMER_DETIALBOX,
 } from '../constants'
 
 const initialState = {
   appName: 'herbhuk',
   loaded: false,
-  isSidebar: true
+  isSidebar: true,
+  isFarmerDetailbox: false
 };
 
 const appReducer= (state = initialState, { type, payload }) => {
@@ -29,6 +31,11 @@ const appReducer= (state = initialState, { type, payload }) => {
         ...state,
         test: payload,
         }
+    // case SHOW_FARMER_DETIALBOX:
+    //   return {
+    //     ...state,
+    //     isFarmerDetailbox: payload
+    //     }        
     default:
       return state
   }

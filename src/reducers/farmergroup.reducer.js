@@ -15,11 +15,11 @@ const initialState = {
 const farmReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case HTTP_FARMERGROUP_FETCHING:
-      return { ...state, result: null, isFetching: true, isError: false };
+      return { ...state, result: null, selectedResult: null, isFetching: true, isError: false };
     case HTTP_FARMERGROUP_SUCCESS:
-      return { ...state, result: payload.result, isFetching: false, isError: false };
+      return { ...state, result: payload.result, selectedResult: null, isFetching: false, isError: false };
     case HTTP_FARMERGROUP_FAILED:
-      return { ...state, result: null, isFetching: false, isError: true };
+      return { ...state, result: null, selectedResult: null, isFetching: false, isError: true };
     case HTTP_FARMERGROUP_SELECTED:
       return { ...state, selectedResult: payload, isFetching: false, isError: false };      
     default:

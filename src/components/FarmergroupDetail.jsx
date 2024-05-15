@@ -21,25 +21,6 @@ import Place from '@mui/icons-material/Place';
 import ParkIcon from '@mui/icons-material/Park';
 import Divider from '@mui/material/Divider';
 
-const StyledDetailDisplay = styled.div`
-position: absolute;
-z-index: 100;
-top: 35px;
-left: 302px;
-/* background-color: ${theme.sidePanelBg}; */
-font-size: 11px;
-width: 370px;
-color: ${theme.textColor};
-word-wrap: break-word;
-/* height: 99%; */
-min-height: 60px;
-max-height: 100%;
-padding: 10px;
-overflow-x: hidden;
-overflow-y: auto;
-border-radius: 10px;
-`;
-
 const ExpandMore = mStyled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -67,7 +48,7 @@ const CardDetail = ({ selectedResult}) => {
   return (
     <Card sx={{ maxWidth: 345, backgroundColor : colors.primary[400] }}>
       <CardMedia
-        sx={{ height: 180, borderRadius: 2 }}
+        sx={{ height: 180 }}
         image= { "./images/"+ selectedResult.cover}
         title="Farmer Group"
       />
@@ -139,6 +120,26 @@ const CardDetail = ({ selectedResult}) => {
 
 const FarmergroupDetail = ({props}) => {
   // const dispatch = useDispatch()
+
+  const StyledDetailDisplay = styled.div`
+  /* display: none; */
+  position: absolute;
+  z-index: 100;
+  top: 35px;
+  left: 302px;
+  /* background-color: ${theme.sidePanelBg}; */
+  font-size: 11px;
+  width: 370px;
+  color: ${theme.textColor};
+  word-wrap: break-word;
+  /* height: 99%; */
+  min-height: 60px;
+  max-height: 100%;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: 10px;
+  `;
 
   const { selectedResult, isFetching, isError } = useSelector((state) => state.app.farmergroupReducer)
   if (selectedResult) {

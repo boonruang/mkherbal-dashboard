@@ -23,6 +23,11 @@ import { showSidebar } from 'actions/app.action';
 import { getHerbals } from 'actions/herbal.action';
 import FarmergroupDetail from 'components/FarmergroupDetail';
 import { HerbalCarousel } from 'components/HerbalCarousel';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { setStateFarmergroupToSelected } from 'actions/farmergroup.action'
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 
@@ -48,14 +53,20 @@ const Farmergroup = (props) => {
     const colors = tokens(theme.palette.mode)
 
     const [open, setOpen] = useState(true);
+
+    const [isSearcBoxOpen, setIsSearcBoxOpen] = useState(true)
+
+    const [isFarmerBoxOpen, setIsFarmerBoxOpen] = useState(false)
     
-    const { isSidebar } = useSelector((state) => state.app.appReducer)
+    const [isHerbalBoxOpen, setIsHerbalBoxOpen] = useState(false)
+    
+    const { isSidebar, isFarmerSidebox } = useSelector((state) => state.app.appReducer)
 
     const { result, selectedResult } = useSelector((state) => state.app.farmergroupReducer)
 
-    if (result) {
-      console.log('result check',result)
-    }
+    // if (result) {
+    //   console.log('result check',result)
+    // }
 
     // const { mkplc } = useSelector((state) => state.keplerGl)
 
@@ -68,6 +79,13 @@ const Farmergroup = (props) => {
     useEffect(() => {
       dispatch(getHerbals())
     },[dispatch])
+
+    useEffect(() => {
+      // when farmergroup state change (click)
+      if (selectedResult) {
+        setIsFarmerBoxOpen(true)
+      }
+    },[selectedResult])
 
     useEffect(() => {
       if (result) {
@@ -99,6 +117,19 @@ const Farmergroup = (props) => {
         setOpen(false)            
     },[dispatch,result])
 
+    const handleSearchClick = () => {
+      setIsSearcBoxOpen(!isSearcBoxOpen)
+      dispatch(setStateFarmergroupToSelected(null))        
+    }    
+
+    const handleFarmerClick = () => {
+      setIsFarmerBoxOpen(!isFarmerBoxOpen)
+    }    
+
+    const handleHerbalClick = () => {
+      setIsHerbalBoxOpen(!isHerbalBoxOpen)
+    }    
+
       return (
         <Box m="20px">
             <Header title="ข้อมูลกลุ่มเกษตรกร" subtitle="กลุ่มเกษตรกรสมุนไพร" />
@@ -124,11 +155,15 @@ const Farmergroup = (props) => {
                       }}                    
                     />
                     )}
-                  </AutoSizer >     
-                   {/* LIST HERE    */}
-                   <FarmergroupList searchTerm={debouncedSearchValue} />
-                   { selectedResult ? <FarmergroupDetail /> : undefined}
-                   <Box  display="flex" justifyContent="space-between" component="form" 
+                  </AutoSizer >                   
+
+                  <Box 
+                    sx={{ position: 'absolute', p: 0.5, left: isSearcBoxOpen ? 295 : 0, top: 5, backgroundColor: '#ec8a2f',cursor: 'pointer' }} 
+                    onClick={() => handleSearchClick()}>
+                      {isSearcBoxOpen ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
+                    </Box>  
+
+                    {isSearcBoxOpen ? <Box  display="flex" justifyContent="space-between" component="form" 
                                   sx={{
                                     '& > :not(style)': { height: 45, width: '33.5ch', position: 'absolute', top: 0, left: 0},
                                   }}
@@ -145,10 +180,30 @@ const Farmergroup = (props) => {
                                   <SearchIcon />
                               </IconButton>
                           </Box>   
-                  </Box>
-                  <Box sx={{ height: 150, width: 1250, position: 'absolute', bottom: 220, left: 525}}>
+                    </Box>  : undefined }
+
+                    {isSearcBoxOpen ? <FarmergroupList searchTerm={debouncedSearchValue} /> : undefined}
+
+                   { selectedResult ? <Box 
+                    sx={{ position: 'absolute', p: 1, left: isFarmerBoxOpen && selectedResult ? 655 : 300, top: 45, backgroundColor: '#458048',cursor: 'pointer' }} 
+                    onClick={() => handleFarmerClick()}>
+                      {isFarmerBoxOpen ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
+                    </Box> : undefined }
+
+                    { isFarmerBoxOpen && selectedResult ? <FarmergroupDetail />: undefined}                    
+
+
+
+
+                  { isHerbalBoxOpen && selectedResult? <Box sx={{ height: 150, width: 1250, position: 'absolute', bottom: 220, left: 525}}>
                     <HerbalCarousel  />
-                  </Box>                   
+                  </Box> : undefined }     
+
+                  { selectedResult ? <Box 
+                    sx={{ position: 'absolute', p: 1, left: 1728, bottom: isHerbalBoxOpen && selectedResult ? 333 : 0, backgroundColor: '#458048',cursor: 'pointer' }} 
+                    onClick={() => handleHerbalClick()}>
+                      {isHerbalBoxOpen ? <ExpandMoreIcon/> : <ExpandLessIcon/>}
+                  </Box> : undefined }                  
               </Box>
           </Box>
       );

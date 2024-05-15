@@ -14,6 +14,9 @@ export const customizedKeplerGlReducer = keplerGlReducer
            active: true
          },        
      }
+   },
+   visState: {
+    maxDefaultTooltips:10
    }
  })
  .plugin({

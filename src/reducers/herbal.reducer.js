@@ -2,14 +2,12 @@ import {
   HTTP_HERBAL_FAILED,
   HTTP_HERBAL_FETCHING,
   HTTP_HERBAL_SUCCESS,
-  HTTP_HERBAL_SELECTED,
 } from '../constants';
 
 const initialState = {
   result: null,
   isFetching: false,
   isError: false,
-  selectedResult: null,
 };
 
 const herbalReducer = (state = initialState, { type, payload }) => {
@@ -19,9 +17,7 @@ const herbalReducer = (state = initialState, { type, payload }) => {
     case HTTP_HERBAL_SUCCESS:
       return { ...state, result: payload.result, isFetching: false, isError: false };
     case HTTP_HERBAL_FAILED:
-      return { ...state, result: null, isFetching: false, isError: true };
-    case HTTP_HERBAL_SELECTED:
-      return { ...state, selectedResult: payload, isFetching: false, isError: false };      
+      return { ...state, result: null, isFetching: false, isError: true };   
     default:
       return state;
   }
