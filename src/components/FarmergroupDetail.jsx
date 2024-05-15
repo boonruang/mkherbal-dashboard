@@ -24,7 +24,7 @@ import Divider from '@mui/material/Divider';
 const StyledDetailDisplay = styled.div`
 position: absolute;
 z-index: 100;
-top: 40px;
+top: 35px;
 left: 302px;
 /* background-color: ${theme.sidePanelBg}; */
 font-size: 11px;

@@ -20,7 +20,9 @@ import { addDataToMap, wrapTo, updateMap, removeDataset as removeDatasetFromKepl
 // import useSWR from 'swr'
 import KeplerGlSchema from '@kepler.gl/schemas';
 import { showSidebar } from 'actions/app.action';
+import { getHerbals } from 'actions/herbal.action';
 import FarmergroupDetail from 'components/FarmergroupDetail';
+import { HerbalCarousel } from 'components/HerbalCarousel';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 
@@ -64,6 +66,10 @@ const Farmergroup = (props) => {
     // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.mkplc)
 
     useEffect(() => {
+      dispatch(getHerbals())
+    },[dispatch])
+
+    useEffect(() => {
       if (result) {
             dispatch(removeDatasetFromKepler('fmg1'))
             dispatch(
@@ -95,7 +101,7 @@ const Farmergroup = (props) => {
 
       return (
         <Box m="20px">
-            <Header title="ข้อมูลแผนที่" subtitle="กลุ่มเกษตรกร" />
+            <Header title="ข้อมูลกลุ่มเกษตรกร" subtitle="กลุ่มเกษตรกรสมุนไพร" />
               <Box  height={ isSidebar ? "86vh" : "90vh" } width="100%" sx={{overflow: "hidden"}}>
                 <Backdrop
                     sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -139,6 +145,9 @@ const Farmergroup = (props) => {
                                   <SearchIcon />
                               </IconButton>
                           </Box>   
+                  </Box>
+                  <Box sx={{ height: 150, width: 1250, position: 'absolute', bottom: 220, left: 525}}>
+                    <HerbalCarousel  />
                   </Box>                   
               </Box>
           </Box>
