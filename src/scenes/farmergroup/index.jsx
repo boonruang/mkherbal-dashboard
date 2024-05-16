@@ -22,7 +22,7 @@ import KeplerGlSchema from '@kepler.gl/schemas';
 import { showSidebar } from 'actions/app.action';
 import { getHerbals } from 'actions/herbal.action';
 import FarmergroupDetail from 'components/FarmergroupDetail';
-import { HerbalCarousel } from 'components/HerbalCarousel';
+import HerbalCarousel from 'components/HerbalCarousel';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
@@ -60,7 +60,7 @@ const Farmergroup = (props) => {
     
     const [isHerbalBoxOpen, setIsHerbalBoxOpen] = useState(false)
     
-    const { isSidebar, isFarmerSidebox } = useSelector((state) => state.app.appReducer)
+    const { isSidebar } = useSelector((state) => state.app.appReducer)
 
     const { result, selectedResult } = useSelector((state) => state.app.farmergroupReducer)
 

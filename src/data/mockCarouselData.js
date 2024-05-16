@@ -21,50 +21,50 @@ export const responsive = {
 export const productData = [
   {
     id: 1,
-    imageUrl:  "./images/มะระขี้นก.jpg",
-    name: "มะระขี้นก",
+    cover:  "มะระขี้นก.jpg",
+    herbalname: "มะระขี้นก",
     price: "199",
     description: "some description about product.."
   },
   {
     id: 2,
-    imageUrl:  "./images/กกกันดาร1.jpg",
-    name: "กกกันดาร",
+    cover:  "กกกันดาร1.jpg",
+    herbalname: "กกกันดาร",
     price: "200",
     description: "some description about product.."
   },
   {
     id: 3,
-    imageUrl:  "./images/ฟ้าทะลายโจร.jpg",
-    name: "ฟ้าทะลายโจร",
+    cover:  "ฟ้าทะลายโจร.jpg",
+    herbalname: "ฟ้าทะลายโจร",
     price: "230",
     description: "some description about product.."
   },
   {
     id: 4,
-    imageUrl:  "./images/กระเจี๊ยบแดง1.jpg",
-    name: "กระเจี๊ยบแดง",
+    cover:  "กระเจี๊ยบแดง1.jpg",
+    herbalname: "กระเจี๊ยบแดง",
     price: "240",
     description: "some description about product.."
   },
   {
     id: 5,
-    imageUrl:  "./images/กระดังงา1.jpg",
-    name: "กระดังงา",
+    cover:  "กระดังงา1.jpg",
+    herbalname: "กระดังงา",
     price: "155",
     description: "some description about product.."
   },
   {
     id: 6,
-    imageUrl:  "./images/กระถินเทศ5.jpg",
-    name: "กระถินเทศ",
+    cover:  "กระถินเทศ5.jpg",
+    herbalname: "กระถินเทศ",
     price: "266",
     description: "some description about product.."
   },
   {
-    id: 6,
-    imageUrl:  "./images/กระทงลาย1.jpg",
-    name: "กระทงลาย",
+    id: 7,
+    cover:  "กระทงลาย1.jpg",
+    herbalname: "กระทงลาย",
     price: "266",
     description: "some description about product.."
   }

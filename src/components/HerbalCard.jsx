@@ -13,18 +13,18 @@ export const HerbalCard = ({item}) => {
   const colors = tokens(theme.palette.mode)
 
   return (
-    <Card sx={{ maxWidth: 300 , backgroundColor : colors.primary[400] }}>
+    <Card key={item.id} sx={{ maxWidth: 300 , backgroundColor : colors.primary[400] }}>
       <CardMedia
         sx={{ height: 200}}
-        image={item.imageUrl}
-        title={item.name}
+        image={"./images/"+item.cover}
+        title={item.herbalname.substring(0, 40)}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div" color={colors.greenAccent[400]}>
-        {item.name}
+        {item.herbalname.substring(0, 40)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        {item.description}
+        {item.commonname.substring(0, 49)}
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
         Learn More

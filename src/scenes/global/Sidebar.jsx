@@ -162,7 +162,8 @@ const Sidebar = () => {
                         ) :  <CollapsedIcon /> }                        
                         <Item
                             title="รายการสมุนไพร"
-                            to="/herbals"
+                            // to="/herbals"
+                            to="/herbalcarousel"
                             icon={<ParkIcon />}
                             selected={selected}
                             setSelected={setSelected}
