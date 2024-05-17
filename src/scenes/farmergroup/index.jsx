@@ -52,8 +52,6 @@ const Farmergroup = (props) => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
-    const [open, setOpen] = useState(true);
-
     const [isSearcBoxOpen, setIsSearcBoxOpen] = useState(true)
 
     const [isFarmerBoxOpen, setIsFarmerBoxOpen] = useState(false)
@@ -114,7 +112,6 @@ const Farmergroup = (props) => {
             dispatch(showSidebar(false))
           },500)
         }
-        setOpen(false)            
     },[dispatch,result])
 
     const handleSearchClick = () => {
@@ -134,12 +131,6 @@ const Farmergroup = (props) => {
         <Box m="20px">
             <Header title="ข้อมูลกลุ่มเกษตรกร" subtitle="กลุ่มเกษตรกรสมุนไพร" />
               <Box  height={ isSidebar ? "86vh" : "90vh" } width="100%" sx={{overflow: "hidden"}}>
-                <Backdrop
-                    sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                    open={open}
-                  >
-                  <CircularProgress color="inherit" />
-                </Backdrop>
                   <AutoSizer>
                     {({height, width}) => (
                     <KeplerGl
@@ -190,20 +181,31 @@ const Farmergroup = (props) => {
                       {isFarmerBoxOpen ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
                     </Box> : undefined }
 
-                    { isFarmerBoxOpen && selectedResult ? <FarmergroupDetail />: undefined}                    
+                  { isFarmerBoxOpen && selectedResult ? <FarmergroupDetail /> : undefined }
 
-
-
-
-                  { isHerbalBoxOpen && selectedResult? <Box sx={{ height: 150, width: 1250, position: 'absolute', bottom: 220, left: 525}}>
+                  {
+                   isHerbalBoxOpen && selectedResult ? 
+                   <AutoSizer>
+                   {({height, width}) => (
+                   <Box sx={{ height: 150, width: 1250, position: 'absolute', bottom: 220, left: ((width-300-1250)/2)+300 }}>
                     <HerbalCarousel  />
-                  </Box> : undefined }     
+                   </Box>
+                   )}
+                   </AutoSizer>
+                   : undefined 
+                  }     
 
-                  { selectedResult ? <Box 
-                    sx={{ position: 'absolute', p: 1, left: 1728, bottom: isHerbalBoxOpen && selectedResult ? 333 : 0, backgroundColor: '#458048',cursor: 'pointer' }} 
-                    onClick={() => handleHerbalClick()}>
-                      {isHerbalBoxOpen ? <ExpandMoreIcon/> : <ExpandLessIcon/>}
-                  </Box> : undefined }                  
+                  { selectedResult ? 
+                   <AutoSizer>
+                   {({height, width}) => (                  
+                      <Box 
+                        sx={{ position: 'absolute', p: 1, left: ((width-300-1250)/2)+300+1202, bottom: isHerbalBoxOpen && selectedResult ? 333 : 0, backgroundColor: '#458048',cursor: 'pointer' }} 
+                        onClick={() => handleHerbalClick()}>
+                          {isHerbalBoxOpen ? <ExpandMoreIcon/> : <ExpandLessIcon/>}
+                      </Box>
+                   )}
+                   </AutoSizer>                  
+                  : undefined }                  
               </Box>
           </Box>
       );

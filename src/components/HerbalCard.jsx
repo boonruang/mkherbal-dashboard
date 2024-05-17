@@ -26,6 +26,9 @@ export const HerbalCard = ({item}) => {
         <Typography variant="body2" color="text.secondary">
         {item.commonname.substring(0, 49)}
         </Typography>
+        <Typography variant="body2" color="text.secondary">
+        {item.scientificname.substring(0, 45)}
+        </Typography>
         <Typography gutterBottom variant="h6" component="div">
         Learn More
         </Typography>
