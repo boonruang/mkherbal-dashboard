@@ -27,7 +27,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { setStateFarmergroupToSelected } from 'actions/farmergroup.action'
+import { setStateFarmergroupSelectedToFetching } from 'actions/farmergroup.action'
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 
@@ -116,7 +116,7 @@ const Farmergroup = (props) => {
 
     const handleSearchClick = () => {
       setIsSearcBoxOpen(!isSearcBoxOpen)
-      dispatch(setStateFarmergroupToSelected(null))        
+      dispatch(setStateFarmergroupSelectedToFetching())        
     }    
 
     const handleFarmerClick = () => {
@@ -166,7 +166,7 @@ const Farmergroup = (props) => {
                               display="flex"
                               backgroundColor={colors.primary[400]}
                           >
-                              <InputBase sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                              <InputBase autoFocus sx={{ ml: 2,p: 1, flex: 1 }} placeholder="ค้นหา" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                               <IconButton type="button" sx={{ p: 1 }} >
                                   <SearchIcon />
                               </IconButton>
@@ -187,7 +187,7 @@ const Farmergroup = (props) => {
                    isHerbalBoxOpen && selectedResult ? 
                    <AutoSizer>
                    {({height, width}) => (
-                   <Box sx={{ height: 150, width: 1250, position: 'absolute', bottom: 220, left: ((width-300-1250)/2)+300 }}>
+                   <Box sx={{ height: 150, width: 1250, position: 'absolute', bottom: 220, left: ((width-300-1250)/2)+300, zIndex: 9 }}>
                     <HerbalCarousel  />
                    </Box>
                    )}

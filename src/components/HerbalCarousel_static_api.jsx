@@ -17,15 +17,13 @@ const HerbalCarousel = () => {
   const dispatch = useDispatch()
 
 
-  // useEffect(() => {
-  //   dispatch(getHerbals)
-  // },[dispatch])
+  useEffect(() => {
+    dispatch(getHerbals)
+  },[dispatch])
 
-  // const { result } = useSelector((state) => state.app.herbalReducer)
-  
-  const { selectedResult } = useSelector((state) => state.app.farmergroupReducer)
+  const { result } = useSelector((state) => state.app.herbalReducer)
 
-  const herbals = selectedResult?.herbals.map(item => (
+  const herbals = result.map(item => (
     <HerbalCard key={item.id} item={item}/>
   ))
 
@@ -36,10 +34,10 @@ const HerbalCarousel = () => {
       </Typography>
       <Box >
           <Carousel
-              swipeable={false}
-              draggable={false}
-              infinite={true} responsive={responsive}>          
-                {herbals}
+          swipeable={false}
+          draggable={false}
+          infinite={true} responsive={responsive}>          
+            {herbals}
           </Carousel>
       </Box>
     </Box>

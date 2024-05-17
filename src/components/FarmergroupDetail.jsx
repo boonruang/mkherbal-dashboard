@@ -141,17 +141,19 @@ const FarmergroupDetail = ({props}) => {
   border-radius: 10px;
   `;
 
-  const { selectedResult, isFetching, isError } = useSelector((state) => state.app.farmergroupReducer)
+  const { selectedResult, isSelectedFetching , isSelectedError } = useSelector((state) => state.app.farmergroupReducer)
+
   if (selectedResult) {
     console.log('see selectedResult',selectedResult)
   }
   
   let content
-  if (isFetching) content = <Box>Loading...</Box>
-  else if (isError) content = <Box>Something went wrong..</Box>
+  if (isSelectedFetching) content = <Box>Loading...</Box>
+  else if (isSelectedError) content = <Box>Something went wrong..</Box>
   else if (selectedResult) {
   content = (
       <StyledDetailDisplay>
+          {/* <CardDetail selectedResult={selectedResult} /> */}
           <CardDetail selectedResult={selectedResult} />
       </StyledDetailDisplay>  
     )

@@ -11,9 +11,9 @@
             "dataId": "fmg1",
             "label": "FarmerGroup",
             "color": [
-              181,
-              18,
-              65
+              255,
+              0,
+              0
             ],
             "highlightColor": [
               252,

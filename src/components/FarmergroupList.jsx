@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 // import useSWR from "swr";
 // import Item from './Item'
 import { useSelector, useDispatch } from "react-redux";
-import { getFarmergroupByKeyword, setStateFarmergroupToSelected } from '../actions/farmergroup.action'
+import { getFarmergroupByKeyword, setStateFarmergroupToSelected, getFarmergroupById } from '../actions/farmergroup.action'
 import { Box,Typography,IconButton,useTheme  } from "@mui/material"
 import styled from 'styled-components'
 // import {theme} from '@kepler.gl/styles';
@@ -25,7 +25,8 @@ const Item = ({ result }) => {
     setIsDetail(!isDetail)
     console.log('isDetail',isDetail)
     console.log('selectedProp',selectedProp)
-    dispatch(setStateFarmergroupToSelected(selectedProp))
+    // dispatch(setStateFarmergroupToSelected(selectedProp))
+    dispatch(getFarmergroupById(selectedProp.Id))
   }
 
   return (
@@ -33,6 +34,7 @@ const Item = ({ result }) => {
       <Box sx={{ m: 1,cursor: 'pointer' }} 
       onClick={() => handleClick(result.properties)}
       >
+        <Divider sx={{ mb: 1 }}/>
           <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 1, maxWidth: 140 }} >
             <Box>
               <Typography
@@ -46,7 +48,7 @@ const Item = ({ result }) => {
             <Box>{result.properties.tambon} {result.properties.amphoe}</Box>
             <Box>{result.properties.province} {result.properties.postcode}</Box>
           </Box>    
-          <Divider sx={{ mt: 1.5 }}/>
+          {/* <Divider sx={{ mt: 1.5 }}/> */}
       </Box>
 
       <Box justifyContent="center" alignItems="center" sx={{ m: 1}}>

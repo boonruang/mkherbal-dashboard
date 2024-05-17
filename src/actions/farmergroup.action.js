@@ -2,7 +2,9 @@ import {
   HTTP_FARMERGROUP_FAILED,
   HTTP_FARMERGROUP_FETCHING,
   HTTP_FARMERGROUP_SUCCESS,
-  HTTP_FARMERGROUP_SELECTED,
+  HTTP_FARMERGROUP_SELECTED_SUCCESS,
+  HTTP_FARMERGROUP_SELECTED_FAILED,
+  HTTP_FARMERGROUP_SELECTED_FETCHING,
   server
 } from '../constants';
 import { httpClient } from '../utils/HttpClient';
@@ -20,22 +22,31 @@ const setStateFarmergroupToFailed = () => ({
   type: HTTP_FARMERGROUP_FAILED
 });
 
-export const setStateFarmergroupToSelected = (payload) => ({
-  type: HTTP_FARMERGROUP_SELECTED,
+
+export const setStateFarmergroupSelectedToFetching = () => ({
+  type: HTTP_FARMERGROUP_SELECTED_FETCHING
+});
+
+export const setStateFarmergroupSelectedToSuccess = (payload) => ({
+  type: HTTP_FARMERGROUP_SELECTED_SUCCESS,
   payload
+});
+
+const setStateFarmergroupSelectedToFailed = () => ({
+  type: HTTP_FARMERGROUP_SELECTED_FAILED
 });
 
 export const getFarmergroupById = (id) => {
   return (dispatch) => {
-    dispatch(setStateFarmergroupToFetching());
+    dispatch(setStateFarmergroupSelectedToFetching());
     httpClient
-      .get(`${server.FARMERGROUP_URL}/${id}`)
+      .get(`${server.FARMERGROUP_URL}/select/${id}`)
       .then((result) => {
-        dispatch(setStateFarmergroupToSuccess(result.data));
+        dispatch(setStateFarmergroupSelectedToSuccess(result.data));
       })
       .catch((error) => {
         console.log(error);
-        dispatch(setStateFarmergroupToFailed());
+        dispatch(setStateFarmergroupSelectedToFailed());
       });
   };
 };
