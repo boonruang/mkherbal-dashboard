@@ -184,7 +184,7 @@ const Farmergroup = (props) => {
                   { isFarmerBoxOpen && selectedResult ? <FarmergroupDetail /> : undefined }
 
                   {
-                   isHerbalBoxOpen && selectedResult ? 
+                   isHerbalBoxOpen && selectedResult?.herbals ? 
                    <AutoSizer>
                    {({height, width}) => (
                    <Box sx={{ height: 150, width: 1250, position: 'absolute', bottom: 220, left: ((width-300-1250)/2)+300, zIndex: 9 }}>
@@ -195,11 +195,11 @@ const Farmergroup = (props) => {
                    : undefined 
                   }     
 
-                  { selectedResult ? 
+                  { selectedResult?.herbals.length > 0 ? 
                    <AutoSizer>
                    {({height, width}) => (                  
                       <Box 
-                        sx={{ position: 'absolute', p: 1, left: ((width-300-1250)/2)+300+1202, bottom: isHerbalBoxOpen && selectedResult ? 333 : 0, backgroundColor: '#458048',cursor: 'pointer',zIndex: 10 }} 
+                        sx={{ position: 'absolute', p: 1, left: ((width-300-1250)/2)+300+1202, bottom: isHerbalBoxOpen ? 333 : 0, backgroundColor: '#458048',cursor: 'pointer',zIndex: 10 }} 
                         onClick={() => handleHerbalClick()}>
                           {isHerbalBoxOpen ? <ExpandMoreIcon/> : <ExpandLessIcon/>}
                       </Box>
