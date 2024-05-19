@@ -21,6 +21,8 @@ import Place from '@mui/icons-material/Place';
 import ParkIcon from '@mui/icons-material/Park';
 import Divider from '@mui/material/Divider';
 
+const imagesUrl = process.env.REACT_APP_IMAGES_URL
+
 const ExpandMore = mStyled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -49,7 +51,7 @@ const CardDetail = ({ selectedResult}) => {
     <Card sx={{ maxWidth: 345, backgroundColor : colors.primary[400] }}>
       <CardMedia
         sx={{ height: 180 }}
-        image= { "./images/"+ selectedResult.cover}
+        image= { imagesUrl + selectedResult.cover}
         title="Farmer Group"
       />
       <CardContent >

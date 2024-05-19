@@ -13,6 +13,8 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 
+const imagesUrl = process.env.REACT_APP_IMAGES_URL
+
 const Item = ({ result }) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
@@ -59,7 +61,7 @@ const Item = ({ result }) => {
                 borderRadius: 0.5,
               }}    
               alt="The photo of farmergroup"  
-              src={result.properties.cover ? "./images/"+ result.properties.cover : "./images/image6.jpg"}
+              src={result.properties.cover ? imagesUrl+ result.properties.cover : imagesUrl+"image6.jpg"}
               >
           </Box>
       </Box>

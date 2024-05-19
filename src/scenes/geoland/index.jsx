@@ -24,7 +24,7 @@ import { visStateUpdaters, mapStateUpdaters } from '@kepler.gl/reducers';
 import {ActionTypes, updateMap } from '@kepler.gl/actions';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
-const serviceUrl = process.env.REACT_APP_SERVIC_URL
+const serviceUrl = process.env.REACT_APP_SERVICE_URL
 
 const setMapPerspective = createAction('SET_MAP_PERSPECTIVE'); 
 // const updateKeplerMap = createAction('[ActionTypes.UPDATE_MAP]'); 

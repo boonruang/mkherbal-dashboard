@@ -6,6 +6,7 @@ import "react-pro-sidebar/dist/css/styles.css"
 import { tokens } from "../../theme"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import PersonIcon from '@mui/icons-material/Person';
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
 import ParkIcon from '@mui/icons-material/Park';
 import LandslideIcon from '@mui/icons-material/Landslide';
@@ -170,7 +171,7 @@ const Sidebar = () => {
                         <Item
                             title="รายการเกษตรกร"
                             to="/farmers"
-                            icon={<PeopleOutlinedIcon />}
+                            icon={<PersonIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />       

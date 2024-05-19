@@ -8,6 +8,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { tokens } from '../theme';
 
+const imagesUrl = process.env.REACT_APP_IMAGES_URL
+
 export const HerbalCard = ({item}) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
@@ -16,7 +18,7 @@ export const HerbalCard = ({item}) => {
     <Card key={item.id} sx={{ maxWidth: 300 , backgroundColor : colors.primary[400] }}>
       <CardMedia
         sx={{ height: 200}}
-        image={"./images/"+item.cover}
+        image={imagesUrl+item.cover}
         title={item.herbalname.substring(0, 40)}
       />
       <CardContent>

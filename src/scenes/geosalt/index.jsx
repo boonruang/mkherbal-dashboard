@@ -22,7 +22,7 @@ import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
 import CustomSidebarFactory from 'components/keplergl/CustomSidebarFactory'
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
-const serviceUrl = process.env.REACT_APP_SERVIC_URL
+const serviceUrl = process.env.REACT_APP_SERVICE_URL
 
 const updateVisState = createAction('UPDATE_VIS_STATE');
 const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
