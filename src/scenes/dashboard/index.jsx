@@ -108,7 +108,7 @@ const Dashbaord = () => {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="541"
+                        title="27"
                         subtitle="จำนวนกลุ่มเกษตรกร"
                         progress="0.30"
                         increase="+5%"
