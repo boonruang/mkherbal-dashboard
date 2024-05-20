@@ -57,14 +57,14 @@ const BusinessGroup = () => {
                 },
                 "& .MuiDataGrid-columnHeader": {
                     borderBottom: "none",
-                    backgroundColor: colors.yellowAccent[700],
+                    // backgroundColor: colors.yellowAccent[700],
                 },
                 "& .MuiDataGrid-virtualScroller": {
                     backgroundColor: colors.primary[400]
                 },
                 "& .MuiDataGrid-footerContainer": {
                     borderTop: "none",
-                    backgroundColor: colors.yellowAccent[700],
+                    // backgroundColor: colors.yellowAccent[700],
                 },
                 "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
                     color: `${colors.grey[100]} !important`

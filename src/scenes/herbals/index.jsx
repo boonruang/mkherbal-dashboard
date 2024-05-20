@@ -53,13 +53,13 @@ const Herbals = () => {
             />            
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div" color={colors.greenAccent[400]}>
-                {item.herbalname.substring(0, 40)}
+                {item.herbalname.substring(0, 100)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                {item.commonname.substring(0, 49)}
+                {item.commonname.substring(0, 100)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                {item.scientificname.substring(0, 45)}
+                {item.scientificname.substring(0, 100)}
                 </Typography>
                 <Typography gutterBottom variant="h6" component="div">
                   More
@@ -75,12 +75,12 @@ const Herbals = () => {
     // <Box m="20px">
     <Box>
       {/* <Header title="ข้อมูลสุมนไพร" subtitle="รายการข้อมูลสุมนไพร"/> */}
-      <Box  height={ isSidebar ? "90vh" : "95vh" } width="100%" sx={{overflow: "hidden", overflowY: "scroll"}} bgcolor={ colors.primary[600]}>
+      <Box  height={ isSidebar ? "90vh" : "95vh" } width="100%" sx={{overflow: "hidden", overflowY: "scroll"}} bgcolor={ colors.primary[500]}>
             <Box>
             {/* <Container maxWidth="lg"> */}
             <Container maxWidth="xlg">
               <Typography variant='h4' align='center' style={{ marginTop: "20px"}}>
-              รายการข้อมูลสุมนไพร
+              รายการข้อมูลสมุนไพร
               </Typography>
                 <Grid container spacing={5} style={{ marginTop: "20px"}}>
                   { result && herbals }
