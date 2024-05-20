@@ -31,7 +31,7 @@ const HerbalCarousel = () => {
 
   return (
     <Box> 
-      <Typography gutterBottom variant="h3" component="div" color={colors.primary[400]}>
+      <Typography gutterBottom variant="h3" component="div" color={colors.primary[400]} sx={{ ml: 5}}>
         สมุนไพรของกลุ่มเกษตรกร
       </Typography>
       <Box >

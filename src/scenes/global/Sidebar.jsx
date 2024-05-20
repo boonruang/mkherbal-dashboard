@@ -23,6 +23,7 @@ import MoreIcon from '@mui/icons-material/More';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
+import { Height } from '@mui/icons-material'
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -69,6 +70,19 @@ const Sidebar = () => {
     console.log('isSidebar in Sidebar',isSidebar)  
     // console.log('isCollapsed',isCollapsed)  
 
+
+    const [stickSidebarState, setStickSidebarState] = useState(false)
+
+    const setFixedSidebar = () => {
+        if (window.scrollY >= 500 ) {
+            setStickSidebarState(true)
+        } else {
+            setStickSidebarState(false)
+        }
+    }
+
+    window.addEventListener("scroll", setFixedSidebar)
+
     return (
         <Box
             sx={{
@@ -86,10 +100,13 @@ const Sidebar = () => {
                 },
                 "& .pro-menu-item.active": {
                     color: "#71910c !important"
-                }
+                },
+                // "& .pro-sidebar": {
+                //     position: 'fixed',
+                // }              
             }}
         >
-            <ProSidebar collapsed={!isSidebar}>
+            <ProSidebar collapsed={!isSidebar} >
                 <Menu iconShape='square'>
                     {/* LOGO AND MENU ICON */}
                     <MenuItem

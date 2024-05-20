@@ -1,79 +1,95 @@
-import { Box, Typography, useTheme } from "@mui/material"
-import { DataGrid, GridToolbar } from "@mui/x-data-grid"
-import { tokens } from "../../theme"
+import React, { useEffect } from 'react'
+import { 
+  Box, 
+  Container, 
+  Grid, 
+  Typography, 
+  useTheme,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActionArea,
+} from '@mui/material'
 
-import Header from "../../components/Header"
-import { mockDataHerbals } from "../../data/mockDataHerbals"
+import { useSelector, useDispatch } from 'react-redux';
+import { tokens } from 'theme';
+import Header from 'components/Header'
+import { getHerbals } from 'actions/herbal.action';
+import { HerbalCard } from 'components/HerbalCard';
+
+const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
 const Herbals = () => {
-    const theme = useTheme()
-    const colors = tokens(theme.palette.mode)
 
-    const columns = [
-        { field: 'id', headerName: 'ID', flex: 0.5 },
-        {
-            field: 'thainame',
-            headerName: 'ชื่อไทย',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },
-        {
-            field: 'engname',
-            headerName: 'ชื่ออังกฤษ',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },
-        {
-            field: 'sciname',
-            headerName: 'ชื่อวิทยาศาสตร์',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },        
-        {
-            field: 'type',
-            headerName: 'ประเภท',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },
+  const theme = useTheme()
+  const colors = tokens(theme.palette.mode)  
 
-    ]
+  const dispatch = useDispatch()
 
-    return (
-        <Box m="20px">
-            <Header title="รายการผักสมุนไพร" subtitle="รายการข้อมูลผักสมุนไพร" />
-            <Box m="40px 0 0 0" height="83vh" sx={{
-                "& .MuiDataGrid-root": {
-                    border: "none"
-                },
-                "& .MuiDataGrid-cell": {
-                    boderBottom: "none"
-                },
-                "& .name-column--cell": {
-                    color: colors.greenAccent[300]
-                },
-                "& .MuiDataGrid-columnHeader": {
-                    borderBottom: "none",
-                    backgroundColor: colors.yellowAccent[700],
-                },
-                "& .MuiDataGrid-virtualScroller": {
-                    backgroundColor: colors.primary[400]
-                },
-                "& .MuiDataGrid-footerContainer": {
-                    borderTop: "none",
-                    backgroundColor: colors.yellowAccent[700],
-                },
-                "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                    color: `${colors.grey[100]} !important`
-                }
-            }}>
-                <DataGrid
-                    rows={mockDataHerbals}
-                    columns={columns}
-                    components={{ Toolbar: GridToolbar }}
-                />
-            </Box>
+  useEffect(() => {
+    dispatch(getHerbals())
+    console.log('getHerbals is running in useEffect')
+  },[dispatch])
+
+
+  const { isSidebar} = useSelector((state) => state.app.appReducer)
+  const { result } = useSelector((state) => state.app.herbalReducer)
+
+  if (result) {
+    console.log('herbals result', result)
+  }
+
+  const herbals = result?.map((item, index) => (
+    <Grid item xs={12} sm={4} ms={4} key={index}>
+        <Card sx={{ maxWidth: 500 , backgroundColor : colors.primary[400]}} style={{ marginBottom: "20px"}}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="220"
+              image={imagesUrl+item.cover}
+              // title={item.herbalname.substring(0, 40)}
+              alt="herbal"
+              style={{borderRadius: '5px'}}
+            />            
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div" color={colors.greenAccent[400]}>
+                {item.herbalname.substring(0, 40)}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                {item.commonname.substring(0, 49)}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                {item.scientificname.substring(0, 45)}
+                </Typography>
+                <Typography gutterBottom variant="h6" component="div">
+                  More
+                </Typography>
+              </CardContent>
+          </CardActionArea>
+        </Card>
+    </Grid>
+  ))
+
+
+  return (
+    // <Box m="20px">
+    <Box>
+      {/* <Header title="ข้อมูลสุมนไพร" subtitle="รายการข้อมูลสุมนไพร"/> */}
+      <Box  height={ isSidebar ? "90vh" : "95vh" } width="100%" sx={{overflow: "hidden", overflowY: "scroll"}} bgcolor={ colors.primary[600]}>
+            <Box>
+            {/* <Container maxWidth="lg"> */}
+            <Container maxWidth="xlg">
+              <Typography variant='h4' align='center' style={{ marginTop: "20px"}}>
+              รายการข้อมูลสุมนไพร
+              </Typography>
+                <Grid container spacing={5} style={{ marginTop: "20px"}}>
+                  { result && herbals }
+                </Grid>
+            </Container>
         </Box>
-    )
+      </Box>
+    </Box>
+  )
 }
 
 export default Herbals

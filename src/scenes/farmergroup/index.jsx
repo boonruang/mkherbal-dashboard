@@ -199,7 +199,7 @@ const Farmergroup = (props) => {
                    <AutoSizer>
                    {({height, width}) => (                  
                       <Box 
-                        sx={{ position: 'absolute', p: 1, left: ((width-300-1250)/2)+300+1202, bottom: isHerbalBoxOpen ? 333 : 0, backgroundColor: '#458048',cursor: 'pointer',zIndex: 10 }} 
+                        sx={{ position: 'absolute', p: 1, left: ((width-300-1250)/2)+300, bottom: isHerbalBoxOpen ? 333 : 0, backgroundColor: '#458048',cursor: 'pointer',zIndex: 10 }} 
                         onClick={() => handleHerbalClick()}>
                           {isHerbalBoxOpen ? <ExpandMoreIcon/> : <ExpandLessIcon/>}
                       </Box>
