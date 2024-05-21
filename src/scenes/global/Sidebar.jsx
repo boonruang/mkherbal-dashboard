@@ -20,6 +20,9 @@ import StoreIcon from '@mui/icons-material/Store';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MoreIcon from '@mui/icons-material/More';
+import ForestIcon from '@mui/icons-material/Forest';
+import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
+import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
@@ -86,6 +89,9 @@ const Sidebar = () => {
                 "& .pro-menu-item.active": {
                     color: "#71910c !important"
                 },
+                // "& .pro-inner-list-item": {
+                //     marginLeft: "15px"
+                // },
                 // "& .pro-sidebar": {
                 //     position: 'fixed',
                 // }              
@@ -163,13 +169,22 @@ const Sidebar = () => {
                                 </Typography>
                             </Box>
                         ) :  <CollapsedIcon /> }                         */}
-                        <Item
-                            title="รายการสมุนไพร"
-                            to="/herbals"
-                            icon={<ParkIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                        <SubMenu title="สมุนไพร" icon={<ForestIcon />}>
+                            <Item
+                                title="ข้อมูลสมุนไพร"
+                                to="/herbals"
+                                icon={<ParkIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />
+                            <Item
+                                title="ผลิตภัณฑ์สมุนไพร"
+                                to="/geomap"
+                                icon={<HealthAndSafetyIcon  />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />                             
+                        </SubMenu>
    
                         <SubMenu title="เกษตรกร" icon={<PeopleOutlinedIcon />}>
                             <Item
@@ -187,13 +202,7 @@ const Sidebar = () => {
                                 setSelected={setSelected}
                             /> 
                          </SubMenu>                      
-                        <Item
-                            title="รายการบริษัท/ธุรกิจ"
-                            to="/businessgroup"
-                            icon={<WarehouseIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />   
+
                         {/* {isSidebar ? (
                             <Box
                                 display="flex"
@@ -209,23 +218,38 @@ const Sidebar = () => {
                                     ผู้ประกอบการสมุนไพร
                                 </Typography>  
                             </Box>
-                        ) :  <CollapsedIcon /> }                                                 */}
-                    <SubMenu title="ผู้ประกอบการสมุนไพร" icon={<HealthAndSafetyIcon />}>
+                        ) :  <CollapsedIcon /> }  
+                                                                       */}                                                                       
+                    <SubMenu title="ธุรกิจและการค้า" icon={<MiscellaneousServicesIcon />}>
                         <Item
-                            title="ด้านการแพทย์แผนไทย"
+                                title="รายการบริษัท/ธุรกิจ"
+                                to="/businessgroup"
+                                icon={<WarehouseIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />                           
+                        <Item
+                                title="แหล่งแปรรูปขั้นต้น"
+                                to="/businessgroup"
+                                icon={<HomeWorkIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />   
+                        <Item
+                            title="แหล่งขายตามพิกัด"
+                            to="/marketplace"
+                            icon={<StoreIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        /> 
+                    </SubMenu>                                                                       
+                        <Item
+                            title="การแพทย์แผนไทย"
                             to="/businessgroup"
                             icon={<LocalHospitalIcon/>}
                             selected={selected}
                             setSelected={setSelected}
                         />      
-                        <Item
-                            title="ผลิตภัณฑ์สมุนไพร"
-                            to="/geomap"
-                            icon={<HealthAndSafetyIcon  />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        /> 
-                    </SubMenu>                        
 
                         {/* {isSidebar ? (
                             <Box
@@ -243,13 +267,7 @@ const Sidebar = () => {
                                 </Typography>  
                             </Box>
                         ) :  <CollapsedIcon /> }                                                                                       */}
-                        <Item
-                            title="แหล่งแปรรูปขั้นต้น"
-                            to="/businessgroup"
-                            icon={<HomeWorkIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />   
+                         
                         {/* {isSidebar ? (
                             <Box
                                 display="flex"
@@ -266,13 +284,7 @@ const Sidebar = () => {
                                 </Typography>  
                             </Box>
                         ) :  <CollapsedIcon /> }                                                                                             */}
-                        <Item
-                            title="แหล่งขายตามพิกัด"
-                            to="/marketplace"
-                            icon={<StoreIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />  
+
                         {/* {isSidebar ? (
                             <Box
                                 display="flex"
@@ -289,7 +301,7 @@ const Sidebar = () => {
                                 </Typography>  
                             </Box>
                         ) :  <CollapsedIcon /> }      */}
-                        <SubMenu title="องค์ความรู้" icon={<MenuBookIcon />}>
+                        <SubMenu title="องค์ความรู้" icon={<WbIncandescentIcon />}>
                                 <Item
                                     title="งานวิจัยและนวัตกรรม"
                                     to="/herbals"
@@ -323,7 +335,7 @@ const Sidebar = () => {
                             </Box>
                         ) :  <CollapsedIcon /> }   */}
 
-                        <SubMenu title="ข้อมูลดิน" icon={<ParkIcon />}>
+                        <SubMenu title="ข้อมูลดิน" icon={<MoreIcon />}>
                                 <Item
                                     title="การใช้ดิน ต.แก่งเลิงจาน"
                                     to="/geoland"
