@@ -23,6 +23,7 @@ import MoreIcon from '@mui/icons-material/More';
 import ForestIcon from '@mui/icons-material/Forest';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
+import AddIcon from '@mui/icons-material/Add';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
@@ -178,8 +179,15 @@ const Sidebar = () => {
                                 setSelected={setSelected}
                             />
                             <Item
+                                title="เพิ่มสมุนไพร"
+                                to="/herbal/add"
+                                icon={<AddIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />
+                            <Item
                                 title="ผลิตภัณฑ์สมุนไพร"
-                                to="/geomap"
+                                to="/herbals"
                                 icon={<HealthAndSafetyIcon  />}
                                 selected={selected}
                                 setSelected={setSelected}

@@ -9,13 +9,17 @@ import {
   CardMedia,
   CardContent,
   CardActionArea,
+  IconButton,
+  InputBase,
+  Fab
 } from '@mui/material'
 
 import { useSelector, useDispatch } from 'react-redux';
 import { tokens } from 'theme';
 import Header from 'components/Header'
 import { getHerbals } from 'actions/herbal.action';
-import { HerbalCard } from 'components/HerbalCard';
+import SearchIcon from "@mui/icons-material/Search"
+import AddIcon from '@mui/icons-material/Add';
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -82,6 +86,37 @@ const Herbals = () => {
               <Typography variant='h4' align='center' style={{ marginTop: "20px"}}>
               รายการข้อมูลสมุนไพร
               </Typography>
+              <Box display="flex" justifyContent="space-between" >
+                  <Box
+                      display="flex"
+                      backgroundColor={colors.primary[400]}
+                      borderRadius="3px"
+                  >
+                    <Box sx={{position: "absolute", top: 100}}  backgroundColor={colors.primary[400]} borderRadius="3px">
+                     <InputBase autoFocus sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" />
+                      {/* <InputBase autoFocus sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" /> */}
+                      <IconButton type="button" sx={{ p: 1 }} >
+                          <SearchIcon />
+                      </IconButton>
+                      </Box>
+                          <Fab
+                            color="secondary"
+                            aria-label="add"
+                            sx={{
+                              position: "absolute",
+                              top: 80,
+                              right: 40,
+                            }}
+                          >
+                            <AddIcon />
+                          </Fab>                      
+                  </Box> 
+                  <Box display="flex">
+                      <IconButton>
+                          <AddIcon />
+                      </IconButton>
+                  </Box>                  
+              </Box>             
                 <Grid container spacing={5} style={{ marginTop: "20px"}}>
                   { result && herbals }
                 </Grid>
