@@ -1,34 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
   Box, 
   Container, 
-  Grid, 
   Typography, 
   useTheme,
-  Card,
-  CardMedia,
-  CardContent,
-  CardActionArea,
   IconButton,
   InputBase,
   Fab
 } from '@mui/material'
 
+import useDebounce from 'hooks/useDebounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { tokens } from 'theme';
 import Header from 'components/Header'
 import { getHerbals } from 'actions/herbal.action';
 import SearchIcon from "@mui/icons-material/Search"
 import AddIcon from '@mui/icons-material/Add';
-
-const imagesUrl = process.env.REACT_APP_IMAGES_URL
+import HerbalList from 'components/HerbalList';
 
 const Herbals = () => {
 
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)  
 
-  const dispatch = useDispatch()
+  const [searchValue, setSearchValue] = useState('')
+  const debouncedSearchValue = useDebounce(searchValue, 1000)
+  
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getHerbals())
@@ -37,46 +35,8 @@ const Herbals = () => {
 
 
   const { isSidebar} = useSelector((state) => state.app.appReducer)
-  const { result } = useSelector((state) => state.app.herbalReducer)
-
-  if (result) {
-    console.log('herbals result', result)
-  }
-
-  const herbals = result?.map((item, index) => (
-    <Grid item xs={12} sm={4} ms={4} key={index}>
-        <Card sx={{ maxWidth: 500 , backgroundColor : colors.primary[400]}} style={{ marginBottom: "20px"}}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="220"
-              image={imagesUrl+item.cover}
-              // title={item.herbalname.substring(0, 40)}
-              alt="herbal"
-              style={{borderRadius: '5px'}}
-            />            
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div" color={colors.greenAccent[400]}>
-                {item.herbalname.substring(0, 100)}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                {item.commonname.substring(0, 100)}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                {item.scientificname.substring(0, 100)}
-                </Typography>
-                <Typography gutterBottom variant="h6" component="div">
-                  More
-                </Typography>
-              </CardContent>
-          </CardActionArea>
-        </Card>
-    </Grid>
-  ))
-
 
   return (
-    // <Box m="20px">
     <Box>
       {/* <Header title="ข้อมูลสุมนไพร" subtitle="รายการข้อมูลสุมนไพร"/> */}
       <Box  height={ isSidebar ? "90vh" : "95vh" } width="100%" sx={{overflow: "hidden", overflowY: "scroll"}} bgcolor={ colors.primary[500]}>
@@ -92,13 +52,13 @@ const Herbals = () => {
                       backgroundColor={colors.primary[400]}
                       borderRadius="3px"
                   >
-                    <Box sx={{position: "absolute", top: 100}}  backgroundColor={colors.primary[400]} borderRadius="3px">
-                     <InputBase autoFocus sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" />
+                    <Box sx={{position: "absolute", top: 100, zIndex: 11}}  backgroundColor={colors.primary[400]} borderRadius="3px">
+                     <InputBase autoFocus sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                       {/* <InputBase autoFocus sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" /> */}
                       <IconButton type="button" sx={{ p: 1 }} >
                           <SearchIcon />
                       </IconButton>
-                      </Box>
+                    </Box>
                           <Fab
                             color="secondary"
                             aria-label="add"
@@ -117,9 +77,9 @@ const Herbals = () => {
                       </IconButton>
                   </Box>                  
               </Box>             
-                <Grid container spacing={5} style={{ marginTop: "20px"}}>
-                  { result && herbals }
-                </Grid>
+              <Box>
+                <HerbalList searchTerm={debouncedSearchValue} />
+              </Box>
             </Container>
         </Box>
       </Box>

@@ -91,11 +91,14 @@ const HerbalAdd = () => {
                 เพิ่มข้อมูล
               </Typography>
             </Button>
-            {/* <Link href="/stock" passHref>
-              <Button variant="outlined" fullWidth>
-                Cancl
-              </Button>
-            </Link> */}
+            <Button 
+            variant="outlined" 
+            fullWidth 
+            color="secondary">
+              <Typography variant="h5" color={colors.grey[100]}>
+                ยกเลิก
+              </Typography>              
+            </Button>
           </CardActions>
         </Card>
       </Form>
