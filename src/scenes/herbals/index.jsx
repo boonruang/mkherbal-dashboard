@@ -6,9 +6,10 @@ import {
   useTheme,
   IconButton,
   InputBase,
-  Fab
+  Fab,
+  Backdrop
 } from '@mui/material'
-
+import { Link } from "react-router-dom";
 import useDebounce from 'hooks/useDebounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { tokens } from 'theme';
@@ -17,6 +18,7 @@ import { getHerbals } from 'actions/herbal.action';
 import SearchIcon from "@mui/icons-material/Search"
 import AddIcon from '@mui/icons-material/Add';
 import HerbalList from 'components/HerbalList';
+import HerbalDetail from './detail'
 
 const Herbals = () => {
 
@@ -25,6 +27,16 @@ const Herbals = () => {
 
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearchValue = useDebounce(searchValue, 1000)
+
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };  
   
   const dispatch = useDispatch();
 
@@ -35,11 +47,25 @@ const Herbals = () => {
 
 
   const { isSidebar} = useSelector((state) => state.app.appReducer)
+  const { selectedResult } = useSelector((state) => state.app.herbalReducer)
+
+  useEffect(() => {
+    if (selectedResult) {
+      setOpen(true)
+    }
+  },[selectedResult])
 
   return (
     <Box>
       {/* <Header title="ข้อมูลสุมนไพร" subtitle="รายการข้อมูลสุมนไพร"/> */}
       <Box  height={ isSidebar ? "90vh" : "95vh" } width="100%" sx={{overflow: "hidden", overflowY: "scroll"}} bgcolor={ colors.primary[500]}>
+          <Backdrop
+          sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+          onClick={handleClose}
+            >
+             { selectedResult ? <HerbalDetail /> : undefined}
+          </Backdrop>  
             <Box>
             {/* <Container maxWidth="lg"> */}
             <Container maxWidth="xlg">
@@ -52,30 +78,33 @@ const Herbals = () => {
                       backgroundColor={colors.primary[400]}
                       borderRadius="3px"
                   >
-                    <Box sx={{position: "absolute", top: 100, zIndex: 11}}  backgroundColor={colors.primary[400]} borderRadius="3px">
+                    <Box sx={{position: "absolute", top: isSidebar ? 100 : 50, zIndex: 11}}  backgroundColor={colors.primary[400]} borderRadius="3px">
                      <InputBase autoFocus sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                       {/* <InputBase autoFocus sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" /> */}
                       <IconButton type="button" sx={{ p: 1 }} >
                           <SearchIcon />
                       </IconButton>
                     </Box>
+                    {/* <Link to="/herbal/add"> */}
                           <Fab
                             color="secondary"
                             aria-label="add"
                             sx={{
                               position: "absolute",
-                              top: 80,
-                              right: 40,
+                              top: isSidebar ? 80 : 30,
+                              right: 30,
                             }}
+                            // onClick={handleOpen}
                           >
                             <AddIcon />
-                          </Fab>                      
+                          </Fab>     
+                    {/* </Link>                  */}
                   </Box> 
-                  <Box display="flex">
+                  {/* <Box display="flex">
                       <IconButton>
                           <AddIcon />
                       </IconButton>
-                  </Box>                  
+                  </Box>                   */}
               </Box>             
               <Box>
                 <HerbalList searchTerm={debouncedSearchValue} />

@@ -6,6 +6,7 @@ import { tokens } from '../theme';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
+import { getHerbalById } from '../actions/herbal.action'
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -13,10 +14,18 @@ const Item = ({ result }) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
+  const dispatch = useDispatch()
+
+  const handleClick = (selectedHerbal) => {
+    console.log('selectedHerbal',selectedHerbal)
+    // dispatch(setStateFarmergroupToSelected(selectedHerbal))
+    dispatch(getHerbalById(selectedHerbal.id))
+  }
+
   return (
     <Grid item xs={12} sm={4} ms={4} >
         <Card sx={{ maxWidth: 500 , backgroundColor : colors.primary[400]}} style={{ marginBottom: "20px"}}>
-          <CardActionArea>
+          <CardActionArea onClick={() => handleClick(result)}>
             <CardMedia
               component="img"
               height="220"

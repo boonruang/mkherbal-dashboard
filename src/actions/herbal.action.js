@@ -2,6 +2,9 @@ import {
   HTTP_HERBAL_FAILED,
   HTTP_HERBAL_FETCHING,
   HTTP_HERBAL_SUCCESS,
+  HTTP_HERBAL_SELECTED_SUCCESS,
+  HTTP_HERBAL_SELECTED_FAILED,
+  HTTP_HERBAL_SELECTED_FETCHING,  
   server
 } from '../constants';
 import { httpClient } from '../utils/HttpClient';
@@ -19,17 +22,30 @@ const setStateHerbalToFailed = () => ({
   type: HTTP_HERBAL_FAILED
 });
 
+export const setStateHerbalSelectedToFetching = () => ({
+  type: HTTP_HERBAL_SELECTED_FETCHING
+});
+
+export const setStateHerbalSelectedToSuccess = (payload) => ({
+  type: HTTP_HERBAL_SELECTED_SUCCESS,
+  payload
+});
+
+const setStateHerbalSelectedToFailed = () => ({
+  type: HTTP_HERBAL_SELECTED_FAILED
+});
+
 export const getHerbalById = (id) => {
   return (dispatch) => {
-    dispatch(setStateHerbalToFetching());
+    dispatch(setStateHerbalSelectedToFetching());
     httpClient
-      .get(`${server.HERBAL_URL}/${id}`)
+      .get(`${server.HERBAL_URL}/select/${id}`)
       .then((result) => {
-        dispatch(setStateHerbalToSuccess(result.data));
+        dispatch(setStateHerbalSelectedToSuccess(result.data));
       })
       .catch((error) => {
         console.log(error);
-        dispatch(setStateHerbalToFailed());
+        dispatch(setStateHerbalSelectedToFailed());
       });
   };
 };
