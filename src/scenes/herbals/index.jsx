@@ -14,7 +14,7 @@ import useDebounce from 'hooks/useDebounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { tokens } from 'theme';
 import Header from 'components/Header'
-import { getHerbals } from 'actions/herbal.action';
+import { getHerbals,setStateHerbalSelectedToFetching } from 'actions/herbal.action';
 import SearchIcon from "@mui/icons-material/Search"
 import AddIcon from '@mui/icons-material/Add';
 import HerbalList from 'components/HerbalList';
@@ -32,8 +32,9 @@ const Herbals = () => {
 
   const handleClose = () => {
     setOpen(false);
+    dispatch(setStateHerbalSelectedToFetching())
   };
-  
+
   // const handleOpen = () => {
   //   setOpen(true);
   // };  

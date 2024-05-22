@@ -28,7 +28,7 @@ import Login from 'components/Login'
 import Marketplace from "scenes/marketplace";
 import Farmergroup from "scenes/farmergroup";
 import HerbalCarousel from "components/HerbalCarousel";
-import HerbalAdd from "scenes/herbals/add";
+import HerbalAdd from "scenes/herbals/HerbalAdd";
 // import GeoLandMk from "scenes/geolandmk";
 // import GeoSaltMk from "scenes/geosaltmk";
 
@@ -73,7 +73,7 @@ function App() {
                     <Route path="/geosalt" element={<GeoSalt />} />
                     <Route path="/marketplace" element={<Marketplace />} />
                     <Route path="/herbalcarousel" element={<HerbalCarousel />} />
-                    <Route path="/herbal/add" element={<HerbalAdd />} />
+                    <Route path="/herbals/add" element={<HerbalAdd />} />
                 </Routes>
               </main>
             </div> 

@@ -178,20 +178,13 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             />
-                            <Item
+                            {/* <Item
                                 title="เพิ่มสมุนไพร"
-                                to="/herbal/add"
+                                to="/herbals/add"
                                 icon={<AddIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            />
-                            <Item
-                                title="ผลิตภัณฑ์สมุนไพร"
-                                to="/herbals"
-                                icon={<HealthAndSafetyIcon  />}
-                                selected={selected}
-                                setSelected={setSelected}
-                            />                             
+                            />                            */}
                         </SubMenu>
    
                         <SubMenu title="เกษตรกร" icon={<PeopleOutlinedIcon />}>
@@ -230,26 +223,33 @@ const Sidebar = () => {
                                                                        */}                                                                       
                     <SubMenu title="ธุรกิจและการค้า" icon={<MiscellaneousServicesIcon />}>
                         <Item
-                                title="รายการบริษัท/ธุรกิจ"
-                                to="/businessgroup"
-                                icon={<WarehouseIcon />}
-                                selected={selected}
-                                setSelected={setSelected}
-                            />                           
+                            title="รายการบริษัท/ธุรกิจ"
+                            to="/businessgroup"
+                            icon={<WarehouseIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />                           
                         <Item
-                                title="แหล่งแปรรูปขั้นต้น"
-                                to="/businessgroup"
-                                icon={<HomeWorkIcon />}
-                                selected={selected}
-                                setSelected={setSelected}
-                            />   
+                            title="แหล่งแปรรูปขั้นต้น"
+                            to="/businessgroup"
+                            icon={<HomeWorkIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />   
                         <Item
                             title="แหล่งขายตามพิกัด"
                             to="/marketplace"
                             icon={<StoreIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        /> 
+                        />
+                        <Item
+                            title="ผลิตภัณฑ์สมุนไพร"
+                            to="/herbals"
+                            icon={<HealthAndSafetyIcon  />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />                          
                     </SubMenu>                                                                       
                         <Item
                             title="การแพทย์แผนไทย"
