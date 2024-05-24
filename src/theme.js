@@ -1,5 +1,6 @@
 import { createContext, useState, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 // color design tokens export
 export const tokens = (mode) => ({
@@ -211,7 +212,7 @@ export const themeSettings = (mode) => {
                 fontFamily: ['Kanit', 'sans-serif'].join(','),
                 fontSize: 14,
             }                                                           
-        }
+        },    
     }
 }
 

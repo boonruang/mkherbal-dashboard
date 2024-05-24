@@ -3,35 +3,19 @@ import { useEffect } from "react";
 // import Item from './Item'
 import { useSelector, useDispatch } from "react-redux";
 import { getMarketplaceByKeyword } from '../actions/marketplace.action'
-import { Box,Typography,IconButton,useTheme  } from "@mui/material"
+import { Box,Typography,IconButton,useTheme,Divider  } from "@mui/material"
 import styled from 'styled-components'
 import {theme} from '@kepler.gl/styles';
 import { tokens } from '../theme';
 import PlaceIcon from '@mui/icons-material/Place';
 
-const StyledMapConfigDisplay = styled.div`
-position: absolute;
-z-index: 100;
-top: 0px;
-left: 0px;
-background-color: ${theme.sidePanelBg};
-font-size: 11px;
-width: 300px;
-color: ${theme.textColor};
-word-wrap: break-word;
-/* height: 100%; */
-min-height: 60px;
-max-height: 100%;
-padding: 10px;
-overflow-x: hidden;
-overflow-y: auto;
-`;
 
 const Item = ({ result }) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   return (
       <Box  backgroundColor={colors.primary[400]} key={result.properties.Id} sx={{ m: 1 }} >
+          <Divider sx={{ mb: 1 }}/>
           <Box
               display="flex"
               // backgroundColor={colors.blueAccent[400]}
@@ -60,6 +44,28 @@ const Item = ({ result }) => {
 
 
 const MarketplaceList = ({searchTerm}) => {
+  const theme = useTheme()
+  const colors = tokens(theme.palette.mode)
+
+  const StyledMapConfigDisplay = styled.div`
+  position: absolute;
+  z-index: 100;
+  /* top: 0px; */
+  top: 45px;
+  left: 0px;
+  background-color: ${colors.primary[400]};
+  font-size: 11px;
+  width: 300px;
+  color: ${theme.textColor};
+  word-wrap: break-word;
+  /* height: 100%; */
+  min-height: 60px;
+  max-height: 100%;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  `;
+
   const dispatch = useDispatch()
 
   useEffect(() => {

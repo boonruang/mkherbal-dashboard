@@ -24,6 +24,8 @@ import ForestIcon from '@mui/icons-material/Forest';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import AddIcon from '@mui/icons-material/Add';
+import GridViewIcon from '@mui/icons-material/GridView';
+import TableRowsIcon from '@mui/icons-material/TableRows';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
@@ -90,6 +92,9 @@ const Sidebar = () => {
                 "& .pro-menu-item.active": {
                     color: "#71910c !important"
                 },
+                // "& .pro-sub-menu": {
+                //     color: `${colors.primary[700]} !important`
+                // }
                 // "& .pro-inner-list-item": {
                 //     marginLeft: "15px"
                 // },
@@ -174,7 +179,14 @@ const Sidebar = () => {
                             <Item
                                 title="ข้อมูลสมุนไพร"
                                 to="/herbals"
-                                icon={<ParkIcon />}
+                                icon={<GridViewIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />
+                            <Item
+                                title="ตารางข้อมูล"
+                                to="/herbals/list"
+                                icon={<TableRowsIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
                             />
@@ -221,7 +233,7 @@ const Sidebar = () => {
                             </Box>
                         ) :  <CollapsedIcon /> }  
                                                                        */}                                                                       
-                    <SubMenu title="ธุรกิจและการค้า" icon={<MiscellaneousServicesIcon />}>
+                    <SubMenu title="ธุรกิจการค้า" icon={<MiscellaneousServicesIcon />}>
                         <Item
                             title="รายการบริษัท/ธุรกิจ"
                             to="/businessgroup"
@@ -251,13 +263,13 @@ const Sidebar = () => {
                             setSelected={setSelected}
                         />                          
                     </SubMenu>                                                                       
-                        <Item
+                        {/* <Item
                             title="การแพทย์แผนไทย"
                             to="/businessgroup"
                             icon={<LocalHospitalIcon/>}
                             selected={selected}
                             setSelected={setSelected}
-                        />      
+                        />       */}
 
                         {/* {isSidebar ? (
                             <Box

@@ -1,6 +1,5 @@
 import {
   addHerbal,
-  getNewHerbalId
 } from "../../services/serverService";
 import {
   Card,
@@ -13,7 +12,7 @@ import {
 } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { tokens } from 'theme';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
@@ -27,37 +26,6 @@ export const HerbalAdd = () => {
 
   const navigate = useNavigate();
 
-  const [newId, setNewId] = useState();
-
-  // let aaa;
-  // const test = async () => {
-  //   aaa = await getNewHerbalId();
-  //   if (aaa) {
-  //     console.log('aaaa', aaa);
-  //     // setNewId(aaa)
-  //   }
-  // };
-  // test()
-
-  const [loading, setLoading] = useState(false); 
-
-  // console.log('id new =>', () => await getNewHerbalId())
-  useEffect(() => {
-    const loadNewId = async () => {
-      setLoading(true)
-      const response = await getNewHerbalId()
-
-      setNewId(response.result)
-      setLoading(false); 
-
-    }
-    loadNewId()
-  },[])
-
-  // if (!loading) {
-  //   console.log('new id', newId)
-  // }
-
   const showForm = ({
     values, setFieldValue, isValid,
   }) => {
@@ -68,14 +36,6 @@ export const HerbalAdd = () => {
             <Typography gutterBottom variant="h3">
               เพิ่มข้อมูล
             </Typography>
-            {/* <Field
-              style={{ marginTop: 16 }}
-              fullWidth
-              component={TextField}
-              // disabled
-              name="id"
-              type="text"
-              label="ลำดับ" /> */}
             <Field
               style={{ marginTop: 16 }}
               fullWidth
@@ -145,7 +105,6 @@ export const HerbalAdd = () => {
 
 
   const initialValues = {
-    id: "",
     herbalname: "",
     commonname: "",
     scientificname: "",
@@ -172,8 +131,6 @@ export const HerbalAdd = () => {
           onSubmit={async (values, { setSubmitting }) => {
             console.log('values', values);
             let data = new FormData();
-            // data.append("id", values.id);
-            data.append("id", newId);
             data.append("herbalname", values.herbalname);
             data.append("commonname", String(values.commonname));
             data.append("scientificname", String(values.scientificname));

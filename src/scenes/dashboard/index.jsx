@@ -33,7 +33,7 @@ const Dashbaord = () => {
                 <Box>
                     <Button
                         sx={{
-                            backgroundColor: colors.yellowAccent[700],
+                            backgroundColor: colors.greenAccent[700],
                             color: colors.grey[100],
                             fontSize: "14px",
                             fontWeight: "bold",

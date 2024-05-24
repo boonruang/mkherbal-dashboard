@@ -59,7 +59,7 @@ const Herbals = () => {
   return (
     <Box>
       {/* <Header title="ข้อมูลสุมนไพร" subtitle="รายการข้อมูลสุมนไพร"/> */}
-      <Box  height={ isSidebar ? "90vh" : "95vh" } width="100%" sx={{overflow: "hidden", overflowY: "scroll"}} bgcolor={ colors.primary[500]}>
+      <Box  height={ isSidebar ? "90vh" : "95vh" } width="100%" sx={{overflow: "hidden", overflowY: "scroll"}}>
           <Backdrop
           sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={open}
@@ -81,7 +81,6 @@ const Herbals = () => {
                   >
                     <Box sx={{position: "absolute", top: isSidebar ? 100 : 50, zIndex: 11}}  backgroundColor={colors.primary[400]} borderRadius="3px">
                      <InputBase autoFocus sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-                      {/* <InputBase autoFocus sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" /> */}
                       <IconButton type="button" sx={{ p: 1 }} >
                           <SearchIcon />
                       </IconButton>

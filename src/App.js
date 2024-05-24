@@ -29,6 +29,9 @@ import Marketplace from "scenes/marketplace";
 import Farmergroup from "scenes/farmergroup";
 import HerbalCarousel from "components/HerbalCarousel";
 import HerbalAdd from "scenes/herbals/HerbalAdd";
+import MarketplaceAdd from "scenes/marketplace/MarketplaceAdd";
+import HerbalsList from "scenes/herbals/list";
+import Invoices from "scenes/invoices";
 // import GeoLandMk from "scenes/geolandmk";
 // import GeoSaltMk from "scenes/geosaltmk";
 
@@ -72,8 +75,11 @@ function App() {
                     <Route path="/geosoil" element={<GeoSoil />} />
                     <Route path="/geosalt" element={<GeoSalt />} />
                     <Route path="/marketplace" element={<Marketplace />} />
+                    <Route path="/marketplace/add" element={<MarketplaceAdd />} />
                     <Route path="/herbalcarousel" element={<HerbalCarousel />} />
                     <Route path="/herbals/add" element={<HerbalAdd />} />
+                    <Route path="/herbals/list" element={<HerbalsList />} />
+                    <Route path="/invoices" element={<Invoices />} />
                 </Routes>
               </main>
             </div> 

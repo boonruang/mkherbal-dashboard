@@ -152,7 +152,7 @@ const Farmergroup = (props) => {
                     sx={{ position: 'absolute', p: 0.5, left: isSearcBoxOpen ? 295 : 0, top: 5, backgroundColor: '#ec8a2f',cursor: 'pointer' }} 
                     onClick={() => handleSearchClick()}>
                       {isSearcBoxOpen ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
-                    </Box>  
+                  </Box>  
 
                     {isSearcBoxOpen ? <Box  display="flex" justifyContent="space-between" component="form" 
                                   sx={{

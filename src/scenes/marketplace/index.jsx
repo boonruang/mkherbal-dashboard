@@ -54,14 +54,6 @@ const Marketplace = (props) => {
       console.log('result check',result)
     }
 
-    // const { mkplc } = useSelector((state) => state.keplerGl)
-
-    // if (mkplc) {
-    //   console.log('mkplc',mkplc)
-    // }
-    
-    // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.mkplc)
-
     useEffect(() => {
       if (result) {
             dispatch(removeDatasetFromKepler('mkplc1'))
@@ -95,38 +87,13 @@ const Marketplace = (props) => {
       return (
         <Box m="20px">
             <Header title="ข้อมูลแผนที่" subtitle="แหล่งขาย" />
-              <Box  display="flex" justifyContent="space-between" component="form" 
-                            sx={{
-                              '& > :not(style)': { ml: 0, mb: 1, width: '30ch'},
-                            }}
-                            noValidate
-                            autoComplete="off"
-                          >
-                    {/* SEARCH BAR */}
-                    <Box
-                        display="flex"
-                        backgroundColor={colors.primary[400]}
-                        borderRadius="3px"
-                    >
-                        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-                        <IconButton type="button" sx={{ p: 1 }} >
-                            <SearchIcon />
-                        </IconButton>
-                    </Box>   
-                    {/* <Button variant="contained" color="success" onClick={() => {dispatch(wrapTo('mkplc',updateMap({latitude: 16.245516, longitude: 103.250034, width: 800, height: 1200}, 1)))}}>
-                    UPDATE_MAP
-                    </Button> */}
-                    {/* <Button variant="contained" color="success" onClick={() => {dispatch(wrapTo('mkplc',updateVisState()))}}>
-                    UPDATE VISSTATE
-                    </Button> */}
-              </Box>
-              <Box height={ isSidebar ? "82vh" : "86vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >
-              <Backdrop
-                  sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                  open={open}
-                >
-                  <CircularProgress color="inherit" />
-                </Backdrop>
+              <Box height={ isSidebar ? "86vh" : "90vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >               
+                  <Backdrop
+                    sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={open}
+                  >
+                    <CircularProgress color="inherit" />
+                  </Backdrop>
                   <AutoSizer>
                     {({height, width}) => (
                     <KeplerGl
@@ -142,7 +109,26 @@ const Marketplace = (props) => {
                       }}                    
                     />
                     )}
-                  </AutoSizer >     
+                  </AutoSizer >    
+                    <Box  display="flex" justifyContent="space-between" component="form" 
+                                sx={{
+                                  // '& > :not(style)': { ml: 0, mb: 1, width: '30ch'},
+                                  '& > :not(style)': { height: 45, width: '33.5ch', position: 'absolute', top: 0, left: 0},
+                                }}
+                                noValidate
+                                autoComplete="off"
+                              >
+                        {/* SEARCH BAR */}
+                        <Box
+                            display="flex"
+                            backgroundColor={colors.primary[400]}
+                        >
+                            <InputBase sx={{ ml: 2, flex: 1 }} placeholder="ค้นหา" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                            <IconButton type="button" sx={{ p: 1 }} >
+                                <SearchIcon />
+                            </IconButton>
+                        </Box>   
+                  </Box>                   
                    {/* LIST HERE    */}
                       <MarketplaceList searchTerm={debouncedSearchValue} />
                 </Box>
