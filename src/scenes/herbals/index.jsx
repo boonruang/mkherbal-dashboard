@@ -86,7 +86,7 @@ const Herbals = () => {
                       </IconButton>
                     </Box>
                     {/* <Link to="/herbal/add"> */}
-                          <Fab
+                          {/* <Fab
                             color="secondary"
                             aria-label="add"
                             sx={{
@@ -97,7 +97,7 @@ const Herbals = () => {
                             // onClick={handleOpen}
                           >
                             <AddIcon />
-                          </Fab>     
+                          </Fab>      */}
                     {/* </Link>                  */}
                   </Box> 
                   {/* <Box display="flex">

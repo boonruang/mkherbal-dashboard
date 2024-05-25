@@ -1,16 +1,16 @@
-import { Box, useTheme } from "@mui/material"
+import { Box, useTheme,Button } from "@mui/material"
 import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import { tokens } from "../../theme"
-
 import Header from "../../components/Header"
 import { mockDataBusiness } from "../../data/mockDataBusiness"
+import AddIcon from '@mui/icons-material/Add';
 
 const BusinessGroup = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
     const columns = [
-        { field: 'id', headerName: 'ID', flex: 0.5 },
+        { field: 'id', headerName: 'ลำดับ', flex: 0.5 },
         {
             field: 'aeng',
             headerName: 'บริษัท',
@@ -40,6 +40,27 @@ const BusinessGroup = () => {
             headerName: 'Longitude',
             flex: 1,
         },
+        { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1, renderCell: (params) => {
+            return (
+              <Box>
+                <Button
+                  onClick={{}}
+                  variant="outlined"
+                  color="error"
+                >
+                  ลบ
+                </Button>
+                <Button
+                  onClick={{}}
+                  variant="outlined"
+                  color="success"
+                  sx={{ ml: 1 }}            
+                >
+                  แก้ไข
+                </Button>          
+              </Box>
+            );
+          } }         
     ]
 
     return (
@@ -70,6 +91,24 @@ const BusinessGroup = () => {
                     color: `${colors.grey[100]} !important`
                 }
             }}>
+                <Box display="flex" justifyContent="end">
+                    <Button  
+                        sx={{
+                            // backgroundColor: colors.blueAccent[600],
+                            backgroundColor: colors.greenAccent[600],
+                            color: colors.grey[100],
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                            padding: "10px 20px",
+                            mr: "10px",
+                            mb: "10px",
+                            '&:hover': {backgroundColor: colors.blueAccent[700]}
+                        }}
+                    >
+                        <AddIcon sx={{ mr: "10px" }} />
+                        เพิ่มข้อมูล
+                    </Button>
+                </Box>                
                 <DataGrid
                     rows={mockDataBusiness}
                     columns={columns}

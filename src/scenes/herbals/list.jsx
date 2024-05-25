@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { 
   Box, 
   useTheme,
-  Button
+  Button,
+  Snackbar,
+  Alert
 } from '@mui/material'
 import useDebounce from 'hooks/useDebounce';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,6 +16,8 @@ import Avatar from '@mui/material/Avatar';
 import AddIcon from '@mui/icons-material/Add';
 import { alpha, styled } from '@mui/material/styles';
 import { useDemoData } from '@mui/x-data-grid-generator';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -32,7 +36,65 @@ const HerbalsList = () => {
   //   dispatch(setStateHerbalSelectedToFetching())
   // };
 
-  const ODD_OPACITY = 0.2;
+//  const SnackBarAlert = forwardRef(
+//   function SnackbarAlert(props, ref) {
+//     return <Alert ref={ref} {...props} elevation={6} />
+//   }
+//  )
+
+
+  const [snackBarOpen, setSnackBarOpen] = useState(false)
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setSnackBarOpen(false)
+  }
+  const MuiSnackbar = ({message,duration}) => {
+
+    const action = (
+      <React.Fragment>
+        <Button color="secondary" size="small" onClick={handleSnackbarClose}>
+          ปิด
+        </Button>
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleSnackbarClose}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </React.Fragment>
+    );    
+
+    return (
+      <React.Fragment>
+      <Snackbar message={message}
+        autoHideDuration={duration}
+        open={snackBarOpen}
+        onClose={handleSnackbarClose}
+        severity="success"
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        action={action}
+      /> 
+      </React.Fragment> 
+
+      // <Snackbar open={snackBarOpen} autoHideDuration={duration} anchorOrigin={{
+      //   vertical: 'top',
+      //   horizontal: 'right'
+      // }}>
+      //     <SnackBarAlert onClose={handleSnackbarClose} severity="info">
+      //        {message}
+      //     </SnackBarAlert>
+      // </Snackbar>
+    )
+  }
+
+const ODD_OPACITY = 0.2;
 
 const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   [`& .${gridClasses.row}.even`]: {
@@ -200,7 +262,7 @@ const myData = {
                 }
             }}>
                 <Box display="flex" justifyContent="end">
-                    <Button  
+                    <Button  onClick={() => setSnackBarOpen(true)}
                         sx={{
                             // backgroundColor: colors.blueAccent[600],
                             backgroundColor: colors.greenAccent[600],
@@ -216,6 +278,7 @@ const myData = {
                         <AddIcon sx={{ mr: "10px" }} />
                         เพิ่มข้อมูล
                     </Button>
+                    <MuiSnackbar message="ยังไม่เปิดการเพิ่มข้อมูลตอนนี้" duration={4000} />
                 </Box>
                 {
                   result &&

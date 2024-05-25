@@ -11,7 +11,7 @@ const Farmers = () => {
     const colors = tokens(theme.palette.mode)
 
     const columns = [
-        { field: 'id', headerName: 'ID', flex: 0.5 },
+        { field: 'id', headerName: 'ลำดับ', flex: 0.5 },
         // { field: 'username', headerName: 'Username' },
         {
             field: 'firstname',
