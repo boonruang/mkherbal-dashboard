@@ -235,10 +235,12 @@ const myData = {
 
   return (
     <Box m="20px" >
-      <Header title="ข้อมูลสุมนไพร" subtitle="ตารางข้อมูลสุมนไพร"/>
+      <Header title="ข้อมูลสมุนไพร" subtitle="ตารางข้อมูลสมุนไพร"/>
       <Box m="40px 0 0 0" height="75vh" sx={{
                 "& .MuiDataGrid-root": {
-                    border: "none"
+                    // border: "none"
+                    border: 1,
+                    borderColor: colors.greenAccent[500]                    
                 },
                 "& .MuiDataGrid-cell": {
                     boderBottom: "none"
@@ -248,14 +250,16 @@ const myData = {
                 },
                 "& .MuiDataGrid-columnHeader": {
                     borderBottom: "none",
-                    backgroundColor: colors.gray,
+                    // backgroundColor: colors.gray,
+                    backgroundColor: colors.primary[400]
                 },
                 "& .MuiDataGrid-virtualScroller": {
-                    backgroundColor: colors.gray,
+                    // backgroundColor: colors.gray,
+                    // backgroundColor: colors.primary[400]
                 },
                 "& .MuiDataGrid-footerContainer": {
                     borderTop: "none",
-                    backgroundColor: colors.gray,
+                    // backgroundColor: colors.gray,
                 },
                 "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
                     color: `${colors.grey[100]} !important`
@@ -282,13 +286,18 @@ const myData = {
                 </Box>
                 {
                   result &&
-                <StripedDataGrid
-                loading={isFetching}
-                {...myData}
-                getRowClassName={(params) =>
-                  params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-                }
-              />              
+              //   <StripedDataGrid
+              //   loading={isFetching}
+              //   {...myData}
+              //   getRowClassName={(params) =>
+              //     params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+              //   }
+              // /> 
+                <DataGrid
+                rows={result}
+                columns={columns}
+                components={{ Toolbar: GridToolbar }}
+                />                         
                 }
 
             </Box>

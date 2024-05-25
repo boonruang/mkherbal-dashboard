@@ -10,7 +10,7 @@ const BusinessGroup = () => {
     const colors = tokens(theme.palette.mode)
 
     const columns = [
-        { field: 'id', headerName: 'ลำดับ', flex: 0.5 },
+        { field: 'id', headerName: 'ลำดับ',  headerAlign: 'center', align: 'center'},
         {
             field: 'aeng',
             headerName: 'บริษัท',
@@ -68,7 +68,9 @@ const BusinessGroup = () => {
             <Header title="ข้อมูลกลุ่มบริษัทและธุรกิจ" subtitle="รายการข้อมูลกลุ่มบริษัทและธุรกิจ" />
             <Box m="40px 0 0 0" height="75vh" sx={{
                 "& .MuiDataGrid-root": {
-                    border: "none"
+                    // border: "none"
+                    border: 1,
+                    borderColor: colors.greenAccent[500]                    
                 },
                 "& .MuiDataGrid-cell": {
                     boderBottom: "none"
@@ -78,10 +80,10 @@ const BusinessGroup = () => {
                 },
                 "& .MuiDataGrid-columnHeader": {
                     borderBottom: "none",
-                    // backgroundColor: colors.yellowAccent[700],
+                    backgroundColor: colors.primary[400]
                 },
                 "& .MuiDataGrid-virtualScroller": {
-                    backgroundColor: colors.primary[400]
+                    // backgroundColor: colors.primary[400]
                 },
                 "& .MuiDataGrid-footerContainer": {
                     borderTop: "none",
