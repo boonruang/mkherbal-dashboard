@@ -219,11 +219,6 @@ const myData = {
                 </Box>
                 {
                   result &&
-                //  <DataGrid
-                //     rows={result}
-                //     columns={columns}
-                //     components={{ Toolbar: GridToolbar }}
-                // />   
                 <StripedDataGrid
                 loading={isFetching}
                 {...myData}
