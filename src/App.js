@@ -32,6 +32,7 @@ import HerbalAdd from "scenes/herbals/HerbalAdd";
 import MarketplaceAdd from "scenes/marketplace/MarketplaceAdd";
 import HerbalsList from "scenes/herbals/list";
 import Invoices from "scenes/invoices";
+import SoilHerbals from "scenes/soillherbals";
 // import GeoLandMk from "scenes/geolandmk";
 // import GeoSaltMk from "scenes/geosaltmk";
 
@@ -80,6 +81,7 @@ function App() {
                     <Route path="/herbals/add" element={<HerbalAdd />} />
                     <Route path="/herbals/list" element={<HerbalsList />} />
                     <Route path="/invoices" element={<Invoices />} />
+                    <Route path="/soilherbals" element={<SoilHerbals />} />
                 </Routes>
               </main>
             </div> 

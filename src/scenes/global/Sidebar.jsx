@@ -377,6 +377,13 @@ const Sidebar = () => {
                                     selected={selected}
                                     setSelected={setSelected}
                                 />                                                   
+                                <Item
+                                    title="ข้อมูลดินและสมุนไพร"
+                                    to="/soilherbals"
+                                    icon={<ParkIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />                                                   
                         </SubMenu>                                                              
      
                         {/* <Typography

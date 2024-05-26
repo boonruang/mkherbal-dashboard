@@ -43,6 +43,9 @@ const Item = ({ result }) => {
                 <Typography variant="body2" color="text.secondary">
                 {result.scientificname.substring(0, 100)}
                 </Typography>
+                <Typography variant="body2" color="text.secondary">
+                {result.akaname.substring(0, 100)}
+                </Typography>
                 {/* <Typography gutterBottom variant="h6" component="div">
                   More
                 </Typography> */}
