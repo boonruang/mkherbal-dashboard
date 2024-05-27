@@ -24,6 +24,7 @@ import ForestIcon from '@mui/icons-material/Forest';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import WbIncandescentIcon from '@mui/icons-material/WbIncandescent';
 import AddIcon from '@mui/icons-material/Add';
+import FmdBadIcon from '@mui/icons-material/FmdBad';
 import GridViewIcon from '@mui/icons-material/GridView';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import { useDispatch } from 'react-redux';
@@ -355,8 +356,8 @@ const Sidebar = () => {
                             </Box>
                         ) :  <CollapsedIcon /> }   */}
 
-                        <SubMenu title="ข้อมูลดิน" icon={<MoreIcon />}>
-                                <Item
+                        <SubMenu title="ข้อมูลดิน" icon={<FmdBadIcon />}>
+                                {/* <Item
                                     title="การใช้ดิน ต.แก่งเลิงจาน"
                                     to="/geoland"
                                     icon={<LandslideIcon />}
@@ -376,7 +377,7 @@ const Sidebar = () => {
                                     icon={<MoreIcon />}
                                     selected={selected}
                                     setSelected={setSelected}
-                                />                                                   
+                                />                                                    */}
                                 <Item
                                     title="ข้อมูลดินและสมุนไพร"
                                     to="/soilherbals"

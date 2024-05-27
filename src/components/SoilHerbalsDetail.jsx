@@ -192,7 +192,7 @@ const CardDetail = ({ selectedResult}) => {
          <Box sx={{mt:"10px"}}>
             <Divider sx={{ mb: 1}}/>
               <Typography gutterBottom variant="h6" component="div" color={colors.greenAccent[400]}>
-                พื้นที่เหมาะสมในการปลูก (ข้อมูลกรมที่ดิน)  
+                บริเวณเหมาะสมในการปลูก (ข้อมูลกรมที่ดิน)  
               </Typography>        
               <FormControl>
                     <RadioGroup
@@ -203,7 +203,7 @@ const CardDetail = ({ selectedResult}) => {
                       onChange={handleChange}
                     >
                       <FormControlLabel value="soil" control={<Radio color='secondary' autoFocus/>} label="แหล่งดิน" />
-                      <FormControlLabel value="salt" control={<Radio color='secondary' />} label="แหล่งเกลือ" />
+                      <FormControlLabel value="salt" control={<Radio color='secondary' />} label=" คราบเกลือ" />
                     </RadioGroup>
                 </FormControl>   
             </Box>   
