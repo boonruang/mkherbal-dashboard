@@ -16,6 +16,7 @@ import CustomSidebarFactory from 'components/keplergl/CustomSidebarFactory'
 import SearchIcon from "@mui/icons-material/Search"
 import useDebounce from 'hooks/useDebounce';
 import { addDataToMap, wrapTo, updateMap, removeDataset as removeDatasetFromKepler } from '@kepler.gl/actions'
+import soikmk_config from '../../data/soilmk_config.json';
 // import useSWR from 'swr'
 import KeplerGlSchema from '@kepler.gl/schemas';
 import { showSidebar } from 'actions/app.action';
@@ -27,8 +28,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { setStateHerbalSelectedToFetching } from 'actions/herbal.action'
 import SoilHerbalsList from 'components/SoilHerbalsList';
 import SoilHerbalsDetail from 'components/SoilHerbalsDetail';
+import axios from 'axios';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
+const serviceUrl = process.env.REACT_APP_SERVICE_URL
 
 const updateVisState = createAction('UPDATE_VIS_STATE');
 // const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
@@ -81,17 +84,16 @@ const SoilHerbals = (props) => {
       dispatch(getHerbals())
     },[dispatch])
 
-
     // useEffect(() => {
     //   if (result) {
     //         dispatch(removeDatasetFromKepler('fmg1'))
     //         dispatch(
     //           wrapTo(
-    //             "farmergroup",
+    //             "soilherbal",
     //             addDataToMap({
     //               datasets: {
     //                 info: {
-    //                   label: 'Farmergroup',
+    //                   label: 'soilherbal',
     //                   id: 'fmg1'
     //                 },
     //                 data: processGeojson(result)
@@ -99,17 +101,59 @@ const SoilHerbals = (props) => {
     //               options: {
     //                 centerMap: true,
     //               },             
-    //               config: fmg_config
+    //               // config: fmg_config
+    //               config: {}
     //               })
     //             ))
-    //       dispatch(wrapTo('farmergroup',closeMapLegend()))
-    //       console.log('i am running in useEffect ')
+    //       dispatch(wrapTo('soilherbal',closeMapLegend()))
+    //       console.log('i am running soilherbal in useEffect ')
     //       setTimeout(() => {
-    //         dispatch(wrapTo('farmergroup',updateVisState()))
+    //         dispatch(wrapTo('soilherbal',updateVisState()))
     //         dispatch(showSidebar(false))
     //       },500)
     //     }
     // },[dispatch,result])
+
+   const [data, setData] = useState()
+   const [ampCode, setAmpCode] = useState('01');
+   const [provCode, setProvCode] = useState('01');
+   
+        useEffect(() => {
+         if (ampCode) {
+            axios.get(`${serviceUrl}/api/v2/geosoil/list/${ampCode}`)
+           .then(response => {
+             // console.log(response.data.result)
+             setData(response.data.result)
+           })
+           .catch(error => {console.log(error)})       
+         }
+           // console.log('amp_code useEffect',ampCode)
+        },[ampCode])
+
+    useEffect(() => {
+      if (data && ampCode) {
+            dispatch(
+              wrapTo(
+                "soilherbal",
+                addDataToMap({
+                  datasets: {
+                    info: {
+                      label: 'Soil Mahasarakham',
+                      id: 'soilmk1'
+                    },
+                    data: processGeojson(data)
+                  },  
+                  options: {
+                    centerMap: true,
+                  },             
+                  config: soikmk_config
+                  // config: {}
+                  })
+                ))
+                console.log('replace data with amp_code => ',ampCode)
+            // dispatch(wrapTo('soilherbal',closeMapLegend()))                
+          }
+    },[dispatch, ampCode, data ])    
 
     const handleSearchClick = () => {
       setIsSearcBoxOpen(!isSearcBoxOpen)
@@ -127,7 +171,7 @@ const SoilHerbals = (props) => {
                   <AutoSizer>
                     {({height, width}) => (
                     <KeplerGl
-                    id="farmergroup"
+                    id="soilherbal"
                     mapboxApiAccessToken={mapBoxKey}
                     height={height}               
                     width={width}

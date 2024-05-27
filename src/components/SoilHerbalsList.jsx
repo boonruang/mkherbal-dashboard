@@ -116,7 +116,7 @@ const SoilHerbalsList = ({searchTerm}) => {
       <StyledListDisplay>
           {
             Object.values(results).map(result => {
-              return <Item key={result.isErrord} result={result} />
+              return <Item key={result.id} result={result} />
             })
           }
       </StyledListDisplay>  
