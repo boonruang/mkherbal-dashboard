@@ -141,30 +141,7 @@ const SoilHerbals = (props) => {
    },[geosaltState.result])
    
     useEffect(() => {
-      if (soilData && (plantingSelected  === 'soil')) {
-            dispatch(
-              wrapTo(
-                "soilherbal",
-                addDataToMap({
-                  datasets: {
-                    info: {
-                      label: 'Soil Mahasarakham',
-                      id: 'soilmk1'
-                    },
-                    data: processGeojson(soilData)
-                  },  
-                  options: {
-                    centerMap: true,
-                  },             
-                  config: soilmk_fertility_config
-                  })
-                ))
-                // console.log('replace data with amp_code => ',ampCode)
-          }
-    },[dispatch, plantingSelected, soilData ])  
-    
-    useEffect(() => {
-      if (saltData && (plantingSelected === 'salt')) {
+     if (saltData && (plantingSelected  === 'salt')) {
             dispatch(
               wrapTo(
                 // "saltherbal",
@@ -176,19 +153,34 @@ const SoilHerbals = (props) => {
                       id: 'saltmk1'
                     },
                     data: processGeojson(saltData)
-                    // data: []
                   },  
                   options: {
                     centerMap: true,
                   },             
                   config: saltmk_config
-                  // config: soilmk_fertility_config
                   })
                 ))
-                // console.log('replace data with amp_code => ',ampCode)
-            // dispatch(wrapTo('soilherbal',closeMapLegend()))                
-          }
-    },[dispatch, plantingSelected, saltData ])     
+       } else {
+        if (soilData && (plantingSelected  === 'soil')) {
+          dispatch(
+            wrapTo(
+              "soilherbal",
+              addDataToMap({
+                datasets: {
+                  info: {
+                    label: 'Soil Mahasarakham',
+                    id: 'soilmk1'
+                  },
+                  data: processGeojson(soilData)
+                },  
+                options: {
+                  centerMap: true,
+                },             
+                config: soilmk_fertility_config
+                })
+              ))
+       }}
+    },[dispatch, plantingSelected, soilData, saltData ])     
 
     const handleSearchClick = () => {
       setIsSearcBoxOpen(!isSearcBoxOpen)
