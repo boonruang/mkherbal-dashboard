@@ -28,7 +28,6 @@ const Item = ({ result }) => {
     setIsDetail(!isDetail)
     console.log('isDetail',isDetail)
     console.log('selectedProp',selectedProp)
-    // dispatch(setStateFarmergroupToSelected(selectedProp))
     dispatch(getHerbalById(selectedProp.id))
   }
 

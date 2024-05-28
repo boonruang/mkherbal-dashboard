@@ -13,6 +13,7 @@ export const showSidebar = (payload) => ({
   type: SHOW_SIDEBAR,
   payload
 })
+
 export const setMapConfig = () => ({
   type: SET_MAP_CONFIG,
 })

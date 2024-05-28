@@ -29,22 +29,26 @@ import ProgressCircle from "./ProgressCircle";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import StatHerbalBox from "./StatHerbalBox";
+import { setPlantingSelection } from '../actions/herbal.action'
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
-const ExpandMore = mStyled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+// const ExpandMore = mStyled((props) => {
+//   const { expand, ...other } = props;
+//   return <IconButton {...other} />;
+// })(({ theme, expand }) => ({
+//   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+//   marginLeft: 'auto',
+//   transition: theme.transitions.create('transform', {
+//     duration: theme.transitions.duration.shortest,
+//   }),
+// }));
 
 
-const CardDetail = ({ selectedResult}) => {
+const CardDetail = ({selectedResult}) => {
+
+  const dispatch = useDispatch()
+
   console.log('CardDetail is called ',selectedResult)
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
@@ -58,11 +62,19 @@ const CardDetail = ({ selectedResult}) => {
     setExpanded(!expanded);
   };
 
-  const [selectedValue, setSelectedValue] = useState('soil');
+  // const [selectedValue, setSelectedValue] = useState('soil');
 
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+  const handleRadioButtonChange = (event) => {
+    // setSelectedValue(event.target.value);
+    dispatch(setPlantingSelection(event.target.value))
   };
+
+
+  const { plantingSelected } = useSelector((state) => state.app.herbalReducer)
+
+  // useEffect(() => {
+  //   dispatch(setPlantingSelection(selectedValue))
+  // },[dispatch,selectedValue])
 
   const handleSelect = async (event) => {
     setAmpCode(event.target.value);
@@ -97,7 +109,7 @@ const CardDetail = ({ selectedResult}) => {
          {/* GRID & CHARTS */}
          <Box
                 display="grid"
-                gridTemplateRows="repeat(3, 1fr)"
+                gridTemplateRows="repeat(2, 1fr)"
                 gridAutoRows="140px"
                 gap="10px"
             >         
@@ -146,35 +158,84 @@ const CardDetail = ({ selectedResult}) => {
                         }
                     />
                 </Box>
-
-                <Box
-                    gridColumn="span 3"
-                    // backgroundColor={colors.primary[400]}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                >
-                    <StatHerbalBox
-                        title="134"
-                        subtitle="ความเค็ม"
-                        progress="0.80"
-                        increase="43%"
-                        icon={
-                            <WarehouseIcon
-                                sx={{
-                                    color: colors.greenAccent[600],
-                                    fontSize: "26px"
-                                }}
-                            />
-                        }
-                    />
-                </Box>                                                   
             </Box>
-   
-          </Box>                                        
+            <Box sx={{mt:"10px"}}>
+                <Divider sx={{ mb: 1}}/>
+                  <Typography gutterBottom variant="h6" component="div" color={colors.greenAccent[400]}>
+                    บริเวณเหมาะสมในการปลูก (ข้อมูลกรมที่ดิน)  
+                  </Typography>        
+                  <FormControl>
+                        <RadioGroup
+                          row
+                          aria-labelledby="plant-selection-label"
+                          name="plant-selection"
+                          value={plantingSelected}
+                          onChange={handleRadioButtonChange}
+                        >
+                          <FormControlLabel value="soil" control={<Radio color='secondary' autoFocus/>} label="แหล่งดิน" />
+                          <FormControlLabel value="salt" control={<Radio color='secondary' />} label=" คราบเกลือ" />
+                        </RadioGroup>
+                    </FormControl>   
+                </Box>   
+                <Box sx={{mt:"10px"}}>
+                    <Divider sx={{ mb: 1}}/>
+                    <Typography gutterBottom variant="h6" component="div" color={colors.greenAccent[400]}>
+                      ระบุพื้นที่ 
+                    </Typography>  
+                </Box>   
+                  <Box display="flex" flexDirection="row" justifyContent="space-between">
+                    <Box sx={{mt:"10px"}}>
+                    <FormControl  variant="filled" size="small">
+                      <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          value={provCode}
+                          // label="ProvinceCode"
+                          onChange={handleSelectProv}
+                        >
+                          <MenuItem value={""}>
+                            <em>ไม่ระบุ</em>
+                          </MenuItem>
+                          <MenuItem value={"01"} defaultChecked>จ.มหาสารคาม</MenuItem>
+                          {/* <MenuItem value={"02"}>จ.ขอนแก่น</MenuItem>
+                          <MenuItem value={"03"}>จ.กาฬสินธุ์</MenuItem>
+                          <MenuItem value={"04"}>จ.ร้อยเอ็ด</MenuItem> */}
+                      </Select>
+                    </FormControl>
+                  </Box>              
+                  <Box sx={{mt:"10px"}}>
+                    <FormControl  variant="filled" size="small">
+                      <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          value={ampCode}
+                          // label="AmphueCode"
+                          onChange={handleSelect}
+                        >
+                          <MenuItem value={""}>
+                            <em>ไม่ระบุ</em>
+                          </MenuItem>
+                          <MenuItem value={"01"} defaultChecked>อ.เมืองมหาสารคาม</MenuItem>
+                          <MenuItem value={"02"}>อ.แกดำ</MenuItem>
+                          <MenuItem value={"03"}>อ.โกสุมพิสัย</MenuItem>
+                          <MenuItem value={"04"}>อ.กันทรวิชัย</MenuItem>
+                          <MenuItem value={"05"}>อ.เชียงยืน</MenuItem>
+                          <MenuItem value={"06"}>อ.บรบือ</MenuItem>
+                          <MenuItem value={"07"}>อ.นาเชือก</MenuItem>
+                          <MenuItem value={"08"}>อ.พยัคฆภูมิพิสัย</MenuItem>
+                          <MenuItem value={"09"}>อ.วาปีปทุม</MenuItem>
+                          <MenuItem value={"10"}>อ.นาดูน</MenuItem>
+                          <MenuItem value={"11"}>อ.ยางสีสุราช</MenuItem>
+                          <MenuItem value={"12"}>อ.กุดรัง</MenuItem>
+                          <MenuItem value={"13"}>อ.ชื่นชม</MenuItem>
+                        </Select>
+                    </FormControl>
+                  </Box>  
+                </Box>                   
+            </Box>                        
       </CardContent>
       <Divider sx={{ m: '5px 10px'}}/>
-      <CardActions disableSpacing >
+      {/* <CardActions disableSpacing >
         <Typography variant="h5" sx={{ ml: 1}} color={colors.greenAccent[400]}>
             รายละเอียด
         </Typography>
@@ -188,82 +249,7 @@ const CardDetail = ({ selectedResult}) => {
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <Box sx={{ mb: '20px', ml: 2}}>
-         <Box sx={{mt:"10px"}}>
-            <Divider sx={{ mb: 1}}/>
-              <Typography gutterBottom variant="h6" component="div" color={colors.greenAccent[400]}>
-                บริเวณเหมาะสมในการปลูก (ข้อมูลกรมที่ดิน)  
-              </Typography>        
-              <FormControl>
-                    <RadioGroup
-                      row
-                      aria-labelledby="plant-selection-label"
-                      name="plant-selection"
-                      defaultValue="soil"
-                      onChange={handleChange}
-                    >
-                      <FormControlLabel value="soil" control={<Radio color='secondary' autoFocus/>} label="แหล่งดิน" />
-                      <FormControlLabel value="salt" control={<Radio color='secondary' />} label=" คราบเกลือ" />
-                    </RadioGroup>
-                </FormControl>   
-            </Box>   
-            <Box sx={{mt:"10px"}}>
-                <Divider sx={{ mb: 1}}/>
-                <Typography gutterBottom variant="h6" component="div" color={colors.greenAccent[400]}>
-                  ระบุพื้นที่ 
-                </Typography>  
-            </Box>   
-              <Box display="flex" flexDirection="row" justifyContent="space-between">
-                <Box sx={{mt:"10px"}}>
-                <FormControl  variant="filled" size="small">
-                  <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      value={provCode}
-                      // label="ProvinceCode"
-                      onChange={handleSelectProv}
-                    >
-                      <MenuItem value={""}>
-                        <em>ไม่ระบุ</em>
-                      </MenuItem>
-                      <MenuItem value={"01"} defaultChecked>จ.มหาสารคาม</MenuItem>
-                      {/* <MenuItem value={"02"}>จ.ขอนแก่น</MenuItem>
-                      <MenuItem value={"03"}>จ.กาฬสินธุ์</MenuItem>
-                      <MenuItem value={"04"}>จ.ร้อยเอ็ด</MenuItem> */}
-                  </Select>
-                </FormControl>
-              </Box>              
-              <Box sx={{mt:"10px"}}>
-                <FormControl  variant="filled" size="small">
-                  <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      value={ampCode}
-                      // label="AmphueCode"
-                      onChange={handleSelect}
-                    >
-                      <MenuItem value={""}>
-                        <em>ไม่ระบุ</em>
-                      </MenuItem>
-                      <MenuItem value={"01"} defaultChecked>อ.เมืองมหาสารคาม</MenuItem>
-                      <MenuItem value={"02"}>อ.แกดำ</MenuItem>
-                      <MenuItem value={"03"}>อ.โกสุมพิสัย</MenuItem>
-                      <MenuItem value={"04"}>อ.กันทรวิชัย</MenuItem>
-                      <MenuItem value={"05"}>อ.เชียงยืน</MenuItem>
-                      <MenuItem value={"06"}>อ.บรบือ</MenuItem>
-                      <MenuItem value={"07"}>อ.นาเชือก</MenuItem>
-                      <MenuItem value={"08"}>อ.พยัคฆภูมิพิสัย</MenuItem>
-                      <MenuItem value={"09"}>อ.วาปีปทุม</MenuItem>
-                      <MenuItem value={"10"}>อ.นาดูน</MenuItem>
-                      <MenuItem value={"11"}>อ.ยางสีสุราช</MenuItem>
-                      <MenuItem value={"12"}>อ.กุดรัง</MenuItem>
-                      <MenuItem value={"13"}>อ.ชื่นชม</MenuItem>
-                    </Select>
-                </FormControl>
-              </Box>  
-            </Box>                   
-        </Box>
-      </Collapse>      
+      </Collapse>       */}
       {/* <Divider sx={{ m: '5px 0px'}}/> */}
     </Card>    
   )

@@ -4,11 +4,15 @@ import loginReducer from "./login.reducer";
 import marketplaceReducer from "./marketplace.reducer";
 import farmergroupReducer from "./farmergroup.reducer";
 import herbalReducer from "./herbal.reducer";
+import geosoilReducer from "./geosoil.reducer";
+import geosaltReducer from "./geosalt.reducer";
 
 export default combineReducers({
   appReducer,
   loginReducer,
   marketplaceReducer,
   farmergroupReducer,
-  herbalReducer
+  herbalReducer,
+  geosoilReducer,
+  geosaltReducer
 })

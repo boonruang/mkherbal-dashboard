@@ -16,11 +16,14 @@ import CustomSidebarFactory from 'components/keplergl/CustomSidebarFactory'
 import SearchIcon from "@mui/icons-material/Search"
 import useDebounce from 'hooks/useDebounce';
 import { addDataToMap, wrapTo, updateMap, removeDataset as removeDatasetFromKepler } from '@kepler.gl/actions'
-import soikmk_config from '../../data/soilmk_config.json';
+import soilmk_fertility_config from '../../data/soilmk_fertility_config.json';
+import saltmk_config from '../../data/saltmk_config.json';
 // import useSWR from 'swr'
 import KeplerGlSchema from '@kepler.gl/schemas';
 import { showSidebar } from 'actions/app.action';
 import { getHerbals } from 'actions/herbal.action';
+import { getGeoSoils } from 'actions/geosoil.action';
+import { getGeoSalts } from 'actions/geosalt.action';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
@@ -60,7 +63,9 @@ const SoilHerbals = (props) => {
 
     const { isSidebar } = useSelector((state) => state.app.appReducer)
 
-    const { result, selectedResult } = useSelector((state) => state.app.herbalReducer)
+    const { selectedResult, plantingSelected } = useSelector((state) => state.app.herbalReducer)
+    const geosoilState = useSelector((state) => state.app.geosoilReducer)
+    const geosaltState = useSelector((state) => state.app.geosaltReducer)
 
     // if (result) {
     //   console.log('result check',result)
@@ -81,7 +86,8 @@ const SoilHerbals = (props) => {
     },[selectedResult])    
 
     useEffect(() => {
-      dispatch(getHerbals())
+      dispatch(getGeoSoils())
+      dispatch(getGeoSalts())
     },[dispatch])
 
     // useEffect(() => {
@@ -114,24 +120,28 @@ const SoilHerbals = (props) => {
     //     }
     // },[dispatch,result])
 
-   const [data, setData] = useState()
+   const [soilData, setSoilData] = useState()
+   const [saltData, setSaltData] = useState()
+
    const [ampCode, setAmpCode] = useState('01');
    const [provCode, setProvCode] = useState('01');
-   
-        useEffect(() => {
-         if (ampCode) {
-            axios.get(`${serviceUrl}/api/v2/geosoil/list/${ampCode}`)
-           .then(response => {
-             // console.log(response.data.result)
-             setData(response.data.result)
-           })
-           .catch(error => {console.log(error)})       
-         }
-           // console.log('amp_code useEffect',ampCode)
-        },[ampCode])
 
+   useEffect(() => {
+    if (geosoilState.result) {
+      setSoilData(geosoilState.result)
+      console.log('getGeoSoils data',geosoilState.result)
+    }
+   },[geosoilState.result])
+
+   useEffect(() => {
+    if (geosaltState.result) {
+      setSaltData(geosaltState.result)
+      console.log('geosaltState data',geosaltState.result)
+    }
+   },[geosaltState.result])
+   
     useEffect(() => {
-      if (data && ampCode) {
+      if (soilData && (plantingSelected  === 'soil')) {
             dispatch(
               wrapTo(
                 "soilherbal",
@@ -141,19 +151,44 @@ const SoilHerbals = (props) => {
                       label: 'Soil Mahasarakham',
                       id: 'soilmk1'
                     },
-                    data: processGeojson(data)
+                    data: processGeojson(soilData)
                   },  
                   options: {
                     centerMap: true,
                   },             
-                  config: soikmk_config
-                  // config: {}
+                  config: soilmk_fertility_config
                   })
                 ))
-                console.log('replace data with amp_code => ',ampCode)
+                // console.log('replace data with amp_code => ',ampCode)
+          }
+    },[dispatch, plantingSelected, soilData ])  
+    
+    useEffect(() => {
+      if (saltData && (plantingSelected === 'salt')) {
+            dispatch(
+              wrapTo(
+                // "saltherbal",
+                "soilherbal",
+                addDataToMap({
+                  datasets: {
+                    info: {
+                      label: 'Soil Mahasarakham',
+                      id: 'saltmk1'
+                    },
+                    data: processGeojson(saltData)
+                    // data: []
+                  },  
+                  options: {
+                    centerMap: true,
+                  },             
+                  config: saltmk_config
+                  // config: soilmk_fertility_config
+                  })
+                ))
+                // console.log('replace data with amp_code => ',ampCode)
             // dispatch(wrapTo('soilherbal',closeMapLegend()))                
           }
-    },[dispatch, ampCode, data ])    
+    },[dispatch, plantingSelected, saltData ])     
 
     const handleSearchClick = () => {
       setIsSearcBoxOpen(!isSearcBoxOpen)

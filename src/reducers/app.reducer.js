@@ -11,7 +11,7 @@ const initialState = {
   appName: 'herbhuk',
   loaded: false,
   isSidebar: true,
-  isFarmerDetailbox: false
+  isFarmerDetailbox: false,
 };
 
 const appReducer= (state = initialState, { type, payload }) => {
@@ -20,7 +20,7 @@ const appReducer= (state = initialState, { type, payload }) => {
       return {
         ...state,
         isSidebar: payload
-        }
+        }         
     case SET_MAP_CONFIG:
       return {
         ...state,
@@ -30,12 +30,7 @@ const appReducer= (state = initialState, { type, payload }) => {
       return {
         ...state,
         test: payload,
-        }
-    // case SHOW_FARMER_DETIALBOX:
-    //   return {
-    //     ...state,
-    //     isFarmerDetailbox: payload
-    //     }        
+        }            
     default:
       return state
   }
