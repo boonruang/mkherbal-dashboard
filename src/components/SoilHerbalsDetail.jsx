@@ -1,49 +1,24 @@
 import { useEffect,useState } from "react";
-// import useSWR from "swr";
-// import Item from './Item'
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Button, Typography,IconButton,useTheme, MenuItem,Select  } from "@mui/material"
 import styled from 'styled-components'
 import {theme} from '@kepler.gl/styles';
 import { tokens } from '../theme';
-import PlaceIcon from '@mui/icons-material/Place';
 
-import { styled as mStyled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import Collapse from '@mui/material/Collapse';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Place from '@mui/icons-material/Place';
 import ParkIcon from '@mui/icons-material/Park';
 import Divider from '@mui/material/Divider';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import ProgressCircle from "./ProgressCircle";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
-import WarehouseIcon from '@mui/icons-material/Warehouse';
 import StatHerbalBox from "./StatHerbalBox";
-import { setPlantingSelection } from '../actions/herbal.action'
+import { setPlantingSelection,setAmphoeSelection } from '../actions/herbal.action'
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
-
-// const ExpandMore = mStyled((props) => {
-//   const { expand, ...other } = props;
-//   return <IconButton {...other} />;
-// })(({ theme, expand }) => ({
-//   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-//   marginLeft: 'auto',
-//   transition: theme.transitions.create('transform', {
-//     duration: theme.transitions.duration.shortest,
-//   }),
-// }));
-
 
 const CardDetail = ({selectedResult}) => {
 
@@ -53,14 +28,8 @@ const CardDetail = ({selectedResult}) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
-  const [ampCode, setAmpCode] = useState('01');
+  // const [ampCode, setAmpCode] = useState('01');
   const [provCode, setProvCode] = useState('01');  
-
-  const [expanded, setExpanded] = useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   // const [selectedValue, setSelectedValue] = useState('soil');
 
@@ -69,17 +38,14 @@ const CardDetail = ({selectedResult}) => {
     dispatch(setPlantingSelection(event.target.value))
   };
 
-
-  const { plantingSelected } = useSelector((state) => state.app.herbalReducer)
+  const { plantingSelected, amphoeSelected } = useSelector((state) => state.app.herbalReducer)
 
   // useEffect(() => {
   //   dispatch(setPlantingSelection(selectedValue))
   // },[dispatch,selectedValue])
 
-  const handleSelect = async (event) => {
-    setAmpCode(event.target.value);
-    // console.log('event.target.value',event.target.value)
-    // console.log('amp_code in handleSelect',ampCode)
+  const handleAmphoeSelection = async (event) => {
+    dispatch(setAmphoeSelection(event.target.value))    
   };    
 
   const handleSelectProv = (event) => {
@@ -124,7 +90,7 @@ const CardDetail = ({selectedResult}) => {
                     <StatHerbalBox
                         title="55"
                         subtitle="ความอุดมสมบูรณ์"
-                        increase="14%"
+                        increase="กลาง"
                         progress="0.75"
                         icon={
                             <ParkIcon
@@ -145,9 +111,9 @@ const CardDetail = ({selectedResult}) => {
                 >
                     <StatHerbalBox
                         title="27"
-                        subtitle="ความเป็นกรดเป็นด่าง"
+                        subtitle="ค่า pH"
                         progress="0.30"
-                        increase="5%"
+                        increase="7-8"
                         icon={
                             <PeopleOutlinedIcon
                                 sx={{
@@ -193,9 +159,9 @@ const CardDetail = ({selectedResult}) => {
                           // label="ProvinceCode"
                           onChange={handleSelectProv}
                         >
-                          <MenuItem value={""}>
+                          {/* <MenuItem value={""}>
                             <em>ไม่ระบุ</em>
-                          </MenuItem>
+                          </MenuItem> */}
                           <MenuItem value={"01"} defaultChecked>จ.มหาสารคาม</MenuItem>
                           {/* <MenuItem value={"02"}>จ.ขอนแก่น</MenuItem>
                           <MenuItem value={"03"}>จ.กาฬสินธุ์</MenuItem>
@@ -208,13 +174,13 @@ const CardDetail = ({selectedResult}) => {
                       <Select
                           labelId="demo-select-small-label"
                           id="demo-select-small"
-                          value={ampCode}
+                          value={amphoeSelected}
                           // label="AmphueCode"
-                          onChange={handleSelect}
+                          onChange={handleAmphoeSelection}
                         >
-                          <MenuItem value={""}>
+                          {/* <MenuItem value={""}>
                             <em>ไม่ระบุ</em>
-                          </MenuItem>
+                          </MenuItem> */}
                           <MenuItem value={"01"} defaultChecked>อ.เมืองมหาสารคาม</MenuItem>
                           <MenuItem value={"02"}>อ.แกดำ</MenuItem>
                           <MenuItem value={"03"}>อ.โกสุมพิสัย</MenuItem>
@@ -235,22 +201,6 @@ const CardDetail = ({selectedResult}) => {
             </Box>                        
       </CardContent>
       <Divider sx={{ m: '5px 10px'}}/>
-      {/* <CardActions disableSpacing >
-        <Typography variant="h5" sx={{ ml: 1}} color={colors.greenAccent[400]}>
-            รายละเอียด
-        </Typography>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-      </Collapse>       */}
-      {/* <Divider sx={{ m: '5px 0px'}}/> */}
     </Card>    
   )
 }

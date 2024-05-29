@@ -5,7 +5,8 @@ import {
   HTTP_HERBAL_SELECTED_SUCCESS,
   HTTP_HERBAL_SELECTED_FAILED,
   HTTP_HERBAL_SELECTED_FETCHING,
-  SET_PLANTING_SELECTION,  
+  SET_PLANTING_SELECTION,
+  SET_AMPHOE_SELECTION,  
 } from '../constants';
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
   isSelectedFetching: false,
   isSelectedError: false,
   selectedResult: null,
-  plantingSelected: 'soil'  
+  plantingSelected: 'soil',  
+  amphoeSelected: '01'  
 };
 
 const herbalReducer = (state = initialState, { type, payload }) => {
@@ -33,10 +35,9 @@ const herbalReducer = (state = initialState, { type, payload }) => {
     case HTTP_HERBAL_SELECTED_FETCHING:
       return { ...state, selectedResult: null, isSelectedError: false , isSelectedFetching : true };
     case SET_PLANTING_SELECTION:
-      return {
-        ...state,
-        plantingSelected: payload,
-        }              
+      return { ...state, plantingSelected: payload }              
+    case SET_AMPHOE_SELECTION:
+      return { ...state, amphoeSelected: payload }              
     default:
       return state;
   }

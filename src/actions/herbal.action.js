@@ -6,6 +6,7 @@ import {
   HTTP_HERBAL_SELECTED_FAILED,
   HTTP_HERBAL_SELECTED_FETCHING,
   SET_PLANTING_SELECTION,  
+  SET_AMPHOE_SELECTION,
   server
 } from '../constants';
 import { httpClient } from '../utils/HttpClient';
@@ -38,6 +39,11 @@ const setStateHerbalSelectedToFailed = () => ({
 
 export const setPlantingSelection = (payload) => ({
   type: SET_PLANTING_SELECTION,
+  payload
+})
+
+export const setAmphoeSelection = (payload) => ({
+  type: SET_AMPHOE_SELECTION,
   payload
 })
 

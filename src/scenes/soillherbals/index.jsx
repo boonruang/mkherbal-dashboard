@@ -22,7 +22,7 @@ import saltmk_config from '../../data/saltmk_config.json';
 import KeplerGlSchema from '@kepler.gl/schemas';
 import { showSidebar } from 'actions/app.action';
 import { getHerbals } from 'actions/herbal.action';
-import { getGeoSoils } from 'actions/geosoil.action';
+import { getGeoSoils, getGeoSoilById } from 'actions/geosoil.action';
 import { getGeoSalts } from 'actions/geosalt.action';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -63,21 +63,9 @@ const SoilHerbals = (props) => {
 
     const { isSidebar } = useSelector((state) => state.app.appReducer)
 
-    const { selectedResult, plantingSelected } = useSelector((state) => state.app.herbalReducer)
+    const { selectedResult, plantingSelected, amphoeSelected } = useSelector((state) => state.app.herbalReducer)
     const geosoilState = useSelector((state) => state.app.geosoilReducer)
     const geosaltState = useSelector((state) => state.app.geosaltReducer)
-
-    // if (result) {
-    //   console.log('result check',result)
-    // }
-
-    // const { mkplc } = useSelector((state) => state.keplerGl)
-
-    // if (mkplc) {
-    //   console.log('mkplc',mkplc)
-    // }
-    
-    // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.mkplc)
 
     useEffect(() => {
       if (selectedResult) {
@@ -86,52 +74,42 @@ const SoilHerbals = (props) => {
     },[selectedResult])    
 
     useEffect(() => {
-      dispatch(getGeoSoils())
       dispatch(getGeoSalts())
     },[dispatch])
 
-    // useEffect(() => {
-    //   if (result) {
-    //         dispatch(removeDatasetFromKepler('fmg1'))
-    //         dispatch(
-    //           wrapTo(
-    //             "soilherbal",
-    //             addDataToMap({
-    //               datasets: {
-    //                 info: {
-    //                   label: 'soilherbal',
-    //                   id: 'fmg1'
-    //                 },
-    //                 data: processGeojson(result)
-    //               },  
-    //               options: {
-    //                 centerMap: true,
-    //               },             
-    //               // config: fmg_config
-    //               config: {}
-    //               })
-    //             ))
-    //       dispatch(wrapTo('soilherbal',closeMapLegend()))
-    //       console.log('i am running soilherbal in useEffect ')
-    //       setTimeout(() => {
-    //         dispatch(wrapTo('soilherbal',updateVisState()))
-    //         dispatch(showSidebar(false))
-    //       },500)
-    //     }
-    // },[dispatch,result])
+    useEffect(() => {
+      dispatch(getGeoSoilById(amphoeSelected))
+    },[dispatch,amphoeSelected])
 
    const [soilData, setSoilData] = useState()
    const [saltData, setSaltData] = useState()
 
-   const [ampCode, setAmpCode] = useState('01');
-   const [provCode, setProvCode] = useState('01');
+   useEffect(() => {
+    // need to replaced [] blank data to map first
+    if (amphoeSelected) {
+    dispatch(
+      wrapTo(
+        "soilherbal",
+        addDataToMap({
+          datasets: {
+            info: {
+              label: 'Soil Mahasarakham',
+              id: 'soilmk1'
+            },
+            data: []
+          },     
+          config: soilmk_fertility_config
+          })
+        ))
+    }
+    },[dispatch, amphoeSelected]) 
 
    useEffect(() => {
-    if (geosoilState.result) {
-      setSoilData(geosoilState.result)
-      console.log('getGeoSoils data',geosoilState.result)
+    if (geosoilState.selectedResult) {
+      setSoilData(geosoilState.selectedResult)
+      console.log('getGeoSoils selectedResult data',geosoilState.selectedResult)
     }
-   },[geosoilState.result])
+   },[geosoilState.selectedResult])
 
    useEffect(() => {
     if (geosaltState.result) {
@@ -139,7 +117,8 @@ const SoilHerbals = (props) => {
       console.log('geosaltState data',geosaltState.result)
     }
    },[geosaltState.result])
-   
+
+
     useEffect(() => {
      if (saltData && (plantingSelected  === 'salt')) {
             dispatch(
@@ -160,8 +139,7 @@ const SoilHerbals = (props) => {
                   config: saltmk_config
                   })
                 ))
-       } else {
-        if (soilData && (plantingSelected  === 'soil')) {
+       } else if (soilData) {
           dispatch(
             wrapTo(
               "soilherbal",
@@ -179,7 +157,7 @@ const SoilHerbals = (props) => {
                 config: soilmk_fertility_config
                 })
               ))
-       }}
+      }
     },[dispatch, plantingSelected, soilData, saltData ])     
 
     const handleSearchClick = () => {
