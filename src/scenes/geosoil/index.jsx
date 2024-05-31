@@ -26,6 +26,7 @@ const serviceUrl = process.env.REACT_APP_SERVICE_URL
 
 const updateVisState = createAction('UPDATE_VIS_STATE');
 const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
+const updateColorField = createAction('UPDATE_COLOR_FIELD');
 
 const myCustomHeaderFactory = () => CustomHeaderFactory
 
@@ -173,6 +174,10 @@ const GeoSoil = (props) => {
                       Update visData
                     </Button>                     */}
 
+                    <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilherbal',(updateColorField("55555")))) }>
+                      Button click
+                    </Button>  
+                    
                     <Button variant="contained" color="success" onClick={() => dispatch(wrapTo('soilmk1',(updateVisState("voyagerDark")))) }>
                       Update MapStyle
                     </Button>  

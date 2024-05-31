@@ -36,7 +36,7 @@ const ExpandMore = mStyled((props) => {
 
 
 const CardDetail = ({ selectedResult}) => {
-  console.log('CardDetail is called ',selectedResult)
+  console.log('CardDetail is called in FarmerGroupDetail')
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
@@ -145,9 +145,9 @@ const FarmergroupDetail = ({props}) => {
 
   const { selectedResult, isSelectedFetching , isSelectedError } = useSelector((state) => state.app.farmergroupReducer)
 
-  if (selectedResult) {
-    console.log('see selectedResult',selectedResult)
-  }
+  // if (selectedResult) {
+  //   console.log('see selectedResult in FarmergroupDetail',selectedResult)
+  // }
   
   let content
   if (isSelectedFetching) content = <Box>Loading...</Box>

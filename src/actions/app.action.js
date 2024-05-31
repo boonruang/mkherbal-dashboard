@@ -22,10 +22,10 @@ export const querySuccess = () => ({
   type: QUERY_SUCCESS,
 })
 
-export const updateKeplerMap = (payload) => ({
-  type: ActionTypes.UPDATE_MAP,
-  payload
-})
+// export const updateKeplerMap = (payload) => ({
+//   type: ActionTypes.UPDATE_MAP,
+//   payload
+// })
 
 // export const setFarmerDetailbox = (payload) => ({
 //   type: SHOW_FARMER_DETIALBOX,

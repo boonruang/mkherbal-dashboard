@@ -7,6 +7,7 @@ import {
   HTTP_HERBAL_SELECTED_FETCHING,
   SET_PLANTING_SELECTION,  
   SET_AMPHOE_SELECTION,
+  SET_SOIL_FIELD_SELECTION,
   server
 } from '../constants';
 import { httpClient } from '../utils/HttpClient';
@@ -44,6 +45,11 @@ export const setPlantingSelection = (payload) => ({
 
 export const setAmphoeSelection = (payload) => ({
   type: SET_AMPHOE_SELECTION,
+  payload
+})
+
+export const setSoilFieldSelection = (payload) => ({
+  type: SET_SOIL_FIELD_SELECTION,
   payload
 })
 

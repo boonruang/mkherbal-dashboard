@@ -23,13 +23,48 @@ import { getGeoSoils, getGeoSoilById } from 'actions/geosoil.action';
 import { getGeoSalts } from 'actions/geosalt.action';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { setStateHerbalSelectedToFetching } from 'actions/herbal.action'
 import SoilHerbalsList from 'components/SoilHerbalsList';
 import SoilHerbalsDetail from 'components/SoilHerbalsDetail';
+import {ActionTypes} from '@kepler.gl/actions';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
+const serviceUrl = process.env.REACT_APP_SERVICE_URL
 
-const addDatasetConfigMap = createAction('ADD_DATASET_CONFIG_MAP'); 
+let soilmk_fer_conf = soilmk_fertility_config
+const updateColorField = createAction('UPDATE_COLOR_FIELD');
+const update5555 = createAction('TOY_5555');
+
+const updateMapConfig = createAction('SET_MAP_CONFIG_UPDATE');
+
+// const togglePerspective = createAction('SET_MAP_PERSPECTIVE');
+const updateMapControl = createAction('UPDATE_MAP_CONTROLS');
+
+const updateMapTheme = createAction('UPDATE_MAP_THEME');
+
+const setMapStateFitbound = createAction('SET_MAP_STAT_FIT');
+const rcvMapConfig = createAction('RCV_MAP_STAT_CONFIG');
+const resetMapConfig = createAction('RESET_MAP_STAT_CONFIG');
+const updateVisStatDataset = createAction('UPDATE_VISSTAT_DATASET');
+const rcvVisStatMapConfig = createAction('RCV_VIS_STAT_CONFIG'); 
+const LoadRemoteResourceSuccess = createAction('LOAD_REMOTE_RESOURCE_SUCCESS'); 
+
+
+const updateVisStatePlugin = createAction('UPDATE_VIS_STATE');
+const updateVisStateConfigPlugin = createAction('UPDATE_VIS_STATE_CONFIG');
+// const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
+const closeMapLegend = createAction('HIDE_AND_SHOW_MAP_LEGEND');
+
+const togglePerspective = createAction(ActionTypes.TOGGLE_PERSPECTIVE);
+const addCustomerMapStyle = createAction(ActionTypes.ADD_CUSTOM_MAP_STYLE);
+  
+
+// const KeplerGl = injectComponents([
+//   [PanelHeaderFactory, myCustomHeaderFactory],
+//   [SidebarFactory, CustomSidebarFactory],
+// ]);
 
 const SoilHerbals = (props) => {
 
@@ -102,11 +137,11 @@ const SoilHerbals = (props) => {
     console.log('soilFieldSelected changed',soilFieldSelected)
     if (soilData) {
       if (soilFieldSelected === 'fertility') {
-        dispatch((addDatasetConfigMap( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, config: parsedConfigFertility})))
+        dispatch((LoadRemoteResourceSuccess( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, config: parsedConfigFertility})))
       } else if (soilFieldSelected === 'ph') {
-        dispatch((addDatasetConfigMap( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, config: parsedConfigPh})))
+        dispatch((LoadRemoteResourceSuccess( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, config: parsedConfigPh})))
       } else if (soilFieldSelected === 'texture') {
-        dispatch((addDatasetConfigMap( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, config: parsedConfigTexture})))
+        dispatch((LoadRemoteResourceSuccess( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, config: parsedConfigTexture})))
       }        
     }
   },[dispatch, soilData, soilFieldSelected, parsedConfigFertility, parsedConfigPh, parsedConfigTexture])      
@@ -164,6 +199,68 @@ const SoilHerbals = (props) => {
       return (
         <Box m="20px">
             <Header title="ข้อมูลดินและสมุนไพร" subtitle="ความเหมาะสมของดินและสมุนไพร" />
+            {/* <Button variant="contained" color="success" onClick={() => dispatch(updateMapConfig(mapConfig.config.mapState)) }>
+              Update MapConfig
+            </Button>   */}
+            <Button variant="contained" color="success" onClick={() => dispatch(updateColorField()) }>
+              Update Color Field
+            </Button>  
+            {/* <Button variant="contained" color="success" onClick={() => dispatch(updateColorField({info: {label: 'Soil 111',id: 'soilmk1'}, data: processGeojson(soilData)})) }>
+              Button click
+            </Button>   */}
+            <Button variant="contained" color="success" onClick={() => dispatch(update5555()) }>
+              Hide Legend
+            </Button>  
+            <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilherbal",(togglePerspective())))}>
+              Toggle Perspective
+            </Button>             
+            <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilherbal",(updateMapControl())))}>
+              Update Map Control
+            </Button>             
+            <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilherbal",(updateMapTheme())))}>
+              Update Map Theme
+            </Button>             
+            <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilherbal",(updateMapConfig(soilmk_texture_config))))}>
+              Set Map config update
+            </Button>             
+            {/* <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilherbal",(resetMapConfig(soilmk_texture_config.config))))}>
+              receiveMapConfig
+            </Button>              */}
+            <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilherbal",(resetMapConfig(soilmk_texture_config))))}>
+              reset map config
+            </Button>             
+            <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilherbal",(updateVisStatDataset({info: {label: 'Soil 111',id: 'soilmk1'}, data: processGeojson(soilData)}))))}>
+              Update visState Dataset
+            </Button>             
+
+            <Button variant="contained" color="secondary" onClick={() => dispatch(removeDatasetFromKepler('soilmk1'))}>
+              Delete Dataset (soilmk1)
+            </Button>             
+            <Button variant="contained" color="secondary" onClick={() => dispatch(removeDatasetFromKepler('saltmk1'))}>
+              Delete Dataset (saltmk1)
+            </Button>             
+            <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilherbal",(updateVisStatePlugin({info: {label: 'Salt MK 111',id: 'saltmk1'}, data: processGeojson(soilData)}))))}>
+              Update visState in Plugin Soil in saltmk1
+            </Button>             
+            <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilherbal",(updateVisStatePlugin({info: {label: 'Salt MK 111',id: 'saltmk1'}, data: processGeojson(saltData)}))))}>
+              Update visState in Plugin Salt
+            </Button>   
+
+            <Button variant="contained" color="success" onClick={() => dispatch(wrapTo("soilherbal",(updateVisStateConfigPlugin({info: {label: 'Soil MK 111',id: 'soilmk1'}, data: processGeojson(soilData)}))))}>
+              Update visState in Plugin Soil in soilmk1
+            </Button>             
+
+            <Button variant="contained" color="secondary" onClick={() => dispatch(wrapTo("soilherbal",(rcvVisStatMapConfig(parsedConfigPh))))}>
+              Update visState Map Config
+            </Button>             
+
+            <Button variant="contained" color="secondary" onClick={() => dispatch((addCustomerMapStyle()))}>
+              Add custom MapStyle
+            </Button>             
+            <Button variant="contained" color="success" onClick={() => dispatch((LoadRemoteResourceSuccess( {datasets: {info: {label: 'Soil MK 111',id: 'soilmk1'}, data: processGeojson(soilData)}, config: parsedConfigTexture} )))}>
+              LoadRemoteResourceSuccess
+            </Button>    
+
               <Box  height={ isSidebar ? "86vh" : "90vh" } width="100%" sx={{overflow: "hidden"}}>
                   <AutoSizer>
                     {({height, width}) => (

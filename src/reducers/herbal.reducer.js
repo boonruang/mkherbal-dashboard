@@ -7,6 +7,7 @@ import {
   HTTP_HERBAL_SELECTED_FETCHING,
   SET_PLANTING_SELECTION,
   SET_AMPHOE_SELECTION,  
+  SET_SOIL_FIELD_SELECTION,  
 } from '../constants';
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
   isSelectedError: false,
   selectedResult: null,
   plantingSelected: 'soil',  
-  amphoeSelected: '01'  
+  amphoeSelected: '01',  
+  soilFieldSelected: 'fertility'  
 };
 
 const herbalReducer = (state = initialState, { type, payload }) => {
@@ -38,6 +40,8 @@ const herbalReducer = (state = initialState, { type, payload }) => {
       return { ...state, plantingSelected: payload }              
     case SET_AMPHOE_SELECTION:
       return { ...state, amphoeSelected: payload }              
+    case  SET_SOIL_FIELD_SELECTION:
+      return { ...state, soilFieldSelected: payload }              
     default:
       return state;
   }

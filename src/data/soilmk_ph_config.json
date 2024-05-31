@@ -5,11 +5,11 @@
       "filters": [],
       "layers": [
         {
-          "id": "nvogctb",
+          "id": "6j6u38",
           "type": "geojson",
           "config": {
-            "dataId": "saltmk1",
-            "label": "Salt Mahasarakham",
+            "dataId": "soilmk1",
+            "label": "Soil Mahasarakham",
             "color": [
               30,
               150,
@@ -35,16 +35,16 @@
                 193
               ],
               "colorRange": {
-                "name": "ColorBrewer BuGn-6",
+                "name": "ColorBrewer YlGnBu-6",
                 "type": "sequential",
                 "category": "ColorBrewer",
                 "colors": [
-                  "#edf8fb",
-                  "#ccece6",
-                  "#99d8c9",
-                  "#66c2a4",
-                  "#2ca25f",
-                  "#006d2c"
+                  "#ffffcc",
+                  "#c7e9b4",
+                  "#7fcdbb",
+                  "#41b6c4",
+                  "#2c7fb8",
+                  "#253494"
                 ]
               },
               "strokeColorRange": {
@@ -115,7 +115,7 @@
           },
           "visualChannels": {
             "colorField": {
-              "name": "Legend",
+              "name": "ph_top",
               "type": "string"
             },
             "colorScale": "ordinal",
@@ -134,30 +134,30 @@
       "interactionConfig": {
         "tooltip": {
           "fieldsToShow": {
-            "saltmk": [
+            "soilmk": [
               {
                 "name": "FID",
                 "format": null
               },
               {
-                "name": "Legend",
+                "name": "Soilgroup",
                 "format": null
               },
               {
-                "name": "ID",
+                "name": "fertility",
                 "format": null
               },
               {
-                "name": "Area",
+                "name": "soil_serie",
                 "format": null
               },
               {
-                "name": "Area_rai",
+                "name": "ph_top",
                 "format": null
               }
             ]
           },
-          "compareMode": false,
+          "compareMode": true,
           "compareType": "absolute",
           "enabled": false
         },
@@ -187,10 +187,10 @@
     "mapState": {
       "bearing": 0,
       "dragRotate": false,
-      "latitude": 15.825055790422002,
-      "longitude": 103.07564103425372,
+      "latitude": 16.11346361639387,
+      "longitude": 103.14175716194356,
       "pitch": 0,
-      "zoom": 12.0,
+      "zoom": 8.58944942332947,
       "isSplit": false,
       "isViewportSynced": true,
       "isZoomLocked": false,

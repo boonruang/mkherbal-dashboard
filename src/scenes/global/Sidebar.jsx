@@ -357,27 +357,27 @@ const Sidebar = () => {
                         ) :  <CollapsedIcon /> }   */}
 
                         <SubMenu title="ข้อมูลดิน" icon={<FmdBadIcon />}>
-                                {/* <Item
+                               {/* <Item
                                     title="การใช้ดิน ต.แก่งเลิงจาน"
                                     to="/geoland"
                                     icon={<LandslideIcon />}
                                     selected={selected}
                                     setSelected={setSelected}
-                                />
-                                <Item
-                                    title="ข้อมูลดิน จ.มหาสารคาม"
-                                    to="/geosoil"
-                                    icon={<LanguageIcon />}
-                                    selected={selected}
-                                    setSelected={setSelected}
-                                />     
+                                />  
                                 <Item
                                     title="ข้อมูลคราบเกลือ"
                                     to="/geosalt"
                                     icon={<MoreIcon />}
                                     selected={selected}
                                     setSelected={setSelected}
-                                />                                                    */}
+                                />  */}
+                                {/* <Item
+                                    title="ข้อมูลดิน จ.มหาสารคาม"
+                                    to="/geosoil"
+                                    icon={<LanguageIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />                                                                                       */}
                                 <Item
                                     title="ข้อมูลดินและสมุนไพร"
                                     to="/soilherbals"

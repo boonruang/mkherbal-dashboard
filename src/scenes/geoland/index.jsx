@@ -28,7 +28,7 @@ const serviceUrl = process.env.REACT_APP_SERVICE_URL
 
 const setMapPerspective = createAction('SET_MAP_PERSPECTIVE'); 
 // const updateKeplerMap = createAction('[ActionTypes.UPDATE_MAP]'); 
-const { togglePerspectiveUpdater } = mapStateUpdaters
+// const { togglePerspectiveUpdater } = mapStateUpdaters
 
 const StyledMapConfigDisplay = styled.div`
   position: absolute;

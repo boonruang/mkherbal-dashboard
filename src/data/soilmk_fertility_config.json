@@ -157,7 +157,7 @@
               }
             ]
           },
-          "compareMode": false,
+          "compareMode": true,
           "compareType": "absolute",
           "enabled": false
         },

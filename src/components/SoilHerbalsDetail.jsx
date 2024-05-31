@@ -16,7 +16,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
 import StatHerbalBox from "./StatHerbalBox";
-import { setPlantingSelection,setAmphoeSelection } from '../actions/herbal.action'
+import { setPlantingSelection,setAmphoeSelection,setSoilFieldSelection } from '../actions/herbal.action'
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -24,7 +24,7 @@ const CardDetail = ({selectedResult}) => {
 
   const dispatch = useDispatch()
 
-  console.log('CardDetail is called ',selectedResult)
+  console.log('CardDetail is called in SoilHerbalDetail')
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
@@ -32,17 +32,24 @@ const CardDetail = ({selectedResult}) => {
   const [provCode, setProvCode] = useState('01');  
 
   // const [selectedValue, setSelectedValue] = useState('soil');
+  // const [soilSelection, setSoilSelection] = useState('fertility')
+
+  const { plantingSelected, amphoeSelected, soilFieldSelected } = useSelector((state) => state.app.herbalReducer)
+
+  // useEffect(() => {
+  //   dispatch(setPlantingSelection(selectedValue))
+  // },[dispatch,selectedValue])  
+
+  const handlesoilSelection = (event) => {
+    // setSoilSelection(event.target.value);
+    dispatch(setSoilFieldSelection(event.target.value));
+  };
 
   const handleRadioButtonChange = (event) => {
     // setSelectedValue(event.target.value);
     dispatch(setPlantingSelection(event.target.value))
   };
 
-  const { plantingSelected, amphoeSelected } = useSelector((state) => state.app.herbalReducer)
-
-  // useEffect(() => {
-  //   dispatch(setPlantingSelection(selectedValue))
-  // },[dispatch,selectedValue])
 
   const handleAmphoeSelection = async (event) => {
     dispatch(setAmphoeSelection(event.target.value))    
@@ -138,10 +145,28 @@ const CardDetail = ({selectedResult}) => {
                           value={plantingSelected}
                           onChange={handleRadioButtonChange}
                         >
-                          <FormControlLabel value="soil" control={<Radio color='secondary' autoFocus/>} label="แหล่งดิน" />
+                          <FormControlLabel value="soil" control={<Radio color='secondary' />} label="ข้อมูลดิน" />
                           <FormControlLabel value="salt" control={<Radio color='secondary' />} label=" คราบเกลือ" />
                         </RadioGroup>
-                    </FormControl>   
+                        {plantingSelected === 'soil' ? (
+                          <>
+                        <Typography gutterBottom variant="h6" component="div" color={colors.greenAccent[400]}>
+                          แสดงข้อมูลตาม  
+                        </Typography>                                             
+                          <RadioGroup
+                            row
+                            aria-labelledby="soil-option-label"
+                            name="soil-option"
+                            value={soilFieldSelected}
+                            onChange={handlesoilSelection}
+                          >
+                            <FormControlLabel value="fertility" control={<Radio color='secondary' />} label="ความอดุมสมบูรณ์" />
+                            <FormControlLabel value="ph" control={<Radio color='secondary' />} label="ความเป็นกรดด่าง" />
+                            <FormControlLabel value="texture" control={<Radio color='secondary' />} label="เนื้อดิน" />
+                          </RadioGroup>                    
+                          </> ) : undefined}          
+                  </FormControl>   
+
                 </Box>   
                 <Box sx={{mt:"10px"}}>
                     <Divider sx={{ mb: 1}}/>
@@ -231,9 +256,9 @@ const SoilHerbalsDetail = ({props}) => {
 
   const { selectedResult, isSelectedFetching , isSelectedError } = useSelector((state) => state.app.herbalReducer)
 
-  if (selectedResult) {
-    console.log('see selectedResult',selectedResult)
-  }
+  // if (selectedResult) {
+  //   console.log('see selectedResult in SoilHerbalDetail',selectedResult)
+  // }
   
   let content
   if (isSelectedFetching) content = <Box>Loading...</Box>
