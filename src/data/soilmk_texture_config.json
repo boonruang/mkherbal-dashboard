@@ -159,7 +159,7 @@
           },
           "compareMode": true,
           "compareType": "absolute",
-          "enabled": false
+          "enabled": true
         },
         "brush": {
           "size": 0.5,

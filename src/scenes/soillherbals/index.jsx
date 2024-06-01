@@ -45,6 +45,9 @@ const SoilHerbals = (props) => {
 
     const [isHerbalBoxOpen, setIsHerbalBoxOpen] = useState(false)    
 
+    const [soilData, setSoilData] = useState()
+    const [saltData, setSaltData] = useState()    
+
     const { isSidebar } = useSelector((state) => state.app.appReducer)
 
     const { selectedResult, plantingSelected, amphoeSelected, soilFieldSelected } = useSelector((state) => state.app.herbalReducer)
@@ -56,8 +59,6 @@ const SoilHerbals = (props) => {
     const parsedConfigFertility = KeplerGlSchema.parseSavedConfig(soilmk_fertility_config);
     const parsedConfigTexture = KeplerGlSchema.parseSavedConfig(soilmk_texture_config);
     const parsedConfigPh = KeplerGlSchema.parseSavedConfig(soilmk_ph_config);
-
-      // dispatch((receiveMapConfig(parsedConfig2)))
 
     // if (keplerGlReducer){
     //   console.log('keplerGlReducer mapConfig',keplerGlReducer)
@@ -76,9 +77,6 @@ const SoilHerbals = (props) => {
     useEffect(() => {
       dispatch(getGeoSoilById(amphoeSelected))
     },[dispatch,amphoeSelected])
-
-   const [soilData, setSoilData] = useState()
-   const [saltData, setSaltData] = useState()
 
    useEffect(() => {
       dispatch(removeDatasetFromKepler('soilmk1'))
@@ -102,11 +100,14 @@ const SoilHerbals = (props) => {
     console.log('soilFieldSelected changed',soilFieldSelected)
     if (soilData) {
       if (soilFieldSelected === 'fertility') {
-        dispatch((addDatasetConfigMap( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, config: parsedConfigFertility})))
+        dispatch((addDatasetConfigMap( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, 
+        config: parsedConfigFertility})))
       } else if (soilFieldSelected === 'ph') {
-        dispatch((addDatasetConfigMap( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, config: parsedConfigPh})))
+        dispatch((addDatasetConfigMap( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, 
+        config: parsedConfigPh})))
       } else if (soilFieldSelected === 'texture') {
-        dispatch((addDatasetConfigMap( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, config: parsedConfigTexture})))
+        dispatch((addDatasetConfigMap( {datasets: {info: {label: 'Soil MK',id: 'soilmk1'}, data: processGeojson(soilData)}, 
+        config: parsedConfigTexture})))
       }        
     }
   },[dispatch, soilData, soilFieldSelected, parsedConfigFertility, parsedConfigPh, parsedConfigTexture])      
