@@ -63,7 +63,7 @@ export const HerbalAdd = () => {
               style={{ marginTop: 16 }}
               fullWidth
               component={TextField}
-              name="akaname"
+              name="othername"
               type="text"
               label="ชื่อตามท้องถิ่น" />
             <Field
@@ -108,7 +108,7 @@ export const HerbalAdd = () => {
     herbalname: "",
     commonname: "",
     scientificname: "",
-    akaname: "",
+    othername: "",
     // cover: "no-photo.png",
     cover: "",
   };
@@ -123,7 +123,7 @@ export const HerbalAdd = () => {
             if (!values.herbalname) errors.herbalname = "Enter herbalname";
             if (!values.commonname) errors.commonname = "Enter commonname";
             if (!values.scientificname) errors.scientificname = "Enter scientificname";
-            if (!values.akaname) errors.akaname = "Enter akaname";
+            if (!values.othername) errors.othername = "Enter othername";
             if (!values.cover) errors.cover = "Enter image";
             return errors;
           }}
@@ -134,7 +134,7 @@ export const HerbalAdd = () => {
             data.append("herbalname", values.herbalname);
             data.append("commonname", String(values.commonname));
             data.append("scientificname", String(values.scientificname));
-            data.append("akaname", String(values.akaname));
+            data.append("othername", String(values.othername));
             data.append("cover", String(values.cover));
             // if (values.file) {
             //   data.append("image", values.file);

@@ -59,7 +59,7 @@ const Item = ({ result }) => {
               {result.scientificname.substring(0, 15)}
               </Typography>                   
             </Box>             */}
-            {/* <Box>{result.akaname.substring(0, 50)}</Box> */}
+            {/* <Box>{result.othername.substring(0, 50)}</Box> */}
           </Box>    
           {/* <Divider sx={{ mt: 1.5 }}/> */}
       </Box>
@@ -74,7 +74,7 @@ const Item = ({ result }) => {
                 borderRadius: 0.5,
               }}    
               alt="The photo of farmergroup"  
-              src={result.cover ? imagesUrl+ result.cover : imagesUrl+"image6.jpg"}
+              src={result.image ? imagesUrl+ result.image : imagesUrl+"image6.jpg"}
               >
           </Box>
       </Box>

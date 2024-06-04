@@ -67,7 +67,7 @@ const CardDetail = ({selectedResult}) => {
     <Card sx={{ maxWidth: 345, backgroundColor : colors.primary[400] }}>
       <CardMedia
         sx={{ height: 180 }}
-        image= { imagesUrl + selectedResult.cover}
+        image= { imagesUrl + selectedResult.image}
         // title={selectedResult.herbalname}
       />
       <CardContent sx={{ p: "10px 10px", mt: "2px"}}>
@@ -97,7 +97,7 @@ const CardDetail = ({selectedResult}) => {
               ชื่อทั่วไป
             </Typography>              
             <Typography ml="5px" variant="h6" display='inline'>
-            {selectedResult.akaname.substring(0, 35)}
+            {selectedResult.othername.substring(0, 35)}
             </Typography>                   
         </Box>                
         <Divider sx={{ mb: 1}}/>

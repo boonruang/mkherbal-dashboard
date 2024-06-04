@@ -61,7 +61,7 @@ const Item = ({ result }) => {
                 borderRadius: 0.5,
               }}    
               alt="The photo of farmergroup"  
-              src={result.properties.cover ? imagesUrl+ result.properties.cover : imagesUrl+"image6.jpg"}
+              src={result.properties.image ? imagesUrl+ result.properties.image : imagesUrl+"image6.jpg"}
               >
           </Box>
       </Box>

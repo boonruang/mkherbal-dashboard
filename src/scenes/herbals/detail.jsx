@@ -23,7 +23,7 @@ const HerbalDetail = () => {
       <Card key={selectedResult.id} sx={{ maxWidth: 700 , backgroundColor : colors.primary[400] }}>
           <CardMedia
             sx={{ height: 550, width: 800}}
-            image={imagesUrl+selectedResult.cover}
+            image={imagesUrl+selectedResult.image}
             title={selectedResult.herbalname.substring(0, 40)}
           />
           <CardContent>
@@ -51,7 +51,7 @@ const HerbalDetail = () => {
                   ชื่อทั่วไป
                 </Typography>              
                 <Typography ml="5px" variant="h6" display='inline'>
-                {selectedResult.akaname.substring(0, 90)}
+                {selectedResult.othername.substring(0, 90)}
                 </Typography>                   
               </Box>                          
           </CardContent>

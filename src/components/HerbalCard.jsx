@@ -18,7 +18,7 @@ export const HerbalCard = ({item}) => {
     <Card key={item.id} sx={{ maxWidth: 300 , backgroundColor : colors.primary[400] }}>
       <CardMedia
         sx={{ height: 200}}
-        image={imagesUrl+item.cover}
+        image={imagesUrl+item.image}
         title={item.herbalname.substring(0, 40)}
       />
       <CardContent>

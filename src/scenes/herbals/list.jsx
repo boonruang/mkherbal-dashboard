@@ -165,7 +165,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
       align: "center",      
     },
     {
-      field: 'cover',
+      field: 'image',
       headerName: 'รูป',
       headerAlign: "center",
       align: "center",
@@ -190,7 +190,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         cellClassName: "name-column--cell"
     },              
     {
-        field: 'akaname',
+        field: 'othername',
         headerName: 'ชื้อทั่วไป',
         type: "number",
         flex: 1,

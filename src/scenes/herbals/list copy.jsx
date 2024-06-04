@@ -87,7 +87,7 @@ const HerbalsList = () => {
         cellClassName: "name-column--cell"
     },              
     {
-        field: 'akaname',
+        field: 'othername',
         headerName: 'ชื้อทั่วไป',
         type: "number",
         flex: 1,

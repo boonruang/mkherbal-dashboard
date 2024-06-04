@@ -51,7 +51,7 @@ const CardDetail = ({ selectedResult}) => {
     <Card sx={{ maxWidth: 345, backgroundColor : colors.primary[400] }}>
       <CardMedia
         sx={{ height: 180 }}
-        image= { imagesUrl + selectedResult.cover}
+        image= { imagesUrl + selectedResult.image}
         title="Farmer Group"
       />
       <CardContent >

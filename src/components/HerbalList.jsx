@@ -29,7 +29,7 @@ const Item = ({ result }) => {
             <CardMedia
               component="img"
               height="220"
-              image={imagesUrl+result.cover}
+              image={imagesUrl+result.image}
               alt="herbal"
               style={{borderRadius: '5px'}}
             />            
@@ -58,7 +58,7 @@ const Item = ({ result }) => {
                   ชื่อทั่วไป
                   </Typography>
                   <Typography ml="5px"  variant="body2" style={{display: 'inline-block'}}>
-                  {result.akaname.substring(0, 70)}
+                  {result.othername.substring(0, 70)}
                   </Typography>
                 </Box>
                 {/* <Typography gutterBottom variant="h6" component="div">
