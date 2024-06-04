@@ -35,17 +35,32 @@ const Item = ({ result }) => {
             />            
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div" color={colors.greenAccent[400]}>
-                {result.herbalname.substring(0, 100)}
+                {result.herbalname.substring(0, 50)}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                {result.commonname.substring(0, 100)}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                {result.scientificname.substring(0, 100)}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                {result.akaname.substring(0, 100)}
-                </Typography>
+                <Box>
+                  <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
+                  ชื่อสามัญ
+                  </Typography>
+                  <Typography ml="5px" variant="body2" display='inline'>
+                  {result.commonname.substring(0, 70)}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
+                  ชื่อวิทยาศาสตร์
+                  </Typography>
+                  <Typography ml="5px" variant="body2"  display='inline'>
+                  {result.scientificname.substring(0, 70)}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
+                  ชื่อทั่วไป
+                  </Typography>
+                  <Typography ml="5px"  variant="body2" style={{display: 'inline-block'}}>
+                  {result.akaname.substring(0, 70)}
+                  </Typography>
+                </Box>
                 {/* <Typography gutterBottom variant="h6" component="div">
                   More
                 </Typography> */}

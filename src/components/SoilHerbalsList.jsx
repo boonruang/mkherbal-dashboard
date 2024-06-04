@@ -39,15 +39,26 @@ const Item = ({ result }) => {
         <Divider sx={{ mb: 1 }}/>
           <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 1, maxWidth: 140 }} >
             <Box>
-              <Typography
-                variant="h6"
-                color={colors.greenAccent[400]}
-                >
-                {result.herbalname.substring(0, 50)}
+              <Typography variant="h6" color={colors.greenAccent[400]}>
+                {result.herbalname.substring(0, 20)}
               </Typography>                
             </Box>
-            <Box>{result.commonname.substring(0, 50)}</Box>
-            <Box>{result.scientificname.substring(0, 50)}</Box>
+            <Box>
+              <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
+                ชื่อสามัญ
+              </Typography>              
+              <Typography ml="5px" variant="body2" display='inline'>
+              {result.commonname.substring(0, 20)}
+              </Typography>                   
+            </Box>
+            {/* <Box>
+              <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
+                ชื่อวิทยาฯ
+              </Typography>              
+              <Typography ml="5px" variant="body2" display='inline'>
+              {result.scientificname.substring(0, 15)}
+              </Typography>                   
+            </Box>             */}
             {/* <Box>{result.akaname.substring(0, 50)}</Box> */}
           </Box>    
           {/* <Divider sx={{ mt: 1.5 }}/> */}

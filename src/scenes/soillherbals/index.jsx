@@ -26,10 +26,13 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { setStateHerbalSelectedToFetching } from 'actions/herbal.action'
 import SoilHerbalsList from 'components/SoilHerbalsList';
 import SoilHerbalsDetail from 'components/SoilHerbalsDetail';
+import {ActionTypes} from '@kepler.gl/actions';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 
 const addDatasetConfigMap = createAction('ADD_DATASET_CONFIG_MAP'); 
+const addCustomerMapStyle = createAction(ActionTypes.ADD_CUSTOM_MAP_STYLE);
+const doLayerClick = createAction('CLICK_BUTTON');
 
 const SoilHerbals = (props) => {
 
@@ -165,6 +168,9 @@ const SoilHerbals = (props) => {
       return (
         <Box m="20px">
             <Header title="ข้อมูลดินและสมุนไพร" subtitle="ความเหมาะสมของดินและสมุนไพร" />
+            {/* <Button variant="contained" color="success" onClick={() => dispatch(doLayerClick())}>
+              LayerClick
+            </Button>                */}
               <Box  height={ isSidebar ? "86vh" : "90vh" } width="100%" sx={{overflow: "hidden"}}>
                   <AutoSizer>
                     {({height, width}) => (

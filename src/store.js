@@ -20,8 +20,6 @@ const composedReducer = (state, action) => {
           ...state.keplerGl,
           soilherbal: {
             ...state.keplerGl.soilherbal,
-            // test1: '12345',
-            // checkPayload: action.payload,
             visState: visStateUpdaters.updateVisDataUpdater(state.keplerGl.soilherbal.visState, 
               {datasets: action.payload}
             )    
@@ -34,8 +32,6 @@ const composedReducer = (state, action) => {
           keplerGl: {
             ...state.keplerGl,
             // pass in kepler.gl instance state to combinedUpdaters
-            // checkDataset:action.payload.datasets,
-            // checkConfig:action.payload.config,
             soilherbal: combinedUpdaters.addDataToMapUpdater(
              state.keplerGl.soilherbal,
              {
@@ -47,7 +43,21 @@ const composedReducer = (state, action) => {
               }
             )
           }
-        };        
+        };    
+        case 'CLICK_BUTTON':
+          return {
+            ...state,
+            keplerGl: {
+              ...state.keplerGl,
+              soilherbal: {
+                 ...state.keplerGl.soilherbal,
+                 visState: visStateUpdaters.enlargeFilterUpdater(
+                   state.keplerGl.soilherbal.visState,
+                   {idx: 0}
+                 )
+              }
+            }
+          };
     // case 'UPDATE_COLOR_FIELD':
     //   //not work
     //   return {

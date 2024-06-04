@@ -75,6 +75,31 @@ const CardDetail = ({selectedResult}) => {
         <Typography gutterBottom variant="h5" component="div" color={colors.greenAccent[400]}>
         {selectedResult.herbalname}
         </Typography>
+        <Divider sx={{ mb: 1}}/>        
+        <Box>
+            <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
+              ชื่อสามัญ
+            </Typography>              
+            <Typography ml="5px" variant="h6" display='inline'>
+            {selectedResult.commonname.substring(0, 20)}
+            </Typography>                   
+        </Box> 
+        <Box>
+            <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
+              ชื่อวิทยาศาสตร์
+            </Typography>              
+            <Typography ml="5px" variant="h6" display='inline'>
+            {selectedResult.scientificname.substring(0, 35)}
+            </Typography>                   
+        </Box>                
+        <Box mb='5px'>
+            <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
+              ชื่อทั่วไป
+            </Typography>              
+            <Typography ml="5px" variant="h6" display='inline'>
+            {selectedResult.akaname.substring(0, 35)}
+            </Typography>                   
+        </Box>                
         <Divider sx={{ mb: 1}}/>
           <Typography variant="h6" m="10px 0px" color={colors.greenAccent[400]}>
               ความต้องการทรัพยากรดิน
