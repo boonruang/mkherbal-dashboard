@@ -110,30 +110,31 @@ const CardDetail = ({selectedResult}) => {
                 gridTemplateRows="repeat(2, 1fr)"
                 gridAutoRows="140px"
                 gap="10px"
-            >         
-          <Box
-                    gridColumn="span 3"
-                    // backgroundColor={colors.primary[400]}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                >
-
-                    <StatHerbalBox
-                        title="55"
-                        subtitle="ความอุดมสมบูรณ์"
-                        increase="กลาง"
-                        progress="0.75"
-                        icon={
-                            <ParkIcon
-                                sx={{
-                                    color: colors.greenAccent[600],
-                                    fontSize: "26px"
-                                }}
-                            />
-                        }
-                    />                    
-            </Box> 
+            >    
+              { selectedResult.soil &&     
+              <Box
+                      gridColumn="span 3"
+                      // backgroundColor={colors.primary[400]}
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                  >
+                      <StatHerbalBox
+                          title="55"
+                          subtitle="พื้นที่เหมาะสมในการปลูก"
+                          increase={selectedResult.soil}
+                          progress="0.75"
+                          icon={
+                              <ParkIcon
+                                  sx={{
+                                      color: colors.greenAccent[600],
+                                      fontSize: "26px"
+                                  }}
+                              />
+                          }
+                      />                    
+              </Box> }
+              { selectedResult.ph && 
               <Box
                     gridColumn="span 3"
                     // backgroundColor={colors.primary[400]}
@@ -145,7 +146,7 @@ const CardDetail = ({selectedResult}) => {
                         title="27"
                         subtitle="ค่า pH"
                         progress="0.30"
-                        increase="7-8"
+                        increase={selectedResult.ph}
                         icon={
                             <PeopleOutlinedIcon
                                 sx={{
@@ -155,9 +156,9 @@ const CardDetail = ({selectedResult}) => {
                             />
                         }
                     />
-                </Box>
+              </Box> }
             </Box>
-            <Box sx={{mt:"10px"}}>
+            <Box sx={{mt:"5px"}}>
                 <Divider sx={{ mb: 1}}/>
                   <Typography gutterBottom variant="h6" component="div" color={colors.greenAccent[400]}>
                     บริเวณเหมาะสมในการปลูก (ข้อมูลกรมที่ดิน)  

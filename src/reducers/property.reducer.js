@@ -1,10 +1,10 @@
 import {
-  HTTP_FARMERGROUP_FAILED,
-  HTTP_FARMERGROUP_FETCHING,
-  HTTP_FARMERGROUP_SUCCESS,
-  HTTP_FARMERGROUP_SELECTED_SUCCESS,
-  HTTP_FARMERGROUP_SELECTED_FAILED,
-  HTTP_FARMERGROUP_SELECTED_FETCHING,
+  HTTP_PROPERTY_FAILED,
+  HTTP_PROPERTY_FETCHING,
+  HTTP_PROPERTY_SUCCESS,
+  HTTP_PROPERTY_SELECTED_SUCCESS,
+  HTTP_PROPERTY_SELECTED_FAILED,
+  HTTP_PROPERTY_SELECTED_FETCHING,
 } from '../constants';
 
 const initialState = {
@@ -16,23 +16,23 @@ const initialState = {
   selectedResult: null,
 };
 
-const farmergroupReducer = (state = initialState, { type, payload }) => {
+const propertyReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case HTTP_FARMERGROUP_FETCHING:
+    case HTTP_PROPERTY_FETCHING:
       return { ...state, result: null, isFetching: true, isError: false };
-    case HTTP_FARMERGROUP_SUCCESS:
+    case HTTP_PROPERTY_SUCCESS:
       return { ...state, result: payload.result, isFetching: false, isError: false };
-    case HTTP_FARMERGROUP_FAILED:
+    case HTTP_PROPERTY_FAILED:
       return { ...state, result: null, isFetching: false, isError: true };
-    case HTTP_FARMERGROUP_SELECTED_SUCCESS:
+    case HTTP_PROPERTY_SELECTED_SUCCESS:
       return { ...state, selectedResult: payload.result, isSelectedError: false, isSelectedFetching : false };            
-    case HTTP_FARMERGROUP_SELECTED_FAILED:
+    case HTTP_PROPERTY_SELECTED_FAILED:
       return { ...state, selectedResult: null, isSelectedError: true, isSelectedFetching : false };            
-    case HTTP_FARMERGROUP_SELECTED_FETCHING:
+    case HTTP_PROPERTY_SELECTED_FETCHING:
       return { ...state, selectedResult: null, isSelectedError: false , isSelectedFetching : true };         
     default:
       return state;
   }
 };
 
-export default farmergroupReducer
+export default propertyReducer

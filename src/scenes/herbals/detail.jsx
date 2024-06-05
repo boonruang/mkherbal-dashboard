@@ -4,7 +4,8 @@ import {
   Typography,
   useTheme,
   Box,
-  CardMedia
+  CardMedia,
+  Divider
 } from "@mui/material";
 import React from "react";
 import { tokens } from 'theme';
@@ -27,9 +28,13 @@ const HerbalDetail = () => {
             title={selectedResult.herbalname.substring(0, 40)}
           />
           <CardContent>
+            <Box>
               <Typography gutterBottom variant="h4" component="div" color={colors.greenAccent[400]}>
               {selectedResult.herbalname.substring(0, 40)}
               </Typography>
+            </Box>
+            <Divider sx={{ mb: '5px'}}/>                       
+            <Box>
               <Box>
                 <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
                   ชื่อสามัญ
@@ -53,7 +58,29 @@ const HerbalDetail = () => {
                 <Typography ml="5px" variant="h6" display='inline'>
                 {selectedResult.othername.substring(0, 90)}
                 </Typography>                   
-              </Box>                          
+              </Box>     
+              {selectedResult.soil && 
+              <Box>
+                <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
+                พื้นที่เหมาะสมในการปลูก
+                </Typography>              
+                <Typography ml="5px" variant="h6" display='inline'>
+                {selectedResult.soil}
+                </Typography>                   
+              </Box>             
+              }                           
+              {selectedResult.ph && 
+              <Box>
+                <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
+                  ค่า pH
+                </Typography>              
+                <Typography ml="5px" variant="h6" display='inline'>
+                {selectedResult.ph}
+                </Typography>                   
+              </Box>             
+              }    
+            </Box>
+            <Divider sx={{ mt: '5px'}}/>                       
           </CardContent>
     </Card>
     );
