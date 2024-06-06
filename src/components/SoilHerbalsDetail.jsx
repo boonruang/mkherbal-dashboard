@@ -81,7 +81,7 @@ const CardDetail = ({selectedResult}) => {
               ชื่อสามัญ
             </Typography>              
             <Typography ml="5px" variant="h6" display='inline'>
-            {selectedResult.commonname.substring(0, 20)}
+            {selectedResult.commonname.substring(0, 80)}
             </Typography>                   
         </Box> 
         <Box>
@@ -89,15 +89,15 @@ const CardDetail = ({selectedResult}) => {
               ชื่อวิทยาศาสตร์
             </Typography>              
             <Typography ml="5px" variant="h6" display='inline'>
-            {selectedResult.scientificname.substring(0, 35)}
+            {selectedResult.scientificname.substring(0, 80)}
             </Typography>                   
         </Box>                
         <Box mb='5px'>
             <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
-              ชื่อทั่วไป
+              ชื่ออื่นๆ
             </Typography>              
             <Typography ml="5px" variant="h6" display='inline'>
-            {selectedResult.othername.substring(0, 35)}
+            {selectedResult.othername.substring(0, 150)}
             </Typography>                   
         </Box>                
         <Divider sx={{ mb: 1}}/>
@@ -172,7 +172,7 @@ const CardDetail = ({selectedResult}) => {
                           onChange={handleRadioButtonChange}
                         >
                           <FormControlLabel value="soil" control={<Radio color='secondary' />} label="ข้อมูลดิน" />
-                          <FormControlLabel value="salt" control={<Radio color='secondary' />} label=" คราบเกลือ" />
+                          <FormControlLabel value="salt" control={<Radio color='secondary' disabled/>} label=" คราบเกลือ" />
                         </RadioGroup>
                         {plantingSelected === 'soil' ? (
                           <>

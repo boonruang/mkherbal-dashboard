@@ -23,9 +23,12 @@ import { getGeoSoils, getGeoSoilById } from 'actions/geosoil.action';
 import { getGeoSalts } from 'actions/geosalt.action';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { setStateHerbalSelectedToFetching } from 'actions/herbal.action'
 import SoilHerbalsList from 'components/SoilHerbalsList';
 import SoilHerbalsDetail from 'components/SoilHerbalsDetail';
+import SoilHerbalCarousel from 'components/SoilHerbalCarousel';
 import {ActionTypes} from '@kepler.gl/actions';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
@@ -52,7 +55,6 @@ const SoilHerbals = (props) => {
     const [saltData, setSaltData] = useState()    
 
     const { isSidebar } = useSelector((state) => state.app.appReducer)
-
     const { selectedResult, plantingSelected, amphoeSelected, soilFieldSelected } = useSelector((state) => state.app.herbalReducer)
     const geosoilState = useSelector((state) => state.app.geosoilReducer)
     const geosaltState = useSelector((state) => state.app.geosaltReducer)
@@ -66,6 +68,8 @@ const SoilHerbals = (props) => {
     // if (keplerGlReducer){
     //   console.log('keplerGlReducer mapConfig',keplerGlReducer)
     // }
+
+    
 
     useEffect(() => {
       if (selectedResult) {
@@ -166,6 +170,10 @@ const SoilHerbals = (props) => {
       setIsHerbalBoxOpen(!isHerbalBoxOpen)
     }    
 
+    const handleHerbalListClick = () => {
+      setIsHerbalBoxOpen(!isHerbalBoxOpen)
+    }    
+
       return (
         <Box m="20px">
             <Header title="ข้อมูลดินและสมุนไพร" subtitle="ความเหมาะสมของดินและสมุนไพร" />
@@ -225,6 +233,26 @@ const SoilHerbals = (props) => {
                     </Box> : undefined }
 
                   { isHerbalBoxOpen && selectedResult ? <SoilHerbalsDetail /> : undefined }
+
+
+                   {/* <AutoSizer>
+                   {({height, width}) => (
+                   <Box sx={{ height: 125, width: 1250, position: 'absolute', bottom: 220, left: ((width-300-1250)/2)+300, zIndex: 9 }}>
+                    <SoilHerbalCarousel  />
+                   </Box>
+                   )}
+                   </AutoSizer>
+
+
+                   <AutoSizer>
+                   {({height, width}) => (                  
+                      <Box 
+                        sx={{ position: 'absolute', p: 1, left: ((width-300-1250)/2)+300, bottom: isHerbalBoxOpen ? 333 : 0, backgroundColor: '#458048',cursor: 'pointer',zIndex: 10 }} 
+                        onClick={() => handleHerbalListClick()}>
+                          {isHerbalBoxOpen ? <ExpandMoreIcon/> : <ExpandLessIcon/>}
+                      </Box>
+                   )}
+                   </AutoSizer>                   */}
 
               </Box>
           </Box>

@@ -48,18 +48,25 @@ const Item = ({ result }) => {
                 ชื่อสามัญ
               </Typography>              
               <Typography ml="5px" variant="body2" display='inline'>
-              {result.commonname.substring(0, 20)}
+              {result.commonname.substring(0, 15)}
               </Typography>                   
             </Box>
-            {/* <Box>
+            <Box>
               <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
                 ชื่อวิทยาฯ
               </Typography>              
               <Typography ml="5px" variant="body2" display='inline'>
-              {result.scientificname.substring(0, 15)}
+              {result.scientificname.substring(0, 10)}
               </Typography>                   
-            </Box>             */}
-            {/* <Box>{result.othername.substring(0, 50)}</Box> */}
+            </Box>    
+            <Box>
+              <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
+                ชื่ออื่นๆ
+              </Typography>              
+              <Typography ml="5px" variant="body2" display='inline'>
+              {result.othername.substring(0, 15)}
+              </Typography>                   
+            </Box>                      
           </Box>    
           {/* <Divider sx={{ mt: 1.5 }}/> */}
       </Box>
@@ -67,8 +74,8 @@ const Item = ({ result }) => {
       <Box justifyContent="center" alignItems="center" sx={{ m: 1}}>
           <Box component="img"
               sx={{
-                Height: 55,
-                width: 80,
+                Height: 100,
+                width: 100,
                 // minHeight: 55,
                 // maxHeight: 80,
                 borderRadius: 0.5,
@@ -113,6 +120,8 @@ const SoilHerbalsList = ({searchTerm}) => {
   },[dispatch,searchTerm])
 
   const { result, isFetching, isError } = useSelector((state) => state.app.herbalReducer)
+  // const { soilherbal } = useSelector((state) => state.keplerGl)
+
   // if (result) {
   //   console.log('see result',result)
   // }
