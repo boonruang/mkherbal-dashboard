@@ -30,6 +30,7 @@ import SoilHerbalsList from 'components/SoilHerbalsList';
 import SoilHerbalsDetail from 'components/SoilHerbalsDetail';
 import SoilHerbalCarousel from 'components/SoilHerbalCarousel';
 import {ActionTypes} from '@kepler.gl/actions';
+import SoilHerbalsListRight from 'components/SoilHerbalsListRight';
 
 const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 
@@ -224,6 +225,7 @@ const SoilHerbals = (props) => {
                     </Box>  : undefined }
 
                     {isSearcBoxOpen ? <SoilHerbalsList searchTerm={debouncedSearchValue} /> : undefined}
+                    {/* {isSearcBoxOpen ? <SoilHerbalsListRight searchTerm={debouncedSearchValue} /> : undefined} */}
 
 
                     { selectedResult ? <Box 
@@ -233,7 +235,6 @@ const SoilHerbals = (props) => {
                     </Box> : undefined }
 
                   { isHerbalBoxOpen && selectedResult ? <SoilHerbalsDetail /> : undefined }
-
 
                    {/* <AutoSizer>
                    {({height, width}) => (

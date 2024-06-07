@@ -211,6 +211,10 @@ export const themeSettings = (mode) => {
             h6: {
                 fontFamily: ['Kanit', 'sans-serif'].join(','),
                 fontSize: 14,
+            },                                                           
+            h7: {
+                fontFamily: ['Kanit', 'sans-serif'].join(','),
+                fontSize: 12,
             }                                                           
         },    
     }

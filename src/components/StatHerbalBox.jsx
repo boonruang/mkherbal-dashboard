@@ -38,7 +38,7 @@ const StatHerbalBox = ({ title, subtitle, icon, progress, increase }) => {
                     {subtitle}
                 </Typography>
                 <Typography
-                    variant="h6"
+                    variant="h7"
                     fontStyle="italic"
                     // sx={{ color: colors.greenAccent[600] }}
                 >

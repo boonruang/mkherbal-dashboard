@@ -62,7 +62,7 @@ const HerbalDetail = () => {
               {selectedResult.soil && 
               <Box>
                 <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
-                พื้นที่เหมาะสมในการปลูก
+                ดินเหมาะแก่การปลูก
                 </Typography>              
                 <Typography ml="5px" variant="h6" display='inline'>
                 {selectedResult.soil}

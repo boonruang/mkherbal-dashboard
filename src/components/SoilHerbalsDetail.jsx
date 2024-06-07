@@ -66,7 +66,7 @@ const CardDetail = ({selectedResult}) => {
   return (
     <Card sx={{ maxWidth: 345, backgroundColor : colors.primary[400] }}>
       <CardMedia
-        sx={{ height: 180 }}
+        sx={{ height: 160 }}
         image= { imagesUrl + selectedResult.image}
         // title={selectedResult.herbalname}
       />
@@ -80,7 +80,7 @@ const CardDetail = ({selectedResult}) => {
             <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
               ชื่อสามัญ
             </Typography>              
-            <Typography ml="5px" variant="h6" display='inline'>
+            <Typography ml="5px" variant="h7" display='inline'>
             {selectedResult.commonname.substring(0, 80)}
             </Typography>                   
         </Box> 
@@ -88,7 +88,7 @@ const CardDetail = ({selectedResult}) => {
             <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
               ชื่อวิทยาศาสตร์
             </Typography>              
-            <Typography ml="5px" variant="h6" display='inline'>
+            <Typography ml="5px" variant="h7" display='inline'>
             {selectedResult.scientificname.substring(0, 80)}
             </Typography>                   
         </Box>                
@@ -96,8 +96,8 @@ const CardDetail = ({selectedResult}) => {
             <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
               ชื่ออื่นๆ
             </Typography>              
-            <Typography ml="5px" variant="h6" display='inline'>
-            {selectedResult.othername.substring(0, 150)}
+            <Typography ml="5px" variant="h7" display='inline'>
+            {selectedResult.othername.substring(0, 170)}
             </Typography>                   
         </Box>                
         <Divider sx={{ mb: 1}}/>
@@ -121,7 +121,7 @@ const CardDetail = ({selectedResult}) => {
                   >
                       <StatHerbalBox
                           title="55"
-                          subtitle="พื้นที่เหมาะสมในการปลูก"
+                          subtitle="ดินเหมาะแก่การปลูก"
                           increase={selectedResult.soil}
                           progress="0.75"
                           icon={
