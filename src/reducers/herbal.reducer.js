@@ -7,7 +7,10 @@ import {
   HTTP_HERBAL_SELECTED_FETCHING,
   SET_PLANTING_SELECTION,
   SET_AMPHOE_SELECTION,  
-  SET_SOIL_FIELD_SELECTION,  
+  SET_SOIL_FIELD_SELECTION,
+  HTTP_HERBAL_RECOMMENDED_SUCCESS,
+  HTTP_HERBAL_RECOMMENDED_FAILED,
+  HTTP_HERBAL_RECOMMENDED_FETCHING,  
 } from '../constants';
 
 const initialState = {
@@ -19,7 +22,10 @@ const initialState = {
   selectedResult: null,
   plantingSelected: 'soil',  
   amphoeSelected: '01',  
-  soilFieldSelected: 'fertility'  
+  soilFieldSelected: 'fertility',
+  isRecommendedFetching: false,
+  isRecommendedError: false,
+  recommendedResult: null,    
 };
 
 const herbalReducer = (state = initialState, { type, payload }) => {
@@ -41,7 +47,13 @@ const herbalReducer = (state = initialState, { type, payload }) => {
     case SET_AMPHOE_SELECTION:
       return { ...state, amphoeSelected: payload }              
     case  SET_SOIL_FIELD_SELECTION:
-      return { ...state, soilFieldSelected: payload }              
+      return { ...state, soilFieldSelected: payload }   
+      case HTTP_HERBAL_RECOMMENDED_SUCCESS:
+        return { ...state, recommendedResult: payload.result, isRecommendedError: false, isRecommendedFetching : false };            
+      case HTTP_HERBAL_RECOMMENDED_FAILED:
+        return { ...state, recommendedResult: null, isRecommendedError: true, isRecommendedFetching : false };            
+      case HTTP_HERBAL_RECOMMENDED_FETCHING:
+        return { ...state, recommendedResult: null, isRecommendedError: false , isRecommendedFetching : true };                 
     default:
       return state;
   }

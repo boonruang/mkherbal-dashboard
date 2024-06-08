@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // import Item from './Item'
 import { useSelector, useDispatch } from "react-redux";
 import { setStateFarmergroupToSelected, } from '../actions/farmergroup.action'
-import { getHerbalByKeyword, getHerbalById } from '../actions/herbal.action'
+import { getHerbalByKeyword, getHerbalById, getHerbalByRecommended } from '../actions/herbal.action'
 import { Box,Typography,IconButton,useTheme  } from "@mui/material"
 import styled from 'styled-components'
 // import {theme} from '@kepler.gl/styles';
@@ -24,20 +24,20 @@ const Item = ({ result }) => {
 
   const [isDetail, setIsDetail] = useState(false)
 
-  const handleClick = (selectedProp) => {
-    setIsDetail(!isDetail)
-    console.log('isDetail',isDetail)
-    console.log('selectedProp',selectedProp)
-    dispatch(getHerbalById(selectedProp.id))
-  }
+  // const handleClick = (selectedProp) => {
+  //   setIsDetail(!isDetail)
+  //   console.log('isDetail',isDetail)
+  //   console.log('selectedProp',selectedProp)
+  //   dispatch(getHerbalById(selectedProp.id))
+  // }
 
   return (
     <Box  key={result.id} display="flex" justifyContent="space-between" alignItems="center">
       <Box sx={{ m: 1,cursor: 'pointer' }} 
-      onClick={() => handleClick(result)}
+      // onClick={() => handleClick(result)}
       >
         <Divider sx={{ mb: 1 }}/>
-          <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 1, maxWidth: 140 }} >
+          <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 1, maxWidth: 220 }} >
             <Box>
               <Typography variant="h6" color={colors.greenAccent[400]}>
                 {result.herbalname.substring(0, 20)}
@@ -45,33 +45,25 @@ const Item = ({ result }) => {
             </Box>
             <Box>
               <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
-                ชื่อสามัญ
+                ความเป็นกรดด่าง
               </Typography>              
               <Typography ml="5px" variant="body2" display='inline'>
-              {result.commonname.substring(0, 15)}
+              {result.ph}
               </Typography>                   
             </Box>
             <Box>
               <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
-                ชื่อวิทยาฯ
+                ลักษณะดิน
               </Typography>              
               <Typography ml="5px" variant="body2" display='inline'>
-              {result.scientificname.substring(0, 10)}
+              {result.soil}
               </Typography>                   
-            </Box>    
-            <Box>
-              <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
-                ชื่ออื่นๆ
-              </Typography>              
-              <Typography ml="5px" variant="body2" display='inline'>
-              {result.othername.substring(0, 15)}
-              </Typography>                   
-            </Box>                      
+            </Box>                         
           </Box>    
           {/* <Divider sx={{ mt: 1.5 }}/> */}
       </Box>
 
-      <Box justifyContent="center" alignItems="center" sx={{ m: 1}}>
+      {/* <Box justifyContent="center" alignItems="center" sx={{ m: 1}}>
           <Box component="img"
               sx={{
                 Height: 100,
@@ -84,29 +76,47 @@ const Item = ({ result }) => {
               src={result.image ? imagesUrl+ result.image : imagesUrl+"image6.jpg"}
               >
           </Box>
-      </Box>
+      </Box> */}
     </Box>
   )
 }
 
-
-const SoilHerbalsListRight = ({searchTerm}) => {
+const SoilHerbalsListRight = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
-  const StyledListDisplay = styled.div`
+  const HerbalRecommendBox = styled.div`
   position: absolute;
-  z-index: 100;
-  top: 0px;
-  right: 0px;
+  z-index: 10;
+  top: 5px;
+  right: 5px;
   background-color:${colors.primary[400]}
   font-size: 11px;
   /* width: 300px; */
-  width: 300px;
-  word-wrap: break-word;
+  width: 250px;
+  /* word-wrap: break-word; */
   /* height: 100%; */
   min-height: 60px;
-  max-height: 100%;
+  max-height: 100px;
+  /* padding: 10px; */
+  overflow-x: hidden;
+  overflow-y: auto;
+  `;
+
+  const StyledListDisplay = styled.div`
+  position: absolute;
+  z-index: 10;
+  top: 80px;
+  right: 5px;
+  background-color:${colors.primary[400]}
+  font-size: 11px;
+  /* width: 300px; */
+  width: 250px;
+  word-wrap: break-word;
+  /* height: 100%; */
+  min-height: 0px;
+  /* max-height: 100%; */
+  max-height: 575px;
   /* padding: 10px; */
   overflow-x: hidden;
   overflow-y: auto;
@@ -114,54 +124,137 @@ const SoilHerbalsListRight = ({searchTerm}) => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getHerbalByKeyword(searchTerm))
-    console.log('useEffect is called', searchTerm)
-  },[dispatch,searchTerm])
+  const [soilPh, setSoilPh] = useState('5.0')
+  const [soilTexture, setSoilTexture] = useState('ดินทราย')
 
-  // const { result, isFetching, isError } = useSelector((state) => state.app.herbalReducer)
   const { soilherbal } = useSelector((state) => state.keplerGl)
 
-  let result, isFetching, isError
-  // if (result) {
-  //   console.log('see result',result)
+  // if (soilherbal?.visState?.clicked?.object?.properties?.ph_top) {
+  //   console.log('ph_top',soilherbal?.visState?.clicked?.object?.properties?.ph_top)
+  // }
+  // if (soilherbal?.visState?.clicked?.object?.properties?.texture_to) {
+  //   console.log('texture_to',soilherbal?.visState?.clicked?.object?.properties?.texture_to)
+  // }
+  
+    useEffect(() => {
+      if (soilherbal?.visState?.clicked?.object?.properties?.ph_top) {
+      switch(soilherbal?.visState?.clicked?.object?.properties?.ph_top) {
+        case 'กรดจัดมากถึงกรดจัด':
+          setSoilPh('5.0-6.0')
+          break;
+        case 'กรดจัดถึงกรดปานกลาง':
+          setSoilPh('5.5-6.5')
+          break;
+        case 'กรดปานกลางถึงกรดเล็กน้อย':
+          setSoilPh('6.0-7.0')
+          break;
+        default:
+          setSoilPh('6.0')
+        }
+      }
+
+      if (soilherbal?.visState?.clicked?.object?.properties?.texture_to) {
+      switch(soilherbal?.visState?.clicked?.object?.properties?.texture_to) {
+        case 'ดินทรายปนดินร่วน':
+          setSoilTexture('ดินทราย')
+          break;
+        case 'ดินร่วน':
+          setSoilTexture('ดินร่วน')
+          break;
+        case 'ดินร่วนปนดินเหนียว':
+          setSoilTexture('ดินร่วน')
+          break;
+        case 'ดินร่วนปนทราย':
+          setSoilTexture('ดินร่วน')
+          break;
+        case 'ดินร่วนปนทรายแป้ง':
+          setSoilTexture('ดินร่วน')
+          break;
+        case 'ดินร่วนเหนียวปนทรายแป้ง':
+          setSoilTexture('ดินร่วน')
+          break;
+        case 'ดินเหนียวปนทรายแป้ง':
+          setSoilTexture('ดินร่วน')
+          break;
+        default:
+          setSoilTexture('เหนียว')
+        }    
+      }    
+  },[soilherbal])
+
+  useEffect(() => {
+    dispatch(getHerbalByRecommended(soilPh, soilTexture))
+    console.log('useEffect dispatch getHerbalByRecommended is called')
+  },[dispatch,soilPh,soilTexture])
+
+  const { recommendedResult, isRecommendedFetching, isRecommendedError} = useSelector((state) => state.app.herbalReducer)
+
+  // if (recommendedResult) {
+  //   console.log('see recommendedResult',recommendedResult)
   // }
   
   let content
-  if (isFetching) content = <Box>Loading...</Box>
-  else if (isError) content = <Box>Something went wrong..</Box>
-  else if (result) {
-    const results = result
+  if (isRecommendedFetching) content = <Box>Loading...</Box>
+  else if (isRecommendedError) content = <Box>Something went wrong..</Box>
+  else if (recommendedResult) {
+    const results = recommendedResult
     content = (
-      <StyledListDisplay>
-          {
-            Object.values(results).map(result => {
-              return <Item key={result.id} result={result} />
-            })
-          }
-      </StyledListDisplay>  
+      <div>
+      <HerbalRecommendBox>
+        <Box sx={{ m: '10px 15px' }}>
+          <Box>
+            <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
+              สมุนไพรที่เหมาะปลูกในพื้นที่
+            </Typography>              
+          </Box>         
+           <Box>
+            <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
+              ความเป็นกรดเป็นด่าง
+            </Typography>              
+            <Typography ml="5px" variant="h7" display='inline'>
+            { soilPh && soilPh}
+            </Typography>                   
+          </Box> 
+          <Box>
+            <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
+              ลักษณะดิน
+            </Typography>              
+            <Typography ml="5px" variant="h7" display='inline'>
+            { soilTexture && soilTexture}
+            </Typography>                   
+          </Box>  
+        </Box> 
+       </HerbalRecommendBox>
+        <StyledListDisplay>
+            {
+              Object.values(results).map(result => {
+                return <Item key={result.id} result={result} />
+              })
+            }
+        </StyledListDisplay>   
+      </div>      
     )
   } else {
     content = (
-      <StyledListDisplay>
-        {/* อุ้ย หาไม่เจออ่ะ */}
-        <Box mb='5px'>
-            <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
-            พื้นที่เหมาะสมในการปลูก
+      <HerbalRecommendBox>
+        อุ้ย หาไม่เจออ่ะ
+        <Box>
+            <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
+              ความเป็นกรดเป็นด่าง
             </Typography>              
-            <Typography ml="5px" variant="h6" display='inline'>
-            {soilherbal?.visState?.clicked?.object?.properties?.texture_to}
+            <Typography ml="5px" variant="h7" display='inline'>
+            { soilPh && soilPh}
             </Typography>                   
-        </Box>        
-        <Box mb='5px'>
-            <Typography variant="h6" color={colors.greenAccent[600]} display='inline'>
-              ค่า pH
+          </Box> 
+          <Box>
+            <Typography variant="body2" color={colors.greenAccent[600]} display='inline'>
+              ลักษณะดิน
             </Typography>              
-            <Typography ml="5px" variant="h6" display='inline'>
-            {soilherbal?.visState?.clicked?.object?.properties?.ph_top}
+            <Typography ml="5px" variant="h7" display='inline'>
+            { soilTexture && soilTexture}
             </Typography>                   
-        </Box>        
-      </StyledListDisplay>      
+          </Box>
+      </HerbalRecommendBox>      
     )
   } 
   return content

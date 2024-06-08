@@ -60,6 +60,8 @@ const SoilHerbals = (props) => {
     const geosoilState = useSelector((state) => state.app.geosoilReducer)
     const geosaltState = useSelector((state) => state.app.geosaltReducer)
 
+
+
     // const keplerGlReducer = useSelector((state) => state.keplerGl)
     // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.soilherbal)
     const parsedConfigFertility = KeplerGlSchema.parseSavedConfig(soilmk_fertility_config);
@@ -225,8 +227,7 @@ const SoilHerbals = (props) => {
                     </Box>  : undefined }
 
                     {isSearcBoxOpen ? <SoilHerbalsList searchTerm={debouncedSearchValue} /> : undefined}
-                    {/* {isSearcBoxOpen ? <SoilHerbalsListRight searchTerm={debouncedSearchValue} /> : undefined} */}
-
+                    {isSearcBoxOpen && selectedResult ? <SoilHerbalsListRight /> : undefined}
 
                     { selectedResult ? <Box 
                     sx={{ position: 'absolute', p: 1, left: isHerbalBoxOpen && selectedResult ? 655 : 300, top: 45, backgroundColor: '#458048',cursor: 'pointer' }} 
