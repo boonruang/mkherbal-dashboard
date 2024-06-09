@@ -143,10 +143,10 @@ const SoilHerbalsListRight = () => {
           setSoilPh('5.0-6.0')
           break;
         case 'กรดจัดมากถึงกรดปานกลาง':
-          setSoilPh('5.0-6.0')
+          setSoilPh('5.5-6.5')
           break;
         case 'กรดจัดถึงกรดปานกลาง':
-          setSoilPh('5.5-6.5')
+          setSoilPh('6.0-7.0')
           break;
         case 'กรดจัดถึงกรดเล็กน้อย':
           setSoilPh('6.0-7.0')
