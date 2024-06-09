@@ -155,7 +155,7 @@ const SoilHerbalsListRight = () => {
           setSoilPh('6.0-7.0')
           break;
         default:
-          setSoilPh('6.0-7.0')
+          setSoilPh('6.0')
         }
       }
 
@@ -180,7 +180,7 @@ const SoilHerbalsListRight = () => {
           setSoilTexture('ดินร่วน')
           break;
         case 'ดินเหนียวปนทรายแป้ง':
-          setSoilTexture('ดินร่วน')
+          setSoilTexture('ดินเหนียว')
           break;
         default:
           setSoilTexture('เหนียว')
