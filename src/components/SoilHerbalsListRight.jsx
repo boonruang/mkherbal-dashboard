@@ -116,7 +116,7 @@ const SoilHerbalsListRight = () => {
   /* height: 100%; */
   min-height: 0px;
   /* max-height: 100%; */
-  max-height: 575px;
+  max-height: 500px;
   /* padding: 10px; */
   overflow-x: hidden;
   overflow-y: auto;
