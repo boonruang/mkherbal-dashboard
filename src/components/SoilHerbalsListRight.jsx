@@ -155,7 +155,7 @@ const SoilHerbalsListRight = () => {
           setSoilPh('6.0-7.0')
           break;
         default:
-          setSoilPh('6.0')
+          setSoilPh('6.0-7.0')
         }
       }
 
