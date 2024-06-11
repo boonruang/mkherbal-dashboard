@@ -25,7 +25,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { setStateHerbalSelectedToFetching } from 'actions/herbal.action'
+import { setStateHerbalSelectedToFetching } from 'actions/herbalselected.action'
 import SoilHerbalsList from 'components/SoilHerbalsList';
 import SoilHerbalsDetail from 'components/SoilHerbalsDetail';
 import SoilHerbalCarousel from 'components/SoilHerbalCarousel';
@@ -56,7 +56,9 @@ const SoilHerbals = (props) => {
     const [saltData, setSaltData] = useState()    
 
     const { isSidebar } = useSelector((state) => state.app.appReducer)
-    const { selectedResult, plantingSelected, amphoeSelected, soilFieldSelected } = useSelector((state) => state.app.herbalReducer)
+    // const { selectedResult, plantingSelected, amphoeSelected, soilFieldSelected, recommendedResult } = useSelector((state) => state.app.herbalReducer)
+    // const { recommendedResult } = useSelector((state) => state.app.herbalrecommendedReducer)
+    const { selectedResult, plantingSelected, amphoeSelected, soilFieldSelected  } = useSelector((state) => state.app.herbalselectedReducer)
     const geosoilState = useSelector((state) => state.app.geosoilReducer)
     const geosaltState = useSelector((state) => state.app.geosaltReducer)
 
@@ -227,8 +229,7 @@ const SoilHerbals = (props) => {
                     </Box>  : undefined }
 
                     {isSearcBoxOpen ? <SoilHerbalsList searchTerm={debouncedSearchValue} /> : undefined}
-                    {isSearcBoxOpen && selectedResult ? <SoilHerbalsListRight /> : undefined}
-
+                    
                     { selectedResult ? <Box 
                     sx={{ position: 'absolute', p: 1, left: isHerbalBoxOpen && selectedResult ? 655 : 300, top: 45, backgroundColor: '#458048',cursor: 'pointer' }} 
                     onClick={() => handleHerbalClick()}>
@@ -236,6 +237,14 @@ const SoilHerbals = (props) => {
                     </Box> : undefined }
 
                   { isHerbalBoxOpen && selectedResult ? <SoilHerbalsDetail /> : undefined }
+                  { isSearcBoxOpen ? <SoilHerbalsListRight /> : undefined}     
+               
+                  {/* { selectedResult ? <Box 
+                      sx={{ position: 'absolute', p: 1, top: 20, right: isHerbalBoxOpen ? 255 : 0, backgroundColor: '#458048',cursor: 'pointer',zIndex: 10 }} 
+                      onClick={() => handleHerbalListClick()}>
+                        {isHerbalBoxOpen ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
+                    </Box> : undefined } */}
+ 
 
                    {/* <AutoSizer>
                    {({height, width}) => (
@@ -243,10 +252,10 @@ const SoilHerbals = (props) => {
                     <SoilHerbalCarousel  />
                    </Box>
                    )}
-                   </AutoSizer>
+                   </AutoSizer> */}
 
 
-                   <AutoSizer>
+                  {/*  <AutoSizer>
                    {({height, width}) => (                  
                       <Box 
                         sx={{ position: 'absolute', p: 1, left: ((width-300-1250)/2)+300, bottom: isHerbalBoxOpen ? 333 : 0, backgroundColor: '#458048',cursor: 'pointer',zIndex: 10 }} 
@@ -254,7 +263,7 @@ const SoilHerbals = (props) => {
                           {isHerbalBoxOpen ? <ExpandMoreIcon/> : <ExpandLessIcon/>}
                       </Box>
                    )}
-                   </AutoSizer>                   */}
+                   </AutoSizer> */}
 
               </Box>
           </Box>

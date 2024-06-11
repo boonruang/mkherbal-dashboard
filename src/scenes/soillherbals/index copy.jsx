@@ -25,7 +25,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { setStateHerbalSelectedToFetching } from 'actions/herbal.action'
+import { setStateHerbalSelectedToFetching } from 'actions/herbalselected.action'
 import SoilHerbalsList from 'components/SoilHerbalsList';
 import SoilHerbalsDetail from 'components/SoilHerbalsDetail';
 import {ActionTypes} from '@kepler.gl/actions';
@@ -82,7 +82,7 @@ const SoilHerbals = (props) => {
 
     const { isSidebar } = useSelector((state) => state.app.appReducer)
 
-    const { selectedResult, plantingSelected, amphoeSelected, soilFieldSelected } = useSelector((state) => state.app.herbalReducer)
+    const { selectedResult, plantingSelected, amphoeSelected, soilFieldSelected } = useSelector((state) => state.app.herbalselectedReducer)
     const geosoilState = useSelector((state) => state.app.geosoilReducer)
     const geosaltState = useSelector((state) => state.app.geosaltReducer)
 

@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 // import Item from './Item'
 import { useSelector, useDispatch } from "react-redux";
 import { setStateFarmergroupToSelected, } from '../actions/farmergroup.action'
-import { getHerbalByKeyword, getHerbalById } from '../actions/herbal.action'
+import { getHerbalByKeyword  } from '../actions/herbal.action'
+import { getHerbalSelectedById } from '../actions/herbalselected.action'
 import { Box,Typography,IconButton,useTheme  } from "@mui/material"
 import styled from 'styled-components'
 // import {theme} from '@kepler.gl/styles';
@@ -28,7 +29,7 @@ const Item = ({ result }) => {
     setIsDetail(!isDetail)
     console.log('isDetail',isDetail)
     console.log('selectedProp',selectedProp)
-    dispatch(getHerbalById(selectedProp.id))
+    dispatch(getHerbalSelectedById(selectedProp.id))
   }
 
   return (

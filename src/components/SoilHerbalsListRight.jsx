@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 // import Item from './Item'
 import { useSelector, useDispatch } from "react-redux";
 import { setStateFarmergroupToSelected, } from '../actions/farmergroup.action'
-import { getHerbalByKeyword, getHerbalById, getHerbalByRecommended } from '../actions/herbal.action'
+import { getHerbalByKeyword  } from '../actions/herbal.action'                
+import { getHerbalSelectedById  } from '../actions/herbalselected.action'                
+import { getHerbalByRecommended } from '../actions/herbalrecommended.action'                
 import { Box,Typography,IconButton,useTheme  } from "@mui/material"
 import styled from 'styled-components'
 // import {theme} from '@kepler.gl/styles';
@@ -28,7 +30,7 @@ const Item = ({ result }) => {
   //   setIsDetail(!isDetail)
   //   console.log('isDetail',isDetail)
   //   console.log('selectedProp',selectedProp)
-  //   dispatch(getHerbalById(selectedProp.id))
+  //   dispatch(getHerbalSelectedById(selectedProp.id))
   // }
 
   return (
@@ -124,8 +126,8 @@ const SoilHerbalsListRight = () => {
 
   const dispatch = useDispatch()
 
-  const [soilPh, setSoilPh] = useState('5.0')
-  const [soilTexture, setSoilTexture] = useState('ดินทราย')
+  const [soilPh, setSoilPh] = useState()
+  const [soilTexture, setSoilTexture] = useState()
 
   const { soilherbal } = useSelector((state) => state.keplerGl)
 
@@ -171,7 +173,7 @@ const SoilHerbalsListRight = () => {
           setSoilTexture('ดินร่วน')
           break;
         case 'ดินร่วนปนทราย':
-          setSoilTexture('ดินร่วน')
+          setSoilTexture('ดินร่วนปนทราย')
           break;
         case 'ดินร่วนปนทรายแป้ง':
           setSoilTexture('ดินร่วน')
@@ -193,7 +195,7 @@ const SoilHerbalsListRight = () => {
     console.log('useEffect dispatch getHerbalByRecommended is called')
   },[dispatch,soilPh,soilTexture])
 
-  const { recommendedResult, isRecommendedFetching, isRecommendedError} = useSelector((state) => state.app.herbalReducer)
+  const { recommendedResult, isRecommendedFetching, isRecommendedError} = useSelector((state) => state.app.herbalrecommendedReducer)
 
   // if (recommendedResult) {
   //   console.log('see recommendedResult',recommendedResult)

@@ -6,7 +6,7 @@ import { tokens } from '../theme';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import { getHerbalById } from '../actions/herbal.action'
+import { getHerbalSelectedById } from '../actions/herbalselected.action'
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -19,7 +19,7 @@ const Item = ({ result }) => {
   const handleClick = (selectedHerbal) => {
     console.log('selectedHerbal',selectedHerbal)
     // dispatch(setStateFarmergroupToSelected(selectedHerbal))
-    dispatch(getHerbalById(selectedHerbal.id))
+    dispatch(getHerbalSelectedById(selectedHerbal.id))
   }
 
   return (

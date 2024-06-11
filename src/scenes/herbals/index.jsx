@@ -14,7 +14,8 @@ import useDebounce from 'hooks/useDebounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { tokens } from 'theme';
 import Header from 'components/Header'
-import { getHerbals,setStateHerbalSelectedToFetching } from 'actions/herbal.action';
+import { getHerbals } from 'actions/herbal.action';
+import { setStateHerbalSelectedToFetching } from 'actions/herbalselected.action';
 import SearchIcon from "@mui/icons-material/Search"
 import AddIcon from '@mui/icons-material/Add';
 import HerbalList from 'components/HerbalList';
@@ -48,7 +49,7 @@ const Herbals = () => {
 
 
   const { isSidebar} = useSelector((state) => state.app.appReducer)
-  const { selectedResult } = useSelector((state) => state.app.herbalReducer)
+  const { selectedResult } = useSelector((state) => state.app.herbalselectedReducer)
 
   useEffect(() => {
     if (selectedResult) {

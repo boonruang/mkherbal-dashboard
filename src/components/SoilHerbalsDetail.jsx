@@ -16,7 +16,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
 import StatHerbalBox from "./StatHerbalBox";
-import { setPlantingSelection,setAmphoeSelection,setSoilFieldSelection } from '../actions/herbal.action'
+import { setPlantingSelection,setAmphoeSelection,setSoilFieldSelection } from '../actions/herbalselected.action'
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -34,7 +34,7 @@ const CardDetail = ({selectedResult}) => {
   // const [selectedValue, setSelectedValue] = useState('soil');
   // const [soilSelection, setSoilSelection] = useState('fertility')
 
-  const { plantingSelected, amphoeSelected, soilFieldSelected } = useSelector((state) => state.app.herbalReducer)
+  const { plantingSelected, amphoeSelected, soilFieldSelected } = useSelector((state) => state.app.herbalselectedReducer)
 
   // useEffect(() => {
   //   dispatch(setPlantingSelection(selectedValue))
@@ -280,7 +280,7 @@ const SoilHerbalsDetail = ({props}) => {
   border-radius: 10px;
   `;
 
-  const { selectedResult, isSelectedFetching , isSelectedError } = useSelector((state) => state.app.herbalReducer)
+  const { selectedResult, isSelectedFetching , isSelectedError } = useSelector((state) => state.app.herbalselectedReducer)
 
   // if (selectedResult) {
   //   console.log('see selectedResult in SoilHerbalDetail',selectedResult)

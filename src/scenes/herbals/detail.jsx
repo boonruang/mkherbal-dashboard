@@ -18,7 +18,7 @@ const HerbalDetail = () => {
   const colors = tokens(theme.palette.mode)  
 
   const { isSidebar} = useSelector((state) => state.app.appReducer)
-  const { selectedResult } = useSelector((state) => state.app.herbalReducer)
+  const { selectedResult } = useSelector((state) => state.app.herbalselectedReducer)
 
   const showHerbal = (
       <Card key={selectedResult.id} sx={{ maxWidth: 700 , backgroundColor : colors.primary[400] }}>

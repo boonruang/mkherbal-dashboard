@@ -2,15 +2,15 @@ import {
   HTTP_HERBAL_FAILED,
   HTTP_HERBAL_FETCHING,
   HTTP_HERBAL_SUCCESS,
-  HTTP_HERBAL_SELECTED_SUCCESS,
-  HTTP_HERBAL_SELECTED_FAILED,
-  HTTP_HERBAL_SELECTED_FETCHING,
-  SET_PLANTING_SELECTION,  
-  SET_AMPHOE_SELECTION,
-  SET_SOIL_FIELD_SELECTION,
-  HTTP_HERBAL_RECOMMENDED_SUCCESS,
-  HTTP_HERBAL_RECOMMENDED_FAILED,
-  HTTP_HERBAL_RECOMMENDED_FETCHING,    
+  // HTTP_HERBAL_SELECTED_SUCCESS,
+  // HTTP_HERBAL_SELECTED_FAILED,
+  // HTTP_HERBAL_SELECTED_FETCHING,
+  // SET_PLANTING_SELECTION,  
+  // SET_AMPHOE_SELECTION,
+  // SET_SOIL_FIELD_SELECTION,
+  // HTTP_HERBAL_RECOMMENDED_SUCCESS,
+  // HTTP_HERBAL_RECOMMENDED_FAILED,
+  // HTTP_HERBAL_RECOMMENDED_FETCHING,    
   server
 } from '../constants';
 import { httpClient } from '../utils/HttpClient';
@@ -28,62 +28,62 @@ const setStateHerbalToFailed = () => ({
   type: HTTP_HERBAL_FAILED
 });
 
-export const setStateHerbalSelectedToFetching = () => ({
-  type: HTTP_HERBAL_SELECTED_FETCHING
-});
+// export const setStateHerbalSelectedToFetching = () => ({
+//   type: HTTP_HERBAL_SELECTED_FETCHING
+// });
 
-export const setStateHerbalSelectedToSuccess = (payload) => ({
-  type: HTTP_HERBAL_SELECTED_SUCCESS,
-  payload
-});
+// export const setStateHerbalSelectedToSuccess = (payload) => ({
+//   type: HTTP_HERBAL_SELECTED_SUCCESS,
+//   payload
+// });
 
-const setStateHerbalSelectedToFailed = () => ({
-  type: HTTP_HERBAL_SELECTED_FAILED
-});
+// const setStateHerbalSelectedToFailed = () => ({
+//   type: HTTP_HERBAL_SELECTED_FAILED
+// });
 
-export const setPlantingSelection = (payload) => ({
-  type: SET_PLANTING_SELECTION,
-  payload
-})
+// export const setPlantingSelection = (payload) => ({
+//   type: SET_PLANTING_SELECTION,
+//   payload
+// })
 
-export const setAmphoeSelection = (payload) => ({
-  type: SET_AMPHOE_SELECTION,
-  payload
-})
+// export const setAmphoeSelection = (payload) => ({
+//   type: SET_AMPHOE_SELECTION,
+//   payload
+// })
 
-export const setSoilFieldSelection = (payload) => ({
-  type: SET_SOIL_FIELD_SELECTION,
-  payload
-})
+// export const setSoilFieldSelection = (payload) => ({
+//   type: SET_SOIL_FIELD_SELECTION,
+//   payload
+// })
 
-export const setStateHerbalRecommendedToFetching = () => ({
-  type: HTTP_HERBAL_RECOMMENDED_FETCHING
-});
+// export const setStateHerbalRecommendedToFetching = () => ({
+//   type: HTTP_HERBAL_RECOMMENDED_FETCHING
+// });
 
-export const setStateHerbalRecommendedToSuccess = (payload) => ({
-  type: HTTP_HERBAL_RECOMMENDED_SUCCESS,
-  payload
-});
+// export const setStateHerbalRecommendedToSuccess = (payload) => ({
+//   type: HTTP_HERBAL_RECOMMENDED_SUCCESS,
+//   payload
+// });
 
-const setStateHerbalRecommendedToFailed = () => ({
-  type: HTTP_HERBAL_RECOMMENDED_FAILED
-});
+// const setStateHerbalRecommendedToFailed = () => ({
+//   type: HTTP_HERBAL_RECOMMENDED_FAILED
+// });
 
 
-export const getHerbalById = (id) => {
-  return (dispatch) => {
-    dispatch(setStateHerbalSelectedToFetching());
-    httpClient
-      .get(`${server.HERBAL_URL}/select/${id}`)
-      .then((result) => {
-        dispatch(setStateHerbalSelectedToSuccess(result.data));
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(setStateHerbalSelectedToFailed());
-      });
-  };
-};
+// export const getHerbalById = (id) => {
+//   return (dispatch) => {
+//     dispatch(setStateHerbalSelectedToFetching());
+//     httpClient
+//       .get(`${server.HERBAL_URL}/select/${id}`)
+//       .then((result) => {
+//         dispatch(setStateHerbalSelectedToSuccess(result.data));
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//         dispatch(setStateHerbalSelectedToFailed());
+//       });
+//   };
+// };
 
 export const getHerbalByKeyword = (searchTerm) => {
   console.log('getHerbalByKeyword is called ',searchTerm)
@@ -133,20 +133,20 @@ const doGetHerbals = (dispatch) => {
     });
 };
 
-export const getHerbalByRecommended = (ph,soil) => {
-  console.log('herbal acton ph:', ph + ' AND ' + soil)
-  return (dispatch) => {
-    dispatch(setStateHerbalRecommendedToFetching());
-    httpClient
-      .get(`${server.HERBAL_URL}/show/${ph}/${soil}`)
-      .then((result) => {
-        dispatch(setStateHerbalRecommendedToSuccess(result.data));
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(setStateHerbalRecommendedToFailed());
-      });
-  };
-};
+// export const getHerbalByRecommended = (ph,soil) => {
+//   console.log('herbal acton ph:', ph + ' AND ' + soil)
+//   return (dispatch) => {
+//     dispatch(setStateHerbalRecommendedToFetching());
+//     httpClient
+//       .get(`${server.HERBAL_URL}/show/${ph}/${soil}`)
+//       .then((result) => {
+//         dispatch(setStateHerbalRecommendedToSuccess(result.data));
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//         dispatch(setStateHerbalRecommendedToFailed());
+//       });
+//   };
+// };
 
 
