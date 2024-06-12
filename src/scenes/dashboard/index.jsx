@@ -3,6 +3,7 @@ import { tokens } from "../../theme"
 import Header from '../../components/Header'
 import { mockTransactions } from "../../data/mockData"
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined"
+import UploadOutlinedIcon from '@mui/icons-material/UploadOutlined';
 import ParkIcon from '@mui/icons-material/Park';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import SummarizeIcon from '@mui/icons-material/Summarize';
@@ -16,6 +17,11 @@ import GeographyChart from "../../components/GeographyChart"
 import PieChart from "../../components/PieChart"
 import StatBox from "../../components/StatBox"
 import ProgressCircle from "../../components/ProgressCircle"
+
+let newDate = new Date()
+let date = newDate.getDate();
+let month = newDate.getMonth() + 1;
+let year = newDate.getFullYear();
 
 const Dashbaord = () => {
 
@@ -165,7 +171,7 @@ const Dashbaord = () => {
                                 fontWeight="600"
                                 color={colors.grey[100]}
                             >
-                                ผลผลิตสมุนไพร
+                                สถิติราคาสมุนไพร (กรมการค้าภายใน)
                             </Typography>
                         </Box>
 
@@ -203,7 +209,7 @@ const Dashbaord = () => {
                             variant='h5'
                             fontWeight="600"
                         >
-                            รายการธุรกรรม
+                            ราคาขายปลีกเฉลี่ย (ตลาดศรีเมือง ตลาดสี่มุมเมือง ตลาดไทย)
                         </Typography>
                     </Box>
                     {mockTransactions.map((transaction, i) => (
@@ -229,11 +235,21 @@ const Dashbaord = () => {
                                     {transaction.user}
                                 </Typography>
                             </Box>
-                            <Box color={colors.grey[100]}>{transaction.date}</Box>
-
-                            <Box backgroundColor={colors.greenAccent[500]} p="5px 10px" borderRadius="4px">
-                                {transaction.cost}
-                            </Box>
+                            {/* <Box color={colors.grey[100]}>{transaction.date}</Box> */}
+                            <Box color={colors.grey[100]}>{date+'-'+month+'-'+year}</Box>
+                            <Box display="flex" flexDirection="row">
+                                <Box backgroundColor={colors.greenAccent[500]} p="5px 10px" borderRadius="4px">
+                                    {transaction.cost}
+                                
+                                </Box>
+                                <Box>
+                                    <IconButton>
+                                        {transaction.cost > 80 ? <UploadOutlinedIcon /> : <DownloadOutlinedIcon />}
+                                        {/* <DownloadOutlinedIcon /> */}
+                                        {/* <DownloadOutlinedIcon sx={{ mr: "10px" }} /> */}
+                                    </IconButton>
+                                </Box>
+                             </Box>                             
                         </Box>
                     ))}
                 </Box>
