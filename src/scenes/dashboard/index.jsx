@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import { Box, Button, IconButton, Typography, useTheme } from '@mui/material'
 import { tokens } from "../../theme"
 import Header from '../../components/Header'
@@ -17,6 +18,8 @@ import GeographyChart from "../../components/GeographyChart"
 import PieChart from "../../components/PieChart"
 import StatBox from "../../components/StatBox"
 import ProgressCircle from "../../components/ProgressCircle"
+import { getHerbalPrice } from 'actions/herbalprice.action';
+import { useDispatch, useSelector } from 'react-redux'
 
 let newDate = new Date()
 let date = newDate.getDate();
@@ -25,8 +28,27 @@ let year = newDate.getFullYear();
 
 const Dashbaord = () => {
 
+    const dispatch = useDispatch()
+
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
+
+    const [herbalPriceData, setHerbalPriceData] = useState()
+
+    
+    useEffect(() => {
+        dispatch(getHerbalPrice())
+    },[dispatch])
+
+    const { result, isError, isFetching} = useSelector((state) => state.app.herbalpriceReducer)
+
+    // if (result) {
+    //     console.log('herbalPrice', result)
+    // }
+
+    useEffect(() => {
+        setHerbalPriceData(result)
+    },[result])
 
     return (
         <Box m="20px">
@@ -212,9 +234,9 @@ const Dashbaord = () => {
                             ราคาขายปลีกเฉลี่ย (ตลาดศรีเมือง ตลาดสี่มุมเมือง ตลาดไทย)
                         </Typography>
                     </Box>
-                    {mockTransactions.map((transaction, i) => (
+                    {result && Object.values(result).map(item => (
                         <Box
-                            key={`${transaction.txId}-${i}`}
+                            key={item.id}
                             display="flex"
                             justifyContent="space-between"
                             alignItems="center"
@@ -227,28 +249,26 @@ const Dashbaord = () => {
                                     variant='h5'
                                     fontWeight="600"
                                 >
-                                    {transaction.txId}
+                                    {item.name}
                                 </Typography>
                                 <Typography
                                     color={colors.grey[100]}
                                 >
-                                    {transaction.user}
+                                    ราคา/กก./หน่วย
                                 </Typography>
                             </Box>
                             {/* <Box color={colors.grey[100]}>{transaction.date}</Box> */}
                             <Box color={colors.grey[100]}>{date+'-'+month+'-'+year}</Box>
                             <Box display="flex" flexDirection="row">
                                 <Box backgroundColor={colors.greenAccent[500]} p="5px 10px" borderRadius="4px">
-                                    {transaction.cost}
+                                    {item.price}
                                 
                                 </Box>
-                                <Box>
+                                {/* <Box>
                                     <IconButton>
                                         {transaction.cost > 80 ? <UploadOutlinedIcon /> : <DownloadOutlinedIcon />}
-                                        {/* <DownloadOutlinedIcon /> */}
-                                        {/* <DownloadOutlinedIcon sx={{ mr: "10px" }} /> */}
                                     </IconButton>
-                                </Box>
+                                </Box> */}
                              </Box>                             
                         </Box>
                     ))}
