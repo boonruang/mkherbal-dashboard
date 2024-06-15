@@ -1,15 +1,45 @@
 import { ResponsiveLine } from "@nivo/line"
 import { useTheme } from "@mui/material"
 import { tokens } from "../theme"
-import { mockLineData as data } from "../data/mockData"
+// import { mockLineData as data } from "../data/mockData"
+import { useState } from "react"
 
-const LineChart = ({ isDashboard = false }) => {
+import { useSelector } from "react-redux"
+
+const LineChart = ({ isDashboard = false, data }) => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
+    // if (data) {
+    //     console.log('herbalpriceyearReducer data',data)
+    // }
+
+    let makecolors = [
+        tokens("dark").greenAccent[500],
+        tokens("dark").yellowAccent[300],
+        tokens("dark").redAccent[200],
+        tokens("dark").blueAccent[500],        
+    ]
+
+    // for (let i=0; i < makecolors.length ; i++ ) {
+    //     console.log('color ',i , makecolors[i])
+    // }
+    
+    if (data) {
+        for (let i=0; i < data.length ; i++ ) {
+            // console.log('color ',i , data[i])
+            data[i].color = makecolors[i]
+        }
+
+        if (data) {
+            console.log('data',data)
+        }
+    }
+
+
     return (
         <ResponsiveLine
-            data={data}
+            data={data && data}
             theme={{
                 axis: {
                     domain: {

@@ -19,11 +19,12 @@ import PieChart from "../../components/PieChart"
 import StatBox from "../../components/StatBox"
 import ProgressCircle from "../../components/ProgressCircle"
 import { getHerbalPrice } from 'actions/herbalprice.action';
+import { getHerbalPriceyear } from 'actions/herbalpriceyear.action';
 import { useDispatch, useSelector } from 'react-redux'
 
 let newDate = new Date()
 let date = newDate.getDate();
-let month = newDate.getMonth() + 1;
+let month = newDate.getMonth()+1;
 let year = newDate.getFullYear();
 
 const Dashbaord = () => {
@@ -33,22 +34,27 @@ const Dashbaord = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
-    const [herbalPriceData, setHerbalPriceData] = useState()
+    const [years, setYears] = useState('2010-2024')
+    const [hearbals, setHerbals] = useState('กระเทียมแห้ง มัดจุก หัวใหญ่,หอมแดงศรีสะเกษ มัดจุก หัวใหญ่,กระเจี๊ยบแห้ง')
 
-    
     useEffect(() => {
         dispatch(getHerbalPrice())
     },[dispatch])
 
-    const { result, isError, isFetching} = useSelector((state) => state.app.herbalpriceReducer)
+    useEffect(() => {
+        dispatch(getHerbalPriceyear(years,hearbals))
+    },[dispatch,years,hearbals])
+
+    const { result } = useSelector((state) => state.app.herbalpriceReducer)
+    const herbalpriceyearReducer = useSelector((state) => state.app.herbalpriceyearReducer)
 
     // if (result) {
     //     console.log('herbalPrice', result)
     // }
 
-    useEffect(() => {
-        setHerbalPriceData(result)
-    },[result])
+    // useEffect(() => {
+    //     setHerbalPriceData(result)
+    // },[result])
 
     return (
         <Box m="20px">
@@ -197,17 +203,18 @@ const Dashbaord = () => {
                             </Typography>
                         </Box>
 
-                        <Box>
+                        {/* <Box>
                             <IconButton>
                                 <DownloadOutlinedIcon
                                     sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
                                 />
                             </IconButton>
-                        </Box>
+                        </Box> */}
                     </Box>
 
                     <Box height="250px" mt="-20px">
-                        <LineChart isDashboard={true} />
+                        {herbalpriceyearReducer.result ? <LineChart isDashboard={true} data={herbalpriceyearReducer.result} />
+                        : undefined}
                     </Box>
                 </Box>
 
@@ -254,15 +261,14 @@ const Dashbaord = () => {
                                 <Typography
                                     color={colors.grey[100]}
                                 >
-                                    ราคา/กก./หน่วย
+                                    {item.unit}
                                 </Typography>
                             </Box>
                             {/* <Box color={colors.grey[100]}>{transaction.date}</Box> */}
-                            <Box color={colors.grey[100]}>{date+'-'+month+'-'+year}</Box>
+                            <Box color={colors.grey[100]}>{item.date}</Box>
                             <Box display="flex" flexDirection="row">
                                 <Box backgroundColor={colors.greenAccent[500]} p="5px 10px" borderRadius="4px">
                                     {item.price}
-                                
                                 </Box>
                                 {/* <Box>
                                     <IconButton>

@@ -24,7 +24,7 @@ export const getHerbalPrice = () => {
   return (dispatch) => {
     dispatch(setStateHerbalPriceToFetching());
     httpClient
-      .get(`${server.HERBAL_URL}/price`)
+      .get(`${server.PRICE_URL}/day`)
       .then((result) => {
         dispatch(setStateHerbalPriceToSuccess(result.data));
       })

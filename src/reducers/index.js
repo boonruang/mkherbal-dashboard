@@ -9,6 +9,7 @@ import geosaltReducer from "./geosalt.reducer";
 import herbalrecommendedReducer from "./herbalrecommended.reducer";
 import herbalselectedReducer from "./herbalselected.reducer";
 import herbalpriceReducer from "./herbalprice.reducer";
+import herbalpriceyearReducer from "./herbalpriceyear.reducer";
 
 export default combineReducers({
   appReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
   herbalrecommendedReducer,
   herbalselectedReducer,
   herbalpriceReducer,
+  herbalpriceyearReducer,
 })
