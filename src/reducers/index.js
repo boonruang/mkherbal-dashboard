@@ -11,6 +11,7 @@ import herbalrecommendedReducer from "./herbalrecommended.reducer";
 import herbalselectedReducer from "./herbalselected.reducer";
 import herbalpriceReducer from "./herbalprice.reducer";
 import herbalpriceyearReducer from "./herbalpriceyear.reducer";
+import dashboardReducer from "./dashboard.reducer";
 
 export default combineReducers({
   appReducer,
@@ -25,4 +26,5 @@ export default combineReducers({
   herbalselectedReducer,
   herbalpriceReducer,
   herbalpriceyearReducer,
+  dashboardReducer,
 })

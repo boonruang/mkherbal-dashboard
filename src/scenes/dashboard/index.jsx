@@ -18,9 +18,10 @@ import GeographyChart from "../../components/GeographyChart"
 import PieChart from "../../components/PieChart"
 import StatBox from "../../components/StatBox"
 import ProgressCircle from "../../components/ProgressCircle"
+import { useDispatch, useSelector } from 'react-redux'
 import { getHerbalPrice } from 'actions/herbalprice.action';
 import { getHerbalPriceyear } from 'actions/herbalpriceyear.action';
-import { useDispatch, useSelector } from 'react-redux'
+import { getDashboard } from 'actions/dashboard.action'
 
 let newDate = new Date()
 let date = newDate.getDate();
@@ -38,6 +39,10 @@ const Dashbaord = () => {
     const [hearbals, setHerbals] = useState('กระเทียมแห้ง มัดจุก หัวใหญ่,หอมแดงศรีสะเกษ มัดจุก หัวใหญ่,กระเจี๊ยบแห้ง,พริกไทยดำ อย่างดี')
 
     useEffect(() => {
+        dispatch(getDashboard())
+    },[dispatch])
+
+    useEffect(() => {
         dispatch(getHerbalPrice())
     },[dispatch])
 
@@ -47,6 +52,7 @@ const Dashbaord = () => {
 
     const { result } = useSelector((state) => state.app.herbalpriceReducer)
     const herbalpriceyearReducer = useSelector((state) => state.app.herbalpriceyearReducer)
+    const dashboardReducer = useSelector((state) => state.app.dashboardReducer)
 
     // if (result) {
     //     console.log('herbalPrice', result)
@@ -96,10 +102,10 @@ const Dashbaord = () => {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="133"
+                        title={dashboardReducer.result && dashboardReducer.result.herbal}
                         subtitle="จำนวนสมุนไพร"
-                        progress="0.75"
-                        increase="+14%"
+                        progress={dashboardReducer.result && dashboardReducer.result.herbalpercent}
+                        increase={dashboardReducer.result && (dashboardReducer.result.herbalpercent*100).toFixed(0) + '%'}
                         icon={
                             <ParkIcon
                                 sx={{
@@ -119,10 +125,10 @@ const Dashbaord = () => {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="5,512"
+                        title={dashboardReducer.result && dashboardReducer.result.farmer}
                         subtitle="จำนวนเกษตรกร"
-                        progress="0.5"
-                        increase="+21%"
+                        progress={dashboardReducer.result && dashboardReducer.result.farmerpercent}
+                        increase={dashboardReducer.result && (dashboardReducer.result.farmerpercent*100).toFixed(0) + '%'}
                         icon={
                             <PeopleOutlinedIcon
                                 sx={{
@@ -142,10 +148,10 @@ const Dashbaord = () => {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="27"
+                        title={dashboardReducer.result && dashboardReducer.result.farmergroup}
                         subtitle="จำนวนกลุ่มเกษตรกร"
-                        progress="0.30"
-                        increase="+5%"
+                        progress={dashboardReducer.result && dashboardReducer.result.farmergrouppercent}
+                        increase={dashboardReducer.result && (dashboardReducer.result.farmergrouppercent*100).toFixed(0) + '%'}
                         icon={
                             <PeopleOutlinedIcon
                                 sx={{
@@ -165,10 +171,10 @@ const Dashbaord = () => {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="134"
-                        subtitle="จำนวนกลุ่มบริษัท/ธุรกิจ"
-                        progress="0.80"
-                        increase="+43%"
+                        title={dashboardReducer.result && dashboardReducer.result.marketplace}
+                        subtitle="จำนวนตลาดรับซื้อผลผลิต"
+                        progress={dashboardReducer.result && dashboardReducer.result.marketplacepercent}
+                        increase={dashboardReducer.result && (dashboardReducer.result.marketplacepercent*100).toFixed(0) + '%'}
                         icon={
                             <WarehouseIcon
                                 sx={{
