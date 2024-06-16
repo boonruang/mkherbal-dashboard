@@ -1,14 +1,34 @@
+import { useEffect } from "react";
 import { Box, useTheme,Button } from "@mui/material"
 import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import { tokens } from "../../theme"
-import { mockDataFarmers } from "../../data/mockDataFarmers"
+// import { mockDataFarmers } from "../../data/mockDataFarmers"
 import AddIcon from '@mui/icons-material/Add';
+import { getFarmers } from '../../actions/farmer.action'
 
 import Header from "../../components/Header"
+import { useDispatch, useSelector } from "react-redux";
 
 const Farmers = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getFarmers())
+    },[dispatch])
+
+
+    const { result, isFetching } = useSelector((state) => state.app.farmerReducer)
+
+    // if (result) {
+    //     console.log('result',result)
+    // }
+
+    const handleClick = () => {
+        //
+    }
 
     const columns = [
         { field: 'id', headerName: 'ลำดับ', headerAlign: 'center', align: 'center'},
@@ -40,13 +60,13 @@ const Farmers = () => {
         //     align: "left",
         // },        
         {
-            field: 'thumbol',
+            field: 'tambon',
             headerName: 'ตำบล',
             flex: 1,
             cellClassName: "name-column--cell"
         },  
         {
-            field: 'amphur',
+            field: 'amphoe',
             headerName: 'อำเภอ',
             flex: 1,
             cellClassName: "name-column--cell"
@@ -81,14 +101,14 @@ const Farmers = () => {
             return (
               <Box>
                 <Button
-                  onClick={{}}
+                  onClick={handleClick}
                   variant="outlined"
                   color="error"
                 >
                   ลบ
                 </Button>
                 <Button
-                  onClick={{}}
+                  onClick={handleClick}
                   variant="outlined"
                   color="success"
                   sx={{ ml: 1 }}            
@@ -148,8 +168,10 @@ const Farmers = () => {
                         เพิ่มข้อมูล
                     </Button>
                 </Box>
+                    { isFetching && <Box>Data is fetching</Box>}
+                    { result ?
                     <DataGrid
-                        rows={mockDataFarmers}
+                        rows={result}
                         columns={columns}
                         components={{ Toolbar: GridToolbar }}
                         // sx={{
@@ -161,7 +183,7 @@ const Farmers = () => {
                         //     // color: colors.grey[5900],
                         //     // },
                         // }}
-                    />
+                    /> : undefined}
             </Box>
         </Box>
     )

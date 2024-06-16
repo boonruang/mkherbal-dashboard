@@ -35,7 +35,7 @@ const Dashbaord = () => {
     const colors = tokens(theme.palette.mode)
 
     const [years, setYears] = useState('2010-2024')
-    const [hearbals, setHerbals] = useState('กระเทียมแห้ง มัดจุก หัวใหญ่,หอมแดงศรีสะเกษ มัดจุก หัวใหญ่,กระเจี๊ยบแห้ง')
+    const [hearbals, setHerbals] = useState('กระเทียมแห้ง มัดจุก หัวใหญ่,หอมแดงศรีสะเกษ มัดจุก หัวใหญ่,กระเจี๊ยบแห้ง,พริกไทยดำ อย่างดี')
 
     useEffect(() => {
         dispatch(getHerbalPrice())

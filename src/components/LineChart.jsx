@@ -14,26 +14,26 @@ const LineChart = ({ isDashboard = false, data }) => {
     //     console.log('herbalpriceyearReducer data',data)
     // }
 
-    let makecolors = [
-        tokens("dark").greenAccent[500],
-        tokens("dark").yellowAccent[300],
+    let colorArr = [
         tokens("dark").redAccent[200],
-        tokens("dark").blueAccent[500],        
+        tokens("dark").greenAccent[500],
+        tokens("dark").blueAccent[200],        
+        tokens("dark").yellowAccent[300],
+        tokens("dark").blueAccent[600],        
     ]
 
-    // for (let i=0; i < makecolors.length ; i++ ) {
-    //     console.log('color ',i , makecolors[i])
+    // for (let i=0; i < colorArr.length ; i++ ) {
+    //     console.log('color ',i , colorArr[i])
     // }
-    
     if (data) {
         for (let i=0; i < data.length ; i++ ) {
-            // console.log('color ',i , data[i])
-            data[i].color = makecolors[i]
+            // mod value is 0, 1, 2, 3, 4,
+            data[i].color = colorArr[i%5]
         }
 
-        if (data) {
-            console.log('data',data)
-        }
+        // if (data) {
+        //     console.log('data',data)
+        // }
     }
 
 
