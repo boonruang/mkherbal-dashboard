@@ -2,7 +2,7 @@ import { ColorModeContext, useMode } from "./theme"
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 // import { Routes,Route } from "react-router-dom";
-import { BrowserRouter,Switch,Routes,Route } from 'react-router-dom';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashbaord from "./scenes/dashboard";

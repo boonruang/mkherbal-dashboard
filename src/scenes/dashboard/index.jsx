@@ -35,7 +35,7 @@ const Dashbaord = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
-    const [years, setYears] = useState('2010-2024')
+    const [years, setYears] = useState('2015-2024')
     const [hearbals, setHerbals] = useState('กระเทียมแห้ง มัดจุก หัวใหญ่,หอมแดงศรีสะเกษ มัดจุก หัวใหญ่,กระเจี๊ยบแห้ง,พริกไทยดำ อย่างดี')
 
     useEffect(() => {
@@ -189,7 +189,7 @@ const Dashbaord = () => {
                 {/* ROW 2 */}
                 <Box
                     gridColumn="span 8"
-                    gridRow="span 2"
+                    gridRow="span 4"
                     backgroundColor={colors.primary[400]}
                 >
                     <Box
@@ -218,7 +218,8 @@ const Dashbaord = () => {
                         </Box> */}
                     </Box>
 
-                    <Box height="250px" mt="-20px">
+                    {/* <Box height="250px" mt="-20px"> */}
+                    <Box height="500px" mt="-20px">
                         {herbalpriceyearReducer.result ? <LineChart isDashboard={true} data={herbalpriceyearReducer.result} />
                         : undefined}
                     </Box>
@@ -227,7 +228,7 @@ const Dashbaord = () => {
                 {/* TRANSACTION */}
                 <Box
                     gridColumn="span 4"
-                    gridRow="span 2"
+                    gridRow="span 4"
                     backgroundColor={colors.primary[400]}
                     overflow="auto"
                 >
@@ -287,7 +288,7 @@ const Dashbaord = () => {
                 </Box>
 
                 {/* ROW 3 */}
-                <Box
+                {/* <Box
                     gridColumn="span 4"
                     gridRow="span 2"
                     backgroundColor={colors.primary[400]}
@@ -350,7 +351,7 @@ const Dashbaord = () => {
                     <Box height="200px" >
                         <GeographyChart isDashboard={true} />
                     </Box>
-                </Box>
+                </Box> */}
 
                 {/*  */}
             </Box>
