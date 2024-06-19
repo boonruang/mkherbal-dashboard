@@ -1,7 +1,7 @@
 import { ColorModeContext, useMode } from "./theme"
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useSelector } from "react-redux";
-import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import { useDispatch,useSelector } from "react-redux";
+import { BrowserRouter,Routes,Route, useNavigate } from 'react-router-dom';
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashbaord from "./scenes/dashboard";
@@ -35,13 +35,19 @@ import SoilHerbals from "scenes/soillherbals";
 import Layout from "components/Layout";
 import Unauthorized from "components/Unauthorized";
 import RequireAuth from "components/RequireAuth";
+import { ROLES } from './constants/index'
+import { useEffect } from "react";
+import * as loginActions from 'actions/login.action'
 
 function App() {
-const ROLES =   {
-  'User' : 2001,
-  'Editor': 1976,
-  'Admin': 5150
-}
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    console.log('App Created')
+    dispatch(loginActions.reLogin({navigate}))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return ( 
   <Routes>

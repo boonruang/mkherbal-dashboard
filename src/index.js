@@ -5,16 +5,14 @@ import App from './App';
 import { Provider } from "react-redux";
 import store from './store'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from 'context/authProvider';
+// import { AuthProvider } from 'context/authProvider';
 
 const Root = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <AuthProvider>
         <Routes>
           <Route path='/*' element={<App />} />
         </Routes>
-      </AuthProvider>
     </BrowserRouter>
   </Provider>
 );

@@ -144,6 +144,7 @@ export const NO = 'NO'
 export const OK = 'ok'
 export const NOK = 'nok'
 export const LOGIN_STATUS = 'LOGIN_STATUS'
+export const USER_ROLES = 'USER_ROLES'
 export const TOKEN = 'HerbHukToken'
 
 export const server = {
@@ -167,5 +168,10 @@ export const server = {
   PRICE_URL: `price`,
   FARMER_URL: `farmer`,
   DASHBOARD_URL: `dashboard`,
+}
 
+export const ROLES =   {
+  'User' : 2001,
+  'Editor': 1976,
+  'Admin': 5150
 }

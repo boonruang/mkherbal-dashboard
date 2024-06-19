@@ -31,7 +31,8 @@ export const setLoginStateToLogout = () => ({
   type: HTTP_LOGOUT,
 })
 
-export const reLogin = () => {
+export const reLogin = ({navigate}) => {
+  console.log('reLogin action is called')
   return (dispatch) => {
     const loginStatus = localStorage.getItem(LOGIN_STATUS)
     console.log('LoginStatus: ', loginStatus)
@@ -39,23 +40,30 @@ export const reLogin = () => {
     console.log('userToken: ', userToken)
     if (userToken) {
       const userToken_decoded = jwtDecode(userToken)
-      console.log('User Token Decoded: ', userToken_decoded)
+      console.log('User Token Decoded in reLogin: ', userToken_decoded)
       var { username, roles } = userToken_decoded
+    } else {
+      console.log('userToken on localStorage not found')
     }
-    if (loginStatus === 'ok') {
+    if (loginStatus === 'ok' && username && roles) {
       // dispatch(setLoginStateToSuccess({}))
       dispatch(setLoginStateToSuccess({ status: 'ok', username, roles }))
+      console.log('reLogin dispatch is called')
+      // navigate('/herbals/list')
+      navigate('/dashboard')
     }
   }
 }
 
 export const isLoggedIn = () => {
+  console.log('isLoggedIn action is called')
   const loginStatus = localStorage.getItem(LOGIN_STATUS)
   //return true or false
   return loginStatus === 'ok'
 }
 
 export const login = ({ username, password, navigate }) => {
+  console.log('login action is called')
   return async (dispatch) => {
     dispatch(setLoginStateToFetching())
     console.log('User: ', username)
@@ -67,18 +75,19 @@ export const login = ({ username, password, navigate }) => {
     if (result.data.result === 'ok') {
       localStorage.setItem(LOGIN_STATUS, 'ok')
       localStorage.setItem(TOKEN, result.data.accessToken)
-      // let userToken = result.data.accessToken
-      let roles = result.data.roles
-      // if (userToken) {
-      //   let userToken_decoded = jwtDecode(userToken)
-      //   console.log('User Token Decoded: ', userToken_decoded)
-      //   var { roleId } = userToken_decoded
-      // }
+      let userToken = result.data.accessToken
+      let roles
+      if (userToken) {
+        let userToken_decoded = jwtDecode(userToken)
+        console.log('User Token Decoded in login: ', userToken_decoded)
+        roles = userToken_decoded.roles
+      }
       dispatch(
         // setLoginStateToSuccess({ status: 'ok', token: result.data.token }),
         // setLoginStateToSuccess('ok'),
         setLoginStateToSuccess({ status: 'ok', username, roles }),
       )
+      console.log('login dispatch is called')
       // history.push('/dashboard')
       navigate('/dashboard')
       // alert(JSON.stringify(result.data));

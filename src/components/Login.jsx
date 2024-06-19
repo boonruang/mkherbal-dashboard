@@ -13,7 +13,6 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-import useAuth from 'hooks/useAuth'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import  * as loginActions  from '../actions/login.action'
@@ -21,7 +20,7 @@ import  * as loginActions  from '../actions/login.action'
 // import axios from '../utils/axios'
 // import { server } from '../constants'
 
-const Login = (props) => {
+const Login = () => {
 
   const loginReducer = useSelector(state => state.app.loginReducer)
   const dispatch = useDispatch()
@@ -31,52 +30,22 @@ const Login = (props) => {
     password: '11111',
   })
 
-  const { setAuth } = useAuth()
-  
   const navigate = useNavigate()
-  const location = useLocation()
-  const from = location.state?.from?.pathname || '/'
-
-  const userRef = useRef()
-  const errRef = useRef()
-
-  const [errMsg, setErrMsg] = useState('')
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
     // console.log({
     //   username: data.get('username'),
     //   password: data.get('password'),
     // });
-      let username = data.get('username')
-      let password =  data.get('password')
+    //   let username = data.get('username')
+    //   let password =  data.get('password')
 
-      setAccount({username,password})
-
+      // setAccount({username,password})
+      console.log('account ',account)
       dispatch(loginActions.login({ ...account, navigate }))
 
-// try {
-//   const response = await axios.post(server.LOGIN_URL,
-//     JSON.stringify({username,password}),
-//     {
-//       headers: { 'Content-Type': 'application/json' },
-//       withCredentials: true
-//     }
-//   )
-//   console.log(JSON.stringify(response?.data));
-//   const accessToken = response?.data?.accessToken
-//   const roles = response?.data?.roles
-//   setAuth({ username, password, roles, accessToken })
-//   navigate(from, { replace: true })
-// } catch (err) {
-//   console.log('err',err)
-//   // errRef.current.focus()
-// }
-
-  const roles = loginReducer?.result?.roles
-
-  setAuth({ username, roles })
 
   };
 
@@ -155,7 +124,7 @@ const Login = (props) => {
                 label="ชื่อ"
                 // name="username"
                 name={account.username}
-                autoComplete="username"
+                // autoComplete="username"
                 autoFocus
                 onChange={(e) =>
                   setAccount({ ...account, username: e.target.value })
@@ -170,7 +139,7 @@ const Login = (props) => {
                 label="รหัสผ่าน"
                 type="password"
                 id="password"
-                autoComplete="current-password"
+                // autoComplete="current-password"
                 onChange={(e) =>
                   setAccount({ ...account, password: e.target.value })
                 }

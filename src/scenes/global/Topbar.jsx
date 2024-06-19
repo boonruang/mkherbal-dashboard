@@ -1,5 +1,5 @@
-import { Box, IconButton, useTheme } from "@mui/material"
-import { useContext } from "react"
+import { Box, IconButton, useTheme, Menu, MenuItem } from "@mui/material"
+import { useContext, useState } from "react"
 import { ColorModeContext, tokens } from "../../theme"
 import InputBase from "@mui/material/InputBase"
 import LightModeOutlined from "@mui/icons-material/LightModeOutlined"
@@ -8,15 +8,35 @@ import NotificationsOutlined from "@mui/icons-material/NotificationsOutlined"
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined"
 import PersonOutlined from "@mui/icons-material/PersonOutlined"
 import SearchIcon from "@mui/icons-material/Search"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import * as loginActions from '../../actions/login.action'
+import { useNavigate } from "react-router-dom"
 
 const Topbar = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const colorMode = useContext(ColorModeContext)
 
-  const { isSidebar } = useSelector((state) => state.app.appReducer)
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+
+    const { isSidebar } = useSelector((state) => state.app.appReducer)
 //   console.log('isSidebar',isSidebar)    
+
+const [anchorEl, setAnchorEl] = useState(null)
+const open = Boolean(anchorEl)
+const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+}
+
+const handleClose = () => {
+    setAnchorEl(null)
+}
+
+const handleLogout = () => {
+    dispatch(loginActions.logout({navigate}))
+}
 
     // return (<Box display="flex" justifyContent="space-between" p={2}>
     return ( isSidebar && (<Box display="flex" justifyContent="end" p={2} pb={0}>
@@ -47,9 +67,21 @@ const Topbar = () => {
             <IconButton>
                 <SettingsOutlined />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={handleClick}>
                 <PersonOutlined />
             </IconButton>
+            <Menu
+                id='basic-menu'
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                    'aria-labelledby': 'basic-button'
+                }}
+            >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
         </Box>
     </Box>)
     )
