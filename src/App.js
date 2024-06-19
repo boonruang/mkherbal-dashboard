@@ -1,7 +1,6 @@
 import { ColorModeContext, useMode } from "./theme"
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
-// import { Routes,Route } from "react-router-dom";
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
@@ -33,61 +32,61 @@ import MarketplaceAdd from "scenes/marketplace/MarketplaceAdd";
 import HerbalsList from "scenes/herbals/list";
 import Invoices from "scenes/invoices";
 import SoilHerbals from "scenes/soillherbals";
-// import GeoLandMk from "scenes/geolandmk";
-// import GeoSaltMk from "scenes/geosaltmk";
+import Layout from "components/Layout";
+import Unauthorized from "components/Unauthorized";
+import RequireAuth from "components/RequireAuth";
 
 function App() {
-  const [theme, colorMode] = useMode()
-
-  // const sidebarState = useSelector((state) => state.app.appReducer)
-  // console.log('sidebarState', sidebarState)
+const ROLES =   {
+  'User' : 2001,
+  'Editor': 1976,
+  'Admin': 5150
+}
 
   return ( 
-    <BrowserRouter>
-    {/* <Routes>
-      <Route path="/" element={<Login />} />
-    </Routes> */}
-     <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-            <div className="app">
-              <Sidebar />
-              <main className='content' >
-                <Topbar /> 
-                <Routes>
-                    <Route path="/" element={<Dashbaord />} />
-                    <Route path="/dashboard" element={<Dashbaord />} />
-                    <Route path="/team" element={<Team />} />
-                    <Route path="/contacts" element={<Contacts />} />
-                    <Route path="/researchers" element={<Researchers />} />
-                    <Route path="/farmers" element={<Farmers />} />
-                    <Route path="/farmergroup" element={<Farmergroup />} />
-                    <Route path="/businessgroup" element={<BusinessGroup />} />
-                    <Route path="/herbals" element={<Herbals />} />
-                    <Route path="/form" element={<Form />} />
-                    <Route path="/calendar" element={<Calendar />} />
-                    <Route path="/bar" element={<Bar />} />
-                    <Route path="/pie" element={<Pie />} />
-                    <Route path="/line" element={<Line />} />
-                    <Route path="/geography" element={<Geography />} />
-                    <Route path="/geomap" element={<Geomap />} />
-                    {/* <Route path="/geogmaps" element={<GeoGmaps />} /> */}
-                    <Route path="/geoland" element={<GeoLand />} />
-                    <Route path="/geosoil" element={<GeoSoil />} />
-                    <Route path="/geosalt" element={<GeoSalt />} />
-                    <Route path="/marketplace" element={<Marketplace />} />
-                    <Route path="/marketplace/add" element={<MarketplaceAdd />} />
-                    <Route path="/herbalcarousel" element={<HerbalCarousel />} />
-                    <Route path="/herbals/add" element={<HerbalAdd />} />
-                    <Route path="/herbals/list" element={<HerbalsList />} />
-                    <Route path="/invoices" element={<Invoices />} />
-                    <Route path="/soilherbals" element={<SoilHerbals />} />
-                </Routes>
-              </main>
-            </div> 
-          </ThemeProvider>
-        </ColorModeContext.Provider>
-      </BrowserRouter>
+  <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/unauthorized" element={<Unauthorized />} />
+
+      <Route path="/" element={<Layout />}>
+      
+        <Route element={<RequireAuth allowedRoles={[ROLES.User,ROLES.Editor]} /> }>
+          <Route path="/" element={<Dashbaord />} />
+          <Route path="dashboard" element={<Dashbaord />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} /> }>
+          <Route path="team" element={<Team />} />
+          <Route path="contacts" element={<Contacts />} />
+          <Route path="researchers" element={<Researchers />} />
+          <Route path="farmers" element={<Farmers />} />
+          <Route path="farmergroup" element={<Farmergroup />} />
+          <Route path="businessgroup" element={<BusinessGroup />} />
+          <Route path="herbals" element={<Herbals />} />
+          <Route path="form" element={<Form />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="bar" element={<Bar />} />
+          <Route path="pie" element={<Pie />} />
+          <Route path="line" element={<Line />} />
+          <Route path="geography" element={<Geography />} />
+          <Route path="geomap" element={<Geomap />} />
+          <Route path="geoland" element={<GeoLand />} />
+          <Route path="geosoil" element={<GeoSoil />} />
+          <Route path="geosalt" element={<GeoSalt />} />
+          <Route path="marketplace" element={<Marketplace />} />
+          <Route path="marketplace/add" element={<MarketplaceAdd />} />
+          <Route path="herbalcarousel" element={<HerbalCarousel />} />
+          <Route path="herbals/add" element={<HerbalAdd />} />
+          <Route path="herbals/list" element={<HerbalsList />} />
+          <Route path="invoices" element={<Invoices />} />
+          <Route path="soilherbals" element={<SoilHerbals />} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} /> }>
+         {/* Admin here */}
+        </Route>
+      </Route>
+  </Routes>
+
   )
 }
 

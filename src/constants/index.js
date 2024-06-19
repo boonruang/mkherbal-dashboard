@@ -147,7 +147,8 @@ export const LOGIN_STATUS = 'LOGIN_STATUS'
 export const TOKEN = 'KerbHukToken'
 
 export const server = {
-  LOGIN_URL: `user/login`,
+  // LOGIN_URL: `user/login`,
+  LOGIN_URL:`/auth`,
   REGISTER_URL: `user/register`,
   USER_URL: `user`,
   VERIFY_URL: `user/verify`,
@@ -166,4 +167,5 @@ export const server = {
   PRICE_URL: `price`,
   FARMER_URL: `farmer`,
   DASHBOARD_URL: `dashboard`,
+
 }
