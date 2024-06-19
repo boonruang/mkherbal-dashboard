@@ -144,11 +144,11 @@ export const NO = 'NO'
 export const OK = 'ok'
 export const NOK = 'nok'
 export const LOGIN_STATUS = 'LOGIN_STATUS'
-export const TOKEN = 'KerbHukToken'
+export const TOKEN = 'HerbHukToken'
 
 export const server = {
-  // LOGIN_URL: `user/login`,
-  LOGIN_URL:`/auth`,
+  LOGIN_URL: `user/login`,
+  // LOGIN_URL:`/auth`,
   REGISTER_URL: `user/register`,
   USER_URL: `user`,
   VERIFY_URL: `user/verify`,

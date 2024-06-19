@@ -11,7 +11,7 @@ import {
 } from '../constants'
 
 import { httpClient } from '../utils/HttpClient'
-import jwtDecode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 
 export const setLoginStateToFetching = () => ({
   type: HTTP_LOGIN_FETCHING,
@@ -40,11 +40,11 @@ export const reLogin = () => {
     if (userToken) {
       const userToken_decoded = jwtDecode(userToken)
       console.log('User Token Decoded: ', userToken_decoded)
-      var { username, roleId } = userToken_decoded
+      var { username, roles } = userToken_decoded
     }
-    if (loginStatus == 'ok') {
+    if (loginStatus === 'ok') {
       // dispatch(setLoginStateToSuccess({}))
-      dispatch(setLoginStateToSuccess({ status: 'ok', username, roleId }))
+      dispatch(setLoginStateToSuccess({ status: 'ok', username, roles }))
     }
   }
 }
@@ -52,10 +52,10 @@ export const reLogin = () => {
 export const isLoggedIn = () => {
   const loginStatus = localStorage.getItem(LOGIN_STATUS)
   //return true or false
-  return loginStatus == 'ok'
+  return loginStatus === 'ok'
 }
 
-export const login = ({ username, password, history }) => {
+export const login = ({ username, password, navigate }) => {
   return async (dispatch) => {
     dispatch(setLoginStateToFetching())
     console.log('User: ', username)
@@ -64,21 +64,23 @@ export const login = ({ username, password, history }) => {
       username,
       password,
     })
-    if (result.data.result == 'ok') {
+    if (result.data.result === 'ok') {
       localStorage.setItem(LOGIN_STATUS, 'ok')
-      localStorage.setItem(TOKEN, result.data.token)
-      let userToken = result.data.token
-      if (userToken) {
-        let userToken_decoded = jwtDecode(userToken)
-        console.log('User Token Decoded: ', userToken_decoded)
-        var { roleId } = userToken_decoded
-      }
+      localStorage.setItem(TOKEN, result.data.accessToken)
+      // let userToken = result.data.accessToken
+      let roles = result.data.roles
+      // if (userToken) {
+      //   let userToken_decoded = jwtDecode(userToken)
+      //   console.log('User Token Decoded: ', userToken_decoded)
+      //   var { roleId } = userToken_decoded
+      // }
       dispatch(
         // setLoginStateToSuccess({ status: 'ok', token: result.data.token }),
         // setLoginStateToSuccess('ok'),
-        setLoginStateToSuccess({ status: 'ok', username, roleId }),
+        setLoginStateToSuccess({ status: 'ok', username, roles }),
       )
-      history.push('/dashboard')
+      // history.push('/dashboard')
+      navigate('/dashboard')
       // alert(JSON.stringify(result.data));
     } else {
       localStorage.setItem(LOGIN_STATUS, 'nok')
@@ -87,11 +89,12 @@ export const login = ({ username, password, history }) => {
   }
 }
 
-export const logout = ({ history }) => {
+export const logout = ({ navigate }) => {
   return (dispatch) => {
     localStorage.removeItem(LOGIN_STATUS)
     localStorage.removeItem(TOKEN)
     dispatch(setLoginStateToLogout())
-    history.push('/')
+    // history.push('/')
+    navigate('/')
   }
 }

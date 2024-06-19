@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect} from 'react'
+
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -13,23 +13,26 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
+import { useRef, useState, useEffect} from 'react'
 import useAuth from 'hooks/useAuth'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { useDispatch,useSelector } from 'react-redux'
-import  * as loginActions  from '../actions/login.action'
 
-// import axios from '../utils/axios'
-// import { server } from '../constants'
+import axios from '../utils/axios'
+import { server } from '../constants'
 
-const Login = (props) => {
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        HerbHuk ISAN
+    </Typography>
+  );
+}
 
-  const loginReducer = useSelector(state => state.app.loginReducer)
-  const dispatch = useDispatch()
+// TODO remove, this demo shouldn't need to reset the theme.
 
-  const [account, setAccount] = useState({
-    username: 'admin',
-    password: '11111',
-  })
+const defaultTheme = createTheme();
+
+const Login = () => {
 
   const { setAuth } = useAuth()
   
@@ -52,41 +55,25 @@ const Login = (props) => {
       let username = data.get('username')
       let password =  data.get('password')
 
-      setAccount({username,password})
-
-      dispatch(loginActions.login({ ...account, navigate }))
-
-// try {
-//   const response = await axios.post(server.LOGIN_URL,
-//     JSON.stringify({username,password}),
-//     {
-//       headers: { 'Content-Type': 'application/json' },
-//       withCredentials: true
-//     }
-//   )
-//   console.log(JSON.stringify(response?.data));
-//   const accessToken = response?.data?.accessToken
-//   const roles = response?.data?.roles
-//   setAuth({ username, password, roles, accessToken })
-//   navigate(from, { replace: true })
-// } catch (err) {
-//   console.log('err',err)
-//   // errRef.current.focus()
-// }
-
-  const roles = loginReducer?.result?.roles
-
-  setAuth({ username, roles })
+try {
+  const response = await axios.post(server.LOGIN_URL,
+    JSON.stringify({username,password}),
+    {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true
+    }
+  )
+  console.log(JSON.stringify(response?.data));
+  const accessToken = response?.data?.accessToken
+  const roles = response?.data?.roles
+  setAuth({ username, password, roles, accessToken })
+  navigate(from, { replace: true })
+} catch (err) {
+  console.log('err',err)
+  // errRef.current.focus()
+}
 
   };
-
-  const showError = () => {
-    return (
-    <Typography variant="h7" color='red' >
-      รหัสผ่านหรือชื่อไม่ถูกต้อง
-    </Typography>
-    )
-  }
 
   return (
     <Box 
@@ -153,35 +140,24 @@ const Login = (props) => {
                 fullWidth
                 id="username"
                 label="ชื่อ"
-                // name="username"
-                name={account.username}
+                name="username"
                 autoComplete="username"
                 autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, username: e.target.value })
-                }
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                // name="password"
-                name={account.password}
+                name="password"
                 label="รหัสผ่าน"
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={(e) =>
-                  setAccount({ ...account, password: e.target.value })
-                }
               />
               {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="บันทึกรหัส"
               /> */}
-              <Box>
-              {loginReducer.isError ? showError() : null}
-              </Box>              
               <Button
                 type="submit"
                 fullWidth
