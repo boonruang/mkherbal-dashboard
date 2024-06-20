@@ -30,6 +30,8 @@ import TableRowsIcon from '@mui/icons-material/TableRows';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
+import { ROLES } from '../../constants'
+import SecureMenu from 'components/SecureMenu'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme()
@@ -71,7 +73,10 @@ const Sidebar = () => {
 
     // dispatch(showSidebar(!isCollapsed))   
     
+    const { result } = useSelector((state) => state.app.loginReducer)
+
     const { isSidebar } = useSelector((state) => state.app.appReducer)
+
     console.log('isSidebar in Sidebar',isSidebar)  
     // console.log('isCollapsed',isCollapsed)  
 
@@ -153,68 +158,61 @@ const Sidebar = () => {
 
                     {/* MENU ITEMS */}
                     <Box paddingLeft={!isSidebar ? undefined : '10%'}>
-                        <Item
-                            title="แดชบอร์ด"
-                            to="/dashboard"
-                            icon={<HomeOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        {/* {isSidebar ? (
-                            <Box
-                                display="flex"
-                                justifyContent="space-between"
-                                alignItems="center"
-                                ml="15px"
-                            >
-                                <Typography
-                                    variant='h6'
-                                    color={colors.grey[300]}
-                                    sx={{ m: "15px 0 5px 20px" }}
-                                >
-                                    แหล่งข้อมูล
-                                </Typography>
-                            </Box>
-                        ) :  <CollapsedIcon /> }                         */}
+                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                           ? <Item
+                                title="แดชบอร์ด"
+                                to="/dashboard"
+                                icon={<HomeOutlinedIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined
+                         }
                         <SubMenu title="สมุนไพร" icon={<ForestIcon />}>
-                            <Item
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
                                 title="ข้อมูลสมุนไพร"
                                 to="/herbals"
                                 icon={<GridViewIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            />
-                            <Item
+                            /> : undefined  }    
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
                                 title="ตารางข้อมูล"
                                 to="/herbals/list"
                                 icon={<TableRowsIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            />
-                            {/* <Item
+                            /> : undefined  }                                                  
+                        { result?.roles?.find((role) => [ROLES.Editor].includes(role))
+                           ? <Item
                                 title="เพิ่มสมุนไพร"
                                 to="/herbals/add"
                                 icon={<AddIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            />                            */}
+                            /> : undefined  }    
                         </SubMenu>
    
                         <SubMenu title="เกษตรกร" icon={<PeopleOutlinedIcon />}>
-                            <Item
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
                                 title="เกษตรกร"
                                 to="/farmers"
                                 icon={<PersonIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            />       
-                            <Item
+                            /> : undefined  }  
+
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
                                 title="กลุ่มเกษตรกร"
                                 to="/farmergroup"
                                 icon={<PeopleOutlinedIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> 
+                            /> : undefined  }                                                      
+
                          </SubMenu>                      
 
                         {/* {isSidebar ? (
@@ -235,34 +233,42 @@ const Sidebar = () => {
                         ) :  <CollapsedIcon /> }  
                                                                        */}                                                                       
                     <SubMenu title="ธุรกิจการค้า" icon={<MiscellaneousServicesIcon />}>
-                        <Item
-                            title="รายการบริษัท/ธุรกิจ"
-                            to="/businessgroup"
-                            icon={<WarehouseIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />                           
-                        <Item
-                            title="แหล่งแปรรูปขั้นต้น"
-                            to="/businessgroup"
-                            icon={<HomeWorkIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />   
-                        <Item
-                            title="แหล่งขายตามพิกัด"
-                            to="/marketplace"
-                            icon={<StoreIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="ผลิตภัณฑ์สมุนไพร"
-                            to="/herbals"
-                            icon={<HealthAndSafetyIcon  />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />                          
+                    { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="รายการบริษัท/ธุรกิจ"
+                                to="/businessgroup"
+                                icon={<WarehouseIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  } 
+
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="แหล่งแปรรูปขั้นต้น"
+                                to="/businessgroup"
+                                icon={<HomeWorkIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  } 
+
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="แหล่งขายตามพิกัด"
+                                to="/marketplace"
+                                icon={<StoreIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  } 
+
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="ผลิตภัณฑ์สมุนไพร"
+                                to="/herbals"
+                                icon={<HealthAndSafetyIcon  />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                                                                                                         
+                          
                     </SubMenu>                                                                       
                         {/* <Item
                             title="การแพทย์แผนไทย"
@@ -323,20 +329,25 @@ const Sidebar = () => {
                             </Box>
                         ) :  <CollapsedIcon /> }      */}
                         <SubMenu title="องค์ความรู้" icon={<WbIncandescentIcon />}>
-                                <Item
-                                    title="งานวิจัยและนวัตกรรม"
-                                    to="/herbals"
-                                    icon={<LibraryBooksIcon />}
-                                    selected={selected}
-                                    setSelected={setSelected}
-                                />                          
-                                <Item
-                                    title="ศาสตร์การแพทย์ฯ"
-                                    to="/farmers"
-                                    icon={<MenuBookIcon />}
-                                    selected={selected}
-                                    setSelected={setSelected}
-                                />
+
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="งานวิจัยและนวัตกรรม"
+                                to="/herbals"
+                                icon={<LibraryBooksIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }  
+
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="ศาสตร์การแพทย์ฯ"
+                                to="/farmers"
+                                icon={<MenuBookIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }  
+
                         </SubMenu>                                                                
    
                         {/* {isSidebar ? (
@@ -357,34 +368,45 @@ const Sidebar = () => {
                         ) :  <CollapsedIcon /> }   */}
 
                         <SubMenu title="ข้อมูลดิน" icon={<FmdBadIcon />}>
-                               {/* <Item
+
+                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                                ? <Item
                                     title="การใช้ดิน ต.แก่งเลิงจาน"
                                     to="/geoland"
                                     icon={<LandslideIcon />}
                                     selected={selected}
                                     setSelected={setSelected}
-                                />  
-                                <Item
+                                /> : undefined  } 
+
+                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                                ? <Item
                                     title="ข้อมูลคราบเกลือ"
                                     to="/geosalt"
                                     icon={<MoreIcon />}
                                     selected={selected}
                                     setSelected={setSelected}
-                                />  */}
-                                {/* <Item
+                                /> : undefined  }  
+
+                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                                ? <Item
                                     title="ข้อมูลดิน จ.มหาสารคาม"
                                     to="/geosoil"
                                     icon={<LanguageIcon />}
                                     selected={selected}
                                     setSelected={setSelected}
-                                />                                                                                       */}
-                                <Item
-                                    title="ข้อมูลดินและสมุนไพร"
-                                    to="/soilherbals"
-                                    icon={<ParkIcon />}
-                                    selected={selected}
-                                    setSelected={setSelected}
-                                />                                                   
+                            /> : undefined  } 
+                                
+                               
+
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                           title="ข้อมูลดินและสมุนไพร"
+                           to="/soilherbals"
+                           icon={<ParkIcon />}
+                           selected={selected}
+                           setSelected={setSelected}
+                            /> : undefined  }                                  
+                                                
                         </SubMenu>                                                              
      
                         {/* <Typography

@@ -220,18 +220,19 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
     } } 
 ]
 
-const { data, loading } = useDemoData({
-  dataSet: 'Employee',
-  rowLength: 200,
-});  
-if (data) {
-  console.log('data',data)
-}
+// const { data, loading } = useDemoData({
+//   dataSet: 'Employee',
+//   rowLength: 200,
+// });  
 
-const myData = {
-  columns,
-  rows: result
-}
+// if (data) {
+//   console.log('data',data)
+// }
+
+// const myData = {
+//   columns,
+//   rows: result
+// }
 
   return (
     <Box m="20px" >

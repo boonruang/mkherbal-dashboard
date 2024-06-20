@@ -1,24 +1,14 @@
-import { useRef, useState, useEffect} from 'react'
-import Avatar from '@mui/material/Avatar'
+import { useState } from 'react'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
-// import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import  * as loginActions  from '../actions/login.action'
-
-// import axios from '../utils/axios'
-// import { server } from '../constants'
 
 const Login = () => {
 
@@ -34,18 +24,9 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   username: data.get('username'),
-    //   password: data.get('password'),
-    // });
-    //   let username = data.get('username')
-    //   let password =  data.get('password')
 
-      // setAccount({username,password})
-      console.log('account ',account)
-      dispatch(loginActions.login({ ...account, navigate }))
-
+    console.log('account ',account)
+    dispatch(loginActions.login({ ...account, navigate }))
 
   };
 
@@ -109,9 +90,7 @@ const Login = () => {
               margin: '50px'
             }}
           >
-            {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar> */}
+
             <Typography component="h1" variant="h5">
               เข้าใช้งานระบบ
             </Typography>
@@ -122,9 +101,7 @@ const Login = () => {
                 fullWidth
                 id="username"
                 label="ชื่อ"
-                // name="username"
                 name={account.username}
-                // autoComplete="username"
                 autoFocus
                 onChange={(e) =>
                   setAccount({ ...account, username: e.target.value })
@@ -134,20 +111,14 @@ const Login = () => {
                 margin="normal"
                 required
                 fullWidth
-                // name="password"
                 name={account.password}
                 label="รหัสผ่าน"
                 type="password"
                 id="password"
-                // autoComplete="current-password"
                 onChange={(e) =>
                   setAccount({ ...account, password: e.target.value })
                 }
               />
-              {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="บันทึกรหัส"
-              /> */}
               <Box>
               {loginReducer.isError ? showError() : null}
               </Box>              

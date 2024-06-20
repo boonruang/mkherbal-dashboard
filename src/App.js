@@ -34,7 +34,7 @@ import Invoices from "scenes/invoices";
 import SoilHerbals from "scenes/soillherbals";
 import Layout from "components/Layout";
 import Unauthorized from "components/Unauthorized";
-import RequireAuth from "components/RequireAuth";
+import SecureRoute from "components/SecureRoute";
 import { ROLES } from './constants/index'
 import { useEffect } from "react";
 import * as loginActions from 'actions/login.action'
@@ -56,12 +56,12 @@ function App() {
 
       <Route path="/" element={<Layout />}>
       
-        <Route element={<RequireAuth allowedRoles={[ROLES.User,ROLES.Editor]} /> }>
+        <Route element={<SecureRoute allowedRoles={[ROLES.User,ROLES.Editor]} /> }>
           <Route path="/" element={<Dashbaord />} />
           <Route path="dashboard" element={<Dashbaord />} />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.User]} /> }>
+        <Route element={<SecureRoute allowedRoles={[ROLES.User]} /> }>
           <Route path="team" element={<Team />} />
           <Route path="contacts" element={<Contacts />} />
           <Route path="researchers" element={<Researchers />} />
@@ -87,7 +87,7 @@ function App() {
           <Route path="invoices" element={<Invoices />} />
           <Route path="soilherbals" element={<SoilHerbals />} />
         </Route>
-        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} /> }>
+        <Route element={<SecureRoute allowedRoles={[ROLES.Admin]} /> }>
          {/* Admin here */}
         </Route>
       </Route>
