@@ -369,7 +369,7 @@ const Sidebar = () => {
 
                         <SubMenu title="ข้อมูลดิน" icon={<FmdBadIcon />}>
 
-                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                        {/* { result?.roles?.find((role) => [ROLES.Admin].includes(role))
                                 ? <Item
                                     title="การใช้ดิน ต.แก่งเลิงจาน"
                                     to="/geoland"
@@ -394,7 +394,7 @@ const Sidebar = () => {
                                     icon={<LanguageIcon />}
                                     selected={selected}
                                     setSelected={setSelected}
-                            /> : undefined  } 
+                            /> : undefined  }  */}
                                 
                                
 
