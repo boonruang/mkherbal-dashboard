@@ -1,14 +1,14 @@
 import { ColorModeContext, useMode } from "./theme"
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useDispatch,useSelector } from "react-redux";
-import { BrowserRouter,Routes,Route, useNavigate } from 'react-router-dom';
+import { Routes,Route, useNavigate } from 'react-router-dom';
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashbaord from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Contacts from "./scenes/contacts";
 import Farmers from "./scenes/farmers";
-import Form from "./scenes/form";
+// import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
 import Bar from "./scenes/bar";
 import Pie from "./scenes/pie";
@@ -38,6 +38,8 @@ import SecureRoute from "components/SecureRoute";
 import { ROLES } from './constants/index'
 import { useEffect } from "react";
 import * as loginActions from 'actions/login.action'
+import Users from "scenes/users";
+import UsersList from "scenes/users/list";
 
 function App() {
   const dispatch = useDispatch()
@@ -61,7 +63,7 @@ function App() {
           <Route path="dashboard" element={<Dashbaord />} />
         </Route>
 
-        <Route element={<SecureRoute allowedRoles={[ROLES.User]} /> }>
+        <Route element={<SecureRoute allowedRoles={[ROLES.User,ROLES.Editor]} /> }>
           <Route path="team" element={<Team />} />
           <Route path="contacts" element={<Contacts />} />
           <Route path="researchers" element={<Researchers />} />
@@ -69,7 +71,8 @@ function App() {
           <Route path="farmergroup" element={<Farmergroup />} />
           <Route path="businessgroup" element={<BusinessGroup />} />
           <Route path="herbals" element={<Herbals />} />
-          <Route path="form" element={<Form />} />
+          <Route path="users" element={<Users />} />
+          <Route path="users/list" element={<UsersList />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="bar" element={<Bar />} />
           <Route path="pie" element={<Pie />} />

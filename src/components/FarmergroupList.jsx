@@ -12,6 +12,7 @@ import Divider from '@mui/material/Divider';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
+import { wrapTo, updateMap } from '@kepler.gl/actions'
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -29,6 +30,8 @@ const Item = ({ result }) => {
     console.log('selectedProp',selectedProp)
     // dispatch(setStateFarmergroupToSelected(selectedProp))
     dispatch(getFarmergroupById(selectedProp.Id))
+    dispatch(wrapTo('farmergroup',updateMap({latitude: selectedProp.latitude, longitude: selectedProp.longitude})))
+  
   }
 
   return (

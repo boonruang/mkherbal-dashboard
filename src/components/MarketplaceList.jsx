@@ -8,35 +8,50 @@ import styled from 'styled-components'
 import {theme} from '@kepler.gl/styles';
 import { tokens } from '../theme';
 import PlaceIcon from '@mui/icons-material/Place';
+import { gridVisibleColumnDefinitionsSelector } from "@mui/x-data-grid";
+import { wrapTo, updateMap } from '@kepler.gl/actions'
 
 
 const Item = ({ result }) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
+
+  const dispatch = useDispatch()
+
+  const handleClick = (props) => {
+    // console.log('clicked',props)
+    dispatch(wrapTo('mkplc',updateMap({latitude: props.lat, longitude: props.long})))
+  }
+
   return (
       <Box  backgroundColor={colors.primary[400]} key={result.properties.Id} sx={{ m: 1 }} >
           <Divider sx={{ mb: 1 }}/>
           <Box
-              display="flex"
-              // backgroundColor={colors.blueAccent[400]}
-              borderRadius="3px"
-              // justifyContent="center"
-              alignItems="center"
+              sx={{ m: 1,cursor: 'pointer' }} 
+              onClick={() => handleClick({lat: result.properties.latitude, long: result.properties.longitude})}              
           >
-              <IconButton type="button" sx={{ p: 1 }} >
-                  <PlaceIcon />
-              </IconButton>
-              <Typography
-              variant="h5"
-              color={colors.greenAccent[400]}
-              >
-                      {result.properties.marketplacename}
-              </Typography>            
-          </Box>     
-          <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 2 }} >
-            <Box>{result.properties.address} {result.properties.tambon} {result.properties.amphoe}</Box>
-            <Box>{result.properties.province} {result.properties.postcode}</Box>
-          </Box>    
+            <Box
+                display="flex"
+                // backgroundColor={colors.blueAccent[400]}
+                borderRadius="3px"
+                // justifyContent="center"
+                alignItems="center"
+            >
+                <IconButton type="button" sx={{ p: 1 }} >
+                    <PlaceIcon />
+                </IconButton>
+                <Typography
+                variant="h5"
+                color={colors.greenAccent[400]}
+                >
+                        {result.properties.marketplacename}
+                </Typography>            
+            </Box>     
+            <Box display="flex" flexDirection="column" justifyContent="center" sx={{ ml: 2 }} >
+              <Box>{result.properties.address} {result.properties.tambon} {result.properties.amphoe}</Box>
+              <Box>{result.properties.province} {result.properties.postcode}</Box>
+            </Box> 
+          </Box>             
       </Box>
 
   )

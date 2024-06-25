@@ -26,13 +26,16 @@ const mapBoxKey = process.env.REACT_APP_MAPBOX_API
 const updateVisState = createAction('UPDATE_VIS_STATE');
 // const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
 const closeMapLegend = createAction('HIDE_AND_SHOW_MAP_LEGEND');
-  
+
 const myCustomHeaderFactory = () => CustomHeaderFactory
 
 const KeplerGl = injectComponents([
   [PanelHeaderFactory, myCustomHeaderFactory],
   [SidebarFactory, CustomSidebarFactory],
 ]);
+
+
+
 
 const Marketplace = (props) => {
 
@@ -87,13 +90,12 @@ const Marketplace = (props) => {
       return (
         <Box m="20px">
             <Header title="ข้อมูลแผนที่" subtitle="แหล่งขาย" />
-              <Box height={ isSidebar ? "86vh" : "90vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} >               
-                  <Backdrop
-                    sx={{ color: '#ffff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                    open={open}
-                  >
-                    <CircularProgress color="inherit" />
-                  </Backdrop>
+
+                  {/* <Button variant="contained" color="success" onClick={() => {dispatch(wrapTo('mkplc',updateMap({latitude: 16.245516, longitude: 103.250034, width: 800, height: 1200}, 1)))}}>
+                  updateMap
+                  </Button>   */}
+
+              <Box height={ isSidebar ? "86vh" : "90vh" } width="100%" borderRadius="4px" sx={{overflow: "hidden"}} > 
                   <AutoSizer>
                     {({height, width}) => (
                     <KeplerGl

@@ -27,6 +27,8 @@ import AddIcon from '@mui/icons-material/Add';
 import FmdBadIcon from '@mui/icons-material/FmdBad';
 import GridViewIcon from '@mui/icons-material/GridView';
 import TableRowsIcon from '@mui/icons-material/TableRows';
+import GrassIcon from '@mui/icons-material/Grass';
+import DehazeIcon from '@mui/icons-material/Dehaze';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
@@ -172,7 +174,7 @@ const Sidebar = () => {
                            ? <Item
                                 title="ข้อมูลสมุนไพร"
                                 to="/herbals"
-                                icon={<GridViewIcon />}
+                                icon={<GrassIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }    
@@ -180,7 +182,7 @@ const Sidebar = () => {
                            ? <Item
                                 title="ตารางข้อมูล"
                                 to="/herbals/list"
-                                icon={<TableRowsIcon />}
+                                icon={<DehazeIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }                                                  
@@ -192,9 +194,30 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }    
-                        </SubMenu>
-   
-                        <SubMenu title="เกษตรกร" icon={<PeopleOutlinedIcon />}>
+                        </SubMenu>    
+
+                        <SubMenu title="จัดการผู้ใช้" icon={<PeopleOutlinedIcon />}>
+                        { result?.roles?.find((role) => [ROLES.Editor].includes(role))
+                           ? <Item
+                                title="เพิ่มผู้ใช้"
+                                to="/users"
+                                icon={<AddIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                           
+
+                        { result?.roles?.find((role) => [ROLES.Editor].includes(role))
+                           ? <Item
+                                title="ข้อมูลผู้ใช้"
+                                to="/users/list"
+                                icon={<DehazeIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                                                        
+
+                         </SubMenu>                                
+
+                        <SubMenu title="เกษตรกร" icon={<GrassIcon />}>
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="เกษตรกร"
@@ -397,7 +420,6 @@ const Sidebar = () => {
                             /> : undefined  }  */}
                                 
                                
-
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                            title="ข้อมูลดินและสมุนไพร"
