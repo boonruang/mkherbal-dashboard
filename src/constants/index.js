@@ -5,7 +5,11 @@ export const APP_INIT = 'APP_INIT'
 export const HTTP_USER_FETCHING = 'HTTP_USER_FETCHING'
 export const HTTP_USER_SUCCESS = 'HTTP_USER_SUCCESS'
 export const HTTP_USER_FAILED = 'HTTP_USER_FAILED'
-export const HTTP_USERINFO_SUCCESS = 'HTTP_USERINFO_SUCCESS'
+
+// Role Page
+export const HTTP_ROLE_FETCHING = 'HTTP_ROLE_FETCHING'
+export const HTTP_ROLE_SUCCESS = 'HTTP_ROLE_SUCCESS'
+export const HTTP_ROLE_FAILED = 'HTTP_ROLE_FAILED'
 
 // User Edit Page
 export const HTTP_USEREDIT_FETCHING = 'HTTP_USEREDIT_FETCHING'
@@ -152,6 +156,7 @@ export const server = {
   // LOGIN_URL:`/auth`,
   REGISTER_URL: `user/register`,
   USER_URL: `user`,
+  ROLE_URL: `role`,
   VERIFY_URL: `user/verify`,
   AUTH_URL: `authen`,
   SYSTEM_URL: `system`,
@@ -174,4 +179,11 @@ export const ROLES =   {
   'User' : 2001,
   'Editor': 1976,
   'Admin': 5150
+}
+
+export const appRoutes = {
+  USERS: '/users',
+  USERS_LIST: '/users/list',
+  USERS_ADD: '/users/add',
+  UNKNOWN: '*'
 }

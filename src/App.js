@@ -8,7 +8,7 @@ import Dashbaord from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Contacts from "./scenes/contacts";
 import Farmers from "./scenes/farmers";
-// import Form from "./scenes/form";
+import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
 import Bar from "./scenes/bar";
 import Pie from "./scenes/pie";
@@ -38,8 +38,9 @@ import SecureRoute from "components/SecureRoute";
 import { ROLES } from './constants/index'
 import { useEffect } from "react";
 import * as loginActions from 'actions/login.action'
-import Users from "scenes/users";
+// import Users from "scenes/users/index";
 import UsersList from "scenes/users/list";
+import UsersAdd from "scenes/users/add";
 
 function App() {
   const dispatch = useDispatch()
@@ -71,7 +72,8 @@ function App() {
           <Route path="farmergroup" element={<Farmergroup />} />
           <Route path="businessgroup" element={<BusinessGroup />} />
           <Route path="herbals" element={<Herbals />} />
-          <Route path="users" element={<Users />} />
+          {/* <Route path="users" element={<Users />} /> */}
+          <Route path="users/add" element={<UsersAdd />} />
           <Route path="users/list" element={<UsersList />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="bar" element={<Bar />} />
@@ -87,8 +89,9 @@ function App() {
           <Route path="herbalcarousel" element={<HerbalCarousel />} />
           <Route path="herbals/add" element={<HerbalAdd />} />
           <Route path="herbals/list" element={<HerbalsList />} />
-          <Route path="invoices" element={<Invoices />} />
+          {/* <Route path="invoices" element={<Invoices />} /> */}
           <Route path="soilherbals" element={<SoilHerbals />} />
+          <Route path="form" element={<Form />} />
         </Route>
         <Route element={<SecureRoute allowedRoles={[ROLES.Admin]} /> }>
          {/* Admin here */}

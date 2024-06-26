@@ -4,7 +4,6 @@ import {
   useTheme,
   Button,
   Snackbar,
-  Alert
 } from '@mui/material'
 import useDebounce from 'hooks/useDebounce';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,6 +17,8 @@ import { alpha, styled } from '@mui/material/styles';
 import { useDemoData } from '@mui/x-data-grid-generator';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { Link, useNavigate } from 'react-router-dom'
+import { getRoles } from '../../actions/role.action'
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -26,7 +27,10 @@ const UsersList = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)  
 
+  const navigate = useNavigate()
+
   const [snackBarOpen, setSnackBarOpen] = useState(false)
+
   const handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
@@ -69,7 +73,11 @@ const UsersList = () => {
   }
 
   const onButtonClick = () => {
-    //
+    setSnackBarOpen(true)
+  };
+
+  const handleButtonClick = () => {
+    navigate('/users/add')
   };
 
 
@@ -78,6 +86,11 @@ const UsersList = () => {
   useEffect(() => {
     dispatch(getUsers())
     console.log('getUsers is running in useEffect')
+  },[dispatch])
+
+  useEffect(() => {
+    dispatch(getRoles())
+    console.log('getRole useEffect is called')
   },[dispatch])
 
   // const { isSidebar} = useSelector((state) => state.app.appReducer)
@@ -153,7 +166,7 @@ const UsersList = () => {
                 }
             }}>
                 <Box display="flex" justifyContent="end">
-                    <Button  onClick={() => setSnackBarOpen(true)}
+                    <Button  onClick={handleButtonClick}
                         sx={{
                             // backgroundColor: colors.blueAccent[600],
                             backgroundColor: colors.greenAccent[600],

@@ -67,3 +67,20 @@ const doGetUsers = (dispatch) => {
     });
 };
 
+export const addUser = (navigate, formData) => {
+  console.log('navigate action',navigate)
+  console.log('formData action',formData)
+  return async (dispatch) => {
+    try {
+      // success
+      let result = await httpClient.post(server.USER_URL, formData)
+      console.log('addUser formData successfully: ', result)
+      navigate('/users/list')
+    } catch (error) {
+      // failed
+      console.log('addUser formData Error: ', error.toString())
+    }
+  }
+}
+
+

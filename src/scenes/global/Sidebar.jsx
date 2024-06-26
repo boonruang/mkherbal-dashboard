@@ -197,14 +197,6 @@ const Sidebar = () => {
                         </SubMenu>    
 
                         <SubMenu title="จัดการผู้ใช้" icon={<PeopleOutlinedIcon />}>
-                        { result?.roles?.find((role) => [ROLES.Editor].includes(role))
-                           ? <Item
-                                title="เพิ่มผู้ใช้"
-                                to="/users"
-                                icon={<AddIcon />}
-                                selected={selected}
-                                setSelected={setSelected}
-                            /> : undefined  }                           
 
                         { result?.roles?.find((role) => [ROLES.Editor].includes(role))
                            ? <Item
@@ -213,7 +205,16 @@ const Sidebar = () => {
                                 icon={<DehazeIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> : undefined  }                                                        
+                            /> : undefined  } 
+
+                        {/* { result?.roles?.find((role) => [ROLES.Editor].includes(role))
+                           ? <Item
+                                title="เพิ่มผู้ใช้"
+                                to="/users/add"
+                                icon={<AddIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                                                                                  */}
 
                          </SubMenu>                                
 
