@@ -29,6 +29,7 @@ import GridViewIcon from '@mui/icons-material/GridView';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import GrassIcon from '@mui/icons-material/Grass';
 import DehazeIcon from '@mui/icons-material/Dehaze';
+import AgricultureIcon from '@mui/icons-material/Agriculture';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
@@ -169,12 +170,12 @@ const Sidebar = () => {
                                 setSelected={setSelected}
                             /> : undefined
                          }
-                        <SubMenu title="สมุนไพร" icon={<ForestIcon />}>
+                        <SubMenu title="สมุนไพร" icon={<GrassIcon />}>
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="ข้อมูลสมุนไพร"
                                 to="/herbals"
-                                icon={<GrassIcon />}
+                                icon={<ParkIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }    
@@ -210,7 +211,7 @@ const Sidebar = () => {
 
                          </SubMenu>   : undefined  }                               
 
-                        <SubMenu title="เกษตรกร" icon={<GrassIcon />}>
+                        <SubMenu title="เกษตรกร" icon={<AgricultureIcon />}>
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="เกษตรกร"
