@@ -65,7 +65,7 @@ const FarmerDetail = () => {
                     <Box >
                       <Box sx={{ m: '5px'}} >
                         <Typography>
-                          ข้อมูลสมาชิก
+                          เกษตรกร
                         </Typography>
                       </Box>
                       <Box
@@ -83,7 +83,7 @@ const FarmerDetail = () => {
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="id"
+                            label="ลำดับ"
                             value={location.state.row.id}
                             name="id"
                             sx={{ gridColumn: "span 2" }}
@@ -94,7 +94,7 @@ const FarmerDetail = () => {
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="username"
+                            label="รหัส"
                             value={location.state.row.username}
                             name="username"
                             sx={{ gridColumn: "span 2" }}

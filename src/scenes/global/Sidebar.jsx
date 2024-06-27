@@ -203,7 +203,7 @@ const Sidebar = () => {
                             <Item
                                 title="ข้อมูลผู้ใช้"
                                 to="/users/list"
-                                icon={<DehazeIcon />}
+                                icon={<PersonIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
                             />

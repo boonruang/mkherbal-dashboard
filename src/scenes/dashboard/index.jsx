@@ -6,6 +6,7 @@ import { mockTransactions } from "../../data/mockData"
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined"
 import UploadOutlinedIcon from '@mui/icons-material/UploadOutlined';
 import ParkIcon from '@mui/icons-material/Park';
+import GrassIcon from '@mui/icons-material/Grass';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined"
@@ -107,7 +108,7 @@ const Dashbaord = () => {
                         progress={dashboardReducer.result && dashboardReducer.result.herbalpercent}
                         increase={dashboardReducer.result && (dashboardReducer.result.herbalpercent*100).toFixed(0) + '%'}
                         icon={
-                            <ParkIcon
+                            <GrassIcon
                                 sx={{
                                     color: colors.greenAccent[600],
                                     fontSize: "26px"
