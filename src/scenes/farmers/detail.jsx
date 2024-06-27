@@ -6,7 +6,8 @@ import {
     Snackbar,
     TextField,
     Select,
-    MenuItem
+    MenuItem,
+    Typography
   } from '@mui/material'
 import { Formik } from 'formik'
 import * as yup from 'yup'
@@ -60,7 +61,14 @@ const FarmerDetail = () => {
         <Header title="ข้อมูลเกษตรกร" subtitle="รายละเอียดข้อมูลเกษตรกร" />
 
                 <form >
-                    <Box
+                <Box>
+                    <Box >
+                      <Box sx={{ m: '5px'}} >
+                        <Typography>
+                          ข้อมูลสมาชิก
+                        </Typography>
+                      </Box>
+                      <Box
                         display="grid"
                         gap="30px"
                         gridTemplateColumns="repeat(8, minmax(0, 1fr))"
@@ -239,6 +247,110 @@ const FarmerDetail = () => {
                         />                                         
 
                     </Box>
+
+                </Box>
+
+                  <Box mt='40px'>
+                    <Box sx={{ m: '5px'}} >
+                      <Typography>
+                        สมุนไพร
+                      </Typography>
+                    </Box>
+                    <Box
+                        display="grid"
+                        gap="30px"
+                        gridTemplateColumns="repeat(5, minmax(0, 1fr))"
+                        sx={{
+                            "& > div": { gridColumn: isNonMobile ? undefined : "span 4" }
+                        }}
+                    >
+
+                        {/* ROW 1 */}
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="พื้นที่ในการปลูกสมุนไพร(ไร่)"
+                            // value={location.state.row.cert}
+                            value='0.5'
+                            name="farmerGroup"
+                            sx={{ gridColumn: "span 1" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="สมุนไพรที่ปลูก"
+                            // value={location.state.row.cert}
+                            value='1.ขมิ้นชัน 2.ขมิ้นอ้อย 3.กระเจี๊ยบ'
+                            name="farmerGroup"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ปริมาณการผลิต(กก./ปี)"
+                            // value={location.state.row.cert}
+                            value='250'
+                            name="BigfarmerGroup"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />  
+                      </Box>  
+                    </Box>                  
+
+                <Box mt='40px'>
+                  <Box sx={{ m: '5px'}} >
+                    <Typography>
+                      การเป็นสมาชิก
+                    </Typography>
+                  </Box>
+                  <Box
+                        display="grid"
+                        gap="30px"
+                        gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                        sx={{
+                            "& > div": { gridColumn: isNonMobile ? undefined : "span 4" }
+                        }}
+                    >
+
+                        {/* ROW 1 */}
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="กลุ่มเกษตรกร"
+                            // value={location.state.row.cert}
+                            value='วิสาหกิจชุมชนไร่สดใส'
+                            name="farmerGroup"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="กลุ่มเกษตรกรแปลงใหญ่"
+                            // value={location.state.row.cert}
+                            value='วิสาหกิจชุมชนไร่สดใส'
+                            name="BigfarmerGroup"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />  
+                      </Box>  
+                    </Box>                  
                     <Box display="flex" justifyContent="end" mt='10px'>
                     <Button  
                         // type='submit'
@@ -256,8 +368,8 @@ const FarmerDetail = () => {
                     >
                         กลับ
                     </Button>
-
-                </Box>                    
+                  </Box>  
+                </Box>                
                 </form>
     </Box >
 }
