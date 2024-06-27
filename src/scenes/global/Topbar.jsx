@@ -67,9 +67,9 @@ const handleLogout = () => {
             {/* <IconButton>
                 <NotificationsOutlined />
             </IconButton> */}
-            <IconButton>
+            {/* <IconButton>
                 <SettingsOutlined />
-            </IconButton>
+            </IconButton> */}
             <IconButton onClick={handleClick}>
                 <PersonOutlined />
             </IconButton>

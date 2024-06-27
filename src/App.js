@@ -41,6 +41,7 @@ import * as loginActions from 'actions/login.action'
 // import Users from "scenes/users/index";
 import UsersList from "scenes/users/list";
 import UsersAdd from "scenes/users/add";
+import FarmerDetail from "scenes/farmers/detail";
 
 function App() {
   const dispatch = useDispatch()
@@ -64,11 +65,12 @@ function App() {
           <Route path="dashboard" element={<Dashbaord />} />
         </Route>
 
-        <Route element={<SecureRoute allowedRoles={[ROLES.User,ROLES.Editor]} /> }>
+        <Route element={<SecureRoute allowedRoles={[ROLES.Admin,ROLES.Editor,ROLES.User]} /> }>
           <Route path="team" element={<Team />} />
           <Route path="contacts" element={<Contacts />} />
           <Route path="researchers" element={<Researchers />} />
           <Route path="farmers" element={<Farmers />} />
+          <Route path="farmers/detail" element={<FarmerDetail />} />
           <Route path="farmergroup" element={<Farmergroup />} />
           <Route path="businessgroup" element={<BusinessGroup />} />
           <Route path="herbals" element={<Herbals />} />

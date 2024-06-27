@@ -9,12 +9,15 @@ import { getFarmers } from '../../actions/farmer.action'
 import Header from "../../components/Header"
 import { useDispatch, useSelector } from "react-redux";
 import { ROLES } from '../../constants'
+import { Link, useNavigate } from "react-router-dom";
 
 const Farmers = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
     const dispatch = useDispatch()
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getFarmers())
@@ -32,6 +35,19 @@ const Farmers = () => {
     const handleClick = () => {
         //
     }
+
+    const handleButtonDetail = (p) => {
+        // console.log('params',params)
+        console.log('params',p)
+        // navigate('/farmers/detail')
+    };
+
+    const handleRowClick = (params,event,details) => {
+        console.log('params',params)
+        // console.log('event',event)
+        // console.log('details',details)
+    };
+
 
     const columns = [
         { field: 'id', headerName: 'ลำดับ', headerAlign: 'center', align: 'center'},
@@ -104,13 +120,18 @@ const Farmers = () => {
             return (
               <Box>
                 <Button
-                  onClick={handleClick}
+                //   onClick={handleButtonDetail(params.row.id)}
+                //   onClick={() => (navigate('/farmers/detail/'+params.row.id))}
+                //   onClick={() => (navigate('/farmers/detail',  { state: { id: params.row.id }} ))}
+                  onClick={() => (navigate('/farmers/detail',  { state: { row: params.row }} ))}
                   variant="outlined"
                   color="success"
                 >
                   รายละเอียด
                 </Button>
-
+                {/* <Link to={"/farmers/detail/" + params.row.id}>
+                            <button className="viewButton">View</button>
+                </Link> */}
 
             { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
                 ? <Button
@@ -192,15 +213,14 @@ const Farmers = () => {
                         rows={result}
                         columns={columns}
                         components={{ Toolbar: GridToolbar }}
-                        // sx={{
-                        //     // background: colors.greenAccent[400],
-                        //     // boxShadow: 2,
-                        //     border: 1,
-                        //     borderColor: colors.greenAccent[500],
-                        //     // '& .MuiDataGrid-cell:hover': {
-                        //     // color: colors.grey[5900],
-                        //     // },
+                        // onSelectionModelChange={(ids) => {
+                        //     const selectedIDs = new Set(ids)
+                        //     const selectedRowData = result.filter((row) => 
+                        //         selectedIDs.has(row.id.toString())
+                        //     )
+                        //     console.log(selectedRowData)
                         // }}
+                        // onRowClick={handleRowClick}
                     /> : undefined}
             </Box>
         </Box>

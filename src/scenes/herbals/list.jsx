@@ -18,6 +18,7 @@ import { alpha, styled } from '@mui/material/styles';
 import { useDemoData } from '@mui/x-data-grid-generator';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { ROLES } from 'constants';
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -152,6 +153,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   // const { isSidebar} = useSelector((state) => state.app.appReducer)
 
   const { result, isError, isFetching } = useSelector((state) => state.app.herbalReducer)
+  const loginReducer = useSelector((state) => state.app.loginReducer)
 
   // useEffect(() => {
   //   if (selectedResult) {
@@ -203,18 +205,31 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
           <Button
             onClick={(e) => onButtonClick(e, params.row)}
             variant="outlined"
-            color="error"
+            color="success"
+            sx={{ ml: 1 }} 
           >
-            ลบ
+            รายละเอียด
           </Button>
-          <Button
+
+          { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+          ? <Button
             onClick={(e) => onButtonClick(e, params.row)}
             variant="outlined"
-            color="success"
+            color="error"
+            sx={{ ml: 1 }} 
+          >
+            ลบ
+            </Button> : undefined }
+
+          { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+          ? <Button
+            onClick={(e) => onButtonClick(e, params.row)}
+            variant="outlined"
+            color="warning"
             sx={{ ml: 1 }}            
           >
             แก้ไข
-          </Button>          
+            </Button> : undefined }          
         </Box>
       );
     } } 
@@ -266,7 +281,8 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
                     color: `${colors.grey[100]} !important`
                 }
             }}>
-                <Box display="flex" justifyContent="end">
+             { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+               ? <Box display="flex" justifyContent="end">
                     <Button  onClick={() => setSnackBarOpen(true)}
                         sx={{
                             // backgroundColor: colors.blueAccent[600],
@@ -284,7 +300,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
                         เพิ่มข้อมูล
                     </Button>
                     <MuiSnackbar message="ยังไม่เปิดการเพิ่มข้อมูลตอนนี้" duration={4000} />
-                </Box>
+                </Box> : undefined }
                 {
                   result &&
               //   <StripedDataGrid
