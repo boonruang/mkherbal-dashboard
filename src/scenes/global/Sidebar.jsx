@@ -161,7 +161,7 @@ const Sidebar = () => {
 
                     {/* MENU ITEMS */}
                     <Box paddingLeft={!isSidebar ? undefined : '10%'}>
-                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="แดชบอร์ด"
                                 to="/dashboard"

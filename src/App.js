@@ -59,7 +59,7 @@ function App() {
 
       <Route path="/" element={<Layout />}>
       
-        <Route element={<SecureRoute allowedRoles={[ROLES.User,ROLES.Editor]} /> }>
+        <Route element={<SecureRoute allowedRoles={[ROLES.Admin,ROLES.Editor,ROLES.User]} /> }>
           <Route path="/" element={<Dashbaord />} />
           <Route path="dashboard" element={<Dashbaord />} />
         </Route>
