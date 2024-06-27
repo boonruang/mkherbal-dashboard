@@ -33,7 +33,7 @@ import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
 import { ROLES } from '../../constants'
-import SecureMenu from 'components/SecureMenu'
+// import SecureMenu from 'components/SecureMenu'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme()
@@ -196,27 +196,19 @@ const Sidebar = () => {
                             /> : undefined  }    
                         </SubMenu>    
 
-                        <SubMenu title="จัดการผู้ใช้" icon={<PeopleOutlinedIcon />}>
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+                           ? <SubMenu title="จัดการผู้ใช้" icon={<PeopleOutlinedIcon />}>
 
-                        { result?.roles?.find((role) => [ROLES.Editor].includes(role))
-                           ? <Item
+                            <Item
                                 title="ข้อมูลผู้ใช้"
                                 to="/users/list"
                                 icon={<DehazeIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> : undefined  } 
+                            />
 
-                        {/* { result?.roles?.find((role) => [ROLES.Editor].includes(role))
-                           ? <Item
-                                title="เพิ่มผู้ใช้"
-                                to="/users/add"
-                                icon={<AddIcon />}
-                                selected={selected}
-                                setSelected={setSelected}
-                            /> : undefined  }                                                                                  */}
 
-                         </SubMenu>                                
+                         </SubMenu>   : undefined  }                               
 
                         <SubMenu title="เกษตรกร" icon={<GrassIcon />}>
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
@@ -232,6 +224,16 @@ const Sidebar = () => {
                            ? <Item
                                 title="กลุ่มเกษตรกร"
                                 to="/farmergroup"
+                                icon={<PeopleOutlinedIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                                                      
+
+
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="แสดงข้อมูลเกษตรกร"
+                                to="/pie"
                                 icon={<PeopleOutlinedIcon />}
                                 selected={selected}
                                 setSelected={setSelected}

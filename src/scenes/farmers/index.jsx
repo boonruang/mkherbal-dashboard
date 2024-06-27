@@ -8,6 +8,7 @@ import { getFarmers } from '../../actions/farmer.action'
 
 import Header from "../../components/Header"
 import { useDispatch, useSelector } from "react-redux";
+import { ROLES } from '../../constants'
 
 const Farmers = () => {
     const theme = useTheme()
@@ -21,6 +22,8 @@ const Farmers = () => {
 
 
     const { result, isFetching } = useSelector((state) => state.app.farmerReducer)
+
+    const loginReducer = useSelector((state) => state.app.loginReducer)
 
     // if (result) {
     //     console.log('result',result)
@@ -97,24 +100,37 @@ const Farmers = () => {
             headerName: 'วันหมดอายุ',
             flex: 1,
         },
-        { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1, renderCell: (params) => {
+        { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1.5, renderCell: (params) => {
             return (
               <Box>
                 <Button
                   onClick={handleClick}
                   variant="outlined"
-                  color="error"
+                  color="success"
                 >
-                  ลบ
+                  รายละเอียด
                 </Button>
-                <Button
+
+
+            { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+                ? <Button
                   onClick={handleClick}
                   variant="outlined"
-                  color="success"
+                  color="error"
+                  sx={{ ml: 1 }} 
+                >
+                  ลบ
+                </Button> : undefined  } 
+
+            { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+                ? <Button
+                  onClick={handleClick}
+                  variant="outlined"
+                  color="warning"
                   sx={{ ml: 1 }}            
                 >
                   แก้ไข
-                </Button>          
+                </Button> : undefined  }                       
               </Box>
             );
           } }         
@@ -150,7 +166,8 @@ const Farmers = () => {
                     color: `${colors.grey[100]} !important`
                 }
             }}>
-                <Box display="flex" justifyContent="end">
+                { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+                ? <Box display="flex" justifyContent="end">
                     <Button  
                         sx={{
                             // backgroundColor: colors.blueAccent[600],
@@ -167,7 +184,8 @@ const Farmers = () => {
                         <AddIcon sx={{ mr: "10px" }} />
                         เพิ่มข้อมูล
                     </Button>
-                </Box>
+                </Box> : undefined }
+                
                     { isFetching && <Box>Data is fetching</Box>}
                     { result ?
                     <DataGrid

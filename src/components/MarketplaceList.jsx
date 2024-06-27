@@ -20,7 +20,7 @@ const Item = ({ result }) => {
 
   const handleClick = (props) => {
     // console.log('clicked',props)
-    dispatch(wrapTo('mkplc',updateMap({latitude: props.lat, longitude: props.long})))
+    dispatch(wrapTo('mkplc',updateMap({latitude: props.lat, longitude: props.long, zoom: 12})))
   }
 
   return (

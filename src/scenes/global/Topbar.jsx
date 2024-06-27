@@ -22,6 +22,9 @@ const Topbar = () => {
     const navigate = useNavigate()
 
     const { isSidebar } = useSelector((state) => state.app.appReducer)
+
+    const { result } = useSelector((state) => state.app.loginReducer)
+
 //   console.log('isSidebar',isSidebar)    
 
 const [anchorEl, setAnchorEl] = useState(null)
@@ -79,7 +82,7 @@ const handleLogout = () => {
                     'aria-labelledby': 'basic-button'
                 }}
             >
-                {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
+                <MenuItem onClick={handleClose}>{result?.username}</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
         </Box>
