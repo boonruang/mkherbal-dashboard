@@ -57,13 +57,13 @@ const handleLogout = () => {
 
         {/* ICONS */}
         <Box display="flex">
-            <IconButton onClick={colorMode.toggleColorMode}>
+            {/* <IconButton onClick={colorMode.toggleColorMode}>
                 {theme.palette.mode === 'dark' ? (
                     <DarkModeOutlined />
                 ) : (
                     <LightModeOutlined />
                 )}
-            </IconButton>
+            </IconButton> */}
             {/* <IconButton>
                 <NotificationsOutlined />
             </IconButton> */}
