@@ -5,6 +5,7 @@ import {
   Button,
   Snackbar,
 } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress';
 import useDebounce from 'hooks/useDebounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { tokens } from 'theme';
@@ -19,6 +20,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom'
 import { getRoles } from '../../actions/role.action'
+
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -122,7 +124,16 @@ const UsersList = () => {
           <Button
             onClick={(e) => onButtonClick(e, params.row)}
             variant="outlined"
+            color="success"
+            sx={{ ml: 1 }} 
+          >
+            รายละเอียด
+          </Button>          
+          <Button
+            onClick={(e) => onButtonClick(e, params.row)}
+            variant="outlined"
             color="error"
+            sx={{ ml: 1 }}  
           >
             ลบ
           </Button>
@@ -130,7 +141,7 @@ const UsersList = () => {
             // onClick={(e) => onButtonClick(e, params.row)}
             onClick={(e) => onButtonClick(e, params.row)}
             variant="outlined"
-            color="success"
+            color="info"
             sx={{ ml: 1 }}            
           >
             แก้ไข
@@ -143,7 +154,7 @@ const UsersList = () => {
   return (
     <Box m="20px" >
       <Header title="ข้อมูลผู้ใช้" subtitle="ตารางข้อมูลผู้ใช้"/>
-      <Box m="40px 0 0 0" height="75vh" sx={{
+      { result ? <Box m="40px 0 0 0" height="75vh" sx={{
                 "& .MuiDataGrid-root": {
                     // border: "none"
                     border: 1,
@@ -200,7 +211,12 @@ const UsersList = () => {
                 />                         
                 }
 
-            </Box>
+            </Box>  
+          : 
+          <Box height="60vh" sx={{ display: 'flex', justifyContent: "center", alignItems: 'center'}}>
+            <CircularProgress />
+          </Box>
+          }
     </Box>
   )
 }

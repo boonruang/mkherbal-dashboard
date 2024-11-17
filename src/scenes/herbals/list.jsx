@@ -12,6 +12,7 @@ import { tokens } from 'theme';
 import Header from 'components/Header'
 import { getHerbals,setStateHerbalSelectedToFetching } from 'actions/herbal.action';
 import { DataGrid, GridToolbar, gridClasses } from "@mui/x-data-grid"
+import CircularProgress from '@mui/material/CircularProgress';
 import Avatar from '@mui/material/Avatar'; 
 import AddIcon from '@mui/icons-material/Add';
 import { alpha, styled } from '@mui/material/styles';
@@ -232,7 +233,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
           ? <Button
             onClick={(e) => onButtonClick(e, params.row)}
             variant="outlined"
-            color="warning"
+            color="info"
             sx={{ ml: 1 }}            
           >
             แก้ไข
@@ -259,7 +260,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   return (
     <Box m="20px" >
       <Header title="ข้อมูลสมุนไพร" subtitle="ตารางข้อมูลสมุนไพร"/>
-      <Box m="40px 0 0 0" height="75vh" sx={{
+      {result ? <Box m="40px 0 0 0" height="75vh" sx={{
                 "& .MuiDataGrid-root": {
                     // border: "none"
                     border: 1,
@@ -326,6 +327,11 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
                 }
 
             </Box>
+          : 
+          <Box height="60vh" sx={{ display: 'flex', justifyContent: "center", alignItems: 'center'}}>
+            <CircularProgress />
+          </Box>
+        }
     </Box>
   )
 }

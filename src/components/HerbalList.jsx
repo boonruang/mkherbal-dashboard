@@ -7,6 +7,7 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { getHerbalSelectedById } from '../actions/herbalselected.action'
+import CircularProgress from '@mui/material/CircularProgress';
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -85,8 +86,8 @@ const HerbalList = ({searchTerm}) => {
   const { result, isFetching, isError } = useSelector((state) => state.app.herbalReducer)
   
   let content
-  if (isFetching) content = <Box>Loading...</Box>
-  else if (isError) content = <Box>Something went wrong..</Box>
+  if (isFetching) content =  <Box height="75vh" sx={{ display: 'flex', justifyContent: "center", alignItems: 'center'}}><CircularProgress /></Box>
+  else if (isError) content = <Box height="75vh" sx={{ display: 'flex', justifyContent: "center", alignItems: 'center'}}>Something went wrong..</Box>
   else if (result ) {
     // const results = result?.features
     content = (

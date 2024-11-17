@@ -106,7 +106,7 @@ const Herbals = () => {
                           <AddIcon />
                       </IconButton>
                   </Box>                   */}
-              </Box>             
+              </Box>
               <Box>
                 <HerbalList searchTerm={debouncedSearchValue} />
               </Box>
