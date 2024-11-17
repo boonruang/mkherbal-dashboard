@@ -87,26 +87,36 @@ const Sidebar = () => {
         <Box
             sx={{
                 "& .pro-sidebar-inner": {
-                    background: `${colors.primary[400]} !important`
+                    background: `${colors.primary[600]} !important`
                 },
                 "& .pro-icon-wrapper": {
                     backgroundColor: "transparent !important"
                 },
                 "& .pro-inner-item": {
-                    padding: "5px 35px 5px 20px !important"
+                    padding: "5px 35px 5px 20px !important",
+                    // color: `${colors.blueAccent[600]} !important`
                 },
                 "& .pro-inner-item:hover": {
                     color: "#71884c !important"
                 },
+                "& .pro-menu-item": {
+                    color: `${colors.grey[700]} !important`
+                },                
                 "& .pro-menu-item.active": {
                     color: "#71910c !important"
+                },
+                "& .pro-sub-menu": {
+                    color: `${colors.greenAccent[600]} !important`
                 },
                 // "& .pro-sub-menu": {
                 //     color: `${colors.primary[700]} !important`
                 // }
                 // "& .pro-inner-list-item": {
                 //     marginLeft: "15px"
-                // },
+                // },               
+                // "& .pro-inner-list-item": {
+                //     color: `${colors.greenAccent[600]} !important`
+                // },               
                 // "& .pro-sidebar": {
                 //     position: 'fixed',
                 // }              
@@ -120,7 +130,7 @@ const Sidebar = () => {
                         icon={!isSidebar ? <MenuOutlinedIcon /> : undefined}
                         style={{
                             margin: "10px 0 20px 0",
-                            color: colors.grey[100]
+                            color: colors.blueAccent[700]
                         }}
                     >
                         {isSidebar && (
@@ -134,7 +144,11 @@ const Sidebar = () => {
                                     {/* ADMINIS */}
                                 </Typography>
                                 <IconButton onClick={() => dispatch(showSidebar(!isSidebar))}>
-                                    <MenuOutlinedIcon />
+                                    <MenuOutlinedIcon 
+                                        style={{
+                                            color: colors.grey[800]
+                                        }}
+                                    />
                                 </IconButton>
                             </Box>
                         )}
@@ -145,7 +159,7 @@ const Sidebar = () => {
                         <Box mb="25px">
                             <Box textAlign={"center"}>
                                 <Typography
-                                    variant='h4' color={colors.grey[100]}
+                                    variant='h4' color={colors.blueAccent[600]}
                                     fontWeight="bold"
                                     sx={{ m: "10px 0 0 0" }}
                                 >
