@@ -17,7 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
-import { addUser } from '../../actions/user.action'
+import { editUser } from '../../actions/user.action'
 import { useNavigate } from 'react-router-dom'
 
 const initialValues = {
@@ -38,7 +38,7 @@ const userSchema = yup.object().shape({
     role: yup.string().required("required"),
 })
 
-const UsersAdd = () => {
+const UsersEdit = () => {
 
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)     
@@ -60,11 +60,6 @@ const UsersAdd = () => {
    const handleButtonAdd = (values) => {
     // setSnackBarOpen(true)
     console.log(values)
-   }
-
-
-   const handleCancelButtonClick = () => {
-    navigate('/users/list')
    }
 
    const handleRoleSelection = (e) => {
@@ -115,7 +110,7 @@ const UsersAdd = () => {
 
     const handleFormSubmit = (values) => {
         console.log(values)
-        dispatch(addUser(navigate,values))
+        dispatch(editUser(navigate,values))
     }
 
     return <Box m="20px">
@@ -131,7 +126,7 @@ const UsersAdd = () => {
               formData.append('lastname', values.lastname)
               formData.append('status', values.status)
               formData.append('role', values.role)
-              dispatch(addUser(navigate, formData))
+              dispatch(editUser(navigate, formData))
               setSubmitting(false)
             }}
             initialValues={initialValues}
@@ -229,11 +224,7 @@ const UsersAdd = () => {
                          })}
                       </Select>                                                                
                     </Box>
-                    <Box display="flex" justifyContent="start"
-                      sx={{
-                        mt: "10px",
-                      }} 
-                    >
+                    <Box display="flex" justifyContent="end">
                     <Button  
                         type='submit'
                         sx={{
@@ -247,24 +238,8 @@ const UsersAdd = () => {
                             '&:hover': {backgroundColor: colors.blueAccent[700]}
                         }}
                     >
-                        บันทึก
+                        บันทึกข้อมูล
                     </Button>
-                    <Button  
-                        onClick={handleCancelButtonClick}
-                        type='submit'
-                        sx={{
-                            backgroundColor: colors.greenAccent[600],
-                            color: colors.grey[100],
-                            fontSize: "14px",
-                            fontWeight: "bold",
-                            padding: "10px 20px",
-                            mr: "10px",
-                            mb: "10px",
-                            '&:hover': {backgroundColor: colors.blueAccent[700]}
-                        }}
-                    >
-                        ยกเลิก
-                    </Button>                     
                     <MuiSnackbar message="ยังไม่เปิดการเพิ่มข้อมูลตอนนี้" duration={4000} />
 
                 </Box>                    
@@ -274,4 +249,4 @@ const UsersAdd = () => {
     </Box >
 }
 
-export default UsersAdd
+export default UsersEdit

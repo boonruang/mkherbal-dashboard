@@ -13,6 +13,7 @@ import herbalpriceReducer from "./herbalprice.reducer";
 import herbalpriceyearReducer from "./herbalpriceyear.reducer";
 import dashboardReducer from "./dashboard.reducer";
 import userReducer from "./user.reducer";
+import userSelectedReducer from "./userSelected.reducer";
 import roleReducer from "./role.reducer";
 
 export default combineReducers({
@@ -30,5 +31,6 @@ export default combineReducers({
   herbalpriceyearReducer,
   dashboardReducer,
   userReducer,
+  userSelectedReducer,
   roleReducer,
 })

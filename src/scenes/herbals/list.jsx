@@ -19,6 +19,7 @@ import { useDemoData } from '@mui/x-data-grid-generator';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { ROLES } from 'constants';
+import { Link, useNavigate } from 'react-router-dom'
 
 const imagesUrl = process.env.REACT_APP_IMAGES_URL
 
@@ -26,6 +27,7 @@ const HerbalsList = () => {
 
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)  
+  const navigate = useNavigate()
 
   // const [searchValue, setSearchValue] = useState('')
   // const debouncedSearchValue = useDebounce(searchValue, 1000)
@@ -145,15 +147,20 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getHerbals())
-    console.log('getHerbals is running in useEffect')
-  },[dispatch])
-
   // const { isSidebar} = useSelector((state) => state.app.appReducer)
 
   const { result, isError, isFetching } = useSelector((state) => state.app.herbalReducer)
   const loginReducer = useSelector((state) => state.app.loginReducer)
+
+  
+  useEffect(() => {
+    if (!result)  {
+    dispatch(getHerbals())
+    }
+    console.log('getHerbals is running in useEffect')
+  },[dispatch])
+
+
 
   // useEffect(() => {
   //   if (selectedResult) {
@@ -281,9 +288,10 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
                     color: `${colors.grey[100]} !important`
                 }
             }}>
-             { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+             { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                ? <Box display="flex" justifyContent="end">
-                    <Button  onClick={() => setSnackBarOpen(true)}
+                    {/* <Button  onClick={() => setSnackBarOpen(true)} */}
+                    <Button  onClick={() => navigate('/herbals/add')}
                         sx={{
                             // backgroundColor: colors.blueAccent[600],
                             backgroundColor: colors.greenAccent[600],

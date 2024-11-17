@@ -41,6 +41,7 @@ import * as loginActions from 'actions/login.action'
 // import Users from "scenes/users/index";
 import UsersList from "scenes/users/list";
 import UsersAdd from "scenes/users/add";
+import UsersEdit from "scenes/users/edit";
 import FarmerDetail from "scenes/farmers/detail";
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
           <Route path="herbals" element={<Herbals />} />
           {/* <Route path="users" element={<Users />} /> */}
           <Route path="users/add" element={<UsersAdd />} />
+          <Route path="users/edit/:id" element={<UsersEdit />} />
           <Route path="users/list" element={<UsersList />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="bar" element={<Bar />} />

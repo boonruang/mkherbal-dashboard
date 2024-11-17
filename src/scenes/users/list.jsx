@@ -9,7 +9,7 @@ import useDebounce from 'hooks/useDebounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { tokens } from 'theme';
 import Header from 'components/Header'
-import { getUsers } from 'actions/user.action';
+import { editUser, getUsers } from 'actions/user.action';
 import { DataGrid, GridToolbar, gridClasses } from "@mui/x-data-grid"
 import Avatar from '@mui/material/Avatar'; 
 import AddIcon from '@mui/icons-material/Add';
@@ -72,8 +72,11 @@ const UsersList = () => {
     )
   }
 
-  const onButtonClick = () => {
+  const onButtonClick = (e,r) => {
     setSnackBarOpen(true)
+    console.log('record id',r.id)
+    console.log('row data',r)
+    navigate(`/users/edit/${r.id}`)
   };
 
   const handleButtonClick = () => {
@@ -84,18 +87,21 @@ const UsersList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUsers())
-    console.log('getUsers is running in useEffect')
-  },[dispatch])
-
-  useEffect(() => {
     dispatch(getRoles())
     console.log('getRole useEffect is called')
   },[dispatch])
 
+
   // const { isSidebar} = useSelector((state) => state.app.appReducer)
 
   const { result, isError, isFetching } = useSelector((state) => state.app.userReducer)
+
+  useEffect(() => {
+    if (!result) {
+      dispatch(getUsers())
+    }
+    console.log('getUsers is running in useEffect')
+  },[dispatch])
 
   // useEffect(() => {
   //   if (selectedResult) {
@@ -105,11 +111,11 @@ const UsersList = () => {
 
   const columns = [
     { field: 'id', headerName: 'ลำดับ',headerAlign: "center",align: "center"},
-    { field: 'username', headerName: 'username', width: 250 },
-    { field: 'firstname', headerName: 'firstname', width: 250 },
-    { field: 'lastname', headerName: 'lastname', width: 250 },
-    { field: 'status', headerName: 'status', width: 250 },
-    { field: 'roleArr', headerName: 'roles', width: 250 },
+    { field: 'username', headerName: 'username',  minWidth: 200 },
+    { field: 'firstname', headerName: 'firstname',  minWidth: 200 },
+    { field: 'lastname', headerName: 'lastname',  minWidth: 200 },
+    { field: 'status', headerName: 'status',  minWidth: 150 },
+    { field: 'roleArr', headerName: 'roles',  minWidth: 150 },
     { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1, renderCell: (params) => {
       return (
         <Box>
@@ -121,6 +127,7 @@ const UsersList = () => {
             ลบ
           </Button>
           <Button
+            // onClick={(e) => onButtonClick(e, params.row)}
             onClick={(e) => onButtonClick(e, params.row)}
             variant="outlined"
             color="success"

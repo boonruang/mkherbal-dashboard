@@ -187,14 +187,14 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }                                                  
-                        { result?.roles?.find((role) => [ROLES.Editor].includes(role))
+                        {/* { result?.roles?.find((role) => [ROLES.Editor].includes(role))
                            ? <Item
                                 title="เพิ่มสมุนไพร"
                                 to="/herbals/add"
                                 icon={<AddIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> : undefined  }    
+                            /> : undefined  }     */}
                         </SubMenu>    
 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
