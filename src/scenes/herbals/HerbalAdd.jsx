@@ -247,20 +247,136 @@ const HerbalAdd = () => {
                             error={!!touched.soil && !!errors.soil}
                             helperText={touched.soil && errors.soil}
                             sx={{ gridColumn: "span 2" }}
-                        />                       
-                        {/* <TextField
+                        />             
+                        {/* ลักษณะ charactername                    */}     
+                        <TextField
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="รูปภาพ"
+                            label="ลักษณะของสมุนไพร"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.image}
-                            name="image"
-                            error={!!touched.image && !!errors.image}
-                            helperText={touched.image && errors.image}
+                            value={values.charactername}
+                            name="charactername"
+                            multiline="true"
+                            minRows="2"
+                            error={!!touched.charactername && !!errors.charactername}
+                            helperText={touched.charactername && errors.charactername}
                             sx={{ gridColumn: "span 2" }}
-                        />   */}
+                        />                               
+                        {/* <Select
+                            labelId="label-select-charactername"
+                            id="select-charactername"
+                            // value={roleSelected}
+                            // onChange={handleRoleSelection}
+                            value={values.charactername}
+                            onChange={handleChange}
+                            name='charactername'
+                            onBlur={handleBlur}
+                            error={!!touched.charactername && !!errors.charactername}
+                            helperText={touched.charactername && errors.charactername}    
+                            sx={{ gridColumn: "span 2" }}                      
+                          >
+                            <MenuItem value={true}>ต้นชะมวง จัดเป็นไม้ยืนต้นขนาดเล็กถึงขนาดกลางไม่ผลัดใบ เรือนยอดเป็นทรงพุ่มรูปกรวยคว่ำทรงสูง มีความสูงของต้นประมาณ 5-10 เมตร...</MenuItem>
+                            <MenuItem value={false}>ใบชะมวง ใบเป็นใบเดี่ยว ออกเรียงสลับตรงข้ามกัน ลักษณะของใบเป็นรูปรีแกมใบหอกหรือแกมขอบขนาน โคนใบสอบแหลม ปลายใบป้านหรือแหลมเล็กน้อย...</MenuItem>
+                        </Select>      */}
+                        {/* สรรพคุณ propertyname                    */}
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="สรรพคุณ"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.propertyname}
+                            name="propertyname"
+                            multiline="true"
+                            minRows="2"                            
+                            error={!!touched.propertyname && !!errors.propertyname}
+                            helperText={touched.propertyname && errors.propertyname}
+                            sx={{ gridColumn: "span 2" }}
+                        />                         
+                        {/* <Select
+                            labelId="label-select-propertyname"
+                            id="select-propertyname"
+                            // value={roleSelected}
+                            // onChange={handleRoleSelection}
+                            value={values.propertyname}
+                            onChange={handleChange}
+                            name='propertyname'
+                            onBlur={handleBlur}
+                            error={!!touched.propertyname && !!errors.propertyname}
+                            helperText={touched.propertyname && errors.propertyname}    
+                            sx={{ gridColumn: "span 2" }}                      
+                          >
+                            <MenuItem value={true}>ยาพื้นบ้านอีสานใช้ ทั้งต้น มีรสจืด ต้มน้ำดื่ม ขับปัสสาวะ</MenuItem>
+                            <MenuItem value={false}>ช่วยฟอกโลหิต (ผลอ่อน, ใบ) แก้โลหิต (ใบ)</MenuItem>
+                        </Select>                                                 */}
+                        {/* ประโยชน์ (สรรพคุณ)จากส่วนประกอบต่างๆ benefit                    */}
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ประโยชน์"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.benefit}
+                            name="benefit"
+                            multiline="true"
+                            minRows="2"                            
+                            error={!!touched.benefit && !!errors.benefit}
+                            helperText={touched.benefit && errors.benefit}
+                            sx={{ gridColumn: "span 2" }}
+                        />                        
+                        {/* <Select
+                            labelId="label-select-benefit"
+                            id="select-benefit"
+                            // value={roleSelected}
+                            // onChange={handleRoleSelection}
+                            value={values.benefit}
+                            onChange={handleChange}
+                            name='benefit'
+                            onBlur={handleBlur}
+                            error={!!touched.benefit && !!errors.benefit}
+                            helperText={touched.benefit && errors.benefit}    
+                            sx={{ gridColumn: "span 2" }}                      
+                          >
+                            <MenuItem value={true}>ผลชะมวงสุกสีเหลืองใช้รับประทานเป็นผลไม้ได้ โดยจะมีรสเปรี้ยวอมหวานหรือจะนำผลมาหั่นเป็นแว่นตากแดดใส่ปลาร้าเพื่อเพิ่มรสชาติก็ได้...</MenuItem>
+                            <MenuItem value={false}>ยอดอ่อนหรือใบอ่อนใช้รับประทานเป็นผักจิ้มน้ำพริก รับประทานเป็นผักสดร่วมกับน้ำพริก ป่นแจ่ว หรือนำไปใช้ปรุงอาหาร...</MenuItem>
+                        </Select>   */}
+                        {/* หนังสืออ้างอิง หรือแหล่งอ้างอิง referencename                    */}
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="แหล่งอ้างอิง "
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.referencename}
+                            name="referencename"
+                            multiline="true"
+                            minRows="2"                            
+                            error={!!touched.referencename && !!errors.referencename}
+                            helperText={touched.referencename && errors.referencename}
+                            sx={{ gridColumn: "span 2" }}
+                        />                         
+                        {/* <Select
+                            labelId="label-select-referencename"
+                            id="select-referencename"
+                            // value={roleSelected}
+                            // onChange={handleRoleSelection}
+                            value={values.referencename}
+                            onChange={handleChange}
+                            name='referencename'
+                            onBlur={handleBlur}
+                            error={!!touched.referencename && !!errors.referencename}
+                            helperText={touched.referencename && errors.referencename}    
+                            sx={{ gridColumn: "span 2" }}                      
+                          >
+                            <MenuItem value={1}>หนังสือสมุนไพรไทย เล่ม 1. “ชะมวง (Cha Muang)”</MenuItem>
+                            <MenuItem value={2}>การสำรวจความหลากหลายของพืชสมุนไพร จากตลาดพื้นเมืองทางภาคตะวันตกของประเทศไทย มหาวิทยาลัยเกษตรศาสตร์</MenuItem>
+                            <MenuItem value={3}>โครงการเผยแพร่ข้อมูลทรัพยากรชีวภาพและภูมิปัญญาท้องถิ่นบนพื้นที่สูง สถาบันวิจัยและพัฒนาที่สูง (องค์การมหาชน)</MenuItem>
+                        </Select>                                                                       */}
                       <Box display="flex" justifyContent="start"
                           sx={{
                             mt: "10px", 
@@ -292,23 +408,8 @@ const HerbalAdd = () => {
                             />
                         </Button>    
                         </Box>
-                      </Box>
-                      {/* <Select
-                          labelId="label-select-status"
-                          id="select-status"
-                          // value={roleSelected}
-                          // onChange={handleRoleSelection}
-                          value={values.status}
-                          onChange={handleChange}
-                          name='status'
-                          onBlur={handleBlur}
-                          error={!!touched.status && !!errors.status}
-                          helperText={touched.status && errors.status}                          
-                        >
-                          <MenuItem value={true}>Active</MenuItem>
-                          <MenuItem value={false}>Inactive</MenuItem>
-                      </Select>   
-                      <Select
+                      </Box>  
+                     {/*  <Select
                           labelId="label-select-role"
                           id="select-role"
                           value={values.role}
@@ -321,7 +422,7 @@ const HerbalAdd = () => {
                          { result?.map(item => {
                           return <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
                          })}
-                      </Select>                                                                 */}
+                      </Select> */}
                     </Box>
                     <Box display="flex" justifyContent="start"
                         sx={{
