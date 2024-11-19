@@ -149,4 +149,19 @@ const doGetHerbals = (dispatch) => {
 //   };
 // };
 
+export const addHerbal = (navigate, formData) => {
+  console.log('navigate action',navigate)
+  console.log('formData action',formData)
+  return async (dispatch) => {
+    try {
+      // success
+      let result = await httpClient.post(server.HERBAL_URL, formData)
+      console.log('addHerbal formData successfully: ', result)
+      // navigate('/herbals/list')
+    } catch (error) {
+      // failed
+      console.log('addHerbal formData Error: ', error.toString())
+    }
+  }
+}
 

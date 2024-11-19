@@ -26,7 +26,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
 import { addHerbal } from '../../actions/herbal.action'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useParams } from 'react-router-dom'
+import { getHerbalSelectedById } from 'actions/herbalselected.action'
 
 const initialValues = {
     herbalname: "",
@@ -64,7 +65,7 @@ const Item = () => {
     )
 }
 
-const HerbalAdd = () => {
+const HerbalEdit = () => {
 
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)     
@@ -78,6 +79,23 @@ const HerbalAdd = () => {
   const [roleSelected, setRoleSelected] = useState('1')
 
   const { result } = useSelector((state) => state.app.roleReducer)
+
+ 
+  const {id} = useParams();
+  console.log('param id: ',id); 
+
+  useEffect(() => {
+    dispatch(getHerbalSelectedById(id))
+    console.log('getHerbalSelectedById is running in useEffect')
+  },[dispatch,id])
+  
+  const herbalselected = useSelector((state) => state.app.herbalselectedReducer)
+
+  if (herbalselected?.selectedResult) {
+    console.log('herbalselected resulted',herbalselected?.selectedResult)
+    // initialValues = herbalselected?.selectedResult
+  }
+
 
   //  if (result) {
   //   console.log('role result',result)
@@ -155,7 +173,7 @@ const HerbalAdd = () => {
               formData.append('commonname', values.commonname)
               formData.append('scientificname', values.scientificname)
               formData.append('othername', values.othername)
-              formData.append('image', values.file.name)
+              // formData.append('image', values.file.name)
               formData.append('ph', values.ph)
               formData.append('soil', values.soil)
               formData.append('disease', values.disease)
@@ -163,11 +181,11 @@ const HerbalAdd = () => {
               formData.append('propertyname', values.propertyname)
               formData.append('benefit', values.benefit)
               formData.append('referencename', values.referencename)
-              console.log('values',values)
               dispatch(addHerbal(navigate, formData))
               setSubmitting(false)
             }}
-            initialValues={initialValues}
+            // initialValues={initialValues}
+            initialValues={herbalselected?.selectedResult ? herbalselected?.selectedResult: {}}
             validationSchema={userSchema}
         >
             {({ values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit, setFieldValue }) => (
@@ -187,7 +205,7 @@ const HerbalAdd = () => {
                             label="ชื่อสมุนไพร"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.herbalname}
+                            value={values?.herbalname}
                             name="herbalname"
                             error={!!touched.herbalname && !!errors.herbalname}
                             helperText={touched.herbalname && errors.herbalname}
@@ -200,7 +218,7 @@ const HerbalAdd = () => {
                             label="ชื่อสามัญ"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.commonname}
+                            value={values?.commonname}
                             name="commonname"
                             error={!!touched.commonname && !!errors.commonname}
                             helperText={touched.commonname && errors.commonname}
@@ -213,7 +231,7 @@ const HerbalAdd = () => {
                             label="ชื่อวิทยาศาสตร์"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.scientificname}
+                            value={values?.scientificname}
                             name="scientificname"
                             error={!!touched.scientificname && !!errors.scientificname}
                             helperText={touched.scientificname && errors.scientificname}
@@ -226,7 +244,7 @@ const HerbalAdd = () => {
                             label="ชื่อตามท้องถิ่น"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.othername}
+                            value={values?.othername}
                             name="othername"
                             error={!!touched.othername && !!errors.othername}
                             helperText={touched.othername && errors.othername}
@@ -239,7 +257,7 @@ const HerbalAdd = () => {
                             label="ค่า PH"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.ph}
+                            value={values?.ph}
                             name="ph"
                             error={!!touched.ph && !!errors.ph}
                             helperText={touched.ph && errors.ph}
@@ -252,7 +270,7 @@ const HerbalAdd = () => {
                             label="ดินในการปลูก"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.soil}
+                            value={values?.soil}
                             name="soil"
                             error={!!touched.soil && !!errors.soil}
                             helperText={touched.soil && errors.soil}
@@ -265,7 +283,7 @@ const HerbalAdd = () => {
                             label="โรคพืช"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.disease}
+                            value={values?.disease}
                             name="disease"
                             error={!!touched.disease && !!errors.disease}
                             helperText={touched.disease && errors.disease}
@@ -279,7 +297,7 @@ const HerbalAdd = () => {
                             label="ลักษณะของสมุนไพร"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.charactername}
+                            value={values?.charactername}
                             name="charactername"
                             multiline="true"
                             minRows="2"
@@ -311,7 +329,7 @@ const HerbalAdd = () => {
                             label="สรรพคุณ"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.propertyname}
+                            value={values?.propertyname}
                             name="propertyname"
                             multiline="true"
                             minRows="2"                            
@@ -343,7 +361,7 @@ const HerbalAdd = () => {
                             label="ประโยชน์"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.benefit}
+                            value={values?.benefit}
                             name="benefit"
                             multiline="true"
                             minRows="2"                            
@@ -375,7 +393,7 @@ const HerbalAdd = () => {
                             label="การอ้างอิง"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.referencename}
+                            value={values?.referencename}
                             name="referencename"
                             multiline="true"
                             minRows="2"                            
@@ -529,4 +547,4 @@ const HerbalAdd = () => {
     </Box >
 }
 
-export default HerbalAdd
+export default HerbalEdit

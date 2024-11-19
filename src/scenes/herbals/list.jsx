@@ -10,7 +10,7 @@ import useDebounce from 'hooks/useDebounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { tokens } from 'theme';
 import Header from 'components/Header'
-import { getHerbals,setStateHerbalSelectedToFetching } from 'actions/herbal.action';
+import { deleteHerbal, getHerbals,setStateHerbalSelectedToFetching } from 'actions/herbal.action';
 import { DataGrid, GridToolbar, gridClasses } from "@mui/x-data-grid"
 import CircularProgress from '@mui/material/CircularProgress';
 import Avatar from '@mui/material/Avatar'; 
@@ -141,8 +141,25 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   }, 
 }));
 
-  const onButtonClick = () => {
-    //
+  const onDetailButtonClick = (e,r) => {
+    setSnackBarOpen(true)
+    console.log('record id',r.id)
+    console.log('row data',r)
+    navigate(`/herbals/detail/${r.id}`)
+  };
+
+  const onDeleteButtonClick = (e,r) => {
+    setSnackBarOpen(true)
+    console.log('record id',r.id)
+    console.log('row data',r)
+    dispatch(deleteHerbal(r.id))
+  };
+
+  const onEditButtonClick = (e,r) => {
+    setSnackBarOpen(true)
+    console.log('record id',r.id)
+    console.log('row data',r)
+    navigate(`/herbals/edit/${r.id}`)
   };
 
 
@@ -155,9 +172,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 
   
   useEffect(() => {
-    if (!result)  {
     dispatch(getHerbals())
-    }
     console.log('getHerbals is running in useEffect')
   },[dispatch])
 
@@ -211,7 +226,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
       return (
         <Box>
           <Button
-            onClick={(e) => onButtonClick(e, params.row)}
+            onClick={(e) => onDetailButtonClick(e, params.row)}
             variant="outlined"
             color="success"
             sx={{ ml: 1 }} 
@@ -221,7 +236,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 
           { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
           ? <Button
-            onClick={(e) => onButtonClick(e, params.row)}
+            onClick={(e) => onDeleteButtonClick(e, params.row)}
             variant="outlined"
             color="error"
             sx={{ ml: 1 }} 
@@ -231,7 +246,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 
           { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
           ? <Button
-            onClick={(e) => onButtonClick(e, params.row)}
+            onClick={(e) => onEditButtonClick(e, params.row)}
             variant="outlined"
             color="info"
             sx={{ ml: 1 }}            

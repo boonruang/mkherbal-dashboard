@@ -28,6 +28,8 @@ import Marketplace from "scenes/marketplace";
 import Farmergroup from "scenes/farmergroup";
 import HerbalCarousel from "components/HerbalCarousel";
 import HerbalAdd from "scenes/herbals/HerbalAdd";
+import HerbalEdit from "scenes/herbals/HerbalEdit";
+import HerbalDetail from "scenes/herbals/HerbalDetail";
 import MarketplaceAdd from "scenes/marketplace/MarketplaceAdd";
 import HerbalsList from "scenes/herbals/list";
 import Invoices from "scenes/invoices";
@@ -92,6 +94,8 @@ function App() {
           <Route path="marketplace/add" element={<MarketplaceAdd />} />
           <Route path="herbalcarousel" element={<HerbalCarousel />} />
           <Route path="herbals/add" element={<HerbalAdd />} />
+          <Route path="herbals/edit/:id" element={<HerbalEdit />} />
+          <Route path="herbals/detail/:id" element={<HerbalDetail />} />
           <Route path="herbals/list" element={<HerbalsList />} />
           {/* <Route path="invoices" element={<Invoices />} /> */}
           <Route path="soilherbals" element={<SoilHerbals />} />
