@@ -127,18 +127,21 @@ const Login = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                style={{
+                  fontSize: '18px'
+                }}
               >
                 เข้าระบบ
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link to="/forgetpassword" variant="body2">
                     ลืมรหัสผ่าน
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    {"ลงทะเบียน"}
+                  <Link to="/registration" variant="body2">
+                    ลงทะเบียนเกษตกร
                   </Link>
                 </Grid>
               </Grid>

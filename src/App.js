@@ -23,6 +23,8 @@ import GeoGmaps from "scenes/geogmaps";
 import GeoLand from "scenes/geoland";
 import GeoSoil from "scenes/geosoil";
 import GeoSalt from "scenes/geosalt";
+import Registration from 'components/Registration'
+import Forgetpassword from 'components/Forgetpassword'
 import Login from 'components/Login'
 import Marketplace from "scenes/marketplace";
 import Farmergroup from "scenes/farmergroup";
@@ -58,6 +60,8 @@ function App() {
 
   return ( 
   <Routes>
+      <Route path="/registration" element={<Registration />} />
+      <Route path="/forgetpassword" element={<Forgetpassword />} />
       <Route path="/login" element={<Login />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
 
