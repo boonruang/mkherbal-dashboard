@@ -141,7 +141,7 @@ const Login = () => {
                 </Grid>
                 <Grid item>
                   <Link to="/registration" variant="body2">
-                    ลงทะเบียนเกษตกร
+                    ลงทะเบียนเกษตรกร
                   </Link>
                 </Grid>
               </Grid>

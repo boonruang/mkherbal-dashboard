@@ -63,7 +63,7 @@ const Registration = () => {
 
             <Box>
               <Typography component="h1" variant="h4" textAlign='center'>
-                ลงทะเบียนเกษตกร
+                ลงทะเบียนเกษตรกร
               </Typography>
             </Box>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
