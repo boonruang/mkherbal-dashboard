@@ -99,3 +99,23 @@ const doGetFarmers = (dispatch) => {
     });
 };
 
+export const getFarmersStatus = () => {
+  return (dispatch) => {
+    dispatch(setStateFarmerToFetching());
+    doGetFarmersStatus(dispatch);
+  };
+};
+
+const doGetFarmersStatus = (dispatch) => {
+  httpClient
+    .get(`${server.FARMER_URL}/status`)
+    .then((result) => {
+      dispatch(setStateFarmerToSuccess(result.data));
+    })
+    .catch((error) => {
+      alert(JSON.stringify(error));
+      dispatch(setStateFarmerToFailed());
+    });
+};
+
+
