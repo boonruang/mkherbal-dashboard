@@ -159,15 +159,16 @@ const Sidebar = () => {
                         <Box mb="25px">
                             <Box textAlign={"center"}>
                                 <Typography
-                                    variant='h4' color={colors.blueAccent[600]}
+                                    // variant='h4' color={colors.blueAccent[600]}
+                                    variant='h4' color={colors.greenAccent[500]}
                                     fontWeight="bold"
                                     sx={{ m: "10px 0 0 0" }}
                                 >
                                     ระบบฐานข้อมูลสมุนไพร
                                 </Typography>
-                                <Typography
+                                {/* <Typography
                                     variant='h5' color={colors.greenAccent[500]}
-                                >มหาวิทยาลัยมหาสารคาม</Typography>
+                                >มหาวิทยาลัยมหาสารคาม</Typography> */}
                             </Box>
                         </Box>
                     )}
@@ -234,7 +235,14 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }  
-
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="เกษตรกรรออนุมัติ"
+                                to="/farmers/pending"
+                                icon={<PersonIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }  
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="กลุ่มเกษตรกร"
@@ -243,8 +251,7 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }                                                      
-
-
+{/* 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="แสดงข้อมูลเกษตรกร"
@@ -252,7 +259,7 @@ const Sidebar = () => {
                                 icon={<PeopleOutlinedIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> : undefined  }                                                      
+                            /> : undefined  }                                                       */}
 
                          </SubMenu>                      
 

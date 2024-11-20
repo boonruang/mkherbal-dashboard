@@ -12,7 +12,7 @@ import { ROLES } from '../../constants'
 import { Link, useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 
-const Farmers = () => {
+const Farmerspending = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
@@ -97,61 +97,53 @@ const Farmers = () => {
             flex: 1,
             cellClassName: "name-column--cell"
         },                  
+        {
+            field: 'tel',
+            headerName: 'เบอร์ติดต่อ',
+            flex: 1,
+        },
         // {
-        //     field: 'tel',
-        //     headerName: 'เบอร์ติดต่อ',
+        //     field: 'cert',
+        //     headerName: 'รหัสใบรับรอง',
+        //     flex: 1,
+        // },
+        // {
+        //     field: 'cert_date',
+        //     headerName: 'วันได้รับ',
+        //     flex: 1,
+        // },
+        // {
+        //     field: 'cert_expire_date',
+        //     headerName: 'วันหมดอายุ',
         //     flex: 1,
         // },
         {
-            field: 'cert',
-            headerName: 'รหัสใบรับรอง',
+            field: 'status',
+            headerName: 'สถานะ',
             flex: 1,
-        },
-        {
-            field: 'cert_date',
-            headerName: 'วันได้รับ',
-            flex: 1,
-        },
-        {
-            field: 'cert_expire_date',
-            headerName: 'วันหมดอายุ',
-            flex: 1,
-        },
+        },        
         { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1.5, renderCell: (params) => {
             return (
               <Box>
-                <Button
-                //   onClick={handleButtonDetail(params.row.id)}
-                //   onClick={() => (navigate('/farmers/detail/'+params.row.id))}
-                //   onClick={() => (navigate('/farmers/detail',  { state: { id: params.row.id }} ))}
-                  onClick={() => (navigate('/farmers/detail',  { state: { row: params.row }} ))}
-                  variant="outlined"
-                  color="success"
-                >
-                  รายละเอียด
-                </Button>
-                {/* <Link to={"/farmers/detail/" + params.row.id}>
-                            <button className="viewButton">View</button>
-                </Link> */}
 
             { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
                 ? <Button
                   onClick={handleClick}
                   variant="outlined"
-                  color="error"
+                  color="success"
                   sx={{ ml: 1 }} 
                 >
-                  ลบ
+                  อนุมัติ
                 </Button> : undefined  } 
 
             { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
                 ? <Button
                   onClick={handleClick}
                   variant="outlined"
-                  color="warning"
+                  color="info"
                   sx={{ ml: 1 }}            
                 >
-                  แก้ไข
+                  ปฏิเสธ
                 </Button> : undefined  }                       
               </Box>
             );
@@ -228,4 +220,4 @@ const Farmers = () => {
     )
 }
 
-export default Farmers
+export default Farmerspending

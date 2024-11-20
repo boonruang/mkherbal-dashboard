@@ -8,6 +8,7 @@ import Dashbaord from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Contacts from "./scenes/contacts";
 import Farmers from "./scenes/farmers";
+import Farmerspending from "./scenes/farmers/Farmerspending";
 import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
 import Bar from "./scenes/bar";
@@ -77,6 +78,7 @@ function App() {
           <Route path="contacts" element={<Contacts />} />
           <Route path="researchers" element={<Researchers />} />
           <Route path="farmers" element={<Farmers />} />
+          <Route path="farmers/pending" element={<Farmerspending />} />
           <Route path="farmers/detail" element={<FarmerDetail />} />
           <Route path="farmergroup" element={<Farmergroup />} />
           <Route path="businessgroup" element={<BusinessGroup />} />
