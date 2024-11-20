@@ -81,7 +81,7 @@ const Marketplace = (props) => {
           console.log('i am running in useEffect ')
           setTimeout(() => {
             dispatch(wrapTo('mkplc',updateVisState()))
-            dispatch(showSidebar(false))
+            // dispatch(showSidebar(false))
           },500)
         }
         setOpen(false)            

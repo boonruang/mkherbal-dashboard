@@ -163,7 +163,7 @@ const SoilHerbals = (props) => {
                 })
               ))
       }
-      dispatch(showSidebar(false))
+      // dispatch(showSidebar(false))
     },[dispatch, plantingSelected, soilData, saltData ])     
 
     const handleSearchClick = () => {

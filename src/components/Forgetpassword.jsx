@@ -63,7 +63,7 @@ const Forgetpassword = () => {
 
             <Box>
               <Typography component="h1" variant="h4" textAlign='center'>
-                แจ้งขอรหัสผ่าน
+                แจ้งขอรหัสผ่านใหม่
               </Typography>
             </Box>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

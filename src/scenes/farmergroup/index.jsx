@@ -109,7 +109,7 @@ const Farmergroup = (props) => {
           console.log('i am running in useEffect ')
           setTimeout(() => {
             dispatch(wrapTo('farmergroup',updateVisState()))
-            dispatch(showSidebar(false))
+            // dispatch(showSidebar(false))
           },500)
         }
     },[dispatch,result])
