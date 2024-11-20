@@ -66,7 +66,7 @@ const Login = () => {
               alignItems: 'center',
             }}  
       >
-        <Box sx={{ justifyContent:'center', alignItems: 'center' }}>
+        {/* <Box sx={{ justifyContent:'center', alignItems: 'center' }}>
             <Box
                 component="img"
                 sx={{
@@ -78,8 +78,7 @@ const Login = () => {
                 alt="logo"
                 src="images/msulogo.png"        
             />
-          {/* Logo top right */}
-        </Box>
+        </Box> */}
         <Box
             sx={{
               marginTop: '10px',
