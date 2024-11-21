@@ -164,18 +164,18 @@ const Sidebar = () => {
                                     fontWeight="bold"
                                     sx={{ m: "10px 0 0 0" }}
                                 >
-                                    ระบบฐานข้อมูลสมุนไพร
+                                    360° HerbHug ISAN
                                 </Typography>
-                                {/* <Typography
-                                    variant='h5' color={colors.greenAccent[500]}
-                                >มหาวิทยาลัยมหาสารคาม</Typography> */}
+                                <Typography
+                                    variant='h7' color={colors.greenAccent[300]}
+                                >ระบบภูมิสารสนเทศฐานข้อมูลสมุนไพร</Typography>
                             </Box>
                         </Box>
                     )}
 
 
                     {/* MENU ITEMS */}
-                    <Box paddingLeft={!isSidebar ? undefined : '10%'}>
+                    <Box paddingLeft={!isSidebar ? undefined : '10%'} >
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="แดชบอร์ด"
