@@ -281,14 +281,14 @@ const Sidebar = () => {
                         ) :  <CollapsedIcon /> }  
                                                                        */}                                                                       
                     <SubMenu title="ธุรกิจการค้า" icon={<MiscellaneousServicesIcon />}>
-                    { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                        {/* { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="รายการบริษัท/ธุรกิจ"
                                 to="/businessgroup"
                                 icon={<WarehouseIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> : undefined  } 
+                            /> : undefined  }  */}
 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
