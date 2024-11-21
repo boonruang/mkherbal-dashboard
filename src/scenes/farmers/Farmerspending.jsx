@@ -121,6 +121,14 @@ const Farmerspending = () => {
             field: 'status',
             headerName: 'สถานะ',
             flex: 1,
+            renderCell: (params) => {
+                console.log('params',params.row.status);
+                if (params.row.status == true) {
+                    return (<Box>อนุมัติแล้ว</Box>);
+                } else {
+                    return (<Box sx={{ color: colors.blueAccent[500] }}>รอการอนุมัติ</Box>);
+                }
+              },
         },        
         { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1.5, renderCell: (params) => {
             return (
@@ -180,7 +188,7 @@ const Farmerspending = () => {
                     color: `${colors.grey[100]} !important`
                 }
             }}>
-                { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+                {/* { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
                 ? <Box display="flex" justifyContent="end">
                     <Button  
                         sx={{
@@ -198,7 +206,7 @@ const Farmerspending = () => {
                         <AddIcon sx={{ mr: "10px" }} />
                         เพิ่มข้อมูล
                     </Button>
-                </Box> : undefined }
+                </Box> : undefined } */}
                 
                     { isFetching && <Box height="65vh" sx={{ display: 'flex', justifyContent: "center", alignItems: 'center'}}><CircularProgress /></Box>}
                     { result ?
