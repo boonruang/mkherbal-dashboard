@@ -235,7 +235,7 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }  
-                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
                            ? <Item
                                 title="เกษตรกรรออนุมัติ"
                                 to="/farmers/pending"
