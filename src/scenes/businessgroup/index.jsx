@@ -4,10 +4,14 @@ import { tokens } from "../../theme"
 import Header from "../../components/Header"
 import { mockDataBusiness } from "../../data/mockDataBusiness"
 import AddIcon from '@mui/icons-material/Add';
+import { useDispatch, useSelector } from "react-redux";
+import { ROLES } from '../../constants'
 
 const BusinessGroup = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
+
+    const loginReducer = useSelector((state) => state.app.loginReducer)    
 
     const columns = [
         { field: 'id', headerName: 'ลำดับ',  headerAlign: 'center', align: 'center'},
@@ -42,22 +46,34 @@ const BusinessGroup = () => {
         },
         { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1, renderCell: (params) => {
             return (
-              <Box>
-                <Button
-                  onClick={{}}
-                  variant="outlined"
-                  color="error"
-                >
-                  ลบ
-                </Button>
+                <Box>
                 <Button
                   onClick={{}}
                   variant="outlined"
                   color="success"
+                >
+                  รายละเอียด
+                </Button>
+
+            { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+                ? <Button
+                  onClick={{}}
+                  variant="outlined"
+                  color="error"
+                  sx={{ ml: 1 }} 
+                >
+                  ลบ
+                </Button> : undefined  } 
+
+            { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+                ? <Button
+                  onClick={{}}
+                  variant="outlined"
+                  color="warning"
                   sx={{ ml: 1 }}            
                 >
                   แก้ไข
-                </Button>          
+                </Button> : undefined  }                       
               </Box>
             );
           } }         
