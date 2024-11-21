@@ -44,7 +44,7 @@ const BusinessGroup = () => {
             headerName: 'Longitude',
             flex: 1,
         },
-        { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1, renderCell: (params) => {
+        { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1.5, renderCell: (params) => {
             return (
                 <Box>
                 <Button
