@@ -376,7 +376,8 @@ const Sidebar = () => {
                                 </Typography>  
                             </Box>
                         ) :  <CollapsedIcon /> }      */}
-                        <SubMenu title="องค์ความรู้" icon={<WbIncandescentIcon />}>
+
+                        {/* <SubMenu title="องค์ความรู้" icon={<WbIncandescentIcon />}>
 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
@@ -396,7 +397,7 @@ const Sidebar = () => {
                                 setSelected={setSelected}
                             /> : undefined  }  
 
-                        </SubMenu>                                                                
+                        </SubMenu>                                                                 */}
    
                         {/* {isSidebar ? (
                             <Box
