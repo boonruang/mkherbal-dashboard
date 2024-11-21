@@ -307,7 +307,7 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  } 
-
+{/* 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="ผลิตภัณฑ์สมุนไพร"
@@ -315,7 +315,7 @@ const Sidebar = () => {
                                 icon={<HealthAndSafetyIcon  />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> : undefined  }                                                                                                         
+                            /> : undefined  }                                                                                                          */}
                           
                     </SubMenu>                                                                       
                         {/* <Item
