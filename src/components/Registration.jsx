@@ -1,73 +1,97 @@
-import { useState } from 'react'
-import Button from '@mui/material/Button'
-import CssBaseline from '@mui/material/CssBaseline'
-import TextField from '@mui/material/TextField'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import React, { useState, useEffect } from 'react'
+import { 
+    Box, 
+    useTheme,
+    Button,
+    TextField,
+    Select,
+    MenuItem,
+    CardActionArea,
+    Grid,
+    Typography
+  } from '@mui/material'
 
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch,useSelector } from 'react-redux'
-import  * as loginActions  from '../actions/login.action'
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+
+import { Formik } from 'formik'
+import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import AddIcon from '@mui/icons-material/Add';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import { tokens } from 'theme';
+import { useDispatch, useSelector } from 'react-redux'
+import { addFarmer } from '../actions/farmer.action'
+import { useNavigate } from 'react-router-dom'
+import Header from "../components/Header"
+const initialValues = {
+    firstname: "",
+    lastname: "",
+    status: false
+}
+
+const userSchema = yup.object().shape({
+    firstname: yup.string().required("required"),
+    lastname: yup.string().required("required"),
+    username: yup.string().required("required"),
+    password: yup.string().required("required"),
+    password2: yup.string().required("required"),
+    cid: yup.string().required("required"),
+    hno: yup.string().required("required"),
+    moo: yup.string().required("required"),
+    tambon: yup.string().required("required"),
+    amphoe: yup.string().required("required"),
+    province: yup.string().required("required"),
+    tel: yup.string().required("required"),
+})
+
 
 const Registration = () => {
 
-  const loginReducer = useSelector(state => state.app.loginReducer)
-  const dispatch = useDispatch()
-
-
-  const isNonMobile = useMediaQuery("(min-width:600px)")  
-
-  const [account, setAccount] = useState({
-    username: 'admin',
-    password: '11111',
-  })
+  const theme = useTheme()
+  const colors = tokens(theme.palette.mode)     
+      
+  const dispatch = useDispatch()    
 
   const navigate = useNavigate()
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    console.log('account ',account)
-    dispatch(loginActions.login({ ...account, navigate }))
-
-  };
-
-  
-  const handleCancelButtonClick = () => {
+   const handleCancelButtonClick = () => {
     navigate('/')
    }
+  
+    const isNonMobile = useMediaQuery("(min-width:600px)")
 
-  const showError = () => {
-    return (
-    <Typography variant="h7" color='red' >
-      รหัสผ่านหรือชื่อไม่ถูกต้อง
-    </Typography>
-    )
-  }
 
-  return (
-    <Box >
-    <CssBaseline />
-        <Box
-            sx={{
-              marginTop: '10px',
-              // display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              padding: '35px',
-              margin: '50px'
+    return <Box m="20px">
+        <Header title="ลงทะเบียนเกษตรกร" />
+
+        <Formik
+            // onSubmit={handleFormSubmit}
+            onSubmit={async (values, { setSubmitting }) => {
+              let formData = new FormData()
+              formData.append('firstname', values.firstname)
+              formData.append('lastname', values.lastname)
+              formData.append('username', values.username)
+              formData.append('password', values.password)
+              formData.append('cid', values.cid)
+              formData.append('hno', values.hno)
+              formData.append('moo', values.moo)
+              formData.append('tambon', values.tambon)
+              formData.append('amphoe', values.amphoe)
+              formData.append('province', values.province)
+              formData.append('tel', values.tel)
+              console.log('values',values)
+              dispatch(addFarmer(navigate, formData))
+              setSubmitting(false)
             }}
-          >
-
-            <Box>
-              <Typography component="h1" variant="h4" textAlign='center'>
-                ลงทะเบียนเกษตรกร
-              </Typography>
-            </Box>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <Box
+            initialValues={initialValues}
+            validationSchema={userSchema}
+        >
+            {({ values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit }) => (
+                <form onSubmit={handleSubmit}>
+                    <Box
                         display="grid"
                         gap="30px"
                         gridTemplateColumns="repeat(4, minmax(0, 1fr))"
@@ -75,218 +99,219 @@ const Registration = () => {
                             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" }
                         }}
                     >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="firstname"
-                label="ชื่อ"
-                name={account.username}
-                autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, username: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}} // font size of input text
-                InputLabelProps={{style: {fontSize: 18}}} // font size of input label
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="lastname"
-                label="นามสกุล"
-                name={account.username}
-                autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, username: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />  
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="ชื่อเข้าระบบ"
-                name={account.username}
-                autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, username: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />                          
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name={account.password}
-                label="รหัสผ่าน"
-                type="password"
-                id="password"
-                onChange={(e) =>
-                  setAccount({ ...account, password: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name={account.password2}
-                label="ใส่รหัสผ่านอีกครั้ง"
-                type="password"
-                id="password2"
-                onChange={(e) =>
-                  setAccount({ ...account, password: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="cid"
-                label="รหัสบัตรประชาชน"
-                name={account.cid}
-                autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, cid: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />               
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="hno"
-                label="บ้านเลขที่"
-                name={account.hno}
-                autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, hno: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />               
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="moo"
-                label="หมู่"
-                name={account.moo}
-                autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, moo: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />               
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="tambon"
-                label="ตำบล"
-                name={account.tambon}
-                autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, tambon: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />               
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="amphoe"
-                label="อำเภอ"
-                name={account.amphoe}
-                autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, amphoe: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />               
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="province"
-                label="จังหวัด"
-                name={account.province}
-                autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, province: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />               
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="tel"
-                label="เบอร์ติดต่อ"
-                name={account.tel}
-                autoFocus
-                onChange={(e) =>
-                  setAccount({ ...account, tel: e.target.value })
-                }
-                inputProps={{style: {fontSize: 18}}}
-                InputLabelProps={{style: {fontSize: 18}}}
-                sx={{ gridColumn: "span 2" }}
-              />               
-              
-              <Box sx={{ gridColumn: "span 2" }}>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2, fontSize: '25px' }}
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ชื่อ"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.firstname}
+                            name="firstname"
+                            error={!!touched.firstname && !!errors.firstname}
+                            helperText={touched.firstname && errors.firstname}
+                            sx={{ gridColumn: "span 2" }}
+                        />
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="นามสกุล"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.lastname}
+                            name="lastname"
+                            error={!!touched.lastname && !!errors.lastname}
+                            helperText={touched.lastname && errors.lastname}
+                            sx={{ gridColumn: "span 2" }}
+                        />
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ชื่อเข้าระบบ"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.username}
+                            name="username"
+                            error={!!touched.username && !!errors.username}
+                            helperText={touched.username && errors.username}
+                            sx={{ gridColumn: "span 2" }}
+                        />
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="password"
+                            label="รหัสผ่าน"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.password}
+                            name="password"
+                            error={!!touched.password && !!errors.password}
+                            helperText={touched.password && errors.password}
+                            sx={{ gridColumn: "span 2" }}
+                        />   
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="password"
+                            label="ยืนยันรหัสผ่าน"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.password2}
+                            name="password2"
+                            error={!!touched.password2 && !!errors.password2}
+                            helperText={touched.password2 && errors.password2}
+                            sx={{ gridColumn: "span 2" }}
+                        />   
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="รหัสบัตรประชาชน"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.cid}
+                            name="cid"
+                            error={!!touched.cid && !!errors.cid}
+                            helperText={touched.cid && errors.cid}
+                            sx={{ gridColumn: "span 2" }}
+                        />        
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="บ้านเลขที่"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.hno}
+                            name="hno"
+                            error={!!touched.hno && !!errors.hno}
+                            helperText={touched.hno && errors.hno}
+                            sx={{ gridColumn: "span 2" }}
+                        />     
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="หมู่"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.moo}
+                            name="moo"
+                            error={!!touched.moo && !!errors.moo}
+                            helperText={touched.moo && errors.moo}
+                            sx={{ gridColumn: "span 2" }}
+                        />                                 
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ตำบล"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.tambon}
+                            name="tambon"
+                            error={!!touched.tambon && !!errors.tambon}
+                            helperText={touched.tambon && errors.tambon}
+                            sx={{ gridColumn: "span 2" }}
+                        />                               
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="อำเภอ"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.amphoe}
+                            name="amphoe"                         
+                            error={!!touched.amphoe && !!errors.amphoe}
+                            helperText={touched.amphoe && errors.amphoe}
+                            sx={{ gridColumn: "span 2" }}
+                        />                         
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="จังหวัด"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.province}
+                            name="province"                           
+                            error={!!touched.province && !!errors.province}
+                            helperText={touched.province && errors.province}
+                            sx={{ gridColumn: "span 2" }}
+                        />                        
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="เบอร์ติดต่อ"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.tel}
+                            name="tel"                        
+                            error={!!touched.tel && !!errors.tel}
+                            helperText={touched.tel && errors.tel}
+                            sx={{ gridColumn: "span 2" }}
+                        />                         
+
+                    </Box>
+                    <Box 
+                        display="grid"
+                        gap="30px"
+                        gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                        mt="20px"
+                        sx={{
+                            "& > div": { gridColumn: isNonMobile ? undefined : "span 4" }
+                        }}                    
                     >
-                      ลงทะเบียน
-                    </Button>
-              </Box>
-              
-              <Box sx={{ gridColumn: "span 2" }}>
-                    <Button
-                      onClick={handleCancelButtonClick}
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                      style={{
-                        // maxWidth: '500px', maxHeight: '50px', minWidth: '400pxpx', minHeight: '50px',
-                        fontSize: '25px'
-                      }}
+                      
+
+                      <Box display="flex" justifyContent="start"
+                        sx={{
+                          gridColumn: "span 2"
+                      }}                    
                     >
-                      ยกเลิก
-                    </Button>
-              </Box>
-              {loginReducer.isError ? showError() : null}
-              </Box>       
-            </Box> 
-          </Box>            
-        </Box>            
-  );
+                        <Button  
+                            type='submit'
+                            disabled={isSubmitting}
+                            sx={{
+                                backgroundColor: colors.greenAccent[600],
+                                color: colors.grey[100],
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                padding: "10px 20px",
+                                mr: "20px",
+                                mb: "10px",
+                                '&:hover': {backgroundColor: colors.blueAccent[700]}
+                            }}
+                        >
+                            ลงทะเบียน
+                        </Button>
+                          <Button  
+                              onClick={handleCancelButtonClick}
+                              type='submit'
+                              sx={{
+                                  backgroundColor: colors.greenAccent[600],
+                                  color: colors.grey[100],
+                                  fontSize: "14px",
+                                  fontWeight: "bold",
+                                  padding: "10px 20px",
+                                  mr: "10px",
+                                  mb: "10px",
+                                  '&:hover': {backgroundColor: colors.blueAccent[700]}
+                              }}
+                          >
+                              ยกเลิก
+                          </Button>    
+                        </Box>    
+                  </Box>   
+                </form>
+            )}
+        </Formik>
+    </Box >
 }
 
 export default Registration

@@ -177,6 +177,7 @@ export const server = {
   PROPERTY_URL: `property`,
   PRICE_URL: `price`,
   FARMER_URL: `farmer`,
+  FARMER_ADD_URL: `farmer/add`,
   DASHBOARD_URL: `dashboard`,
 }
 

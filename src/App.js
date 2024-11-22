@@ -24,6 +24,7 @@ import GeoGmaps from "scenes/geogmaps";
 import GeoLand from "scenes/geoland";
 import GeoSoil from "scenes/geosoil";
 import GeoSalt from "scenes/geosalt";
+import ThankyouReg from 'components/Thankyoupage'
 import Registration from 'components/Registration'
 import Forgetpassword from 'components/Forgetpassword'
 import Login from 'components/Login'
@@ -61,6 +62,7 @@ function App() {
 
   return ( 
   <Routes>
+      <Route path="/thankyoureg" element={<ThankyouReg />} />
       <Route path="/registration" element={<Registration />} />
       <Route path="/forgetpassword" element={<Forgetpassword />} />
       <Route path="/login" element={<Login />} />
