@@ -9,6 +9,7 @@ import Team from "./scenes/team";
 import Contacts from "./scenes/contacts";
 import Farmers from "./scenes/farmers";
 import Farmerspending from "./scenes/farmers/Farmerspending";
+import Farmersreset from "./scenes/farmers/Farmersreset";
 import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
 import Bar from "./scenes/bar";
@@ -28,6 +29,7 @@ import ThankyouReg from 'components/Thankyoupage'
 import Registration from 'components/Registration'
 import Forgetpassword from 'components/Forgetpassword'
 import Login from 'components/Login'
+import Logout from 'components/Logout'
 import Marketplace from "scenes/marketplace";
 import Farmergroup from "scenes/farmergroup";
 import HerbalCarousel from "components/HerbalCarousel";
@@ -62,6 +64,7 @@ function App() {
 
   return ( 
   <Routes>
+      <Route path="/logout" element={<Logout />} />
       <Route path="/thankyoureg" element={<ThankyouReg />} />
       <Route path="/registration" element={<Registration />} />
       <Route path="/forgetpassword" element={<Forgetpassword />} />
@@ -80,6 +83,7 @@ function App() {
           <Route path="contacts" element={<Contacts />} />
           <Route path="researchers" element={<Researchers />} />
           <Route path="farmers" element={<Farmers />} />
+          <Route path="farmers/reset" element={<Farmersreset />} />
           <Route path="farmers/pending" element={<Farmerspending />} />
           <Route path="farmers/detail" element={<FarmerDetail />} />
           <Route path="farmergroup" element={<Farmergroup />} />

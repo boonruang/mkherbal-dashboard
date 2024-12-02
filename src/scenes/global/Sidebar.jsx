@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar"
-import { Box, IconButton, Typography, useTheme } from '@mui/material'
+import { Box, IconButton, Typography, useTheme,MenuItem as MUIItem } from '@mui/material'
 import { Link } from "react-router-dom"
 import "react-pro-sidebar/dist/css/styles.css"
 import { tokens } from "../../theme"
@@ -30,10 +30,15 @@ import TableRowsIcon from '@mui/icons-material/TableRows';
 import GrassIcon from '@mui/icons-material/Grass';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import AgricultureIcon from '@mui/icons-material/Agriculture';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
 import { ROLES } from '../../constants'
+
+import * as loginActions from '../../actions/login.action'
+import { useNavigate } from "react-router-dom"
+
 // import SecureMenu from 'components/SecureMenu'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -74,6 +79,8 @@ const Sidebar = () => {
 
     const dispatch = useDispatch()
 
+    const navigate = useNavigate()
+
     // dispatch(showSidebar(!isCollapsed))   
     
     const { result } = useSelector((state) => state.app.loginReducer)
@@ -82,6 +89,10 @@ const Sidebar = () => {
 
     console.log('isSidebar in Sidebar',isSidebar)  
     // console.log('isCollapsed',isCollapsed)  
+
+    const handleLogout = () => {
+        dispatch(loginActions.logout({navigate}))
+    }    
 
     return (
         <Box
@@ -234,7 +245,15 @@ const Sidebar = () => {
                                 icon={<PersonIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> : undefined  }  
+                            /> : undefined  } 
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="กลุ่มเกษตรกร"
+                                to="/farmergroup"
+                                icon={<PeopleOutlinedIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                              
                         { result?.roles?.find((role) => [ROLES.Admin].includes(role))
                            ? <Item
                                 title="เกษตรกรรออนุมัติ"
@@ -243,14 +262,14 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }  
-                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
                            ? <Item
-                                title="กลุ่มเกษตรกร"
-                                to="/farmergroup"
-                                icon={<PeopleOutlinedIcon />}
+                                title="เกษตรกรขอรีเซ็ตรหัส"
+                                to="/farmers/reset"
+                                icon={<PersonIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> : undefined  }                                                      
+                            /> : undefined  }  
 {/* 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
@@ -456,7 +475,15 @@ const Sidebar = () => {
                             /> : undefined  }                                  
                                                 
                         </SubMenu>                                                              
-     
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="Logout"
+                                to="/logout"
+                                icon={<LogoutIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined
+                         }                         
                         {/* <Typography
                             variant='h6'
                             color={colors.grey[300]}

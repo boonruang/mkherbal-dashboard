@@ -12,7 +12,7 @@ import { ROLES } from '../../constants'
 import { Link, useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 
-const Farmersreset = () => {
+const Farmerspending = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
@@ -102,21 +102,6 @@ const Farmersreset = () => {
             headerName: 'เบอร์ติดต่อ',
             flex: 1,
         },
-        // {
-        //     field: 'cert',
-        //     headerName: 'รหัสใบรับรอง',
-        //     flex: 1,
-        // },
-        // {
-        //     field: 'cert_date',
-        //     headerName: 'วันได้รับ',
-        //     flex: 1,
-        // },
-        // {
-        //     field: 'cert_expire_date',
-        //     headerName: 'วันหมดอายุ',
-        //     flex: 1,
-        // },
         {
             field: 'status',
             headerName: 'สถานะ',
@@ -228,4 +213,4 @@ const Farmersreset = () => {
     )
 }
 
-export default Farmersreset
+export default Farmerspending
