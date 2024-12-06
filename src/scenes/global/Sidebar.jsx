@@ -31,6 +31,9 @@ import GrassIcon from '@mui/icons-material/Grass';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import AgricultureIcon from '@mui/icons-material/Agriculture';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PendingIcon from '@mui/icons-material/Pending';
+import LockResetIcon from '@mui/icons-material/LockReset';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
@@ -258,7 +261,7 @@ const Sidebar = () => {
                            ? <Item
                                 title="เกษตรกรรออนุมัติ"
                                 to="/farmers/pending"
-                                icon={<PersonIcon />}
+                                icon={<PendingIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }  
@@ -266,10 +269,18 @@ const Sidebar = () => {
                            ? <Item
                                 title="เกษตรกรขอรีเซ็ตรหัส"
                                 to="/farmers/reset"
-                                icon={<PersonIcon />}
+                                icon={<LockResetIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }  
+                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                           ? <Item
+                                title="เกษตรกรไม่อนุมัติ"
+                                to="/farmers/reject"
+                                icon={<ThumbDownOffAltIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                              
 {/* 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item

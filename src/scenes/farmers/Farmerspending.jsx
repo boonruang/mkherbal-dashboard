@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, useTheme,Button } from "@mui/material"
 import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import { tokens } from "../../theme"
@@ -11,14 +11,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { ROLES } from '../../constants'
 import { Link, useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
+import { ConstructionOutlined } from "@mui/icons-material";
 
-const Farmersreset = () => {
+const Farmerspending = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
+
 
     useEffect(() => {
         dispatch(getFarmersStatus())
@@ -29,30 +31,15 @@ const Farmersreset = () => {
 
     const loginReducer = useSelector((state) => state.app.loginReducer)
 
-    // if (result) {
-    //     console.log('result',result)
-    // }
-
-    const handleClick = () => {
-        //
-    }
-
-    const handleButtonDetail = (p) => {
-        // console.log('params',params)
-        console.log('params',p)
-        // navigate('/farmers/detail')
-    };
-
-    const handleRowClick = (params,event,details) => {
-        console.log('params',params)
-        // console.log('event',event)
-        // console.log('details',details)
-    };
-
 
     const columns = [
         { field: 'id', headerName: 'ลำดับ', headerAlign: 'center', align: 'center'},
-        // { field: 'username', headerName: 'Username' },
+        {
+            field: 'username',
+            headerName: 'ชื่อเข้าระบบ',
+            flex: 1,
+            cellClassName: "name-column--cell"
+        },
         {
             field: 'firstname',
             headerName: 'ชื่อ',
@@ -65,20 +52,6 @@ const Farmersreset = () => {
             flex: 1,
             cellClassName: "name-column--cell"
         },              
-        // {
-        //     field: 'hno',
-        //     headerName: 'บ้านเลขที่',
-        //     type: "number",
-        //     headerAlign: "left",
-        //     align: "left",
-        // },
-        // {
-        //     field: 'moo',
-        //     headerName: 'หมู่',
-        //     type: "number",
-        //     headerAlign: "left",
-        //     align: "left",
-        // },        
         {
             field: 'tambon',
             headerName: 'ตำบล',
@@ -102,31 +75,16 @@ const Farmersreset = () => {
             headerName: 'เบอร์ติดต่อ',
             flex: 1,
         },
-        // {
-        //     field: 'cert',
-        //     headerName: 'รหัสใบรับรอง',
-        //     flex: 1,
-        // },
-        // {
-        //     field: 'cert_date',
-        //     headerName: 'วันได้รับ',
-        //     flex: 1,
-        // },
-        // {
-        //     field: 'cert_expire_date',
-        //     headerName: 'วันหมดอายุ',
-        //     flex: 1,
-        // },
         {
             field: 'status',
             headerName: 'สถานะ',
             flex: 1,
             renderCell: (params) => {
-                console.log('params',params.row.status);
+                // console.log('params',params.row.status);
                 if (params.row.status == true) {
                     return (<Box>อนุมัติแล้ว</Box>);
                 } else {
-                    return (<Box sx={{ color: colors.blueAccent[500] }}>รอการอนุมัติ</Box>);
+                    return (<Box sx={{ color: colors.blueAccent[500] }}>รอการตรวจสอบ</Box>);
                 }
               },
         },        
@@ -134,25 +92,15 @@ const Farmersreset = () => {
             return (
               <Box>
 
-            { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
-                ? <Button
-                  onClick={handleClick}
+                <Button
+                  onClick={() => (navigate('/farmers/approvedetail',  { state: { row: params.row }} ))}
                   variant="outlined"
                   color="success"
                   sx={{ ml: 1 }} 
                 >
-                  อนุมัติ
-                </Button> : undefined  } 
-
-            { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
-                ? <Button
-                  onClick={handleClick}
-                  variant="outlined"
-                  color="info"
-                  sx={{ ml: 1 }}            
-                >
-                  ปฏิเสธ
-                </Button> : undefined  }                       
+                  ตรวจสอบข้อมูล
+                </Button>
+                   
               </Box>
             );
           } }         
@@ -214,12 +162,21 @@ const Farmersreset = () => {
                         rows={result}
                         columns={columns}
                         components={{ Toolbar: GridToolbar }}
+
+                        // onSelectionModelChange={(idx) => {
+                        //     let [id] = idx
+                        //     console.log('idx => ', id)
+                        //     setRowId(id)
+                        // }}
+
                         // onSelectionModelChange={(ids) => {
                         //     const selectedIDs = new Set(ids)
                         //     const selectedRowData = result.filter((row) => 
                         //         selectedIDs.has(row.id.toString())
                         //     )
-                        //     console.log(selectedRowData)
+                        //     console.log('ids ',ids)
+                        //     console.log('selectedIDs ',selectedIDs)
+                        //     console.log('selectedRowData ',selectedRowData)
                         // }}
                         // onRowClick={handleRowClick}
                     /> : undefined}
@@ -228,4 +185,4 @@ const Farmersreset = () => {
     )
 }
 
-export default Farmersreset
+export default Farmerspending

@@ -10,6 +10,7 @@ import Contacts from "./scenes/contacts";
 import Farmers from "./scenes/farmers";
 import Farmerspending from "./scenes/farmers/Farmerspending";
 import Farmersreset from "./scenes/farmers/Farmersreset";
+import Farmersreject from "./scenes/farmers/Farmersreject";
 import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
 import Bar from "./scenes/bar";
@@ -51,6 +52,9 @@ import UsersList from "scenes/users/list";
 import UsersAdd from "scenes/users/add";
 import UsersEdit from "scenes/users/edit";
 import FarmerDetail from "scenes/farmers/detail";
+import FarmerApproveDetail from "scenes/farmers/Farmerapprovedetail";
+import FarmerPasswordResetDetail from "scenes/farmers/Farmerpasswordresetdetail";
+import FarmerRejectDetail from "scenes/farmers/Farmerrejectdetail";
 
 function App() {
   const dispatch = useDispatch()
@@ -84,8 +88,12 @@ function App() {
           <Route path="researchers" element={<Researchers />} />
           <Route path="farmers" element={<Farmers />} />
           <Route path="farmers/reset" element={<Farmersreset />} />
+          <Route path="farmers/reject" element={<Farmersreject />} />
           <Route path="farmers/pending" element={<Farmerspending />} />
           <Route path="farmers/detail" element={<FarmerDetail />} />
+          <Route path="farmers/approvedetail" element={<FarmerApproveDetail />} />
+          <Route path="farmers/passwordresetdetail" element={<FarmerPasswordResetDetail />} />
+          <Route path="farmers/rejectdetail" element={<FarmerRejectDetail />} />
           <Route path="farmergroup" element={<Farmergroup />} />
           <Route path="businessgroup" element={<BusinessGroup />} />
           <Route path="herbals" element={<Herbals />} />

@@ -29,7 +29,7 @@ import Header from "../components/Header"
 const initialValues = {
     firstname: "",
     lastname: "",
-    status: false
+    status: ""
 }
 
 const userSchema = yup.object().shape({
@@ -82,7 +82,8 @@ const Registration = () => {
               formData.append('amphoe', values.amphoe)
               formData.append('province', values.province)
               formData.append('tel', values.tel)
-              console.log('values',values)
+              formData.append('status', 'false')
+              console.log('farmer values: ',values)
               dispatch(addFarmer(navigate, formData))
               setSubmitting(false)
             }}

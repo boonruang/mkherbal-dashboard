@@ -51,6 +51,34 @@ export const getFarmerById = (id) => {
   };
 };
 
+
+export const setFarmerApproveById = (id) => {
+  return (dispatch) => {
+    httpClient
+      .get(`${server.FARMER_URL}/approve/${id}`)
+      .then((result) => {
+        doGetFarmersStatus(dispatch);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const setFarmerNotApproveById = (id) => {
+  return (dispatch) => {
+    httpClient
+      .get(`${server.FARMER_URL}/notapprove/${id}`)
+      .then((result) => {
+        doGetFarmersStatus(dispatch);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+
 export const getFarmerByKeyword = (searchTerm) => {
   console.log('getFarmerByKeyword is called ',searchTerm)
   return (dispatch) => {
@@ -118,6 +146,43 @@ const doGetFarmersStatus = (dispatch) => {
     });
 };
 
+export const getFarmersReset = () => {
+  return (dispatch) => {
+    dispatch(setStateFarmerToFetching());
+    doGetFarmersReset(dispatch);
+  };
+};
+
+const doGetFarmersReset = (dispatch) => {
+  httpClient
+    .get(`${server.FARMER_URL}/reset`)
+    .then((result) => {
+      dispatch(setStateFarmerToSuccess(result.data));
+    })
+    .catch((error) => {
+      alert(JSON.stringify(error));
+      dispatch(setStateFarmerToFailed());
+    });
+};
+
+export const getFarmersReject = () => {
+  return (dispatch) => {
+    dispatch(setStateFarmerToFetching());
+    doGetFarmersReject(dispatch);
+  };
+};
+
+const doGetFarmersReject = (dispatch) => {
+  httpClient
+    .get(`${server.FARMER_URL}/reject`)
+    .then((result) => {
+      dispatch(setStateFarmerToSuccess(result.data));
+    })
+    .catch((error) => {
+      alert(JSON.stringify(error));
+      dispatch(setStateFarmerToFailed());
+    });
+};
 
 export const addFarmer = (navigate, formData) => {
   console.log('navigate action',navigate)

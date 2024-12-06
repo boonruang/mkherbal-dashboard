@@ -79,6 +79,7 @@ const Forgetpassword = () => {
               formData.append('amphoe', values.amphoe)
               formData.append('province', values.province)
               formData.append('tel', values.tel)
+              formData.append('reset', 'true')
               console.log('values',values)
               dispatch(addFarmer(navigate, formData))
               setSubmitting(false)
@@ -135,7 +136,7 @@ const Forgetpassword = () => {
                             helperText={touched.username && errors.username}
                             sx={{ gridColumn: "span 2" }}
                         />
-                        <TextField
+                        {/* <TextField
                             fullWidth
                             variant="filled"
                             type="password"
@@ -160,7 +161,7 @@ const Forgetpassword = () => {
                             error={!!touched.password2 && !!errors.password2}
                             helperText={touched.password2 && errors.password2}
                             sx={{ gridColumn: "span 2" }}
-                        />   
+                        />    */}
                         <TextField
                             fullWidth
                             variant="filled"

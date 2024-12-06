@@ -4,7 +4,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import { tokens } from "../../theme"
 // import { mockDataFarmers } from "../../data/mockDataFarmers"
 import AddIcon from '@mui/icons-material/Add';
-import { getFarmersReset } from '../../actions/farmer.action'
+import { getFarmersReject } from '../../actions/farmer.action'
 
 import Header from "../../components/Header"
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,7 @@ import { ROLES } from '../../constants'
 import { Link, useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 
-const Farmersreset = () => {
+const Farmersreject = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
@@ -21,7 +21,7 @@ const Farmersreset = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getFarmersReset())
+        dispatch(getFarmersReject())
     },[dispatch])
 
 
@@ -74,14 +74,14 @@ const Farmersreset = () => {
         },
         {
             field: 'status',
-            headerName: 'ขอแก้ไขรหัส',
+            headerName: 'สถานะ',
             flex: 1,
             renderCell: (params) => {
-                console.log('params',params.row.reset);
-                if (params.row.reset == true) {
-                    return (<Box>รอดำเนินการ</Box>);
+                console.log('params',params.row.reject);
+                if (params.row.reject == true) {
+                    return (<Box>รอการตรวจสอบอีกครั้ง</Box>);
                 } else {
-                    return (<Box sx={{ color: colors.blueAccent[500] }}>ดำเนินการแล้ว</Box>);
+                    return (<Box sx={{ color: colors.blueAccent[500] }}>พร้อมดำเนินการ</Box>);
                 }
               },
         },        
@@ -90,7 +90,7 @@ const Farmersreset = () => {
               <Box>
 
             <Button
-                  onClick={() => (navigate('/farmers/passwordresetdetail',  { state: { row: params.row }} ))}
+                  onClick={() => (navigate('/farmers/rejectdetail',  { state: { row: params.row }} ))}
                   variant="outlined"
                   color="success"
                   sx={{ ml: 1 }} 
@@ -172,4 +172,4 @@ const Farmersreset = () => {
     )
 }
 
-export default Farmersreset
+export default Farmersreject
