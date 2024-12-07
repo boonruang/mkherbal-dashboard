@@ -34,6 +34,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PendingIcon from '@mui/icons-material/Pending';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
@@ -228,7 +229,6 @@ const Sidebar = () => {
 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
                            ? <SubMenu title="จัดการผู้ใช้" icon={<PeopleOutlinedIcon />}>
-
                             <Item
                                 title="ข้อมูลผู้ใช้"
                                 to="/users/list"
@@ -236,9 +236,35 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             />
+                         </SubMenu>   : undefined  }       
 
-
-                         </SubMenu>   : undefined  }                               
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+                           ? <SubMenu title="จัดการคำร้อง" icon={<PlaylistAddCheckIcon />}>
+                            { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                           ? <Item
+                                title="เกษตรกรรออนุมัติ"
+                                to="/farmers/pending"
+                                icon={<PendingIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }  
+                            { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                            ? <Item
+                                    title="เกษตรกรขอรีเซ็ตรหัส"
+                                    to="/farmers/reset"
+                                    icon={<LockResetIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                /> : undefined  }  
+                            { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                            ? <Item
+                                    title="เกษตรกรไม่อนุมัติ"
+                                    to="/farmers/reject"
+                                    icon={<ThumbDownOffAltIcon />}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                /> : undefined  }  
+                            </SubMenu>   : undefined  }                                                     
 
                         <SubMenu title="เกษตรกร" icon={<AgricultureIcon />}>
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
@@ -257,30 +283,7 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }                              
-                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
-                           ? <Item
-                                title="เกษตรกรรออนุมัติ"
-                                to="/farmers/pending"
-                                icon={<PendingIcon />}
-                                selected={selected}
-                                setSelected={setSelected}
-                            /> : undefined  }  
-                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
-                           ? <Item
-                                title="เกษตรกรขอรีเซ็ตรหัส"
-                                to="/farmers/reset"
-                                icon={<LockResetIcon />}
-                                selected={selected}
-                                setSelected={setSelected}
-                            /> : undefined  }  
-                        { result?.roles?.find((role) => [ROLES.Admin].includes(role))
-                           ? <Item
-                                title="เกษตรกรไม่อนุมัติ"
-                                to="/farmers/reject"
-                                icon={<ThumbDownOffAltIcon />}
-                                selected={selected}
-                                setSelected={setSelected}
-                            /> : undefined  }                              
+                            
 {/* 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
