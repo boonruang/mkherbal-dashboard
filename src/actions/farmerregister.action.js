@@ -190,7 +190,7 @@ export const addFarmersRegister = (navigate, formData) => {
   return async (dispatch) => {
     try {
       // success
-      let result = await httpClient.post(server.FARMER_ADD_URL, formData)
+      let result = await httpClient.post(server.FARMERREGISTER_URL, formData)
       console.log('addFarmersRegister formData successfully: ', result)
       navigate('/thankyoureg')
     } catch (error) {

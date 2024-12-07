@@ -25,7 +25,7 @@ const Farmersreset = () => {
     },[dispatch])
 
 
-    const { result, isFetching } = useSelector((state) => state.app.farmerReducer)
+    const { result, isFetching } = useSelector((state) => state.app.farmerregisterReducer)
 
     const loginReducer = useSelector((state) => state.app.loginReducer)
 

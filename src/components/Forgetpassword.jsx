@@ -80,6 +80,7 @@ const Forgetpassword = () => {
               formData.append('province', values.province)
               formData.append('tel', values.tel)
               formData.append('reset', 'true')
+              formData.append('reject', 'false')
               console.log('values',values)
               dispatch(addFarmersRegister(navigate, formData))
               setSubmitting(false)

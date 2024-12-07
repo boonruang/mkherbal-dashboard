@@ -83,6 +83,7 @@ const Registration = () => {
               formData.append('province', values.province)
               formData.append('tel', values.tel)
               formData.append('status', 'false')
+              formData.append('reject', 'false')
               console.log('farmer values: ',values)
               dispatch(addFarmersRegister(navigate, formData))
               setSubmitting(false)
