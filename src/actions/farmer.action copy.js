@@ -52,6 +52,33 @@ export const getFarmerById = (id) => {
 };
 
 
+export const setFarmerApproveById = (id) => {
+  return (dispatch) => {
+    httpClient
+      .get(`${server.FARMER_URL}/approve/${id}`)
+      .then((result) => {
+        doGetFarmersStatus(dispatch);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const setFarmerNotApproveById = (id) => {
+  return (dispatch) => {
+    httpClient
+      .get(`${server.FARMER_URL}/notapprove/${id}`)
+      .then((result) => {
+        doGetFarmersStatus(dispatch);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+
 export const getFarmerByKeyword = (searchTerm) => {
   console.log('getFarmerByKeyword is called ',searchTerm)
   return (dispatch) => {
@@ -99,3 +126,76 @@ const doGetFarmers = (dispatch) => {
       dispatch(setStateFarmerToFailed());
     });
 };
+
+export const getFarmersStatus = () => {
+  return (dispatch) => {
+    dispatch(setStateFarmerToFetching());
+    doGetFarmersStatus(dispatch);
+  };
+};
+
+const doGetFarmersStatus = (dispatch) => {
+  httpClient
+    .get(`${server.FARMER_URL}/status`)
+    .then((result) => {
+      dispatch(setStateFarmerToSuccess(result.data));
+    })
+    .catch((error) => {
+      alert(JSON.stringify(error));
+      dispatch(setStateFarmerToFailed());
+    });
+};
+
+export const getFarmersReset = () => {
+  return (dispatch) => {
+    dispatch(setStateFarmerToFetching());
+    doGetFarmersReset(dispatch);
+  };
+};
+
+const doGetFarmersReset = (dispatch) => {
+  httpClient
+    .get(`${server.FARMER_URL}/reset`)
+    .then((result) => {
+      dispatch(setStateFarmerToSuccess(result.data));
+    })
+    .catch((error) => {
+      alert(JSON.stringify(error));
+      dispatch(setStateFarmerToFailed());
+    });
+};
+
+export const getFarmersReject = () => {
+  return (dispatch) => {
+    dispatch(setStateFarmerToFetching());
+    doGetFarmersReject(dispatch);
+  };
+};
+
+const doGetFarmersReject = (dispatch) => {
+  httpClient
+    .get(`${server.FARMER_URL}/reject`)
+    .then((result) => {
+      dispatch(setStateFarmerToSuccess(result.data));
+    })
+    .catch((error) => {
+      alert(JSON.stringify(error));
+      dispatch(setStateFarmerToFailed());
+    });
+};
+
+export const addFarmer = (navigate, formData) => {
+  console.log('navigate action',navigate)
+  console.log('formData action',formData)
+  return async (dispatch) => {
+    try {
+      // success
+      let result = await httpClient.post(server.FARMER_ADD_URL, formData)
+      console.log('addFarmer formData successfully: ', result)
+      navigate('/thankyoureg')
+    } catch (error) {
+      // failed
+      console.log('addFarmer formData Error: ', error.toString())
+    }
+  }
+}

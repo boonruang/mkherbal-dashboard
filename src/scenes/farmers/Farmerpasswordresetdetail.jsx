@@ -20,7 +20,7 @@ import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
 import { addUser } from '../../actions/user.action'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { setFarmerApproveById } from '../../actions/farmer.action'
+import { setFarmerRegisterApproveById } from '../../actions/farmerregister.action'
 
 const initialValues = {
     username: "",

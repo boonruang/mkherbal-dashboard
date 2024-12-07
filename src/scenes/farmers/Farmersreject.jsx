@@ -4,7 +4,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import { tokens } from "../../theme"
 // import { mockDataFarmers } from "../../data/mockDataFarmers"
 import AddIcon from '@mui/icons-material/Add';
-import { getFarmersReject } from '../../actions/farmer.action'
+import { getFarmersRegisterReject } from '../../actions/farmerregister.action'
 
 import Header from "../../components/Header"
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,7 @@ const Farmersreject = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getFarmersReject())
+        dispatch(getFarmersRegisterReject())
     },[dispatch])
 
 

@@ -20,7 +20,7 @@ import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
 import { addUser } from '../../actions/user.action'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { setFarmerApproveById, setFarmerNotApproveById} from '../../actions/farmer.action'
+import { setFarmersRegisterApproveById, setFarmersRegisterNotApproveById} from '../../actions/farmerregister.action'
 
 const initialValues = {
     username: "",
@@ -60,13 +60,13 @@ const FarmerApproveDetail = () => {
 
   const handleApprovalClick = () => {
         // console.log('clicked on id', location.state.row.id)
-        dispatch(setFarmerApproveById(location.state.row.id))
+        dispatch(setFarmersRegisterApproveById(location.state.row.id))
         navigate('/farmers/pending')
   }
 
   const handleNotApprovalClick = () => {
         // console.log('Not Approved Id', location.state.row.id)
-        dispatch(setFarmerNotApproveById(location.state.row.id))
+        dispatch(setFarmersRegisterNotApproveById(location.state.row.id))
         navigate('/farmers/pending')        
   }
 

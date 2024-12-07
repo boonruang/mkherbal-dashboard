@@ -23,7 +23,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
-import { addFarmer } from '../actions/farmer.action'
+import { addFarmersRegister } from '../actions/farmerregister.action'
 import { useNavigate } from 'react-router-dom'
 import Header from "../components/Header"
 const initialValues = {
@@ -84,7 +84,7 @@ const Registration = () => {
               formData.append('tel', values.tel)
               formData.append('status', 'false')
               console.log('farmer values: ',values)
-              dispatch(addFarmer(navigate, formData))
+              dispatch(addFarmersRegister(navigate, formData))
               setSubmitting(false)
             }}
             initialValues={initialValues}

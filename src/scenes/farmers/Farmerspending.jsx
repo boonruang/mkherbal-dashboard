@@ -4,7 +4,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import { tokens } from "../../theme"
 // import { mockDataFarmers } from "../../data/mockDataFarmers"
 import AddIcon from '@mui/icons-material/Add';
-import { getFarmersStatus } from '../../actions/farmer.action'
+import { getFarmersRegisterStatus } from '../../actions/farmerregister.action'
 
 import Header from "../../components/Header"
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +23,7 @@ const Farmerspending = () => {
 
 
     useEffect(() => {
-        dispatch(getFarmersStatus())
+        dispatch(getFarmersRegisterStatus())
     },[dispatch])
 
 
