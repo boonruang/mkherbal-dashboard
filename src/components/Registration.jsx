@@ -81,6 +81,7 @@ const Registration = () => {
               formData.append('tambon', values.tambon)
               formData.append('amphoe', values.amphoe)
               formData.append('province', values.province)
+              formData.append('postcode', values.postcode)
               formData.append('tel', values.tel)
               formData.append('status', 'false')
               formData.append('reject', 'false')
@@ -231,7 +232,6 @@ const Registration = () => {
                             helperText={touched.amphoe && errors.amphoe}
                             sx={{ gridColumn: "span 2" }}
                         />                         
-
                         <TextField
                             fullWidth
                             variant="filled"
@@ -244,7 +244,20 @@ const Registration = () => {
                             error={!!touched.province && !!errors.province}
                             helperText={touched.province && errors.province}
                             sx={{ gridColumn: "span 2" }}
-                        />                        
+                        />   
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="รหัสไปรษณีย์"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.postcode}
+                            name="postcode"                           
+                            error={!!touched.postcode && !!errors.postcode}
+                            helperText={touched.postcode && errors.postcode}
+                            sx={{ gridColumn: "span 2" }}
+                        />                                              
                         <TextField
                             fullWidth
                             variant="filled"

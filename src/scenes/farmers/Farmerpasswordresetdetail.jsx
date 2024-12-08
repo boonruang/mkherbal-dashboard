@@ -197,6 +197,17 @@ const FarmerPasswordResetDetail = () => {
                             fullWidth
                             variant="filled"
                             type="text"
+                            label="รหัสไปรษณีย์"
+                            value={location.state.row.postcode}
+                            name="postcode"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />                        
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
                             label="เบอร์โทร"
                             value={location.state.row.tel}
                             name="tel"
