@@ -33,18 +33,21 @@ const initialValues = {
 }
 
 const userSchema = yup.object().shape({
-    firstname: yup.string().required("required"),
-    lastname: yup.string().required("required"),
-    username: yup.string().required("required"),
-    password: yup.string().required("required"),
-    password2: yup.string().required("required"),
-    cid: yup.string().required("required"),
-    hno: yup.string().required("required"),
-    moo: yup.string().required("required"),
-    tambon: yup.string().required("required"),
-    amphoe: yup.string().required("required"),
-    province: yup.string().required("required"),
-    tel: yup.string().required("required"),
+    firstname: yup.string().required("ต้องใส่"),
+    lastname: yup.string().required("ต้องใส่"),
+    username: yup.string().required("ต้องใส่"),
+    password: yup.string().required("ต้องใส่").matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "ถาษาอังกฤษไม่น้อยกว่า 8 ตัวอักษร และประกอบด้วย 1 ตัวใหญ่ 1 ตัวเล็ก 1 ตัวเลข และ 1 อักขณะพิเศษ (!,@,#,$,&)"
+      ),
+    password2: yup.string().oneOf([yup.ref('password'), null], 'รหัสผ่านต้องเหมือนกัน'),
+    cid: yup.string().required("ต้องใส่"),
+    hno: yup.string().required("ต้องใส่"),
+    moo: yup.string().required("ต้องใส่"),
+    tambon: yup.string().required("ต้องใส่"),
+    amphoe: yup.string().required("ต้องใส่"),
+    province: yup.string().required("ต้องใส่"),
+    tel: yup.string().required("ต้องใส่"),
 })
 
 
