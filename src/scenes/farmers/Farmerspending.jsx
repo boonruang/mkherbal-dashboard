@@ -119,7 +119,7 @@ const Farmerspending = () => {
             <Box m="40px 0 0 0" height="75vh" sx={{
                 "& .MuiDataGrid-root": {
                     border: 1,
-                    borderColor: colors.greenAccent[500]
+                    borderColor: colors.greenAccent[500],
                 },
                 "& .MuiDataGrid-cell": {
                     boderBottom: "none"
@@ -168,6 +168,11 @@ const Farmerspending = () => {
                         rows={result}
                         columns={columns}
                         components={{ Toolbar: GridToolbar }}
+                        sx={{
+                            "& .MuiDataGrid-root": {
+                                fontsize: 2.25,
+                            }
+                        }}
 
                         // onSelectionModelChange={(idx) => {
                         //     let [id] = idx
