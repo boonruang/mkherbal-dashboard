@@ -102,21 +102,21 @@ const Farmers = () => {
         //     headerName: 'เบอร์ติดต่อ',
         //     flex: 1,
         // },
-        {
-            field: 'cert',
-            headerName: 'รหัสใบรับรอง',
-            flex: 1,
-        },
-        {
-            field: 'cert_date',
-            headerName: 'วันได้รับ',
-            flex: 1,
-        },
-        {
-            field: 'cert_expire_date',
-            headerName: 'วันหมดอายุ',
-            flex: 1,
-        },
+        // {
+        //     field: 'cert',
+        //     headerName: 'รหัสใบรับรอง',
+        //     flex: 1,
+        // },
+        // {
+        //     field: 'cert_date',
+        //     headerName: 'วันได้รับ',
+        //     flex: 1,
+        // },
+        // {
+        //     field: 'cert_expire_date',
+        //     headerName: 'วันหมดอายุ',
+        //     flex: 1,
+        // },
         { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1.5, renderCell: (params) => {
             return (
               <Box>

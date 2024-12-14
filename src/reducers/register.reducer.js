@@ -1,10 +1,10 @@
 import {
-  HTTP_FARMERREGISTER_FAILED,
-  HTTP_FARMERREGISTER_FETCHING,
-  HTTP_FARMERREGISTER_SUCCESS,
-  HTTP_FARMERREGISTER_SELECTED_SUCCESS,
-  HTTP_FARMERREGISTER_SELECTED_FAILED,
-  HTTP_FARMERREGISTER_SELECTED_FETCHING,
+  HTTP_REGISTER_FAILED,
+  HTTP_REGISTER_FETCHING,
+  HTTP_REGISTER_SUCCESS,
+  HTTP_REGISTER_SELECTED_SUCCESS,
+  HTTP_REGISTER_SELECTED_FAILED,
+  HTTP_REGISTER_SELECTED_FETCHING,
 } from '../constants';
 
 const initialState = {
@@ -16,23 +16,23 @@ const initialState = {
   selectedResult: null,
 };
 
-const farmerregisterReducer = (state = initialState, { type, payload }) => {
+const gisterReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case HTTP_FARMERREGISTER_FETCHING:
+    case HTTP_REGISTER_FETCHING:
       return { ...state, result: null, isFetching: true, isError: false };
-    case HTTP_FARMERREGISTER_SUCCESS:
+    case HTTP_REGISTER_SUCCESS:
       return { ...state, result: payload.result, isFetching: false, isError: false };
-    case HTTP_FARMERREGISTER_FAILED:
+    case HTTP_REGISTER_FAILED:
       return { ...state, result: null, isFetching: false, isError: true };
-    case HTTP_FARMERREGISTER_SELECTED_SUCCESS:
+    case HTTP_REGISTER_SELECTED_SUCCESS:
       return { ...state, selectedResult: payload.result, isSelectedError: false, isSelectedFetching : false };            
-    case HTTP_FARMERREGISTER_SELECTED_FAILED:
+    case HTTP_REGISTER_SELECTED_FAILED:
       return { ...state, selectedResult: null, isSelectedError: true, isSelectedFetching : false };            
-    case HTTP_FARMERREGISTER_SELECTED_FETCHING:
+    case HTTP_REGISTER_SELECTED_FETCHING:
       return { ...state, selectedResult: null, isSelectedError: false , isSelectedFetching : true };         
     default:
       return state;
   }
 };
 
-export default farmerregisterReducer
+export default gisterReducer

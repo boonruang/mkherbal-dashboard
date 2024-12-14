@@ -277,6 +277,14 @@ const Sidebar = () => {
                             /> : undefined  } 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
+                                title="รหัสไปรษณีย์"
+                                to="/postcode"
+                                icon={<PersonIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                             
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
                                 title="กลุ่มเกษตรกร"
                                 to="/farmergroup"
                                 icon={<PeopleOutlinedIcon />}

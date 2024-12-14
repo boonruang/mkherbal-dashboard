@@ -1,46 +1,46 @@
 import {
-  HTTP_FARMERREGISTER_FAILED,
-  HTTP_FARMERREGISTER_FETCHING,
-  HTTP_FARMERREGISTER_SUCCESS,
-  HTTP_FARMERREGISTER_SELECTED_SUCCESS,
-  HTTP_FARMERREGISTER_SELECTED_FAILED,
-  HTTP_FARMERREGISTER_SELECTED_FETCHING,
+  HTTP_REGISTER_FAILED,
+  HTTP_REGISTER_FETCHING,
+  HTTP_REGISTER_SUCCESS,
+  HTTP_REGISTER_SELECTED_SUCCESS,
+  HTTP_REGISTER_SELECTED_FAILED,
+  HTTP_REGISTER_SELECTED_FETCHING,
   server
 } from '../constants';
 import { httpClient } from '../utils/HttpClient';
 
 const setStateFarmersRegisterToSuccess = (payload) => ({
-  type: HTTP_FARMERREGISTER_SUCCESS,
+  type: HTTP_REGISTER_SUCCESS,
   payload
 });
 
 const setStateFarmersRegisterToFetching = () => ({
-  type: HTTP_FARMERREGISTER_FETCHING
+  type: HTTP_REGISTER_FETCHING
 });
 
 const setStateFarmersRegisterToFailed = () => ({
-  type: HTTP_FARMERREGISTER_FAILED
+  type: HTTP_REGISTER_FAILED
 });
 
 
 export const setStateFarmersRegisterSelectedToFetching = () => ({
-  type: HTTP_FARMERREGISTER_SELECTED_FETCHING
+  type: HTTP_REGISTER_SELECTED_FETCHING
 });
 
 export const setStateFarmersRegisterSelectedToSuccess = (payload) => ({
-  type: HTTP_FARMERREGISTER_SELECTED_SUCCESS,
+  type: HTTP_REGISTER_SELECTED_SUCCESS,
   payload
 });
 
 const setStateFarmersRegisterSelectedToFailed = () => ({
-  type: HTTP_FARMERREGISTER_SELECTED_FAILED
+  type: HTTP_REGISTER_SELECTED_FAILED
 });
 
 export const getFarmersRegisterById = (id) => {
   return (dispatch) => {
     dispatch(setStateFarmersRegisterSelectedToFetching());
     httpClient
-      .get(`${server.FARMERREGISTER_URL}/select/${id}`)
+      .get(`${server.REGISTER_URL}/select/${id}`)
       .then((result) => {
         dispatch(setStateFarmersRegisterSelectedToSuccess(result.data));
       })
@@ -55,7 +55,7 @@ export const getFarmersRegisterById = (id) => {
 export const setFarmersRegisterApproveById = (id) => {
   return (dispatch) => {
     httpClient
-      .get(`${server.FARMERREGISTER_URL}/approve/${id}`)
+      .get(`${server.REGISTER_URL}/approve/${id}`)
       .then((result) => {
         doGetFarmersRegisterStatus(dispatch);
       })
@@ -68,7 +68,7 @@ export const setFarmersRegisterApproveById = (id) => {
 export const setFarmersRegisterNotApproveById = (id) => {
   return (dispatch) => {
     httpClient
-      .get(`${server.FARMERREGISTER_URL}/notapprove/${id}`)
+      .get(`${server.REGISTER_URL}/notapprove/${id}`)
       .then((result) => {
         doGetFarmersRegisterStatus(dispatch);
       })
@@ -88,7 +88,7 @@ export const getFarmersRegisterByKeyword = (searchTerm) => {
     if (keyword !== null && keyword !== '') {
       console.log('httpClient is called keyword ',keyword)
       httpClient
-        .get(`${server.FARMERREGISTER_URL}/list/${keyword}`)
+        .get(`${server.REGISTER_URL}/list/${keyword}`)
         .then((result) => {
           dispatch(setStateFarmersRegisterToSuccess(result.data));
           console.log('setStateFarmersRegisterToSuccess is called ',result.data)
@@ -103,7 +103,7 @@ export const getFarmersRegisterByKeyword = (searchTerm) => {
 export const deleteFarmersRegister = (id) => {
   return async (dispatch) => {
     dispatch(setStateFarmersRegisterToFetching());
-    await httpClient.delete(`${server.FARMERREGISTER_URL}/${id}`);
+    await httpClient.delete(`${server.REGISTER_URL}/${id}`);
     await doGetFarmersRegister(dispatch);
   };
 };
@@ -117,7 +117,7 @@ export const getFarmersRegister = () => {
 
 const doGetFarmersRegister = (dispatch) => {
   httpClient
-    .get(`${server.FARMERREGISTER_URL}/list`)
+    .get(`${server.REGISTER_URL}/list`)
     .then((result) => {
       dispatch(setStateFarmersRegisterToSuccess(result.data));
     })
@@ -136,7 +136,7 @@ export const getFarmersRegisterStatus = () => {
 
 const doGetFarmersRegisterStatus = (dispatch) => {
   httpClient
-    .get(`${server.FARMERREGISTER_URL}/status`)
+    .get(`${server.REGISTER_URL}/status`)
     .then((result) => {
       dispatch(setStateFarmersRegisterToSuccess(result.data));
     })
@@ -155,7 +155,7 @@ export const getFarmersRegisterReset = () => {
 
 const doGetFarmersRegisterReset = (dispatch) => {
   httpClient
-    .get(`${server.FARMERREGISTER_URL}/reset`)
+    .get(`${server.REGISTER_URL}/reset`)
     .then((result) => {
       dispatch(setStateFarmersRegisterToSuccess(result.data));
     })
@@ -174,7 +174,7 @@ export const getFarmersRegisterReject = () => {
 
 const doGetFarmersRegisterReject = (dispatch) => {
   httpClient
-    .get(`${server.FARMERREGISTER_URL}/reject`)
+    .get(`${server.REGISTER_URL}/reject`)
     .then((result) => {
       dispatch(setStateFarmersRegisterToSuccess(result.data));
     })
@@ -190,7 +190,7 @@ export const addFarmersRegister = (navigate, formData) => {
   return async (dispatch) => {
     try {
       // success
-      let result = await httpClient.post(server.FARMERREGISTER_URL, formData)
+      let result = await httpClient.post(server.REGISTER_URL, formData)
       console.log('addFarmersRegister formData successfully: ', result)
       navigate('/thankyoureg')
     } catch (error) {

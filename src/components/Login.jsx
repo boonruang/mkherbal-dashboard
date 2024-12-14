@@ -140,7 +140,7 @@ const Login = () => {
                 </Grid>
                 <Grid item>
                   <Link to="/registration" variant="body2">
-                    ลงทะเบียนเกษตรกร
+                    ลงทะเบียน
                   </Link>
                 </Grid>
               </Grid>

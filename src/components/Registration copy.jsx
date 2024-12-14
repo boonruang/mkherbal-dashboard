@@ -15,7 +15,13 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 
-import { Formik } from 'formik'
+import Divider from '@mui/material/Divider';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+
+import { Formik, Field, Form } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import AddIcon from '@mui/icons-material/Add';
@@ -29,24 +35,36 @@ import Header from "../components/Header"
 const initialValues = {
     firstname: "",
     lastname: "",
-    status: false
+    status: "",
+    register_type: "",
 }
 
 const userSchema = yup.object().shape({
-    firstname: yup.string().required("required"),
-    lastname: yup.string().required("required"),
-    username: yup.string().required("required"),
-    cid: yup.string().required("required"),
-    hno: yup.string().required("required"),
-    moo: yup.string().required("required"),
-    tambon: yup.string().required("required"),
-    amphoe: yup.string().required("required"),
-    province: yup.string().required("required"),
-    tel: yup.string().required("required"),
+    firstname: yup.string().required("ต้องใส่"),
+    lastname: yup.string().required("ต้องใส่"),
+    username: yup.string().required("ต้องใส่"),
+    // password: yup.string().required("ต้องใส่").matches(
+    //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+    //     "ถาษาอังกฤษไม่น้อยกว่า 8 ตัวอักษร และประกอบด้วย 1 ตัวใหญ่ 1 ตัวเล็ก 1 ตัวเลข และ 1 อักขณะพิเศษ (!,@,#,$,&)"
+    //   ),
+    password: yup.string().required("ต้องใส่").matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
+        "ต้องประกอบด้วยอักษรภาษาอังกฤษตัวใหญ่ ตัวเล็ก และตัวเลข รวมกันต้องไม่น้อยกว่า 8 ตัวอักษร "
+      ),
+    password2: yup.string().required("ต้องใส่").oneOf([yup.ref('password'), null], 'รหัสผ่านต้องเหมือนกัน'),
+    cid: yup.string().required("ต้องใส่"),
+    hno: yup.string().required("ต้องใส่"),
+    moo: yup.string().required("ต้องใส่"),
+    tambon: yup.string().required("ต้องใส่"),
+    amphoe: yup.string().required("ต้องใส่"),
+    province: yup.string().required("ต้องใส่"),
+    postcode: yup.string().required("ต้องใส่"),
+    tel: yup.string().required("ต้องใส่"),
+    register_type: yup.string().required("ต้องเลือก"),
 })
 
 
-const Forgetpassword = () => {
+const Registration = () => {
 
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)     
@@ -55,15 +73,24 @@ const Forgetpassword = () => {
 
   const navigate = useNavigate()
 
+  const [registerType, setRegisterType] = useState('1');
+  
 
    const handleCancelButtonClick = () => {
     navigate('/')
    }
+
+   const handleRadioButtonChange = (event) => {
+    setRegisterType(event.target.value);
+    // dispatch(setPlantingSelection(event.target.value))
+  };
+
   
     const isNonMobile = useMediaQuery("(min-width:600px)")
 
+
     return <Box m="20px">
-        <Header title="แจ้งขอรหัสผ่านใหม่" />
+        <Header title="ลงทะเบียน" />
 
         <Formik
             // onSubmit={handleFormSubmit}
@@ -72,32 +99,56 @@ const Forgetpassword = () => {
               formData.append('firstname', values.firstname)
               formData.append('lastname', values.lastname)
               formData.append('username', values.username)
+              formData.append('password', values.password)
               formData.append('cid', values.cid)
               formData.append('hno', values.hno)
               formData.append('moo', values.moo)
               formData.append('tambon', values.tambon)
               formData.append('amphoe', values.amphoe)
               formData.append('province', values.province)
+              formData.append('postcode', values.postcode)
               formData.append('tel', values.tel)
-              formData.append('reset', 'true')
+              formData.append('status', 'false')
               formData.append('reject', 'false')
-              console.log('values',values)
-              dispatch(addFarmersRegister(navigate, formData))
-              setSubmitting(false)
+              formData.append('register_type',values.register_type)
+              console.log('Registration form values: ',values)
+                dispatch(addFarmersRegister(navigate, formData))
+               setSubmitting(false)
             }}
             initialValues={initialValues}
             validationSchema={userSchema}
-        >
-            {({ values, errors, touched, isSubmitting, isValid, dirty, handleBlur, handleChange, handleSubmit }) => (
-                <form onSubmit={handleSubmit}>
+            // validateOnMount
+            >
+            {({ values, errors, touched, isSubmitting,isValid, isValidating, dirty, handleBlur, handleChange, handleSubmit }) => (
+                <Form onSubmit={handleSubmit}>
+                    {console.log('isValid: ', isValid)}
+                    {console.log('isSubmitting: ', isSubmitting)}
+                    <Box sx={{mt:"5px"}}>
+                        <Divider sx={{ mb: '10px'}}/>
+                            <FormControl>
+                            <RadioGroup
+                                row="true" 
+                                role="group"
+                                aria-labelledby="register-selection-label"
+                                defaultValue="1"
+                                >
+                                    <FormControlLabel control={<Field type="radio" name="register_type" value="1" />} label="เกษตรกร" />
+                                    <FormControlLabel control={<Field type="radio" name="register_type" value="2" />} label="ปราชญ์สมุนไพร" />    
+                                    <FormControlLabel control={<Field type="radio" name="register_type" value="3" />} label="ผู้ประกอบการ" />    
+                                </RadioGroup>  
+                            </FormControl>                          
+                    </Box> 
+
                     <Box
                         display="grid"
                         gap="30px"
                         gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                         sx={{
+                            mt: "20px",
                             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" }
                         }}
                     >
+
                         <TextField
                             fullWidth
                             variant="filled"
@@ -137,7 +188,7 @@ const Forgetpassword = () => {
                             helperText={touched.username && errors.username}
                             sx={{ gridColumn: "span 2" }}
                         />
-                        {/* <TextField
+                        <TextField
                             fullWidth
                             variant="filled"
                             type="password"
@@ -162,7 +213,7 @@ const Forgetpassword = () => {
                             error={!!touched.password2 && !!errors.password2}
                             helperText={touched.password2 && errors.password2}
                             sx={{ gridColumn: "span 2" }}
-                        />    */}
+                        />   
                         <TextField
                             fullWidth
                             variant="filled"
@@ -228,7 +279,6 @@ const Forgetpassword = () => {
                             helperText={touched.amphoe && errors.amphoe}
                             sx={{ gridColumn: "span 2" }}
                         />                         
-
                         <TextField
                             fullWidth
                             variant="filled"
@@ -241,7 +291,20 @@ const Forgetpassword = () => {
                             error={!!touched.province && !!errors.province}
                             helperText={touched.province && errors.province}
                             sx={{ gridColumn: "span 2" }}
-                        />                        
+                        />   
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="รหัสไปรษณีย์"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.postcode}
+                            name="postcode"                           
+                            error={!!touched.postcode && !!errors.postcode}
+                            helperText={touched.postcode && errors.postcode}
+                            sx={{ gridColumn: "span 2" }}
+                        />                                              
                         <TextField
                             fullWidth
                             variant="filled"
@@ -275,8 +338,9 @@ const Forgetpassword = () => {
                     >
                         <Button  
                             type='submit'
-                            // disabled={isSubmitting}
                             disabled={!(dirty && isValid)}
+                            // disabled={isSubmitting}
+                            // disabled={true}
                             sx={{
                                 backgroundColor: colors.greenAccent[600],
                                 color: colors.grey[100],
@@ -288,11 +352,11 @@ const Forgetpassword = () => {
                                 '&:hover': {backgroundColor: colors.blueAccent[700]}
                             }}
                         >
-                            ส่งข้อมูล
+                            ลงทะเบียน
                         </Button>
                           <Button  
                               onClick={handleCancelButtonClick}
-                              type='submit'
+                              type='button'
                               sx={{
                                   backgroundColor: colors.greenAccent[600],
                                   color: colors.grey[100],
@@ -308,10 +372,10 @@ const Forgetpassword = () => {
                           </Button>    
                         </Box>    
                   </Box>   
-                </form>
+                </Form>
             )}
         </Formik>
     </Box >
 }
 
-export default Forgetpassword
+export default Registration

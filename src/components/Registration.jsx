@@ -11,11 +11,19 @@ import {
     Typography
   } from '@mui/material'
 
+import { postcodes } from "../data/thPostcode.js"
+
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 
-import { Formik } from 'formik'
+import Divider from '@mui/material/Divider';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+
+import { Formik, Field, Form } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import AddIcon from '@mui/icons-material/Add';
@@ -23,35 +31,35 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
-import { addFarmersRegister } from '../actions/farmerregister.action'
+import { addFarmersRegister } from '../actions/register.action'
 import { useNavigate } from 'react-router-dom'
 import Header from "../components/Header"
+import { ConstructionOutlined } from '@mui/icons-material';
 const initialValues = {
     firstname: "",
     lastname: "",
-    status: ""
+    status: "",
+    register_type: "",
 }
 
 const userSchema = yup.object().shape({
     firstname: yup.string().required("ต้องใส่"),
     lastname: yup.string().required("ต้องใส่"),
     username: yup.string().required("ต้องใส่"),
-    // password: yup.string().required("ต้องใส่").matches(
-    //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-    //     "ถาษาอังกฤษไม่น้อยกว่า 8 ตัวอักษร และประกอบด้วย 1 ตัวใหญ่ 1 ตัวเล็ก 1 ตัวเลข และ 1 อักขณะพิเศษ (!,@,#,$,&)"
-    //   ),
     password: yup.string().required("ต้องใส่").matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
-        "ถาษาอังกฤษไม่น้อยกว่า 8 ตัวอักษร และประกอบด้วย 1 ตัวใหญ่ 1 ตัวเล็ก 1 ตัวเลข"
+        "ต้องประกอบด้วยอักษรภาษาอังกฤษตัวใหญ่ ตัวเล็ก และตัวเลข รวมกันต้องไม่น้อยกว่า 8 ตัวอักษร "
       ),
-    password2: yup.string().oneOf([yup.ref('password'), null], 'รหัสผ่านต้องเหมือนกัน'),
+    password2: yup.string().required("ต้องใส่").oneOf([yup.ref('password'), null], 'รหัสผ่านต้องเหมือนกัน'),
     cid: yup.string().required("ต้องใส่"),
     hno: yup.string().required("ต้องใส่"),
     moo: yup.string().required("ต้องใส่"),
     tambon: yup.string().required("ต้องใส่"),
     amphoe: yup.string().required("ต้องใส่"),
     province: yup.string().required("ต้องใส่"),
+    postcode: yup.string().required("ต้องใส่"),
     tel: yup.string().required("ต้องใส่"),
+    register_type: yup.string().required("ต้องเลือก"),
 })
 
 
@@ -64,15 +72,137 @@ const Registration = () => {
 
   const navigate = useNavigate()
 
+  const [registerType, setRegisterType] = useState('1');
+
+  
+  const [tambon1, setTambon] = useState('');
+  const [amphure1, setAmphure] = useState('');
+  const [province1, setProvince] = useState('');
+  const [zipcode1, setZipcode] = useState('');
+
+  const [provinces, setProvinces] = useState([]);
+  const [amphures, setAmphures] = useState([]);
+  const [tambons, setTambons] = useState([]);
+  const [mock, setMock] = useState({
+    province_id: undefined,
+    amphure_id: undefined,
+    tambon_id: undefined    
+  });
+  const [selected, setSelected] = useState({
+    province_id: undefined,
+    amphure_id: undefined,
+    tambon_id: undefined
+  });
+
+  useEffect(() => {
+      setProvinces(postcodes)
+  },[postcodes])
+
+//   if (provinces) {
+//     console.log('provinces',provinces)
+//   }
+
+  const DropdownList = ({
+    label,
+    id,
+    list,
+    child,
+    childsId = [],
+    setChilds = []
+  }) => {
+    let selectArray
+    const onChangeHandle = (event) => {
+      setChilds.forEach((setChild) => setChild([]));
+      const entries = childsId.map((child) => [child, undefined]);
+      const unSelectChilds = Object.fromEntries(entries);
+      console.log('entries',entries)
+      console.log('unSelectChilds',unSelectChilds)
+
+      const input = event.target.value;
+      console.log('event.target',event.target)
+      const input2 = event.target;
+      const dependId = input ? Number(input) : undefined;
+      const dependId2 = input2 ? Number(input2) : undefined;
+      setSelected((prev) => ({ ...prev, ...unSelectChilds, [id]: dependId }));
+      setMock((prev) => ({ ...prev, ...unSelectChilds, [id]: dependId2 }));
+
+      console.log('mock',mock)
+      console.log('selected[id]',selected[id])
+      
+
+      if (!input) return;
+
+      if (child) {
+        const parent = list.find((item) => item.id === dependId);
+        const { [child]: childs } = parent;
+        const [setChild] = setChilds;
+        setChild(childs);
+        console.log('parent',parent)
+        console.log('childs',childs)
+        console.log('child',child)
+      }
+
+      if (id == 'province_id') {
+        const parent = list.find((item) => item.id === dependId);
+        console.log('province parent',parent)
+        setProvince(parent.name_th)
+      }
+
+      if (id == 'amphure_id') {
+        const parent = list.find((item) => item.id === dependId);
+        console.log('amphure parent',parent)
+        setAmphure(parent.name_th)
+      }
+
+      if (id == 'tambon_id') {
+        const parent = list.find((item) => item.id === dependId);
+        const { [child]: childs } = parent;
+        const [setChild] = setChilds;
+        console.log('parent2',parent)
+        console.log('childs2',childs)
+        console.log('setChild2',setChilds)   
+        setTambon(parent.name_th)  
+        setZipcode(parent.zip_code)
+      }
+    };
+
+    return (
+      <>
+    <TextField
+        fullWidth
+        variant="filled"
+        type="text"
+        label={label}
+        select
+        // onBlur={handleBlur}
+        // onChange={handleChange}
+        // value={values.amphoe}
+        // name="amphoe"                         
+        // error={!!touched.amphoe && !!errors.amphoe}
+        // helperText={touched.amphoe && errors.amphoe}
+        sx={{ gridColumn: "span 2" }}
+        value={selected[id]} onChange={onChangeHandle}>
+            <option label="โปรดเลือก ..." />
+            {list &&
+            list.map((item) => (
+            <MenuItem key={item.id} value={item.id} >
+                {item.name_th}
+            </MenuItem>
+            ))}
+        </TextField>
+      </>
+    );
+  };
+
    const handleCancelButtonClick = () => {
     navigate('/')
    }
-  
+
     const isNonMobile = useMediaQuery("(min-width:600px)")
 
 
     return <Box m="20px">
-        <Header title="ลงทะเบียนเกษตรกร" />
+        <Header title="ลงทะเบียน" />
 
         <Formik
             // onSubmit={handleFormSubmit}
@@ -85,30 +215,52 @@ const Registration = () => {
               formData.append('cid', values.cid)
               formData.append('hno', values.hno)
               formData.append('moo', values.moo)
-              formData.append('tambon', values.tambon)
-              formData.append('amphoe', values.amphoe)
-              formData.append('province', values.province)
-              formData.append('postcode', values.postcode)
+              formData.append('tambon', tambon1)
+              formData.append('amphoe', amphure1)
+              formData.append('province', province1)
+              formData.append('postcode', zipcode1)
               formData.append('tel', values.tel)
               formData.append('status', 'false')
               formData.append('reject', 'false')
-              console.log('farmer values: ',values)
-              dispatch(addFarmersRegister(navigate, formData))
-              setSubmitting(false)
+              formData.append('register_type',values.register_type)
+              console.log('Registration form values: ',values)
+                dispatch(addFarmersRegister(navigate, formData))
+               setSubmitting(false)
             }}
             initialValues={initialValues}
             validationSchema={userSchema}
-        >
-            {({ values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit }) => (
-                <form onSubmit={handleSubmit}>
+            // validateOnMount
+            >
+            {({ values, errors, touched, isSubmitting,isValid, isValidating, dirty, handleBlur, handleChange, handleSubmit }) => (
+                <Form onSubmit={handleSubmit}>
+                    {console.log('isValid: ', isValid)}
+                    {console.log('isSubmitting: ', isSubmitting)}
+                    <Box sx={{mt:"5px"}}>
+                        <Divider sx={{ mb: '10px'}}/>
+                            <FormControl>
+                            <RadioGroup
+                                row="true" 
+                                role="group"
+                                aria-labelledby="register-selection-label"
+                                defaultValue="1"
+                                >
+                                    <FormControlLabel control={<Field type="radio" name="register_type" value="1" />} label="เกษตรกร" />
+                                    <FormControlLabel control={<Field type="radio" name="register_type" value="2" />} label="ปราชญ์สมุนไพร" />    
+                                    <FormControlLabel control={<Field type="radio" name="register_type" value="3" />} label="ผู้ประกอบการ" />    
+                                </RadioGroup>  
+                            </FormControl>                          
+                    </Box> 
+
                     <Box
                         display="grid"
                         gap="30px"
                         gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                         sx={{
+                            mt: "20px",
                             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" }
                         }}
                     >
+
                         <TextField
                             fullWidth
                             variant="filled"
@@ -191,6 +343,19 @@ const Registration = () => {
                             fullWidth
                             variant="filled"
                             type="text"
+                            label="เบอร์ติดต่อ"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.tel}
+                            name="tel"                        
+                            error={!!touched.tel && !!errors.tel}
+                            helperText={touched.tel && errors.tel}
+                            sx={{ gridColumn: "span 2" }}
+                        />  
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
                             label="บ้านเลขที่"
                             onBlur={handleBlur}
                             onChange={handleChange}
@@ -212,46 +377,47 @@ const Registration = () => {
                             error={!!touched.moo && !!errors.moo}
                             helperText={touched.moo && errors.moo}
                             sx={{ gridColumn: "span 2" }}
-                        />                                 
+                        />        
+
+                         <DropdownList
+                            label="จังหวัด"
+                            id="province_id"
+                            list={provinces}
+                            child="amphure"
+                            childsId={["amphure_id", "tambon_id"]}
+                            setChilds={[setAmphures, setTambons]}
+                        />
+                        <DropdownList
+                            label="อำเภอ"
+                            id="amphure_id"
+                            list={amphures}
+                            child="tambon"
+                            childsId={["tambon_id"]}
+                            setChilds={[setTambons]}
+                        />
+                        <DropdownList label="ตำบล" id="tambon_id" list={tambons} />
+
+                        {/* 
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="ตำบล"
+                            select
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.tambon}
                             name="tambon"
                             error={!!touched.tambon && !!errors.tambon}
                             helperText={touched.tambon && errors.tambon}
-                            sx={{ gridColumn: "span 2" }}
-                        />                               
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="อำเภอ"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.amphoe}
-                            name="amphoe"                         
-                            error={!!touched.amphoe && !!errors.amphoe}
-                            helperText={touched.amphoe && errors.amphoe}
-                            sx={{ gridColumn: "span 2" }}
-                        />                         
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="จังหวัด"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.province}
-                            name="province"                           
-                            error={!!touched.province && !!errors.province}
-                            helperText={touched.province && errors.province}
-                            sx={{ gridColumn: "span 2" }}
-                        />   
+                            sx={{ gridColumn: "span 2" }} >
+                            {postcodes.map((postcode) => (
+                            <MenuItem key={postcode.id} value={postcode.id} >
+                                {postcode.amphure[1].tambon[0].name_th}
+                            </MenuItem>
+                            ))}
+                        </TextField> */}
+
                         <TextField
                             fullWidth
                             variant="filled"
@@ -259,25 +425,13 @@ const Registration = () => {
                             label="รหัสไปรษณีย์"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.postcode}
-                            name="postcode"                           
+                            value={zipcode1}
+                            name="postcode"     
+                            disabled                      
                             error={!!touched.postcode && !!errors.postcode}
                             helperText={touched.postcode && errors.postcode}
                             sx={{ gridColumn: "span 2" }}
-                        />                                              
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="เบอร์ติดต่อ"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.tel}
-                            name="tel"                        
-                            error={!!touched.tel && !!errors.tel}
-                            helperText={touched.tel && errors.tel}
-                            sx={{ gridColumn: "span 2" }}
-                        />                         
+                        />                                                
 
                     </Box>
                     <Box 
@@ -298,7 +452,9 @@ const Registration = () => {
                     >
                         <Button  
                             type='submit'
-                            disabled={isSubmitting}
+                            disabled={!(dirty && isValid)}
+                            // disabled={isSubmitting}
+                            // disabled={true}
                             sx={{
                                 backgroundColor: colors.greenAccent[600],
                                 color: colors.grey[100],
@@ -314,7 +470,7 @@ const Registration = () => {
                         </Button>
                           <Button  
                               onClick={handleCancelButtonClick}
-                              type='submit'
+                              type='button'
                               sx={{
                                   backgroundColor: colors.greenAccent[600],
                                   color: colors.grey[100],
@@ -330,7 +486,7 @@ const Registration = () => {
                           </Button>    
                         </Box>    
                   </Box>   
-                </form>
+                </Form>
             )}
         </Formik>
     </Box >

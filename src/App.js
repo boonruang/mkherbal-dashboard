@@ -26,6 +26,7 @@ import GeoGmaps from "scenes/geogmaps";
 import GeoLand from "scenes/geoland";
 import GeoSoil from "scenes/geosoil";
 import GeoSalt from "scenes/geosalt";
+import Postcode from "scenes/postcode";
 import ThankyouReg from 'components/Thankyoupage'
 import Registration from 'components/Registration'
 import Forgetpassword from 'components/Forgetpassword'
@@ -120,6 +121,7 @@ function App() {
           {/* <Route path="invoices" element={<Invoices />} /> */}
           <Route path="soilherbals" element={<SoilHerbals />} />
           <Route path="form" element={<Form />} />
+          <Route path="postcode" element={<Postcode />} />
         </Route>
         <Route element={<SecureRoute allowedRoles={[ROLES.Admin]} /> }>
          {/* Admin here */}

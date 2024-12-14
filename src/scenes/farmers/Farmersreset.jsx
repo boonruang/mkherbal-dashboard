@@ -4,7 +4,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import { tokens } from "../../theme"
 // import { mockDataFarmers } from "../../data/mockDataFarmers"
 import AddIcon from '@mui/icons-material/Add';
-import { getFarmersRegisterReset } from '../../actions/farmerregister.action'
+import { getFarmersRegisterReset } from '../../actions/register.action'
 
 import Header from "../../components/Header"
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +25,7 @@ const Farmersreset = () => {
     },[dispatch])
 
 
-    const { result, isFetching } = useSelector((state) => state.app.farmerregisterReducer)
+    const { result, isFetching } = useSelector((state) => state.app.registerReducer)
 
     const loginReducer = useSelector((state) => state.app.loginReducer)
 
