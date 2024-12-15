@@ -80,6 +80,25 @@ export const deleteFarmergroup = (id) => {
   };
 };
 
+export const getFarmergroup = () => {
+  return (dispatch) => {
+    dispatch(setStateFarmergroupToFetching());
+    doGetFarmergroup(dispatch);
+  };
+};
+
+const doGetFarmergroup = (dispatch) => {
+  httpClient
+    .get(`${server.FARMERGROUP_URL}/list/noauth`)
+    .then((result) => {
+      dispatch(setStateFarmergroupToSuccess(result.data));
+    })
+    .catch((error) => {
+      alert(JSON.stringify(error));
+      dispatch(setStateFarmergroupToFailed());
+    });
+};
+
 export const getFarmergroups = () => {
   return (dispatch) => {
     dispatch(setStateFarmergroupToFetching());

@@ -32,6 +32,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
 import { addFarmersRegister } from '../actions/register.action'
+import { getFarmergroup } from '../actions/farmergroup.action'
 import { useNavigate } from 'react-router-dom'
 import Header from "../components/Header"
 import { ConstructionOutlined } from '@mui/icons-material';
@@ -45,7 +46,7 @@ const initialValues = {
 const userSchema = yup.object().shape({
     firstname: yup.string().required("ต้องใส่"),
     lastname: yup.string().required("ต้องใส่"),
-    username: yup.string().required("ต้องใส่"),
+    // username: yup.string().required("ต้องใส่"),
     password: yup.string().required("ต้องใส่").matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
         "ต้องประกอบด้วยอักษรภาษาอังกฤษตัวใหญ่ ตัวเล็ก และตัวเลข รวมกันต้องไม่น้อยกว่า 8 ตัวอักษร "
@@ -98,9 +99,23 @@ const Registration = () => {
       setProvinces(postcodes)
   },[postcodes])
 
+    useEffect(() => {
+        dispatch(getFarmergroup())
+        console.log('useEffect getFarmergroup is called')
+    },[dispatch])
+
 //   if (provinces) {
 //     console.log('provinces',provinces)
 //   }
+
+
+
+const { result, isFetching, isError } = useSelector((state) => state.app.farmergroupReducer)
+
+if (result) {
+  console.log('Farmergroup list result',result)
+}
+
 
   const DropdownList = ({
     label,
@@ -210,9 +225,9 @@ const Registration = () => {
               let formData = new FormData()
               formData.append('firstname', values.firstname)
               formData.append('lastname', values.lastname)
-              formData.append('username', values.username)
-              formData.append('password', values.password)
               formData.append('cid', values.cid)
+              formData.append('username', values.cid)
+              formData.append('password', values.password)
               formData.append('hno', values.hno)
               formData.append('moo', values.moo)
               formData.append('tambon', tambon1)
@@ -223,6 +238,7 @@ const Registration = () => {
               formData.append('status', 'false')
               formData.append('reject', 'false')
               formData.append('register_type',values.register_type)
+              formData.append('farmer_type',values.farmer_type)
               console.log('Registration form values: ',values)
                 dispatch(addFarmersRegister(navigate, formData))
                setSubmitting(false)
@@ -292,15 +308,29 @@ const Registration = () => {
                             fullWidth
                             variant="filled"
                             type="text"
+                            label="รหัสบัตรประชาชน"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.cid}
+                            name="cid"
+                            error={!!touched.cid && !!errors.cid}
+                            helperText={touched.cid && errors.cid}
+                            sx={{ gridColumn: "span 2" }}
+                        />                         
+                        {/* <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
                             label="ชื่อเข้าระบบ"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.username}
+                            value={values.cid}
                             name="username"
+                            disabled
                             error={!!touched.username && !!errors.username}
                             helperText={touched.username && errors.username}
                             sx={{ gridColumn: "span 2" }}
-                        />
+                        /> */}
                         <TextField
                             fullWidth
                             variant="filled"
@@ -327,19 +357,7 @@ const Registration = () => {
                             helperText={touched.password2 && errors.password2}
                             sx={{ gridColumn: "span 2" }}
                         />   
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="รหัสบัตรประชาชน"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.cid}
-                            name="cid"
-                            error={!!touched.cid && !!errors.cid}
-                            helperText={touched.cid && errors.cid}
-                            sx={{ gridColumn: "span 2" }}
-                        />        
+       
                         <TextField
                             fullWidth
                             variant="filled"
@@ -398,27 +416,6 @@ const Registration = () => {
                         />
                         <DropdownList label="ตำบล" id="tambon_id" list={tambons} />
 
-                        {/* 
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="ตำบล"
-                            select
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.tambon}
-                            name="tambon"
-                            error={!!touched.tambon && !!errors.tambon}
-                            helperText={touched.tambon && errors.tambon}
-                            sx={{ gridColumn: "span 2" }} >
-                            {postcodes.map((postcode) => (
-                            <MenuItem key={postcode.id} value={postcode.id} >
-                                {postcode.amphure[1].tambon[0].name_th}
-                            </MenuItem>
-                            ))}
-                        </TextField> */}
-
                         <TextField
                             fullWidth
                             variant="filled"
@@ -434,6 +431,7 @@ const Registration = () => {
                             sx={{ gridColumn: "span 2" }}
                         /> 
 
+                        {/* เกตษตรกร */}
                         { (values.register_type && values.register_type == 1) ? (      
                         <TextField
                             fullWidth
@@ -443,27 +441,27 @@ const Registration = () => {
                             select
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.farmertype}
-                            name="farmertype"
-                            error={!!touched.farmertype && !!errors.farmertype}
-                            helperText={touched.farmertype && errors.farmertype}
+                            value={values.farmer_type}
+                            name="farmer_type"
+                            error={!!touched.farmer_type && !!errors.farmer_type}
+                            helperText={touched.farmer_type && errors.farmer_type}
                             sx={{ gridColumn: "span 2" }} >       
-                            <MenuItem key="4" value="1" >
+                            <MenuItem key="4" value="01" >
                                 เกษตรกรอิสระ
                             </MenuItem>                                                      
-                            <MenuItem key="1" value="2" >
+                            <MenuItem key="1" value="02" >
                                 กลุ่มเกษตรกร
                             </MenuItem>
-                            <MenuItem key="2" value="3" >
+                            <MenuItem key="2" value="03" >
                                 กลุ่มวิสาหกิจ
                             </MenuItem>        
-                            <MenuItem key="3" value="4" >
+                            <MenuItem key="3" value="04" >
                                 กลุ่มเกษตรกรแปลงใหญ่
                             </MenuItem>        
                              
                         </TextField>                    
                         ) : undefined   }       
-                        { (values.farmertype && values.farmertype == "2") ? (      
+                        { (values.register_type == 1 && values.farmer_type == "02") ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -477,22 +475,15 @@ const Registration = () => {
                             error={!!touched.farmergroup && !!errors.farmergroup}
                             helperText={touched.farmergroup && errors.farmergroup}
                             sx={{ gridColumn: "span 2" }} >
-                            <MenuItem key="1" value="1" >
-                                กลุ่มเกษตรกร 1
-                            </MenuItem>
-                            <MenuItem key="2" value="2" >
-                                กลุ่มเกษตรกร 2
-                            </MenuItem>        
-                            <MenuItem key="3" value="3" >
-                                กลุ่มเกษตรกร 3
-                            </MenuItem>        
-                            <MenuItem key="3" value="4" >
-                                กลุ่มเกษตรกร 4
-                            </MenuItem>    
+                            { result.map((farmergroup) => (
+                            <MenuItem key={farmergroup.id} value={farmergroup.id} >
+                                {farmergroup.id+'--'+farmergroup.farmergroupname+'--'+farmergroup.province}
+                            </MenuItem>  
+                           ))} 
                         </TextField>                    
                         ) : undefined   }                          
 
-                        { (values.farmertype && values.farmertype == "3") ? (      
+                        { (values.register_type == 1 && values.farmer_type == "03") ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -521,7 +512,7 @@ const Registration = () => {
                         </TextField>                    
                         ) : undefined   }  
 
-                        { (values.farmertype && values.farmertype == "4") ? (      
+                        { (values.register_type == 1 && values.farmer_type == "04") ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -550,7 +541,92 @@ const Registration = () => {
                         </TextField>                    
                         ) : undefined   }                                                                                 
 
+                        {/* ผู้ประกอบการ */}
+                        { (values.register_type && values.register_type == 3) ? (      
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ผู้ประกอบการ"
+                            select
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.entrepreneur_type}
+                            name="entrepreneur_type"
+                            error={!!touched.entrepreneur_type && !!errors.entrepreneur_type}
+                            helperText={touched.entrepreneur_type && errors.entrepreneur_type}
+                            sx={{ gridColumn: "span 2" }} >       
+                            <MenuItem key="4" value="01" >
+                                ผู้ประกอบการอิสระ
+                            </MenuItem>                                                      
+                            <MenuItem key="1" value="02" >
+                                ผู้ประกอบการผลิตภัณฑ์สมุนไพร
+                            </MenuItem>
+                            <MenuItem key="2" value="03" >
+                                ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร
+                            </MenuItem>                                         
+                        </TextField>                    
+                        ) : undefined   }       
+                        
+                        { (values.register_type == 3 && values.entrepreneur_type == "02") ? (      
+                        <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="ผู้ประกอบการผลิตภัณฑ์สมุนไพร"
+                        select
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.entrepreneurherbal}
+                        name="entrepreneurherbal"
+                        error={!!touched.entrepreneurherbal && !!errors.entrepreneurherbal}
+                        helperText={touched.entrepreneurherbal && errors.entrepreneurherbal}
+                        sx={{ gridColumn: "span 2" }} >
+                        <MenuItem key="1" value="1" >
+                            ผู้ประกอบการผลิตภัณฑ์สมุนไพร 1
+                        </MenuItem>
+                        <MenuItem key="2" value="2" >
+                            ผู้ประกอบการผลิตภัณฑ์สมุนไพร 2
+                        </MenuItem>        
+                        <MenuItem key="3" value="3" >
+                            ผู้ประกอบการผลิตภัณฑ์สมุนไพร 3
+                        </MenuItem>        
+                        <MenuItem key="3" value="4" >
+                            ผู้ประกอบการผลิตภัณฑ์สมุนไพร 4
+                        </MenuItem>    
+                    </TextField>                     
+                        ) : undefined   }                          
+
+                        { (values.register_type == 3 && values.entrepreneur_type == "03") ? (      
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร"
+                            select
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.entrepreneurtraditionalmedicine}
+                            name="entrepreneurtraditionalmedicine"
+                            error={!!touched.entrepreneurtraditionalmedicine && !!errors.entrepreneurtraditionalmedicine}
+                            helperText={touched.entrepreneurtraditionalmedicine && errors.entrepreneurtraditionalmedicine}
+                            sx={{ gridColumn: "span 2" }} >
+                            <MenuItem key="1" value="1" >
+                                ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 1
+                            </MenuItem>
+                            <MenuItem key="2" value="2" >
+                                ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 2
+                            </MenuItem>        
+                            <MenuItem key="3" value="3" >
+                                ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 3
+                            </MenuItem>        
+                            <MenuItem key="3" value="4" >
+                                ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 4
+                            </MenuItem>    
+                        </TextField>                    
+                        ) : undefined   }       
                     </Box>
+
                     <Box 
                         display="grid"
                         gap="30px"
