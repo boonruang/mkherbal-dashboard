@@ -54,10 +54,10 @@ const userSchema = yup.object().shape({
     cid: yup.string().required("ต้องใส่"),
     hno: yup.string().required("ต้องใส่"),
     moo: yup.string().required("ต้องใส่"),
-    tambon: yup.string().required("ต้องใส่"),
-    amphoe: yup.string().required("ต้องใส่"),
-    province: yup.string().required("ต้องใส่"),
-    postcode: yup.string().required("ต้องใส่"),
+    // tambon: yup.string().required("ต้องใส่"),
+    // amphoe: yup.string().required("ต้องใส่"),
+    // province: yup.string().required("ต้องใส่"),
+    // postcode: yup.string().required("ต้องใส่"),
     tel: yup.string().required("ต้องใส่"),
     register_type: yup.string().required("ต้องเลือก"),
 })
@@ -247,6 +247,7 @@ const Registration = () => {
                                     <FormControlLabel control={<Field type="radio" name="register_type" value="1" />} label="เกษตรกร" />
                                     <FormControlLabel control={<Field type="radio" name="register_type" value="2" />} label="ปราชญ์สมุนไพร" />    
                                     <FormControlLabel control={<Field type="radio" name="register_type" value="3" />} label="ผู้ประกอบการ" />    
+                                    <FormControlLabel control={<Field type="radio" name="register_type" value="4" />} label="นักวิชาการ" />    
                                 </RadioGroup>  
                             </FormControl>                          
                     </Box> 
@@ -431,7 +432,123 @@ const Registration = () => {
                             error={!!touched.postcode && !!errors.postcode}
                             helperText={touched.postcode && errors.postcode}
                             sx={{ gridColumn: "span 2" }}
-                        />                                                
+                        /> 
+
+                        { (values.register_type && values.register_type == 1) ? (      
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="กลุ่มเกษตรกร"
+                            select
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.farmertype}
+                            name="farmertype"
+                            error={!!touched.farmertype && !!errors.farmertype}
+                            helperText={touched.farmertype && errors.farmertype}
+                            sx={{ gridColumn: "span 2" }} >       
+                            <MenuItem key="4" value="1" >
+                                เกษตรกรอิสระ
+                            </MenuItem>                                                      
+                            <MenuItem key="1" value="2" >
+                                กลุ่มเกษตรกร
+                            </MenuItem>
+                            <MenuItem key="2" value="3" >
+                                กลุ่มวิสาหกิจ
+                            </MenuItem>        
+                            <MenuItem key="3" value="4" >
+                                กลุ่มเกษตรกรแปลงใหญ่
+                            </MenuItem>        
+                             
+                        </TextField>                    
+                        ) : undefined   }       
+                        { (values.farmertype && values.farmertype == "2") ? (      
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="กลุ่มเกษตรกร"
+                            select
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.farmergroup}
+                            name="farmergroup"
+                            error={!!touched.farmergroup && !!errors.farmergroup}
+                            helperText={touched.farmergroup && errors.farmergroup}
+                            sx={{ gridColumn: "span 2" }} >
+                            <MenuItem key="1" value="1" >
+                                กลุ่มเกษตรกร 1
+                            </MenuItem>
+                            <MenuItem key="2" value="2" >
+                                กลุ่มเกษตรกร 2
+                            </MenuItem>        
+                            <MenuItem key="3" value="3" >
+                                กลุ่มเกษตรกร 3
+                            </MenuItem>        
+                            <MenuItem key="3" value="4" >
+                                กลุ่มเกษตรกร 4
+                            </MenuItem>    
+                        </TextField>                    
+                        ) : undefined   }                          
+
+                        { (values.farmertype && values.farmertype == "3") ? (      
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="กลุ่มวิสาหกิจ"
+                            select
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.wisahakit}
+                            name="wisahakit"
+                            error={!!touched.wisahakit && !!errors.wisahakit}
+                            helperText={touched.wisahakit && errors.wisahakit}
+                            sx={{ gridColumn: "span 2" }} >
+                            <MenuItem key="1" value="1" >
+                                กลุ่มวิสาหกิจ 1
+                            </MenuItem>
+                            <MenuItem key="2" value="2" >
+                                กลุ่มวิสาหกิจ 2
+                            </MenuItem>        
+                            <MenuItem key="3" value="3" >
+                                กลุ่มวิสาหกิจ 3
+                            </MenuItem>        
+                            <MenuItem key="3" value="4" >
+                                กลุ่มวิสาหกิจ 4
+                            </MenuItem>    
+                        </TextField>                    
+                        ) : undefined   }  
+
+                        { (values.farmertype && values.farmertype == "4") ? (      
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="กลุ่มเกษตรกรแปลงใหญ่"
+                            select
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.largefield}
+                            name="largefield"
+                            error={!!touched.largefield && !!errors.largefield}
+                            helperText={touched.largefield && errors.largefield}
+                            sx={{ gridColumn: "span 2" }} >
+                            <MenuItem key="1" value="1" >
+                                แปลงใหญ่ 1
+                            </MenuItem>
+                            <MenuItem key="2" value="2" >
+                                แปลงใหญ่ 2
+                            </MenuItem>        
+                            <MenuItem key="3" value="3" >
+                                แปลงใหญ่ 3
+                            </MenuItem>        
+                            <MenuItem key="3" value="4" >
+                                แปลงใหญ่ 4
+                            </MenuItem>    
+                        </TextField>                    
+                        ) : undefined   }                                                                                 
 
                     </Box>
                     <Box 

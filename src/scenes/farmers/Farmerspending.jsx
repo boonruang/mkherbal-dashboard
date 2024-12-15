@@ -93,6 +93,8 @@ const Farmerspending = () => {
                     return (<Box>ปราชญ์สมุนไพร</Box>);
                 } if (params.row.register_type == 3) {
                     return (<Box>ผู้ประกอบการ</Box>);
+                } if (params.row.register_type == 4) {
+                    return (<Box>นักวิชาการ</Box>);
                 } else {
                     return (<Box sx={{ color: colors.blueAccent[500] }}>อื่่นๆ</Box>);
                 }
