@@ -51,20 +51,19 @@ const userSchema = yup.object().shape({
     firstname: yup.string().required("ต้องใส่"),
     lastname: yup.string().required("ต้องใส่"),
 
-    // password: yup.string().required("ต้องใส่").matches(
-    //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
-    //     "ต้องประกอบด้วยอักษรภาษาอังกฤษตัวใหญ่ ตัวเล็ก และตัวเลข รวมกันต้องไม่น้อยกว่า 8 ตัวอักษร "
-    //   ),
-    // password2: yup.string().required("ต้องใส่").oneOf([yup.ref('password'), null], 'รหัสผ่านต้องเหมือนกัน'),
-    // cid: yup.string().required("ต้องใส่"),
-    // hno: yup.string().required("ต้องใส่"),
-    // moo: yup.string().required("ต้องใส่"),
-    // tambon: yup.string().required("ต้องใส่"),
-    // amphoe: yup.string().required("ต้องใส่"),
-    // province: yup.string().required("ต้องใส่"),
-    // postcode: yup.string().required("ต้องใส่"),
-    // tel: yup.string().required("ต้องใส่"),
-    // register_type: yup.string().required("ต้องเลือก"),
+    password: yup.string().required("ต้องใส่").matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
+        "ต้องประกอบด้วยอักษรภาษาอังกฤษตัวใหญ่ ตัวเล็ก และตัวเลข รวมกันต้องไม่น้อยกว่า 8 ตัวอักษร "
+      ),
+    password2: yup.string().required("ต้องใส่").oneOf([yup.ref('password'), null], 'รหัสผ่านต้องเหมือนกัน'),
+    cid: yup.string().required("ต้องใส่"),
+    hno: yup.string().required("ต้องใส่"),
+    moo: yup.string().required("ต้องใส่"),
+    tambon: yup.string().required("ต้องใส่"),
+    amphoe: yup.string().required("ต้องใส่"),
+    province: yup.string().required("ต้องใส่"),
+    postcode: yup.string().required("ต้องใส่"),
+    tel: yup.string().required("ต้องใส่"),
 })
 
 
