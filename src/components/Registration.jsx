@@ -33,7 +33,9 @@ import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
 import { addFarmersRegister } from '../actions/register.action'
 import { getFarmergroup } from '../actions/farmergroup.action'
-import { getCollaborativefarmByKeyword } from '../actions/collaborativefarm.action.js'
+import { getCollaborativefarms, getCollaborativefarmByKeyword } from '../actions/collaborativefarm.action.js'
+import { getEntrepreneurherbals } from '../actions/entrepreneurherbal.action'
+import { getEntrepreneurthaitraditionalmedicals } from '../actions/entrepreneurthaitraditionalmedical.action'
 import { useNavigate } from 'react-router-dom'
 import Header from "../components/Header"
 import { ConstructionOutlined } from '@mui/icons-material';
@@ -42,6 +44,7 @@ const initialValues = {
     lastname: "",
     status: "",
     register_type: "1",
+    province_selected: "1",
 }
 
 const userSchema = yup.object().shape({
@@ -81,6 +84,8 @@ const Registration = () => {
   const [amphure1, setAmphure] = useState('');
   const [province1, setProvince] = useState('');
   const [zipcode1, setZipcode] = useState('');
+  const [provincetarget, setProvincetarget] = useState('มหาสารคาม');
+  const [provincetagfag, setProvincetargetfag] = useState('');
 
   const [provinces, setProvinces] = useState([]);
   const [amphures, setAmphures] = useState([]);
@@ -105,10 +110,37 @@ const Registration = () => {
         console.log('useEffect getFarmergroup is called')
     },[dispatch])
 
+    // useEffect(() => {
+    //     dispatch(getCollaborativefarms())
+    //     console.log('useEffect getCollaborativefarms is called')
+    // },[dispatch])
+
     useEffect(() => {
-        dispatch(getCollaborativefarmByKeyword(province1))
+        if (provincetagfag == '2') {
+            dispatch(getCollaborativefarmByKeyword('ขอนแก่น'))
+        } else if (provincetagfag == '3') {
+            dispatch(getCollaborativefarmByKeyword('มหาสารคาม'))
+        } else if (provincetagfag == '4') {
+            dispatch(getCollaborativefarmByKeyword('ร้อยเอ็ด'))
+        } else if (provincetagfag == '5') {
+            dispatch(getCollaborativefarmByKeyword('กาฬสินธุ์'))                        
+        } else {            
+            dispatch(getCollaborativefarmByKeyword(provincetarget))
+        }
         console.log('useEffect getCollaborativefarms is called')
-    },[dispatch])
+        console.log('useEffect provincetarget is', provincetarget)
+        console.log('useEffect provincetagfag is', provincetagfag)
+    },[dispatch,provincetarget,provincetagfag])
+
+    useEffect(() => {
+        dispatch(getEntrepreneurherbals())
+        console.log('useEffect getEntrepreneurherbals is called')
+    },[dispatch])    
+
+    useEffect(() => {
+        dispatch(getEntrepreneurthaitraditionalmedicals())
+        console.log('useEffect getEntrepreneurthaitraditionalmedicals is called')
+    },[dispatch])    
 
 //   if (provinces) {
 //     console.log('provinces',provinces)
@@ -117,9 +149,28 @@ const Registration = () => {
 const { result } = useSelector((state) => state.app.farmergroupReducer)
 
 const collaborativefarmReducer = useSelector((state) => state.app.collaborativefarmReducer)
+const entrepreneurherbalReducer = useSelector((state) => state.app.entrepreneurherbalReducer)
+const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.app.entrepreneurthaitraditionalmedicalReducer)
+
+// if (entrepreneurherbalReducer.result) {
+//   console.log('entrepreneurherbalReducer list result',entrepreneurherbalReducer.result)
+// }
+
 // if (collaborativefarmReducer.result) {
 //   console.log('collaborativefarmReducer list result',collaborativefarmReducer.result)
 // }
+
+    const handleCancelButtonClick = () => {
+    navigate('/')
+   }
+
+   const handleProvinceSelected = (p,v) => {
+    console.log('p,v value ',p,v)
+    // send province
+    setProvincetarget(p) 
+    // get province or all 
+    setProvincetargetfag(v)
+   }
 
 
   const DropdownList = ({
@@ -214,9 +265,6 @@ const collaborativefarmReducer = useSelector((state) => state.app.collaborativef
     );
   };
 
-   const handleCancelButtonClick = () => {
-    navigate('/')
-   }
 
     const isNonMobile = useMediaQuery("(min-width:600px)")
 
@@ -267,8 +315,8 @@ const collaborativefarmReducer = useSelector((state) => state.app.collaborativef
                                 defaultValue="1"
                                 >
                                     <FormControlLabel control={<Field type="radio" name="register_type" value="1" />} label="เกษตรกร" />
-                                    <FormControlLabel control={<Field type="radio" name="register_type" value="2" />} label="ปราชญ์สมุนไพร" />    
-                                    <FormControlLabel control={<Field type="radio" name="register_type" value="3" />} label="ผู้ประกอบการ" />    
+                                    <FormControlLabel control={<Field type="radio" name="register_type" value="2" />} label="ผู้ประกอบการ" />    
+                                    <FormControlLabel control={<Field type="radio" name="register_type" value="3" />} label="ปราชญ์สมุนไพร" />    
                                     <FormControlLabel control={<Field type="radio" name="register_type" value="4" />} label="นักวิชาการ" />    
                                 </RadioGroup>  
                             </FormControl>                          
@@ -459,14 +507,11 @@ const collaborativefarmReducer = useSelector((state) => state.app.collaborativef
                                 </MenuItem>                                                      
                                 <MenuItem key="2" value="2" >
                                     กลุ่มเกษตรกร
-                                </MenuItem>
+                                </MenuItem>     
                                 <MenuItem key="3" value="3" >
-                                    กลุ่มวิสาหกิจ
-                                </MenuItem>        
-                                <MenuItem key="4" value="4" >
                                     กลุ่มเกษตรกรแปลงใหญ่
                                 </MenuItem>        
-                                <MenuItem key="5" value="5" >
+                                <MenuItem key="4" value="4" >
                                     อื่นๆ
                                 </MenuItem>        
                              
@@ -497,7 +542,7 @@ const collaborativefarmReducer = useSelector((state) => state.app.collaborativef
                         ) : undefined   }                          
 
 
-                        { (values.register_type == 1 && (values.farmer_type == "3" || values.farmer_type == "4" || values.farmer_type == "5")) ? (      
+                        {/* { (values.register_type == 1 && (values.farmer_type == "3" || values.farmer_type == "4" || values.farmer_type == "5")) ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -511,11 +556,55 @@ const collaborativefarmReducer = useSelector((state) => state.app.collaborativef
                             helperText={touched.related_with && errors.related_with}
                             sx={{ gridColumn: "span 2" }}
                         />        
-                        ) : undefined   } 
+                        ) : undefined   }  */}
 
+                    { (values.register_type == 1 && values.farmer_type == "3" && province1) ? (   
+                    <Box sx={{mt:"5px"}}>
+                            <FormControl>
+                            <RadioGroup
+                                row
+                                role="province_selected_group"
+                                aria-labelledby="province-selection-label"
+                                defaultValue="1"
+                                handleChange={handleProvinceSelected(province1,values.province_selected)}
+                                >
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="1" />} label="แปลงอยู่ในจังหวัดของท่าน" />
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="2" />} label="จ.ขอนแก่น" />     
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="3" />} label="จ.มหาสารคาม" />     
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="4" />} label="จ.ร้อยเอ็ด" />     
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="5" />} label="หรือ จ.กาฬสินธุ์" />     
+                                </RadioGroup>  
+                            </FormControl>                          
+                    </Box> 
+                    ) : undefined   } 
+
+                    { (values.register_type == 1 && values.farmer_type == "3" && province1) ? (      
+                        <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="กลุ่มเกษตรกรแปลงใหญ่"
+                        select
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.largefield}
+                        name="largefield"
+                        error={!!touched.largefield && !!errors.largefield}
+                        helperText={touched.largefield && errors.largefield}
+                        defaultValue=""
+                        sx={{ gridColumn: "span 1" }} >
+                        {   collaborativefarmReducer.result &&
+                            collaborativefarmReducer.result.map((item) => (
+                             <MenuItem key={item.id} value={item.id} >
+                                {item.id+'--'+item.name+'--'+item.province}
+                            </MenuItem>
+                            ))
+                        }
+                        </TextField>                           
+                    ) : undefined   }  
 
                         {/* ผู้ประกอบการ */}
-                        { (values.register_type && values.register_type == 3) ? (      
+                        { (values.register_type && values.register_type == 2) ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -542,7 +631,7 @@ const collaborativefarmReducer = useSelector((state) => state.app.collaborativef
                         </TextField>                    
                         ) : undefined   }       
 
-                        { (values.register_type == 3 && values.entrepreneur_type == "2") ? (      
+                        { (values.register_type == 2 && values.entrepreneur_type == "2") ? (      
                         <TextField
                         fullWidth
                         variant="filled"
@@ -557,22 +646,17 @@ const collaborativefarmReducer = useSelector((state) => state.app.collaborativef
                         helperText={touched.entrepreneurherbal && errors.entrepreneurherbal}
                         defaultValue=""
                         sx={{ gridColumn: "span 2" }} >
-                        <MenuItem key="1" value="1" >
-                            ผู้ประกอบการผลิตภัณฑ์สมุนไพร 1
-                        </MenuItem>
-                        <MenuItem key="2" value="2" >
-                            ผู้ประกอบการผลิตภัณฑ์สมุนไพร 2
-                        </MenuItem>        
-                        <MenuItem key="3" value="3" >
-                            ผู้ประกอบการผลิตภัณฑ์สมุนไพร 3
-                        </MenuItem>        
-                        <MenuItem key="4" value="4" >
-                            ผู้ประกอบการผลิตภัณฑ์สมุนไพร 4
-                        </MenuItem>    
+                        {
+                            entrepreneurherbalReducer.result.map((item) => (
+                             <MenuItem key={item.id} value={item.id} >
+                                {item.id+'--'+item.name+'--'+item.province}
+                            </MenuItem>
+                            ))
+                        }
                     </TextField>                     
                         ) : undefined   }                          
 
-                        { (values.register_type == 3 && values.entrepreneur_type == "3") ? (      
+                        { (values.register_type == 2 && values.entrepreneur_type == "3") ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -587,20 +671,35 @@ const collaborativefarmReducer = useSelector((state) => state.app.collaborativef
                             helperText={touched.entrepreneurtraditionalmedicine && errors.entrepreneurtraditionalmedicine}
                             defaultValue=""
                             sx={{ gridColumn: "span 2" }} >
-                            <MenuItem key="1" value="1" >
-                                ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 1
+                            {
+                             entrepreneurthaitraditionalmedicalReducer.result.map((item) => (
+                             <MenuItem key={item.id} value={item.id} >
+                                {item.id+'--'+item.name+'--'+item.province}
                             </MenuItem>
-                            <MenuItem key="2" value="2" >
-                                ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 2
-                            </MenuItem>        
-                            <MenuItem key="3" value="3" >
-                                ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 3
-                            </MenuItem>        
-                            <MenuItem key="4" value="4" >
-                                ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 4
-                            </MenuItem>    
+                            ))
+                            }
                         </TextField>                    
-                        ) : undefined   }       
+                        ) : undefined   }   
+
+                        { (values.register_type == 3 || values.register_type == 4) ? (      
+                        <TextField
+                            multiline={true}
+                            rows={3}                        
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="โปรดระบุทักษะหรือความเชี่ยวชาญ"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.related_with}
+                            name="related_with"
+                            error={!!touched.related_with && !!errors.related_with}
+                            helperText={touched.related_with && errors.related_with}
+                            sx={{ gridColumn: "span 2" }}
+                        />        
+                        ) : undefined   } 
+
+
                     </Box>
 
                     <Box 
