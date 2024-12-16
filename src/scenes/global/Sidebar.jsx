@@ -280,7 +280,7 @@ const Sidebar = () => {
                             /> : undefined  } 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
-                                title="กลุ่มเกษตรกร"
+                                title="กลุ่มเกษตรกร(map)"
                                 to="/farmergroup"
                                 icon={<PeopleOutlinedIcon />}
                                 selected={selected}
@@ -288,7 +288,7 @@ const Sidebar = () => {
                             /> : undefined  }                               
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
-                                title="กลุ่มเกษตรกรแปลงใหญ่"
+                                title="กลุ่มเกษตรแปลงใหญ่"
                                 to="/collaborativefarm"
                                 icon={<PersonIcon />}
                                 selected={selected}
@@ -365,7 +365,7 @@ const Sidebar = () => {
 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
-                                title="แหล่งขายตามพิกัด"
+                                title="แหล่งขาย(map)"
                                 to="/marketplace"
                                 icon={<StoreIcon />}
                                 selected={selected}
@@ -512,7 +512,7 @@ const Sidebar = () => {
                                
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
-                           title="ข้อมูลดินและสมุนไพร"
+                           title="ดินและสมุนไพร(map)"
                            to="/soilherbals"
                            icon={<ParkIcon />}
                            selected={selected}

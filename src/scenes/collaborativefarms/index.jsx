@@ -59,7 +59,7 @@ const Collaborativefarms = () => {
             cellClassName: "name-column--cell"
         },
         {
-            field: 'headname',
+            field: 'leader',
             headerName: 'ผู้นำกลุ่ม',
             flex: 1,
             cellClassName: "name-column--cell"

@@ -511,9 +511,9 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                                 <MenuItem key="3" value="3" >
                                     กลุ่มเกษตรกรแปลงใหญ่
                                 </MenuItem>        
-                                <MenuItem key="4" value="4" >
+                                {/* <MenuItem key="4" value="4" >
                                     อื่นๆ
-                                </MenuItem>        
+                                </MenuItem>         */}
                              
                         </TextField>                    
                         ) : undefined   }       
