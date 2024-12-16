@@ -59,11 +59,11 @@ const userSchema = yup.object().shape({
     cid: yup.string().required("ต้องใส่"),
     hno: yup.string().required("ต้องใส่"),
     moo: yup.string().required("ต้องใส่"),
-    tambon: yup.string().required("ต้องใส่"),
-    amphoe: yup.string().required("ต้องใส่"),
-    province: yup.string().required("ต้องใส่"),
-    postcode: yup.string().required("ต้องใส่"),
     tel: yup.string().required("ต้องใส่"),
+    // tambon: yup.string().required("ต้องใส่"),
+    // amphoe: yup.string().required("ต้องใส่"),
+    // province: yup.string().required("ต้องใส่"),
+    // postcode: yup.string().required("ต้องใส่"),
 })
 
 
@@ -247,7 +247,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
         // onBlur={handleBlur}
         // onChange={handleChange}
         // value={values.amphoe}
-        // name="amphoe"                         
+        // name="tambon"                         
         // error={!!touched.amphoe && !!errors.amphoe}
         // helperText={touched.amphoe && errors.amphoe}
         sx={{ gridColumn: "span 2" }}
@@ -302,6 +302,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
             >
             {({ values, errors, touched, isSubmitting,isValid, isValidating, dirty, handleBlur, handleChange, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
+                    {console.log('dirty: ', dirty)}
                     {console.log('isValid: ', isValid)}
                     {console.log('isSubmitting: ', isSubmitting)}
                     <Box sx={{mt:"5px"}}>
@@ -416,19 +417,6 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="เบอร์ติดต่อ"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.tel}
-                            name="tel"                        
-                            error={!!touched.tel && !!errors.tel}
-                            helperText={touched.tel && errors.tel}
-                            sx={{ gridColumn: "span 2" }}
-                        />  
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
                             label="บ้านเลขที่"
                             onBlur={handleBlur}
                             onChange={handleChange}
@@ -484,6 +472,20 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             helperText={touched.postcode && errors.postcode}
                             sx={{ gridColumn: "span 2" }}
                         /> 
+                        
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="เบอร์ติดต่อ"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.tel}
+                            name="tel"                        
+                            error={!!touched.tel && !!errors.tel}
+                            helperText={touched.tel && errors.tel}
+                            sx={{ gridColumn: "span 2" }}
+                        />  
 
                         {/* เกตษตรกร */}
                         { (values.register_type && values.register_type == 1) ? (      
