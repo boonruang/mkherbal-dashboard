@@ -16,6 +16,10 @@ import dashboardReducer from "./dashboard.reducer";
 import userReducer from "./user.reducer";
 import userSelectedReducer from "./userSelected.reducer";
 import roleReducer from "./role.reducer";
+import philosopherReducer from "./philosopher.reducer";   
+import collaborativefarmReducer from "./collaborativefarm.reducer";   
+import entrepreneurherbalReducer from "./entrepreneurherbal.reducer";   
+import entrepreneurthaitraditionalmedicalReducer from "./entrepreneurthaitraditionalmedical.reducer";   
 
 export default combineReducers({
   appReducer,
@@ -35,4 +39,8 @@ export default combineReducers({
   userSelectedReducer,
   roleReducer,
   registerReducer,
+  philosopherReducer,
+  collaborativefarmReducer,
+  entrepreneurherbalReducer,
+  entrepreneurthaitraditionalmedicalReducer
 })

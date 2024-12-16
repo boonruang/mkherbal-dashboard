@@ -35,6 +35,9 @@ import PendingIcon from '@mui/icons-material/Pending';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import NextWeekIcon from '@mui/icons-material/NextWeek';
+import SpaIcon from '@mui/icons-material/Spa';
+import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import { useDispatch } from 'react-redux';
 import { showSidebar } from '../../actions/app.action'
 import { useSelector } from 'react-redux'
@@ -242,7 +245,7 @@ const Sidebar = () => {
                            ? <SubMenu title="จัดการคำร้อง" icon={<PlaylistAddCheckIcon />}>
                             { result?.roles?.find((role) => [ROLES.Admin].includes(role))
                            ? <Item
-                                title="เกษตรกรรออนุมัติ"
+                                title="รออนุมัติ"
                                 to="/farmers/pending"
                                 icon={<PendingIcon />}
                                 selected={selected}
@@ -250,7 +253,7 @@ const Sidebar = () => {
                             /> : undefined  }  
                             { result?.roles?.find((role) => [ROLES.Admin].includes(role))
                             ? <Item
-                                    title="เกษตรกรขอรีเซ็ตรหัส"
+                                    title="ขอรีเซ็ตรหัส"
                                     to="/farmers/reset"
                                     icon={<LockResetIcon />}
                                     selected={selected}
@@ -258,7 +261,7 @@ const Sidebar = () => {
                                 /> : undefined  }  
                             { result?.roles?.find((role) => [ROLES.Admin].includes(role))
                             ? <Item
-                                    title="เกษตรกรไม่อนุมัติ"
+                                    title="ไม่อนุมัติ"
                                     to="/farmers/reject"
                                     icon={<ThumbDownOffAltIcon />}
                                     selected={selected}
@@ -277,21 +280,21 @@ const Sidebar = () => {
                             /> : undefined  } 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
-                                title="รหัสไปรษณีย์"
-                                to="/postcode"
-                                icon={<PersonIcon />}
-                                selected={selected}
-                                setSelected={setSelected}
-                            /> : undefined  }                             
-                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
-                           ? <Item
                                 title="กลุ่มเกษตรกร"
                                 to="/farmergroup"
                                 icon={<PeopleOutlinedIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> : undefined  }                              
-                            
+                            /> : undefined  }                               
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="กลุ่มเกษตรกรแปลงใหญ่"
+                                to="/collaborativefarm"
+                                icon={<PersonIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                             
+                           
 {/* 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
@@ -302,7 +305,27 @@ const Sidebar = () => {
                                 setSelected={setSelected}
                             /> : undefined  }                                                       */}
 
-                         </SubMenu>                      
+                         </SubMenu>      
+
+
+                        <SubMenu title="ผู้ประกอบการ" icon={<NextWeekIcon />}>
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="ผลิตภัณฑ์สมุนไพร"
+                                to="/entrepreneurherbals"
+                                icon={<SpaIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  } 
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="ด้านการแพทย์แผนไทย"
+                                to="/entrepreneurthaitraditionalmedicals"
+                                icon={<LocalFloristIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                               
+                         </SubMenu>                                          
 
                         {/* {isSidebar ? (
                             <Box
@@ -418,27 +441,27 @@ const Sidebar = () => {
                             </Box>
                         ) :  <CollapsedIcon /> }      */}
 
-                        {/* <SubMenu title="องค์ความรู้" icon={<WbIncandescentIcon />}>
+                        <SubMenu title="องค์ความรู้" icon={<WbIncandescentIcon />}>
 
-                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                        {/* { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="งานวิจัยและนวัตกรรม"
                                 to="/herbals"
                                 icon={<LibraryBooksIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
-                            /> : undefined  }  
+                            /> : undefined  }   */}
 
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
-                                title="ศาสตร์การแพทย์ฯ"
-                                to="/farmers"
+                                title="ปราชญ์สมุนไพร"
+                                to="/philosophers"
                                 icon={<MenuBookIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }  
 
-                        </SubMenu>                                                                 */}
+                        </SubMenu>                                                                
    
                         {/* {isSidebar ? (
                             <Box

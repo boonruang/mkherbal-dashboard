@@ -7,6 +7,9 @@ import Sidebar from "./scenes/global/Sidebar";
 import Dashbaord from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Contacts from "./scenes/contacts";
+import Philosophers from "./scenes/philosophers";
+import Entrepreneurherbals from "./scenes/entrepreneurherbals";
+import Entrepreneurthaitraditionalmedicals from "./scenes/entrepreneurthaitraditionalmedicals";
 import Farmers from "./scenes/farmers";
 import Farmerspending from "./scenes/farmers/Farmerspending";
 import Farmersreset from "./scenes/farmers/Farmersreset";
@@ -27,6 +30,7 @@ import GeoLand from "scenes/geoland";
 import GeoSoil from "scenes/geosoil";
 import GeoSalt from "scenes/geosalt";
 import Postcode from "scenes/postcode";
+import Collaborativefarm from "scenes/collaborativefarms";
 import ThankyouReg from 'components/Thankyoupage'
 import Registration from 'components/Registration'
 import Forgetpassword from 'components/Forgetpassword'
@@ -87,6 +91,9 @@ function App() {
           <Route path="team" element={<Team />} />
           <Route path="contacts" element={<Contacts />} />
           <Route path="researchers" element={<Researchers />} />
+          <Route path="philosophers" element={<Philosophers />} />
+          <Route path="entrepreneurherbals" element={<Entrepreneurherbals />} />
+          <Route path="entrepreneurthaitraditionalmedicals" element={<Entrepreneurthaitraditionalmedicals />} />
           <Route path="farmers" element={<Farmers />} />
           <Route path="farmers/reset" element={<Farmersreset />} />
           <Route path="farmers/reject" element={<Farmersreject />} />
@@ -121,7 +128,7 @@ function App() {
           {/* <Route path="invoices" element={<Invoices />} /> */}
           <Route path="soilherbals" element={<SoilHerbals />} />
           <Route path="form" element={<Form />} />
-          <Route path="postcode" element={<Postcode />} />
+          <Route path="collaborativefarm" element={<Collaborativefarm />} />
         </Route>
         <Route element={<SecureRoute allowedRoles={[ROLES.Admin]} /> }>
          {/* Admin here */}

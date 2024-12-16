@@ -8,7 +8,7 @@ const Header = ({ title, subtitle }) => {
 
     const sidebarState = useSelector((state) => state.app.appReducer)
 
-    return ( <Box mb="20px">
+    return ( <Box mb="10px">
         <Typography
             variant="h4"
             color={colors.grey[100]}

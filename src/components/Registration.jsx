@@ -33,6 +33,7 @@ import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
 import { addFarmersRegister } from '../actions/register.action'
 import { getFarmergroup } from '../actions/farmergroup.action'
+import { getCollaborativefarmByKeyword } from '../actions/collaborativefarm.action.js'
 import { useNavigate } from 'react-router-dom'
 import Header from "../components/Header"
 import { ConstructionOutlined } from '@mui/icons-material';
@@ -40,27 +41,27 @@ const initialValues = {
     firstname: "",
     lastname: "",
     status: "",
-    register_type: "",
+    register_type: "1",
 }
 
 const userSchema = yup.object().shape({
     firstname: yup.string().required("ต้องใส่"),
     lastname: yup.string().required("ต้องใส่"),
-    // username: yup.string().required("ต้องใส่"),
-    password: yup.string().required("ต้องใส่").matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
-        "ต้องประกอบด้วยอักษรภาษาอังกฤษตัวใหญ่ ตัวเล็ก และตัวเลข รวมกันต้องไม่น้อยกว่า 8 ตัวอักษร "
-      ),
-    password2: yup.string().required("ต้องใส่").oneOf([yup.ref('password'), null], 'รหัสผ่านต้องเหมือนกัน'),
-    cid: yup.string().required("ต้องใส่"),
-    hno: yup.string().required("ต้องใส่"),
-    moo: yup.string().required("ต้องใส่"),
+
+    // password: yup.string().required("ต้องใส่").matches(
+    //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
+    //     "ต้องประกอบด้วยอักษรภาษาอังกฤษตัวใหญ่ ตัวเล็ก และตัวเลข รวมกันต้องไม่น้อยกว่า 8 ตัวอักษร "
+    //   ),
+    // password2: yup.string().required("ต้องใส่").oneOf([yup.ref('password'), null], 'รหัสผ่านต้องเหมือนกัน'),
+    // cid: yup.string().required("ต้องใส่"),
+    // hno: yup.string().required("ต้องใส่"),
+    // moo: yup.string().required("ต้องใส่"),
     // tambon: yup.string().required("ต้องใส่"),
     // amphoe: yup.string().required("ต้องใส่"),
     // province: yup.string().required("ต้องใส่"),
     // postcode: yup.string().required("ต้องใส่"),
-    tel: yup.string().required("ต้องใส่"),
-    register_type: yup.string().required("ต้องเลือก"),
+    // tel: yup.string().required("ต้องใส่"),
+    // register_type: yup.string().required("ต้องเลือก"),
 })
 
 
@@ -104,17 +105,21 @@ const Registration = () => {
         console.log('useEffect getFarmergroup is called')
     },[dispatch])
 
+    useEffect(() => {
+        dispatch(getCollaborativefarmByKeyword(province1))
+        console.log('useEffect getCollaborativefarms is called')
+    },[dispatch])
+
 //   if (provinces) {
 //     console.log('provinces',provinces)
 //   }
 
+const { result } = useSelector((state) => state.app.farmergroupReducer)
 
-
-const { result, isFetching, isError } = useSelector((state) => state.app.farmergroupReducer)
-
-if (result) {
-  console.log('Farmergroup list result',result)
-}
+const collaborativefarmReducer = useSelector((state) => state.app.collaborativefarmReducer)
+// if (collaborativefarmReducer.result) {
+//   console.log('collaborativefarmReducer list result',collaborativefarmReducer.result)
+// }
 
 
   const DropdownList = ({
@@ -239,6 +244,7 @@ if (result) {
               formData.append('reject', 'false')
               formData.append('register_type',values.register_type)
               formData.append('farmer_type',values.farmer_type)
+              formData.append('related_with',values.related_with)
               console.log('Registration form values: ',values)
                 dispatch(addFarmersRegister(navigate, formData))
                setSubmitting(false)
@@ -255,7 +261,7 @@ if (result) {
                         <Divider sx={{ mb: '10px'}}/>
                             <FormControl>
                             <RadioGroup
-                                row="true" 
+                                row
                                 role="group"
                                 aria-labelledby="register-selection-label"
                                 defaultValue="1"
@@ -289,7 +295,8 @@ if (result) {
                             name="firstname"
                             error={!!touched.firstname && !!errors.firstname}
                             helperText={touched.firstname && errors.firstname}
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: "span 2"}}
+                            
                         />
                         <TextField
                             fullWidth
@@ -445,23 +452,28 @@ if (result) {
                             name="farmer_type"
                             error={!!touched.farmer_type && !!errors.farmer_type}
                             helperText={touched.farmer_type && errors.farmer_type}
+                            defaultValue=""
                             sx={{ gridColumn: "span 2" }} >       
-                            <MenuItem key="4" value="01" >
-                                เกษตรกรอิสระ
-                            </MenuItem>                                                      
-                            <MenuItem key="1" value="02" >
-                                กลุ่มเกษตรกร
-                            </MenuItem>
-                            <MenuItem key="2" value="03" >
-                                กลุ่มวิสาหกิจ
-                            </MenuItem>        
-                            <MenuItem key="3" value="04" >
-                                กลุ่มเกษตรกรแปลงใหญ่
-                            </MenuItem>        
+                                <MenuItem key="1" value="1" >
+                                    เกษตรกรอิสระ
+                                </MenuItem>                                                      
+                                <MenuItem key="2" value="2" >
+                                    กลุ่มเกษตรกร
+                                </MenuItem>
+                                <MenuItem key="3" value="3" >
+                                    กลุ่มวิสาหกิจ
+                                </MenuItem>        
+                                <MenuItem key="4" value="4" >
+                                    กลุ่มเกษตรกรแปลงใหญ่
+                                </MenuItem>        
+                                <MenuItem key="5" value="5" >
+                                    อื่นๆ
+                                </MenuItem>        
                              
                         </TextField>                    
                         ) : undefined   }       
-                        { (values.register_type == 1 && values.farmer_type == "02") ? (      
+                        
+                        { (values.register_type == 1 && values.farmer_type == "2") ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -474,72 +486,33 @@ if (result) {
                             name="farmergroup"
                             error={!!touched.farmergroup && !!errors.farmergroup}
                             helperText={touched.farmergroup && errors.farmergroup}
+                            defaultValue=""
                             sx={{ gridColumn: "span 2" }} >
-                            { result.map((farmergroup) => (
-                            <MenuItem key={farmergroup.id} value={farmergroup.id} >
+                            { result.map((farmergroup,key) => (
+                            <MenuItem key={key} value={key} >
                                 {farmergroup.id+'--'+farmergroup.farmergroupname+'--'+farmergroup.province}
                             </MenuItem>  
                            ))} 
                         </TextField>                    
                         ) : undefined   }                          
 
-                        { (values.register_type == 1 && values.farmer_type == "03") ? (      
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="กลุ่มวิสาหกิจ"
-                            select
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.wisahakit}
-                            name="wisahakit"
-                            error={!!touched.wisahakit && !!errors.wisahakit}
-                            helperText={touched.wisahakit && errors.wisahakit}
-                            sx={{ gridColumn: "span 2" }} >
-                            <MenuItem key="1" value="1" >
-                                กลุ่มวิสาหกิจ 1
-                            </MenuItem>
-                            <MenuItem key="2" value="2" >
-                                กลุ่มวิสาหกิจ 2
-                            </MenuItem>        
-                            <MenuItem key="3" value="3" >
-                                กลุ่มวิสาหกิจ 3
-                            </MenuItem>        
-                            <MenuItem key="3" value="4" >
-                                กลุ่มวิสาหกิจ 4
-                            </MenuItem>    
-                        </TextField>                    
-                        ) : undefined   }  
 
-                        { (values.register_type == 1 && values.farmer_type == "04") ? (      
+                        { (values.register_type == 1 && (values.farmer_type == "3" || values.farmer_type == "4" || values.farmer_type == "5")) ? (      
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="กลุ่มเกษตรกรแปลงใหญ่"
-                            select
+                            label="โปรดระบุ"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.largefield}
-                            name="largefield"
-                            error={!!touched.largefield && !!errors.largefield}
-                            helperText={touched.largefield && errors.largefield}
-                            sx={{ gridColumn: "span 2" }} >
-                            <MenuItem key="1" value="1" >
-                                แปลงใหญ่ 1
-                            </MenuItem>
-                            <MenuItem key="2" value="2" >
-                                แปลงใหญ่ 2
-                            </MenuItem>        
-                            <MenuItem key="3" value="3" >
-                                แปลงใหญ่ 3
-                            </MenuItem>        
-                            <MenuItem key="3" value="4" >
-                                แปลงใหญ่ 4
-                            </MenuItem>    
-                        </TextField>                    
-                        ) : undefined   }                                                                                 
+                            value={values.related_with}
+                            name="related_with"
+                            error={!!touched.related_with && !!errors.related_with}
+                            helperText={touched.related_with && errors.related_with}
+                            sx={{ gridColumn: "span 2" }}
+                        />        
+                        ) : undefined   } 
+
 
                         {/* ผู้ประกอบการ */}
                         { (values.register_type && values.register_type == 3) ? (      
@@ -555,20 +528,21 @@ if (result) {
                             name="entrepreneur_type"
                             error={!!touched.entrepreneur_type && !!errors.entrepreneur_type}
                             helperText={touched.entrepreneur_type && errors.entrepreneur_type}
+                            defaultValue=""
                             sx={{ gridColumn: "span 2" }} >       
-                            <MenuItem key="4" value="01" >
+                            <MenuItem key="1" value="1" >
                                 ผู้ประกอบการอิสระ
                             </MenuItem>                                                      
-                            <MenuItem key="1" value="02" >
+                            <MenuItem key="2" value="2" >
                                 ผู้ประกอบการผลิตภัณฑ์สมุนไพร
                             </MenuItem>
-                            <MenuItem key="2" value="03" >
+                            <MenuItem key="3" value="3" >
                                 ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร
                             </MenuItem>                                         
                         </TextField>                    
                         ) : undefined   }       
-                        
-                        { (values.register_type == 3 && values.entrepreneur_type == "02") ? (      
+
+                        { (values.register_type == 3 && values.entrepreneur_type == "2") ? (      
                         <TextField
                         fullWidth
                         variant="filled"
@@ -581,6 +555,7 @@ if (result) {
                         name="entrepreneurherbal"
                         error={!!touched.entrepreneurherbal && !!errors.entrepreneurherbal}
                         helperText={touched.entrepreneurherbal && errors.entrepreneurherbal}
+                        defaultValue=""
                         sx={{ gridColumn: "span 2" }} >
                         <MenuItem key="1" value="1" >
                             ผู้ประกอบการผลิตภัณฑ์สมุนไพร 1
@@ -591,13 +566,13 @@ if (result) {
                         <MenuItem key="3" value="3" >
                             ผู้ประกอบการผลิตภัณฑ์สมุนไพร 3
                         </MenuItem>        
-                        <MenuItem key="3" value="4" >
+                        <MenuItem key="4" value="4" >
                             ผู้ประกอบการผลิตภัณฑ์สมุนไพร 4
                         </MenuItem>    
                     </TextField>                     
                         ) : undefined   }                          
 
-                        { (values.register_type == 3 && values.entrepreneur_type == "03") ? (      
+                        { (values.register_type == 3 && values.entrepreneur_type == "3") ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -610,6 +585,7 @@ if (result) {
                             name="entrepreneurtraditionalmedicine"
                             error={!!touched.entrepreneurtraditionalmedicine && !!errors.entrepreneurtraditionalmedicine}
                             helperText={touched.entrepreneurtraditionalmedicine && errors.entrepreneurtraditionalmedicine}
+                            defaultValue=""
                             sx={{ gridColumn: "span 2" }} >
                             <MenuItem key="1" value="1" >
                                 ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 1
@@ -620,7 +596,7 @@ if (result) {
                             <MenuItem key="3" value="3" >
                                 ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 3
                             </MenuItem>        
-                            <MenuItem key="3" value="4" >
+                            <MenuItem key="4" value="4" >
                                 ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร 4
                             </MenuItem>    
                         </TextField>                    
