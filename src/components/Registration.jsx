@@ -317,7 +317,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                                     <FormControlLabel control={<Field type="radio" name="register_type" value="1" />} label="เกษตรกร" />
                                     <FormControlLabel control={<Field type="radio" name="register_type" value="2" />} label="ผู้ประกอบการ" />    
                                     <FormControlLabel control={<Field type="radio" name="register_type" value="3" />} label="ปราชญ์สมุนไพร" />    
-                                    <FormControlLabel control={<Field type="radio" name="register_type" value="4" />} label="นักวิชาการ" />    
+                                    {/* <FormControlLabel control={<Field type="radio" name="register_type" value="4" />} label="นักวิชาการ" />     */}
                                 </RadioGroup>  
                             </FormControl>                          
                     </Box> 
