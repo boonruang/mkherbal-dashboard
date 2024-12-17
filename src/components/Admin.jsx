@@ -10,7 +10,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import  * as loginActions  from '../actions/login.action'
 
-const Loginbackoffice = () => {
+const Admin = () => {
 
   const loginReducer = useSelector(state => state.app.loginReducer)
   const dispatch = useDispatch()
@@ -139,4 +139,4 @@ const Loginbackoffice = () => {
   );
 }
 
-export default Loginbackoffice
+export default Admin
