@@ -74,12 +74,12 @@ function App() {
 
   return ( 
   <Routes>
-      <Route path="/admin" element={<Loginbackoffice />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/thankyoureg" element={<ThankyouReg />} />
       <Route path="/registration" element={<Registration />} />
       <Route path="/forgetpassword" element={<Forgetpassword />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/admin" element={<Loginbackoffice />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
 
       <Route path="/" element={<Layout />}>
