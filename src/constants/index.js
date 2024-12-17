@@ -197,6 +197,7 @@ export const USER_ROLES = 'USER_ROLES'
 export const TOKEN = 'HerbHukToken'
 
 export const server = {
+  LETIN_URL: `user/letin`,
   LOGIN_URL: `user/login`,
   // LOGIN_URL:`/auth`,
   // REGISTER_URL: `user/register`,

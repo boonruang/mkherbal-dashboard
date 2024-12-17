@@ -98,6 +98,42 @@ export const login = ({ username, password, navigate }) => {
   }
 }
 
+export const letin = ({ username, password, navigate }) => {
+  console.log('login action is called')
+  return async (dispatch) => {
+    dispatch(setLoginStateToFetching())
+    console.log('User: ', username)
+    // console.log('History: ', history)
+    const result = await httpClient.post(server.LETIN_URL, {
+      username,
+      password,
+    })
+    if (result.data.result === 'ok') {
+      localStorage.setItem(LOGIN_STATUS, 'ok')
+      localStorage.setItem(TOKEN, result.data.accessToken)
+      let userToken = result.data.accessToken
+      let roles
+      if (userToken) {
+        let userToken_decoded = jwtDecode(userToken)
+        console.log('User Token Decoded in login: ', userToken_decoded)
+        roles = userToken_decoded.roles
+      }
+      dispatch(
+        // setLoginStateToSuccess({ status: 'ok', token: result.data.token }),
+        // setLoginStateToSuccess('ok'),
+        setLoginStateToSuccess({ status: 'ok', username, roles }),
+      )
+      console.log('login dispatch is called')
+      // history.push('/dashboard')
+      navigate('/dashboard')
+      // alert(JSON.stringify(result.data));
+    } else {
+      localStorage.setItem(LOGIN_STATUS, 'nok')
+      dispatch(setLoginStateToFailed(result.data.message))
+    }
+  }
+}
+
 export const logout = ({ navigate }) => {
   return (dispatch) => {
     localStorage.removeItem(LOGIN_STATUS)

@@ -10,7 +10,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import  * as loginActions  from '../actions/login.action'
 
-const Login = () => {
+const Loginbackoffice = () => {
 
   const loginReducer = useSelector(state => state.app.loginReducer)
   const dispatch = useDispatch()
@@ -26,7 +26,7 @@ const Login = () => {
     event.preventDefault();
 
     console.log('account ',account)
-    dispatch(loginActions.letin({ ...account, navigate }))
+    dispatch(loginActions.login({ ...account, navigate }))
 
   };
 
@@ -50,7 +50,7 @@ const Login = () => {
     <CssBaseline />
       <Box 
             sx={{
-              backgroundImage: "url('images/sign-img-left.jpg')",
+              backgroundImage: "url('images/backoffice_bg.jpg')",
               backgroundSize: "cover",
               height: "100vh",
               width: '100%',
@@ -91,7 +91,7 @@ const Login = () => {
           >
 
             <Typography component="h1" variant="h5">
-              เข้าใช้งานระบบ
+              ระบบ Back Office 
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
@@ -132,18 +132,6 @@ const Login = () => {
               >
                 เข้าระบบ
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link to="/forgetpassword" variant="body2">
-                    ลืมรหัสผ่าน
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link to="/registration" variant="body2">
-                    ลงทะเบียน
-                  </Link>
-                </Grid>
-              </Grid>
             </Box>
         </Box>            
       </Box>
@@ -151,4 +139,4 @@ const Login = () => {
   );
 }
 
-export default Login
+export default Loginbackoffice

@@ -35,6 +35,7 @@ import ThankyouReg from 'components/Thankyoupage'
 import Registration from 'components/Registration'
 import Forgetpassword from 'components/Forgetpassword'
 import Login from 'components/Login'
+import Loginbackoffice from 'components/Loginbackoffice'
 import Logout from 'components/Logout'
 import Marketplace from "scenes/marketplace";
 import Farmergroup from "scenes/farmergroup";
@@ -73,6 +74,7 @@ function App() {
 
   return ( 
   <Routes>
+      <Route path="/admin" element={<Loginbackoffice />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/thankyoureg" element={<ThankyouReg />} />
       <Route path="/registration" element={<Registration />} />
