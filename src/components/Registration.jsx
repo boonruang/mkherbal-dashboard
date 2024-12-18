@@ -42,10 +42,17 @@ import { ConstructionOutlined } from '@mui/icons-material';
 const initialValues = {
     firstname: "",
     lastname: "",
-    status: "",
-    register_type: "1",
-    farmer_type_selected: "1",
     province_selected: "2",
+    farmer_type: "1",
+    farmer_data: "",
+    collaborativefarm: "",
+    register_type: "1",
+    register_data: "",
+    entrepreneur_type: "0",
+    entrepreneurherbal: "",
+    entrepreneurherbal_data: "",
+    entrepreneurtraditionalmedicine: "",
+    entrepreneurtraditionalmedicine_data: "",
 }
 
 const userSchema = yup.object().shape({
@@ -54,13 +61,16 @@ const userSchema = yup.object().shape({
 
     password: yup.string().required("ต้องใส่").matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
-        "ต้องประกอบด้วยอักษรภาษาอังกฤษตัวใหญ่ ตัวเล็ก และตัวเลข รวมกันต้องไม่น้อยกว่า 8 ตัวอักษร "
+        "ต้องประกอบด้วยอักษรภาษาอังกฤษตัวใหญ่ ตัวเล็ก และตัวเลข รวมกันต้องไม่น้อยกว่า 8 ตัวอักษร"
       ),
     password2: yup.string().required("ต้องใส่").oneOf([yup.ref('password'), null], 'รหัสผ่านต้องเหมือนกัน'),
-    cid: yup.string().required("ต้องใส่"),
+    // cid: yup.string().required("ต้องใส่"),
+    cid: yup.string().required("ต้องใส่").matches(/^[0-9]{13}$/,"ต้องประกอบด้วยตัวเลข 13 หลัก"),    
     hno: yup.string().required("ต้องใส่"),
     moo: yup.string().required("ต้องใส่"),
     tel: yup.string().required("ต้องใส่"),
+    // latitude: yup.string().required("ต้องใส่"),
+    // longitude: yup.string().required("ต้องใส่"),
     // tambon: yup.string().required("ต้องใส่"),
     // amphoe: yup.string().required("ต้องใส่"),
     // province: yup.string().required("ต้องใส่"),
@@ -140,9 +150,9 @@ const Registration = () => {
         } else if (provincetagfag == '3') {
             dispatch(getCollaborativefarmByKeyword('ขอนแก่น'))
         } else if (provincetagfag == '4') {
-            dispatch(getCollaborativefarmByKeyword('ร้อยเอ็ด'))
-        } else if (provincetagfag == '5') {
             dispatch(getCollaborativefarmByKeyword('กาฬสินธุ์'))                        
+        } else if (provincetagfag == '5') {
+            dispatch(getCollaborativefarmByKeyword('ร้อยเอ็ด'))
         } else {            
             dispatch(getCollaborativefarmByKeyword(provincetarget))
         }
@@ -309,9 +319,22 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
               formData.append('tel', values.tel)
               formData.append('status', 'false')
               formData.append('reject', 'false')
+              formData.append('latitude', values.latitude)
+              formData.append('longitude', values.longitude)
+              // เลือกประเภทการลงทะเบียน 1 เกตรกร 2 ผู้ประกอบการ 3 ปราชญ์
               formData.append('register_type',values.register_type)
-              formData.append('farmer_type',values.farmer_type)
-              formData.append('related_with',values.related_with)
+                // ใช้เก็บข้อมูลปราชญ์
+              formData.append('register_data',values.register_data) 
+              // เก็บข้อมูลการลงทะเบียน เกษตรกร 
+              formData.append('farmer_type',values.farmer_type)              
+              formData.append('farmer_data',values.collaborativefarm)
+              // เก็บข้อมูลการลงกลุ่มเกษตร
+              formData.append('farmer_group',values.farmergroup)
+              // เก็บข้อมูลการลงทะเบียน ผู้ประกอบการ
+              formData.append('entrepreneur_type',values.entrepreneur_type)
+              formData.append('entrepreneurherbal_data',values.entrepreneurherbal)
+              formData.append('entrepreneurtraditionalmedicine_data',values.entrepreneurtraditionalmedicine)
+
               console.log('Registration form values: ',values)
                 dispatch(addFarmersRegister(navigate, formData))
                setSubmitting(false)
@@ -547,17 +570,17 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                                 role="farmer_type_group"
                                 aria-labelledby="province-selection-label"
                                 defaultValue="1"
-                                handleChange={handleProvinceSelected(province1,values.farmer_type_selected)}
+                                handleChange={handleProvinceSelected(province1,values.farmer_type)}
                                 >
-                                    <FormControlLabel control={<Field type="radio" name="farmer_type_selected" value="1" />} label="เกษตรกรแปลงเดี่ยว" />
-                                    <FormControlLabel control={<Field type="radio" name="farmer_type_selected" value="2" />} label="เป็นกลุ่มแปลงใหญ่" />
+                                    <FormControlLabel control={<Field type="radio" name="farmer_type" value="1" />} label="เกษตรกรแปลงเดี่ยว" />
+                                    <FormControlLabel control={<Field type="radio" name="farmer_type" value="2" />} label="กลุ่มกษตรกรแปลงใหญ่" />
 
                                 </RadioGroup>  
                             </FormControl>                          
                     </Box>    
                     ) : undefined   }                                            
 
-                { (values.register_type == 1 && values.farmer_type_selected == "1") ? (   
+                { (values.register_type == 1 && values.farmer_type == "1") ? (   
                     <Box sx={{mt:"5px",  ...commonStyles, borderRadius: 1}}>
                         <Typography variant="h6" gutterBottom sx={{ display: 'block' }}>
                             โปรดระบุพิกัดแปลง
@@ -592,7 +615,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                     </Box> 
                     ) : undefined   } 
 
-                { (values.register_type == 1 && values.farmer_type_selected == "2") ? (   
+                { (values.register_type == 1 && values.farmer_type == "2") ? (   
                     <Box sx={{mt:"5px",  ...commonStyles, borderRadius: 1}} >
                         <Typography variant="h6" gutterBottom sx={{ display: 'block' }}>
                             แปลงอยู่ในพื้นที่จังหวัด
@@ -607,14 +630,14 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                                 >
                                     <FormControlLabel control={<Field type="radio" name="province_selected" value="2" />} label="มหาสารคาม" />     
                                     <FormControlLabel control={<Field type="radio" name="province_selected" value="3" />} label="ขอนแก่น" />     
-                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="4" />} label="ร้อยเอ็ด" />     
-                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="5" />} label="กาฬสินธุ์" />     
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="4" />} label="กาฬสินธุ์" />     
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="5" />} label="ร้อยเอ็ด" />     
                                 </RadioGroup>  
                             </FormControl>                          
                     </Box> 
                     ) : undefined   }                     
 
-                    { (values.register_type == 1 && values.farmer_type_selected == "2" ) ? (      
+                    { (values.register_type == 1 && values.farmer_type == "2" ) ? (      
                         <TextField
                         fullWidth
                         variant="filled"
@@ -623,10 +646,10 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                         select
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        value={values.largefield}
-                        name="largefield"
-                        error={!!touched.largefield && !!errors.largefield}
-                        helperText={touched.largefield && errors.largefield}
+                        value={values.collaborativefarm}
+                        name="collaborativefarm"
+                        error={!!touched.collaborativefarm && !!errors.collaborativefarm}
+                        helperText={touched.collaborativefarm && errors.collaborativefarm}
                         defaultValue=""
                         sx={{ gridColumn: "span 2" }} >                                                  
                         {   collaborativefarmReducer.result &&
@@ -643,7 +666,8 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                     ) : undefined   }  
 
                         {/* ผู้ประกอบการ */}
-                        { (values.register_type && values.register_type == 2) ? (      
+
+                        { (values.register_type == 2) ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -657,20 +681,17 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             error={!!touched.entrepreneur_type && !!errors.entrepreneur_type}
                             helperText={touched.entrepreneur_type && errors.entrepreneur_type}
                             defaultValue=""
-                            sx={{ gridColumn: "span 2" }} >       
+                            sx={{ gridColumn: "span 2" }} >                                                      
                             <MenuItem key="1" value="1" >
-                                ผู้ประกอบการอิสระ
-                            </MenuItem>                                                      
-                            <MenuItem key="2" value="2" >
                                 ผู้ประกอบการผลิตภัณฑ์สมุนไพร
                             </MenuItem>
-                            <MenuItem key="3" value="3" >
+                            <MenuItem key="2" value="2" >
                                 ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร
                             </MenuItem>                                         
                         </TextField>                    
                         ) : undefined   }       
 
-                        { (values.register_type == 2 && values.entrepreneur_type == "2") ? (      
+                        { (values.register_type == 2 && values.entrepreneur_type == "1") ? (      
                         <TextField
                         fullWidth
                         variant="filled"
@@ -695,7 +716,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                     </TextField>                     
                         ) : undefined   }                          
 
-                        { (values.register_type == 2 && values.entrepreneur_type == "3") ? (      
+                        { (values.register_type == 2 && values.entrepreneur_type == "2") ? (      
                         <TextField
                             fullWidth
                             variant="filled"
