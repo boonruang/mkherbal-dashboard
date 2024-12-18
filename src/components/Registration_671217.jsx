@@ -44,8 +44,7 @@ const initialValues = {
     lastname: "",
     status: "",
     register_type: "1",
-    farmer_type_selected: "1",
-    province_selected: "2",
+    province_selected: "1",
 }
 
 const userSchema = yup.object().shape({
@@ -101,25 +100,6 @@ const Registration = () => {
     tambon_id: undefined
   });
 
-  const commonStyles = {
-    // bgcolor: 'background.paper',
-    // colors: colors.blueAccent[700],
-    // mt: '5px',
-    // border: 1,
-    // p: '10px',
-    // width: '5rem',
-    // height: '5rem',
-        // backgroundColor: colors.greenAccent[600],
-        // color: colors.grey[100],
-        fontSize: "14px",
-        fontWeight: "bold",
-        padding: "10px 20px",
-        mr: "10px",
-        mb: "10px",
-        border: 1,
-        borderColor: colors.grey[100],
-  };
-
   useEffect(() => {
       setProvinces(postcodes)
   },[postcodes])
@@ -136,9 +116,9 @@ const Registration = () => {
 
     useEffect(() => {
         if (provincetagfag == '2') {
-            dispatch(getCollaborativefarmByKeyword('มหาสารคาม'))
-        } else if (provincetagfag == '3') {
             dispatch(getCollaborativefarmByKeyword('ขอนแก่น'))
+        } else if (provincetagfag == '3') {
+            dispatch(getCollaborativefarmByKeyword('มหาสารคาม'))
         } else if (provincetagfag == '4') {
             dispatch(getCollaborativefarmByKeyword('ร้อยเอ็ด'))
         } else if (provincetagfag == '5') {
@@ -507,10 +487,39 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             sx={{ gridColumn: "span 2" }}
                         />  
  
-
                         {/* เกตษตรกร */}
+                        { (values.register_type && values.register_type == 1) ? (      
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="กลุ่มเกษตรกร"
+                            select
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.farmer_type}
+                            name="farmer_type"
+                            error={!!touched.farmer_type && !!errors.farmer_type}
+                            helperText={touched.farmer_type && errors.farmer_type}
+                            defaultValue=""
+                            sx={{ gridColumn: "span 2" }} >       
+                                <MenuItem key="1" value="1" >
+                                    เกษตรกรอิสระ
+                                </MenuItem>                                                      
+                                <MenuItem key="2" value="2" >
+                                    กลุ่มเกษตรกร
+                                </MenuItem>     
+                                <MenuItem key="3" value="3" >
+                                    กลุ่มเกษตรกรแปลงใหญ่
+                                </MenuItem>        
+                                {/* <MenuItem key="4" value="4" >
+                                    อื่นๆ
+                                </MenuItem>         */}
+                             
+                        </TextField>                    
+                        ) : undefined   }       
                         
-                        { values.register_type == 1 ? (      
+                        { (values.register_type == 1 && values.farmer_type == "2") ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -525,78 +534,33 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             helperText={touched.farmergroup && errors.farmergroup}
                             defaultValue=""
                             sx={{ gridColumn: "span 2" }} >
-                            { result && result.map((farmergroup,key) => (
+                            { result.map((farmergroup,key) => (
                             <MenuItem key={key} value={key} >
                                 {farmergroup.id+'--'+farmergroup.farmergroupname+'--'+farmergroup.province}
                             </MenuItem>  
                            ))} 
-                            <MenuItem value="no" >
-                                ไม่มีในรายการ
-                            </MenuItem>                             
                         </TextField>                    
-                        ) : undefined   }   
+                        ) : undefined   }                          
 
-                    { (values.register_type == 1) ? (   
-                    <Box sx={{mt:"5px", ...commonStyles,  borderRadius: 1}} >
-                        <Typography variant="h6" gutterBottom sx={{ display: 'block' }}>
-                            ประเภทแปลง
-                        </Typography>                    
-                            <FormControl>
-                            <RadioGroup
-                                row
-                                role="farmer_type_group"
-                                aria-labelledby="province-selection-label"
-                                defaultValue="1"
-                                handleChange={handleProvinceSelected(province1,values.farmer_type_selected)}
-                                >
-                                    <FormControlLabel control={<Field type="radio" name="farmer_type_selected" value="1" />} label="เกษตรกรแปลงเดี่ยว" />
-                                    <FormControlLabel control={<Field type="radio" name="farmer_type_selected" value="2" />} label="เป็นกลุ่มแปลงใหญ่" />
 
-                                </RadioGroup>  
-                            </FormControl>                          
-                    </Box>    
-                    ) : undefined   }                                            
-
-                { (values.register_type == 1 && values.farmer_type_selected == "1") ? (   
-                    <Box sx={{mt:"5px",  ...commonStyles, borderRadius: 1}}>
-                        <Typography variant="h6" gutterBottom sx={{ display: 'block' }}>
-                            โปรดระบุพิกัดแปลง
-                        </Typography>
-                        <Box  display="flex">
+                        {/* { (values.register_type == 1 && (values.farmer_type == "3" || values.farmer_type == "4" || values.farmer_type == "5")) ? (      
                         <TextField
+                            fullWidth
                             variant="filled"
                             type="text"
-                            label="ละติจูด"
+                            label="โปรดระบุ"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.latitude}
-                            name="latitude"                        
-                            error={!!touched.latitude && !!errors.latitude}
-                            helperText={touched.latitude && errors.latitude}
-                            sx={{ gridColumn: "span 1", width: "200px",mr: "20px" }}
-                        />  
-                        <TextField
-                            variant="filled"
-                            type="text"
-                            label="ลองจิจูด"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.longitude}
-                            name="longitude"                        
-                            error={!!touched.longitude && !!errors.longitude}
-                            helperText={touched.longitude && errors.longitude}
-                            sx={{ gridColumn: "span 1", width: "200px"  }}
-                        />                
-                        </Box>         
-                        
-                    </Box> 
-                    ) : undefined   } 
+                            value={values.related_with}
+                            name="related_with"
+                            error={!!touched.related_with && !!errors.related_with}
+                            helperText={touched.related_with && errors.related_with}
+                            sx={{ gridColumn: "span 2" }}
+                        />        
+                        ) : undefined   }  */}
 
-                { (values.register_type == 1 && values.farmer_type_selected == "2") ? (   
-                    <Box sx={{mt:"5px",  ...commonStyles, borderRadius: 1}} >
-                        <Typography variant="h6" gutterBottom sx={{ display: 'block' }}>
-                            แปลงอยู่ในพื้นที่จังหวัด
-                        </Typography>                        
+                    { (values.register_type == 1 && values.farmer_type == "3" && province1) ? (   
+                    <Box sx={{mt:"5px"}}>
                             <FormControl>
                             <RadioGroup
                                 row
@@ -605,21 +569,22 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                                 defaultValue="1"
                                 handleChange={handleProvinceSelected(province1,values.province_selected)}
                                 >
-                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="2" />} label="มหาสารคาม" />     
-                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="3" />} label="ขอนแก่น" />     
-                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="4" />} label="ร้อยเอ็ด" />     
-                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="5" />} label="กาฬสินธุ์" />     
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="1" />} label="แปลงอยู่ในจังหวัดของท่าน" />
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="2" />} label="จ.ขอนแก่น" />     
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="3" />} label="จ.มหาสารคาม" />     
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="4" />} label="จ.ร้อยเอ็ด" />     
+                                    <FormControlLabel control={<Field type="radio" name="province_selected" value="5" />} label="หรือ จ.กาฬสินธุ์" />     
                                 </RadioGroup>  
                             </FormControl>                          
                     </Box> 
-                    ) : undefined   }                     
+                    ) : undefined   } 
 
-                    { (values.register_type == 1 && values.farmer_type_selected == "2" ) ? (      
+                    { (values.register_type == 1 && values.farmer_type == "3" && province1) ? (      
                         <TextField
                         fullWidth
                         variant="filled"
                         type="text"
-                        label="เลือกพื้นที่แปลงใหญ่"
+                        label="กลุ่มเกษตรกรแปลงใหญ่"
                         select
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -628,7 +593,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                         error={!!touched.largefield && !!errors.largefield}
                         helperText={touched.largefield && errors.largefield}
                         defaultValue=""
-                        sx={{ gridColumn: "span 2" }} >                                                  
+                        sx={{ gridColumn: "span 1" }} >
                         {   collaborativefarmReducer.result &&
                             collaborativefarmReducer.result.map((item) => (
                              <MenuItem key={item.id} value={item.id} >
@@ -636,9 +601,6 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             </MenuItem>
                             ))
                         }
-                            <MenuItem value="no" >
-                                ไม่มีในรายการ
-                            </MenuItem>                          
                         </TextField>                           
                     ) : undefined   }  
 
@@ -685,7 +647,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                         helperText={touched.entrepreneurherbal && errors.entrepreneurherbal}
                         defaultValue=""
                         sx={{ gridColumn: "span 2" }} >
-                        {   entrepreneurherbalReducer &&
+                        {
                             entrepreneurherbalReducer.result.map((item) => (
                              <MenuItem key={item.id} value={item.id} >
                                 {item.id+'--'+item.name+'--'+item.province}
@@ -710,7 +672,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             helperText={touched.entrepreneurtraditionalmedicine && errors.entrepreneurtraditionalmedicine}
                             defaultValue=""
                             sx={{ gridColumn: "span 2" }} >
-                            {entrepreneurthaitraditionalmedicalReducer &&
+                            {
                              entrepreneurthaitraditionalmedicalReducer.result.map((item) => (
                              <MenuItem key={item.id} value={item.id} >
                                 {item.id+'--'+item.name+'--'+item.province}
@@ -730,10 +692,10 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             label="โปรดระบุทักษะหรือความเชี่ยวชาญ"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.register_data}
-                            name="register_data"
-                            error={!!touched.register_data && !!errors.register_data}
-                            helperText={touched.register_data && errors.register_data}
+                            value={values.related_with}
+                            name="related_with"
+                            error={!!touched.related_with && !!errors.related_with}
+                            helperText={touched.related_with && errors.related_with}
                             sx={{ gridColumn: "span 2" }}
                         />        
                         ) : undefined   } 
