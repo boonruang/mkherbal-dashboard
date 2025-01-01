@@ -244,7 +244,31 @@ const FarmerDetail = () => {
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
+                        />         
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ละติจูด"
+                            value={location.state.row.latitude}
+                            name="latitude"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
                         />                                         
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ลองจิจูด"
+                            value={location.state.row.longitude}
+                            name="longitude"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />  
 
                     </Box>
 
@@ -325,30 +349,31 @@ const FarmerDetail = () => {
 
                         {/* ROW 1 */}
 
+
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="กลุ่มเกษตรกร"
-                            // value={location.state.row.cert}
-                            value='วิสาหกิจชุมชนไร่สดใส'
-                            name="farmerGroup"
+                            value={location.state.row.farmergroupId}
+                            name="farmergroupId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
-                        />
+                        />                                         
+
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="กลุ่มเกษตรกรแปลงใหญ่"
-                            // value={location.state.row.cert}
-                            value='วิสาหกิจชุมชนไร่สดใส'
-                            name="BigfarmerGroup"
+                            value={location.state.row.collaborativefarmId}
+                            name="collaborativefarmId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
-                        />  
+                        />                                                         
+
                       </Box>  
                     </Box>                  
                     <Box display="flex" justifyContent="end" mt='10px'>

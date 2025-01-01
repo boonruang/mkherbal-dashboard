@@ -32898,6 +32898,8 @@ export const postcodes = [
     "created_at": "2019-08-09T03:33:09.000+07:00",
     "updated_at": "2022-05-16T06:31:03.000+07:00",
     "deleted_at": null,
+    "latitude": "16.4419355",
+    "longitude": "102.8359921",
     "amphure": [
       {
         "id": 4001,
@@ -38771,6 +38773,8 @@ export const postcodes = [
     "created_at": "2019-08-09T03:33:09.000+07:00",
     "updated_at": "2022-05-16T06:31:03.000+07:00",
     "deleted_at": null,
+    "latitude": "16.1850896",
+    "longitude": "103.3026461",
     "amphure": [
       {
         "id": 4401,
@@ -40255,6 +40259,8 @@ export const postcodes = [
     "created_at": "2019-08-09T03:33:09.000+07:00",
     "updated_at": "2022-05-16T06:31:03.000+07:00",
     "deleted_at": null,
+    "latitude": "16.0538196",
+    "longitude": "103.6520036",    
     "amphure": [
       {
         "id": 4501,
@@ -42416,6 +42422,8 @@ export const postcodes = [
     "created_at": "2019-08-09T03:33:09.000+07:00",
     "updated_at": "2022-05-16T06:31:03.000+07:00",
     "deleted_at": null,
+    "latitude": "16.4314078",
+    "longitude": "103.5058755",     
     "amphure": [
       {
         "id": 4601,

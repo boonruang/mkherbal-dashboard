@@ -99,3 +99,19 @@ const doGetFarmers = (dispatch) => {
       dispatch(setStateFarmerToFailed());
     });
 };
+
+export const addFarmer = (navigate, formData) => {
+  console.log('navigate action',navigate)
+  console.log('formData action',formData)
+  return async (dispatch) => {
+    try {
+      // success
+      let result = await httpClient.post(server.FARMER_URL, formData)
+      console.log('addFarmer formData successfully: ', result)
+      navigate('/farmers')
+    } catch (error) {
+      // failed
+      console.log('addFarmer formData Error: ', error.toString())
+    }
+  }
+}

@@ -1,215 +1,263 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState  } from 'react';
+import { useEffect } from "react";
+import { Box, useTheme,Button } from "@mui/material"
+import { DataGrid, GridToolbar } from "@mui/x-data-grid"
+import { tokens } from "../../theme"
+import AddIcon from '@mui/icons-material/Add';
+import { getFarmergroup } from '../../actions/farmergroup.action'
+
+import Header from "../../components/Header"
 import { useDispatch, useSelector } from "react-redux";
-import { processGeojson } from '@kepler.gl/processors';
-import { Box, useTheme, InputBase,IconButton,Button  } from "@mui/material"
-import fmg_config from '../../data/fmg_config.json';
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+import { ROLES } from '../../constants'
+import { Link, useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
-import Backdrop from '@mui/material/Backdrop';
-import Header from "../../components/Header";
-import { tokens } from '../../theme';
-import {createAction} from 'redux-actions';
-import {injectComponents, PanelHeaderFactory,SidebarFactory} from '@kepler.gl/components';
-import CustomHeaderFactory from 'components/keplergl/CustomHeaderFactory';
-import CustomSidebarFactory from 'components/keplergl/CustomSidebarFactory'
-import SearchIcon from "@mui/icons-material/Search"
-import useDebounce from 'hooks/useDebounce';
-import FarmergroupList from '../../components/FarmergroupList'
-import { addDataToMap, wrapTo, updateMap, removeDataset as removeDatasetFromKepler } from '@kepler.gl/actions'
-// import useSWR from 'swr'
-import KeplerGlSchema from '@kepler.gl/schemas';
-import { showSidebar } from 'actions/app.action';
-import { getHerbals } from 'actions/herbal.action';
-import FarmergroupDetail from 'components/FarmergroupDetail';
-import HerbalCarousel from 'components/HerbalCarousel';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { setStateFarmergroupSelectedToFetching } from 'actions/farmergroup.action'
+import * as XLSX from 'xlsx'
+import IosShareIcon from '@mui/icons-material/IosShare';
 
-const mapBoxKey = process.env.REACT_APP_MAPBOX_API
-
-const updateVisState = createAction('UPDATE_VIS_STATE');
-// const toggleSidePanel = createAction('HIDE_AND_SHOW_SIDE_PANEL');
-const closeMapLegend = createAction('HIDE_AND_SHOW_MAP_LEGEND');
-  
-const myCustomHeaderFactory = () => CustomHeaderFactory
-
-const KeplerGl = injectComponents([
-  [PanelHeaderFactory, myCustomHeaderFactory],
-  [SidebarFactory, CustomSidebarFactory],
-]);
-
-const Farmergroup = (props) => {
-
-  const [searchValue, setSearchValue] = useState('')
-  const debouncedSearchValue = useDebounce(searchValue, 1000)
-  
-  const dispatch = useDispatch();
-
+const Farmergroup = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
-    const [isSearcBoxOpen, setIsSearcBoxOpen] = useState(true)
+    const dispatch = useDispatch()
 
-    const [isFarmerBoxOpen, setIsFarmerBoxOpen] = useState(false)
-    
-    const [isHerbalBoxOpen, setIsHerbalBoxOpen] = useState(false)
-    
-    const { isSidebar } = useSelector((state) => state.app.appReducer)
+    const navigate = useNavigate()
 
-    const { result, selectedResult } = useSelector((state) => state.app.farmergroupReducer)
+    useEffect(() => {
+        dispatch(getFarmergroup())
+    },[dispatch])
+
+
+    const { result, isFetching } = useSelector((state) => state.app.farmergroupReducer)
+
+    const loginReducer = useSelector((state) => state.app.loginReducer)
 
     // if (result) {
-    //   console.log('result check',result)
+    //     console.log('result',result)
     // }
 
-    // const { mkplc } = useSelector((state) => state.keplerGl)
-
-    // if (mkplc) {
-    //   console.log('mkplc',mkplc)
-    // }
-    
-    // const mapConfig = KeplerGlSchema.getConfigToSave(keplerGlReducer.mkplc)
-
-    // useEffect(() => {
-    //   dispatch(getHerbals())
-    // },[dispatch])
-
-    useEffect(() => {
-      // when farmergroup state change (click)
-      if (selectedResult) {
-        setIsFarmerBoxOpen(true)
-      }
-    },[selectedResult])
-
-    useEffect(() => {
-      if (result) {
-            dispatch(removeDatasetFromKepler('fmg1'))
-            dispatch(
-              wrapTo(
-                "farmergroup",
-                addDataToMap({
-                  datasets: {
-                    info: {
-                      label: 'Farmergroup',
-                      id: 'fmg1'
-                    },
-                    data: processGeojson(result)
-                  },  
-                  options: {
-                    centerMap: true,
-                  },             
-                  config: fmg_config
-                  })
-                ))
-          dispatch(wrapTo('farmergroup',closeMapLegend()))
-          console.log('i am running in useEffect ')
-          setTimeout(() => {
-            dispatch(wrapTo('farmergroup',updateVisState()))
-            // dispatch(showSidebar(false))
-          },500)
-        }
-    },[dispatch,result])
-
-    const handleSearchClick = () => {
-      setIsSearcBoxOpen(!isSearcBoxOpen)
-      dispatch(setStateFarmergroupSelectedToFetching())        
-    }    
-
-    const handleFarmerClick = () => {
-      setIsFarmerBoxOpen(!isFarmerBoxOpen)
-    }    
-
-    const handleHerbalClick = () => {
-      setIsHerbalBoxOpen(!isHerbalBoxOpen)
-    }    
-
-      return (
-        <Box m="20px">
-            <Header title="ข้อมูลกลุ่มเกษตรกร" subtitle="กลุ่มเกษตรกรสมุนไพร" />
-              <Box  height={ isSidebar ? "86vh" : "90vh" } width="100%" sx={{overflow: "hidden"}}>
-                  <AutoSizer>
-                    {({height, width}) => (
-                    <KeplerGl
-                    id="farmergroup"
-                    mapboxApiAccessToken={mapBoxKey}
-                    height={height}               
-                    width={width}
-                    sx={{
-                      "& .mapboxgl-children": {
-                        style : {
-                          height: "0%"
-                        }}
-                      }}                    
-                    />
-                    )}
-                  </AutoSizer >                   
-
-                  <Box 
-                    sx={{ position: 'absolute', p: 0.5, left: isSearcBoxOpen ? 295 : 0, top: 5, backgroundColor: '#ec8a2f',cursor: 'pointer' }} 
-                    onClick={() => handleSearchClick()}>
-                      {isSearcBoxOpen ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
-                  </Box>  
-
-                    {isSearcBoxOpen ? <Box  display="flex" justifyContent="space-between" component="form" 
-                                  sx={{
-                                    '& > :not(style)': { height: 45, width: '33.5ch', position: 'absolute', top: 0, left: 0},
-                                  }}
-                                  noValidate
-                                  autoComplete="off"
-                                >
-                          {/* SEARCH BAR */}
-                          <Box
-                              display="flex"
-                              backgroundColor={colors.primary[400]}
-                          >
-                              <InputBase autoFocus sx={{ ml: 2,p: 1, flex: 1 }} placeholder="ค้นหา" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-                              <IconButton type="button" sx={{ p: 1 }} >
-                                  <SearchIcon />
-                              </IconButton>
-                          </Box>   
-                    </Box>  : undefined }
-
-                    {isSearcBoxOpen ? <FarmergroupList searchTerm={debouncedSearchValue} /> : undefined}
-
-                   { selectedResult ? <Box 
-                    sx={{ position: 'absolute', p: 1, left: isFarmerBoxOpen && selectedResult ? 655 : 300, top: 45, backgroundColor: '#458048',cursor: 'pointer' }} 
-                    onClick={() => handleFarmerClick()}>
-                      {isFarmerBoxOpen ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
-                    </Box> : undefined }
-
-                  { isFarmerBoxOpen && selectedResult ? <FarmergroupDetail /> : undefined }
-
-                  {
-                   isHerbalBoxOpen && selectedResult?.herbals ? 
-                   <AutoSizer>
-                   {({height, width}) => (
-                   <Box sx={{ height: 150, width: 1250, position: 'absolute', bottom: 220, left: ((width-300-1250)/2)+300, zIndex: 9 }}>
-                    <HerbalCarousel  />
-                   </Box>
-                   )}
-                   </AutoSizer>
-                   : undefined 
-                  }     
-
-                  { selectedResult?.herbals.length > 0 ? 
-                   <AutoSizer>
-                   {({height, width}) => (                  
-                      <Box 
-                        sx={{ position: 'absolute', p: 1, left: ((width-300-1250)/2)+300, bottom: isHerbalBoxOpen ? 333 : 0, backgroundColor: '#458048',cursor: 'pointer',zIndex: 10 }} 
-                        onClick={() => handleHerbalClick()}>
-                          {isHerbalBoxOpen ? <ExpandMoreIcon/> : <ExpandLessIcon/>}
-                      </Box>
-                   )}
-                   </AutoSizer>                  
-                  : undefined }                  
-              </Box>
-          </Box>
-      );
+    const handleClick = () => {
+        //
     }
 
+    const handleAddButton = () => {
+        navigate('/farmers/add')
+      };
 
-export default Farmergroup;
+    const ExportExcelButton = () => {
+    // console.log('Data to export: ',result)
+    var wb = XLSX.utils.book_new(),
+    ws = XLSX.utils.json_to_sheet(result)
+
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1")
+    XLSX.writeFile(wb, "farmer.xlsx")
+
+    };
+
+    const handleButtonDetail = (p) => {
+        // console.log('params',params)
+        console.log('params',p)
+        // navigate('/farmers/detail')
+    };
+
+    const handleRowClick = (params,event,details) => {
+        console.log('params',params)
+        // console.log('event',event)
+        // console.log('details',details)
+    };
+
+
+    const columns = [
+        { field: 'id', headerName: 'ลำดับ', headerAlign: 'center', align: 'center'},
+        // { field: 'username', headerName: 'Username' },
+        {
+            field: 'farmergroupname',
+            headerName: 'ชื่อกลุ่ม',
+            flex: 1.5,
+            cellClassName: "name-column--cell"
+        },
+        {
+            field: 'leader',
+            headerName: 'ผู้นำกลุ่ม',
+            flex: 1,
+            cellClassName: "name-column--cell"
+        },                   
+        // {
+        //     field: 'hno',
+        //     headerName: 'เลขที่',
+        //     flex: 0.5,
+        //     cellClassName: "name-column--cell"
+        // },  
+        {
+            field: 'moo',
+            headerName: 'หมู่',
+            flex: 0.5,
+            cellClassName: "name-column--cell"
+        },  
+        {
+            field: 'tambon',
+            headerName: 'ตำบล',
+            flex: 0.5,
+            cellClassName: "name-column--cell"
+        },  
+        {
+            field: 'amphoe',
+            headerName: 'อำเภอ',
+            flex: 0.5,
+            cellClassName: "name-column--cell"
+        },          
+        {
+            field: 'province',
+            headerName: 'จังหวัด',
+            flex: 0.5,
+            cellClassName: "name-column--cell"
+        },                  
+        {
+            field: 'tel',
+            headerName: 'เบอร์ติดต่อ',
+            headerAlign: 'center',
+            align: 'center',
+            flex: 0.5,
+            cellClassName: "name-column--cell"
+        },                  
+
+        { field: 'actions', headerName: 'ดำเนินการ', headerAlign: 'center', align: 'center', flex: 1.5, renderCell: (params) => {
+            return (
+              <Box>
+                <Button
+                  onClick={() => (navigate('/farmergroup/detail',  { state: { row: params.row }} ))}
+                  variant="outlined"
+                  color="success"
+                >
+                  รายละเอียด
+                </Button>
+
+            { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+                ? <Button
+                  onClick={handleClick}
+                  variant="outlined"
+                  color="error"
+                  sx={{ ml: 1 }} 
+                >
+                  ลบ
+                </Button> : undefined  } 
+
+            { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
+                ? <Button
+                  onClick={handleClick}
+                  variant="outlined"
+                  color="warning"
+                  sx={{ ml: 1 }}            
+                >
+                  แก้ไข
+                </Button> : undefined  }                       
+              </Box>
+            );
+          } }         
+
+    ]
+
+    return (
+        <Box m="20px">
+            <Header title="ข้อมูลกลุ่มเกษตรกร" subtitle="รายการข้อมูลกลุ่มเกษตรกร" />
+            <Box m="40px 0 0 0" height="75vh" sx={{
+                "& .MuiDataGrid-root": {
+                    border: 1,
+                    borderColor: colors.greenAccent[500]
+                },
+                "& .MuiDataGrid-cell": {
+                    boderBottom: "none"
+                },
+                "& .name-column--cell": {
+                    color: colors.greenAccent[300]
+                },
+                "& .MuiDataGrid-columnHeader": {
+                    borderBottom: "none",
+                    backgroundColor: colors.primary[400]
+                },
+                "& .MuiDataGrid-virtualScroller": {
+                    // backgroundColor: colors.primary[400]
+                },
+                "& .MuiDataGrid-footerContainer": {
+                    borderTop: "none",
+                    // backgroundColor: colors.yellowAccent[700],
+                },
+                "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                    color: `${colors.grey[100]} !important`
+                }
+            }}>
+                <Box display="flex" justifyContent="end">
+                    { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role)) && result
+                    ? <Box display="flex" justifyContent="end" onClick={handleAddButton}>
+                        <Button  
+                            sx={{
+                                // backgroundColor: colors.blueAccent[600],
+                                backgroundColor: colors.greenAccent[600],
+                                color: colors.grey[100],
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                padding: "10px 20px",
+                                mr: "10px",
+                                mb: "10px",
+                                '&:hover': {backgroundColor: colors.blueAccent[700]}
+                            }}
+                        >
+                            <AddIcon sx={{ mr: "10px" }} />
+                            เพิ่มข้อมูล
+                        </Button>
+                    </Box> : undefined }
+
+                    { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role)) && result
+                    ? <Box display="flex" justifyContent="end" onClick={ExportExcelButton}>
+                        <Button  
+                            sx={{
+                                backgroundColor: colors.blueAccent[700],
+                                // backgroundColor: colors.greenAccent[600],
+                                color: colors.grey[100],
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                padding: "10px 20px",
+                                mr: "10px",
+                                mb: "10px",
+                                '&:hover': {backgroundColor: colors.blueAccent[800]}
+                            }}
+                        >
+                            <IosShareIcon sx={{ mr: "10px" }} />
+                            ส่งออกไฟล์ Excel
+                        </Button>
+                    </Box> : undefined }                
+                </Box>
+                
+                    { isFetching && <Box height="65vh" sx={{ display: 'flex', justifyContent: "center", alignItems: 'center'}}><CircularProgress /></Box>}
+                    { result ?
+                    <DataGrid
+                        rows={result}
+                        columns={columns}
+                        components={{ Toolbar: GridToolbar }}
+                        componentsProps={{
+                            toolbar: {
+                              csvOptions: { disableToolbarButton: true },
+                              printOptions: {
+                                disableToolbarButton: false,
+                                hideFooter: true,
+                                hideToolbar: true, // ซ่อน headers column, filters, exports ตอนพิมพ์
+                                fields: [
+                                    'id',
+                                    'farmergroupname',
+                                    'hno',                                    
+                                    'village',
+                                    'moo',
+                                    'tambon',
+                                    'amphoe',
+                                    'province',
+                                    'postcode',
+                                    'leader',
+                                ],
+                            },
+                            },
+                          }} 
+                    /> : undefined}
+            </Box>
+        </Box>
+    )
+}
+
+export default Farmergroup

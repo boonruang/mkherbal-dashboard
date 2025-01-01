@@ -12,7 +12,7 @@ import {
     Typography
   } from '@mui/material'
 
-import { postcodes } from "../data/thPostcode.js"
+import { postcodes } from "../../data/thPostcode"
 
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -32,15 +32,17 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
-import { addFarmersRegister } from '../actions/register.action'
-import { getFarmergroup } from '../actions/farmergroup.action'
-import { getCollaborativefarms, getCollaborativefarmByKeyword } from '../actions/collaborativefarm.action.js'
-import { getEntrepreneurherbals } from '../actions/entrepreneurherbal.action'
-import { getEntrepreneurthaitraditionalmedicals } from '../actions/entrepreneurthaitraditionalmedical.action'
+// import { addFarmersRegister } from '../../actions/register.action'
+import { addFarmer } from '../../actions/farmer.action'
+import { getFarmergroup } from '../../actions/farmergroup.action'
+import { getCollaborativefarms, getCollaborativefarmByKeyword } from '../../actions/collaborativefarm.action.js'
+import { getEntrepreneurherbals } from '../../actions/entrepreneurherbal.action'
+import { getEntrepreneurthaitraditionalmedicals } from '../../actions/entrepreneurthaitraditionalmedical.action'
 import { useNavigate } from 'react-router-dom'
-import Header from "../components/Header"
+import Header from "../../components/Header"
 import { ConstructionOutlined } from '@mui/icons-material';
-import { server } from '../constants/index'
+
+import { server } from '../../constants/index'
 import {
     APIProvider,
     Map,
@@ -49,27 +51,25 @@ import {
     Pin,
     InfoWindow
 } from '@vis.gl/react-google-maps'
-import { Null } from '@loaders.gl/schema';
 
 const initialValues = {
     firstname: "",
     lastname: "",
     province_selected: "2",
     farmer_type: "1",
+    farmer_data: "",
+    collaborativefarm: "",
     register_type: "1",
+    register_data: "",
     entrepreneur_type: "0",
     farmergroupId: "",
     collaborativefarmId: "",
-    entrepreneurherbalId: "",    
-    entrepreneurtraditionalmedicineId: "",    
-    
-    // collaborativefarm: "",
-    // farmer_data: "",
-    // register_data: "",
-    // entrepreneurherbal: "",
-    // entrepreneurherbal_data: "",
-    // entrepreneurtraditionalmedicine: "",
-    // entrepreneurtraditionalmedicine_data: "",
+    entrepreneurherbal: "",
+    entrepreneurherbal_data: "",
+    entrepreneurtraditionalmedicine: "",
+    entrepreneurtraditionalmedicine_data: "",
+    // latitude: "16.1850896",
+    // longitude: "103.3026461",
 }
 
 const userSchema = yup.object().shape({
@@ -81,11 +81,13 @@ const userSchema = yup.object().shape({
         "ต้องประกอบด้วยอักษรภาษาอังกฤษตัวใหญ่ ตัวเล็ก และตัวเลข รวมกันต้องไม่น้อยกว่า 8 ตัวอักษร"
       ),
     password2: yup.string().required("ต้องใส่").oneOf([yup.ref('password'), null], 'รหัสผ่านต้องเหมือนกัน'),
-    // cid: yup.string().required("ต้องใส่"),
     cid: yup.string().required("ต้องใส่").matches(/^[0-9]{13}$/,"ต้องประกอบด้วยตัวเลข 13 หลัก"),    
     hno: yup.string().required("ต้องใส่"),
     moo: yup.string().required("ต้องใส่"),
     tel: yup.string().required("ต้องใส่"),
+
+
+
     // latitude: yup.string().required("ต้องใส่"),
     // longitude: yup.string().required("ต้องใส่"),
     // tambon: yup.string().required("ต้องใส่"),
@@ -95,7 +97,7 @@ const userSchema = yup.object().shape({
 })
 
 
-const Registration = () => {
+const FamerAdd = () => {
 
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)     
@@ -103,6 +105,11 @@ const Registration = () => {
   const dispatch = useDispatch()    
 
   const navigate = useNavigate()
+
+
+
+//   const [latitude, setLatitude] = useState(16.1850896);
+//   const [longitude, setLongitude] = useState(103.3026461);
 
   const [tambon1, setTambon] = useState('');
   const [amphure1, setAmphure] = useState('');
@@ -125,9 +132,11 @@ const Registration = () => {
     tambon_id: undefined
   });
 
-    const INITIAL_CENTER = { lat: 16.1850896, lng: 103.3026461}
-    const INITIAL_ZOOM = 12
-    const [center, setCenter] = useState(INITIAL_CENTER);
+
+  const INITIAL_CENTER = { lat: 16.1850896, lng: 103.3026461}
+  const INITIAL_ZOOM = 12
+  const [center, setCenter] = useState(INITIAL_CENTER);
+
 
   const commonStyles = {
         // backgroundColor: colors.greenAccent[600],
@@ -141,18 +150,8 @@ const Registration = () => {
         borderColor: colors.grey[100],
   };
 
-  const [latitude, setLatitude] = useState('')
-  const [longitude, setLongitude] = useState('')
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-        // console.log(' position => ',position.coords)
-        setLatitude(position.coords.latitude)
-        setLongitude(position.coords.longitude)
-    })
-  },[])
 
-  console.log(' position => ',latitude, longitude)
 
   useEffect(() => {
       setProvinces(postcodes)
@@ -214,7 +213,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
 // }
 
     const handleCancelButtonClick = () => {
-    navigate('/')
+    navigate(-1)
    }
 
    const handleProvinceSelected = (p,v) => {
@@ -322,7 +321,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
 
 
     return <Box m="20px">
-        <Header title="ลงทะเบียน" />
+        <Header title="เพิ่มเกษตรกร" />
 
         <Formik
             // onSubmit={handleFormSubmit}
@@ -340,28 +339,26 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
               formData.append('province', province1)
               formData.append('postcode', zipcode1)
               formData.append('tel', values.tel)
-              formData.append('status', 'false')
+              formData.append('status', 'true')
               formData.append('reject', 'false')
-              formData.append('latitude', values.farmer_type==='1' ?  center.lat : null )
-              formData.append('longitude', values.farmer_type==='1' ? center.lng : null )
+              formData.append('latitude', center.lat)
+              formData.append('longitude', center.lng)
               // เลือกประเภทการลงทะเบียน 1 เกตรกร 2 ผู้ประกอบการ 3 ปราชญ์
               formData.append('register_type',values.register_type)
                 // ใช้เก็บข้อมูลปราชญ์
-                // เก็บข้อมูลการลงทะเบียน เกษตรกร 
-                formData.append('collaborativefarmId',values.collaborativefarmId)
-                // เก็บข้อมูลการลงกลุ่มเกษตร
-                formData.append('farmergroupId',values.farmergroupId)
-                // เก็บข้อมูลการลงทะเบียน ผู้ประกอบการ
-                formData.append('entrepreneurherbalId',values.entrepreneurherbalId)
-                formData.append('entrepreneurtraditionalmedicineId',values.entrepreneurtraditionalmedicineId)
-                
-            //   formData.append('register_data',values.register_data) 
-            //   formData.append('farmer_type',values.farmer_type)              
-            //   formData.append('entrepreneurherbal_data',values.entrepreneurherbal)
-            //   formData.append('entrepreneurtraditionalmedicine_data',values.entrepreneurtraditionalmedicine)
+              formData.append('register_data',values.register_data) 
+              // เก็บข้อมูลการลงทะเบียน เกษตรกร 
+              formData.append('farmer_type',values.farmer_type)              
+              formData.append('collaborativefarmId',values.collaborativefarmId)
+              // เก็บข้อมูลการลงกลุ่มเกษตร
+              formData.append('farmergroupId',values.farmergroupId)
+              // เก็บข้อมูลการลงทะเบียน ผู้ประกอบการ
+              formData.append('entrepreneur_type',values.entrepreneur_type)
+              formData.append('entrepreneurherbal_data',values.entrepreneurherbal)
+              formData.append('entrepreneurtraditionalmedicine_data',values.entrepreneurtraditionalmedicine)
 
               console.log('Registration form values: ',values)
-                dispatch(addFarmersRegister(navigate, formData))
+                dispatch(addFarmer(navigate, formData))
                setSubmitting(false)
             }}
             initialValues={initialValues}
@@ -373,22 +370,6 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                     {console.log('dirty: ', dirty)}
                     {console.log('isValid: ', isValid)}
                     {console.log('isSubmitting: ', isSubmitting)}
-                    <Box sx={{mt:"5px"}}>
-                        <Divider sx={{ mb: '10px'}}/>
-                            <FormControl>
-                            <RadioGroup
-                                row
-                                role="group"
-                                aria-labelledby="register-selection-label"
-                                defaultValue="1"
-                                >
-                                    <FormControlLabel control={<Field type="radio" name="register_type" value="1" />} label="เกษตรกร" />
-                                    <FormControlLabel control={<Field type="radio" name="register_type" value="2" />} label="ผู้ประกอบการ" />    
-                                    <FormControlLabel control={<Field type="radio" name="register_type" value="3" />} label="ปราชญ์สมุนไพร" />    
-                                    {/* <FormControlLabel control={<Field type="radio" name="register_type" value="4" />} label="นักวิชาการ" />     */}
-                                </RadioGroup>  
-                            </FormControl>                          
-                    </Box> 
 
                     <Box
                         display="grid"
@@ -558,7 +539,6 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
 
                         {/* เกตษตรกร */}
                         
-                        { values.register_type == 1 ? (      
                         <TextField
                             fullWidth
                             variant="filled"
@@ -582,9 +562,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                                 ไม่มีในรายการ
                             </MenuItem>                             
                         </TextField>                    
-                        ) : undefined   }   
 
-                    { (values.register_type == 1) ? (   
                     <Box sx={{mt:"5px", ...commonStyles,  borderRadius: 1}} >
                         <Typography variant="h6" gutterBottom sx={{ display: 'block' }}>
                             ประเภทแปลง
@@ -603,9 +581,8 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                                 </RadioGroup>  
                             </FormControl>                          
                     </Box>    
-                    ) : undefined   }                                            
 
-                { (values.register_type == 1 && values.farmer_type == "1") ? (   
+                { (values.farmer_type == "1") ? (   
                     <Box sx={{mt:"5px",  ...commonStyles, borderRadius: 1}}>
                         <Box sx={{mt:"5px"}} >
                         <Typography variant="h6" gutterBottom sx={{ display: 'block' }}>
@@ -633,8 +610,8 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             onChange={handleChange}
                             value={center.lat}
                             name="latitude"                        
-                            // error={!!touched.latitude && !!errors.latitude}
-                            // helperText={touched.latitude && errors.latitude}
+                            error={!!touched.latitude && !!errors.latitude}
+                            helperText={touched.latitude && errors.latitude}
                             sx={{ gridColumn: "span 1", width: "200px", mr: "20px"}}
                         />  
                         <TextField
@@ -646,8 +623,8 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             onChange={handleChange}
                             value={center.lng}
                             name="longitude"                        
-                            // error={!!touched.longitude && !!errors.longitude}
-                            // helperText={touched.longitude && errors.longitude}
+                            error={!!touched.longitude && !!errors.longitude}
+                            helperText={touched.longitude && errors.longitude}
                             sx={{ gridColumn: "span 1", width: "200px"  }}
                         />    
                         </Box>     
@@ -655,7 +632,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                     </Box> 
                     ) : undefined   } 
 
-                { (values.register_type == 1 && values.farmer_type =="1" && values.map_show == "1") ? ( 
+                { (values.farmer_type =="1" && values.map_show == "1") ? ( 
                     <Box height="40vh"  sx={{ gridColumn: "span 4" }} >
                         <APIProvider apiKey={server.GOOGLEMAPS_API}>
                             {/* <Typography>
@@ -679,7 +656,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                     </Box>
                 ) : undefined   } 
 
-                { (values.register_type == 1 && values.farmer_type == "2") ? (   
+                { (values.farmer_type == "2") ? (   
                     <Box sx={{mt:"5px",  ...commonStyles, borderRadius: 1}} >
                         <Typography variant="h6" gutterBottom sx={{ display: 'block' }}>
                             แปลงอยู่ในพื้นที่จังหวัด
@@ -701,7 +678,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                     </Box> 
                     ) : undefined   }                     
 
-                    { (values.register_type == 1 && values.farmer_type == "2" ) ? (      
+                    { (values.farmer_type == "2" ) ? (      
                         <TextField
                         fullWidth
                         variant="filled"
@@ -717,8 +694,8 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                         defaultValue=""
                         sx={{ gridColumn: "span 2" }} >                                                  
                         {   collaborativefarmReducer.result &&
-                            collaborativefarmReducer.result.map((item,key) => (
-                             <MenuItem key={key} value={item.id} >
+                            collaborativefarmReducer.result.map((item) => (
+                             <MenuItem key={item.id} value={item.id} >
                                 {item.id+'--'+item.name+'--'+item.province}
                             </MenuItem>
                             ))
@@ -728,101 +705,6 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             </MenuItem>                          
                         </TextField>                           
                     ) : undefined   }  
-
-                        {/* ผู้ประกอบการ */}
-
-                        { (values.register_type == 2) ? (      
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="ผู้ประกอบการ"
-                            select
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.entrepreneur_type}
-                            name="entrepreneur_type"
-                            error={!!touched.entrepreneur_type && !!errors.entrepreneur_type}
-                            helperText={touched.entrepreneur_type && errors.entrepreneur_type}
-                            defaultValue=""
-                            sx={{ gridColumn: "span 2" }} >                                                      
-                            <MenuItem key="1" value="1" >
-                                ผู้ประกอบการผลิตภัณฑ์สมุนไพร
-                            </MenuItem>
-                            <MenuItem key="2" value="2" >
-                                ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร
-                            </MenuItem>                                         
-                        </TextField>                    
-                        ) : undefined   }       
-
-                        { (values.register_type == 2 && values.entrepreneur_type == "1") ? (      
-                        <TextField
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        label="ผู้ประกอบการผลิตภัณฑ์สมุนไพร"
-                        select
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.entrepreneurherbalId}
-                        name="entrepreneurherbalId"
-                        error={!!touched.entrepreneurherbalId && !!errors.entrepreneurherbalId}
-                        helperText={touched.entrepreneurherbalId && errors.entrepreneurherbalId}
-                        defaultValue=""
-                        sx={{ gridColumn: "span 2" }} >
-                        {   entrepreneurherbalReducer &&
-                            entrepreneurherbalReducer.result.map((item,key) => (
-                             <MenuItem key={key} value={item.id} >
-                                {item.id+'--'+item.name+'--'+item.province}
-                            </MenuItem>
-                            ))
-                        }
-                    </TextField>                     
-                        ) : undefined   }                          
-
-                        { (values.register_type == 2 && values.entrepreneur_type == "2") ? (      
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="ผู้ประกอบการด้านการแพทย์แผนไทย/สมุนไพร"
-                            select
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.entrepreneurtraditionalmedicineId}
-                            name="entrepreneurtraditionalmedicineId"
-                            error={!!touched.entrepreneurtraditionalmedicineId && !!errors.entrepreneurtraditionalmedicineId}
-                            helperText={touched.entrepreneurtraditionalmedicineId && errors.entrepreneurtraditionalmedicineId}
-                            defaultValue=""
-                            sx={{ gridColumn: "span 2" }} >
-                            {entrepreneurthaitraditionalmedicalReducer &&
-                             entrepreneurthaitraditionalmedicalReducer.result.map((item,key) => (
-                             <MenuItem key={key} value={item.id} >
-                                {item.id+'--'+item.name+'--'+item.province}
-                            </MenuItem>
-                            ))
-                            }
-                        </TextField>                    
-                        ) : undefined   }   
-
-                        { (values.register_type == 3 || values.register_type == 4) ? (      
-                        <TextField
-                            multiline={true}
-                            rows={3}                        
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="โปรดระบุทักษะหรือความเชี่ยวชาญ"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.register_data}
-                            name="register_data"
-                            error={!!touched.register_data && !!errors.register_data}
-                            helperText={touched.register_data && errors.register_data}
-                            sx={{ gridColumn: "span 2" }}
-                        />        
-                        ) : undefined   } 
-
 
                     </Box>
 
@@ -858,7 +740,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                                 '&:hover': {backgroundColor: colors.blueAccent[700]}
                             }}
                         >
-                            ลงทะเบียน
+                            บันทึก
                         </Button>
                           <Button  
                               onClick={handleCancelButtonClick}
@@ -884,4 +766,4 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
     </Box >
 }
 
-export default Registration
+export default FamerAdd

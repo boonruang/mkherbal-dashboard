@@ -119,7 +119,7 @@ const UsersAdd = () => {
     }
 
     return <Box m="20px">
-        <Header title="เพิ่มผู้ใช้" subtitle="เพิ่มข้อมูลผู้ใช้ใหม่" />
+        <Header title="เพิ่มผู้ใช้" />
 
         <Formik
             // onSubmit={handleFormSubmit}

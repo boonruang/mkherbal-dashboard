@@ -49,27 +49,21 @@ import {
     Pin,
     InfoWindow
 } from '@vis.gl/react-google-maps'
-import { Null } from '@loaders.gl/schema';
 
 const initialValues = {
     firstname: "",
     lastname: "",
     province_selected: "2",
     farmer_type: "1",
+    farmer_data: "",
+    collaborativefarm: "",
     register_type: "1",
+    register_data: "",
     entrepreneur_type: "0",
-    farmergroupId: "",
-    collaborativefarmId: "",
-    entrepreneurherbalId: "",    
-    entrepreneurtraditionalmedicineId: "",    
-    
-    // collaborativefarm: "",
-    // farmer_data: "",
-    // register_data: "",
-    // entrepreneurherbal: "",
-    // entrepreneurherbal_data: "",
-    // entrepreneurtraditionalmedicine: "",
-    // entrepreneurtraditionalmedicine_data: "",
+    entrepreneurherbal: "",
+    entrepreneurherbal_data: "",
+    entrepreneurtraditionalmedicine: "",
+    entrepreneurtraditionalmedicine_data: "",
 }
 
 const userSchema = yup.object().shape({
@@ -342,23 +336,22 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
               formData.append('tel', values.tel)
               formData.append('status', 'false')
               formData.append('reject', 'false')
-              formData.append('latitude', values.farmer_type==='1' ?  center.lat : null )
-              formData.append('longitude', values.farmer_type==='1' ? center.lng : null )
+              formData.append('latitude', center.lat)
+              formData.append('longitude', center.lng)
               // เลือกประเภทการลงทะเบียน 1 เกตรกร 2 ผู้ประกอบการ 3 ปราชญ์
               formData.append('register_type',values.register_type)
                 // ใช้เก็บข้อมูลปราชญ์
-                // เก็บข้อมูลการลงทะเบียน เกษตรกร 
-                formData.append('collaborativefarmId',values.collaborativefarmId)
-                // เก็บข้อมูลการลงกลุ่มเกษตร
-                formData.append('farmergroupId',values.farmergroupId)
-                // เก็บข้อมูลการลงทะเบียน ผู้ประกอบการ
-                formData.append('entrepreneurherbalId',values.entrepreneurherbalId)
-                formData.append('entrepreneurtraditionalmedicineId',values.entrepreneurtraditionalmedicineId)
-                
-            //   formData.append('register_data',values.register_data) 
-            //   formData.append('farmer_type',values.farmer_type)              
-            //   formData.append('entrepreneurherbal_data',values.entrepreneurherbal)
-            //   formData.append('entrepreneurtraditionalmedicine_data',values.entrepreneurtraditionalmedicine)
+              formData.append('register_data',values.register_data) 
+              // เก็บข้อมูลการลงทะเบียน เกษตรกร 
+              formData.append('farmer_type',values.farmer_type)              
+              formData.append('collaborativefarmId',values.collaborativefarmId)
+              // เก็บข้อมูลการลงกลุ่มเกษตร
+              formData.append('farmergroupId',values.farmergroupId)
+              // เก็บข้อมูลการลงทะเบียน ผู้ประกอบการ
+              formData.append('entrepreneur_type',values.entrepreneur_type)
+
+              formData.append('entrepreneurherbal_data',values.entrepreneurherbal)
+              formData.append('entrepreneurtraditionalmedicine_data',values.entrepreneurtraditionalmedicine)
 
               console.log('Registration form values: ',values)
                 dispatch(addFarmersRegister(navigate, formData))
@@ -567,14 +560,14 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             select
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.farmergroupId}
-                            name="farmergroupId"
-                            error={!!touched.farmergroupId && !!errors.farmergroupId}
-                            helperText={touched.farmergroupId && errors.farmergroupId}
+                            value={values.farmergroup}
+                            name="farmergroup"
+                            error={!!touched.farmergroup && !!errors.farmergroup}
+                            helperText={touched.farmergroup && errors.farmergroup}
                             defaultValue=""
                             sx={{ gridColumn: "span 2" }} >
                             { result && result.map((farmergroup,key) => (
-                            <MenuItem key={key} value={farmergroup.id} >
+                            <MenuItem key={key} value={key} >
                                 {farmergroup.id+'--'+farmergroup.farmergroupname+'--'+farmergroup.province}
                             </MenuItem>  
                            ))} 
@@ -631,10 +624,10 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             label="ละติจูด"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={center.lat}
+                            value={latitude}
                             name="latitude"                        
-                            // error={!!touched.latitude && !!errors.latitude}
-                            // helperText={touched.latitude && errors.latitude}
+                            error={!!touched.latitude && !!errors.latitude}
+                            helperText={touched.latitude && errors.latitude}
                             sx={{ gridColumn: "span 1", width: "200px", mr: "20px"}}
                         />  
                         <TextField
@@ -644,10 +637,10 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             label="ลองจิจูด"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={center.lng}
+                            value={longitude}
                             name="longitude"                        
-                            // error={!!touched.longitude && !!errors.longitude}
-                            // helperText={touched.longitude && errors.longitude}
+                            error={!!touched.longitude && !!errors.longitude}
+                            helperText={touched.longitude && errors.longitude}
                             sx={{ gridColumn: "span 1", width: "200px"  }}
                         />    
                         </Box>     
@@ -710,15 +703,15 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                         select
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        value={values.collaborativefarmId}
-                        name="collaborativefarmId"
-                        error={!!touched.collaborativefarmId && !!errors.collaborativefarmId}
-                        helperText={touched.collaborativefarmId && errors.collaborativefarmId}
+                        value={values.collaborativefarm}
+                        name="collaborativefarm"
+                        error={!!touched.collaborativefarm && !!errors.collaborativefarm}
+                        helperText={touched.collaborativefarm && errors.collaborativefarm}
                         defaultValue=""
                         sx={{ gridColumn: "span 2" }} >                                                  
                         {   collaborativefarmReducer.result &&
-                            collaborativefarmReducer.result.map((item,key) => (
-                             <MenuItem key={key} value={item.id} >
+                            collaborativefarmReducer.result.map((item) => (
+                             <MenuItem key={item.id} value={item.id} >
                                 {item.id+'--'+item.name+'--'+item.province}
                             </MenuItem>
                             ))
@@ -764,15 +757,15 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                         select
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        value={values.entrepreneurherbalId}
-                        name="entrepreneurherbalId"
-                        error={!!touched.entrepreneurherbalId && !!errors.entrepreneurherbalId}
-                        helperText={touched.entrepreneurherbalId && errors.entrepreneurherbalId}
+                        value={values.entrepreneurherbal}
+                        name="entrepreneurherbal"
+                        error={!!touched.entrepreneurherbal && !!errors.entrepreneurherbal}
+                        helperText={touched.entrepreneurherbal && errors.entrepreneurherbal}
                         defaultValue=""
                         sx={{ gridColumn: "span 2" }} >
                         {   entrepreneurherbalReducer &&
-                            entrepreneurherbalReducer.result.map((item,key) => (
-                             <MenuItem key={key} value={item.id} >
+                            entrepreneurherbalReducer.result.map((item) => (
+                             <MenuItem key={item.id} value={item.id} >
                                 {item.id+'--'+item.name+'--'+item.province}
                             </MenuItem>
                             ))
@@ -789,15 +782,15 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             select
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.entrepreneurtraditionalmedicineId}
-                            name="entrepreneurtraditionalmedicineId"
-                            error={!!touched.entrepreneurtraditionalmedicineId && !!errors.entrepreneurtraditionalmedicineId}
-                            helperText={touched.entrepreneurtraditionalmedicineId && errors.entrepreneurtraditionalmedicineId}
+                            value={values.entrepreneurtraditionalmedicine}
+                            name="entrepreneurtraditionalmedicine"
+                            error={!!touched.entrepreneurtraditionalmedicine && !!errors.entrepreneurtraditionalmedicine}
+                            helperText={touched.entrepreneurtraditionalmedicine && errors.entrepreneurtraditionalmedicine}
                             defaultValue=""
                             sx={{ gridColumn: "span 2" }} >
                             {entrepreneurthaitraditionalmedicalReducer &&
-                             entrepreneurthaitraditionalmedicalReducer.result.map((item,key) => (
-                             <MenuItem key={key} value={item.id} >
+                             entrepreneurthaitraditionalmedicalReducer.result.map((item) => (
+                             <MenuItem key={item.id} value={item.id} >
                                 {item.id+'--'+item.name+'--'+item.province}
                             </MenuItem>
                             ))

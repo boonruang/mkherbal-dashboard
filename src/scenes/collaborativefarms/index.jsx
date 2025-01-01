@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ROLES } from '../../constants'
 import { Link, useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
+import * as XLSX from 'xlsx'
+import IosShareIcon from '@mui/icons-material/IosShare';
 
 const Collaborativefarms = () => {
     const theme = useTheme()
@@ -35,6 +37,19 @@ const Collaborativefarms = () => {
     const handleClick = () => {
         //
     }
+    const handleAddButton = () => {
+        navigate('/farmers/add')
+      };
+
+    const ExportExcelButton = () => {
+    // console.log('Data to export: ',result)
+    var wb = XLSX.utils.book_new(),
+    ws = XLSX.utils.json_to_sheet(result)
+
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1")
+    XLSX.writeFile(wb, "farmer.xlsx")
+
+    };
 
     const handleButtonDetail = (p) => {
         // console.log('params',params)
@@ -54,8 +69,8 @@ const Collaborativefarms = () => {
         // { field: 'username', headerName: 'Username' },
         {
             field: 'name',
-            headerName: 'ชื่อ',
-            flex: 1,
+            headerName: 'ชื่อกลุ่ม',
+            flex: 1.5,
             cellClassName: "name-column--cell"
         },
         {
@@ -64,40 +79,40 @@ const Collaborativefarms = () => {
             flex: 1,
             cellClassName: "name-column--cell"
         },                   
-        {
-            field: 'hno',
-            headerName: 'เลขที่',
-            flex: 1,
-            cellClassName: "name-column--cell"
-        },  
+        // {
+        //     field: 'hno',
+        //     headerName: 'เลขที่',
+        //     flex: 0.5,
+        //     cellClassName: "name-column--cell"
+        // },  
         {
             field: 'moo',
             headerName: 'หมู่',
-            flex: 1,
+            flex: 0.5,
             cellClassName: "name-column--cell"
         },  
         {
             field: 'tambon',
             headerName: 'ตำบล',
-            flex: 1,
+            flex: 0.5,
             cellClassName: "name-column--cell"
         },  
         {
             field: 'amphoe',
             headerName: 'อำเภอ',
-            flex: 1,
+            flex: 0.5,
             cellClassName: "name-column--cell"
         },          
         {
             field: 'province',
             headerName: 'จังหวัด',
-            flex: 1,
+            flex: 0.5,
             cellClassName: "name-column--cell"
         },                  
         {
             field: 'tel',
             headerName: 'เบอร์ติดต่อ',
-            flex: 1,
+            flex: 0.5,
             cellClassName: "name-column--cell"
         },                  
 
@@ -105,7 +120,7 @@ const Collaborativefarms = () => {
             return (
               <Box>
                 <Button
-                  onClick={() => (navigate('/farmers/detail',  { state: { row: params.row }} ))}
+                  onClick={() => (navigate('/collaborativefarms/detail',  { state: { row: params.row }} ))}
                   variant="outlined"
                   color="success"
                 >
@@ -166,25 +181,47 @@ const Collaborativefarms = () => {
                     color: `${colors.grey[100]} !important`
                 }
             }}>
-                { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
-                ? <Box display="flex" justifyContent="end">
-                    <Button  
-                        sx={{
-                            // backgroundColor: colors.blueAccent[600],
-                            backgroundColor: colors.greenAccent[600],
-                            color: colors.grey[100],
-                            fontSize: "14px",
-                            fontWeight: "bold",
-                            padding: "10px 20px",
-                            mr: "10px",
-                            mb: "10px",
-                            '&:hover': {backgroundColor: colors.blueAccent[700]}
-                        }}
-                    >
-                        <AddIcon sx={{ mr: "10px" }} />
-                        เพิ่มข้อมูล
-                    </Button>
-                </Box> : undefined }
+                <Box display="flex" justifyContent="end">
+                    { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role)) && result
+                    ? <Box display="flex" justifyContent="end" onClick={handleAddButton}>
+                        <Button  
+                            sx={{
+                                // backgroundColor: colors.blueAccent[600],
+                                backgroundColor: colors.greenAccent[600],
+                                color: colors.grey[100],
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                padding: "10px 20px",
+                                mr: "10px",
+                                mb: "10px",
+                                '&:hover': {backgroundColor: colors.blueAccent[700]}
+                            }}
+                        >
+                            <AddIcon sx={{ mr: "10px" }} />
+                            เพิ่มข้อมูล
+                        </Button>
+                    </Box> : undefined }
+
+                    { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role)) && result
+                    ? <Box display="flex" justifyContent="end" onClick={ExportExcelButton}>
+                        <Button  
+                            sx={{
+                                backgroundColor: colors.blueAccent[700],
+                                // backgroundColor: colors.greenAccent[600],
+                                color: colors.grey[100],
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                padding: "10px 20px",
+                                mr: "10px",
+                                mb: "10px",
+                                '&:hover': {backgroundColor: colors.blueAccent[800]}
+                            }}
+                        >
+                            <IosShareIcon sx={{ mr: "10px" }} />
+                            ส่งออกไฟล์ Excel
+                        </Button>
+                    </Box> : undefined }                
+                </Box>
                 
                     { isFetching && <Box height="65vh" sx={{ display: 'flex', justifyContent: "center", alignItems: 'center'}}><CircularProgress /></Box>}
                     { result ?
@@ -192,14 +229,28 @@ const Collaborativefarms = () => {
                         rows={result}
                         columns={columns}
                         components={{ Toolbar: GridToolbar }}
-                        // onSelectionModelChange={(ids) => {
-                        //     const selectedIDs = new Set(ids)
-                        //     const selectedRowData = result.filter((row) => 
-                        //         selectedIDs.has(row.id.toString())
-                        //     )
-                        //     console.log(selectedRowData)
-                        // }}
-                        // onRowClick={handleRowClick}
+                        componentsProps={{
+                            toolbar: {
+                              csvOptions: { disableToolbarButton: true },
+                              printOptions: {
+                                disableToolbarButton: false,
+                                hideFooter: true,
+                                hideToolbar: true, // ซ่อน headers column, filters, exports ตอนพิมพ์
+                                fields: [
+                                    'id',
+                                    'name',
+                                    'hno',                                    
+                                    'leader',
+                                    'moo',
+                                    'baan',
+                                    'tambon',
+                                    'amphoe',
+                                    'province',
+                                    'postcode',
+                                    ],
+                                },
+                            },
+                          }} 
                     /> : undefined}
             </Box>
         </Box>

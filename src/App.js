@@ -31,6 +31,7 @@ import GeoSoil from "scenes/geosoil";
 import GeoSalt from "scenes/geosalt";
 import Postcode from "scenes/postcode";
 import Collaborativefarm from "scenes/collaborativefarms";
+import Disasterforcast from "scenes/disasterforcast";
 import ThankyouReg from 'components/Thankyoupage'
 import Registration from 'components/Registration'
 import Forgetpassword from 'components/Forgetpassword'
@@ -38,6 +39,7 @@ import Login from 'components/Login'
 import Admin   from 'components/Admin'
 import Logout from 'components/Logout'
 import Marketplace from "scenes/marketplace";
+import Farmergroupmap from "scenes/farmergroup/map";
 import Farmergroup from "scenes/farmergroup";
 import HerbalCarousel from "components/HerbalCarousel";
 import HerbalAdd from "scenes/herbals/HerbalAdd";
@@ -58,6 +60,8 @@ import UsersList from "scenes/users/list";
 import UsersAdd from "scenes/users/add";
 import UsersEdit from "scenes/users/edit";
 import FarmerDetail from "scenes/farmers/detail";
+import FarmerAdd from "scenes/farmers/add";
+import Maps from "scenes/farmers/maps";
 import FarmerApproveDetail from "scenes/farmers/Farmerapprovedetail";
 import FarmerPasswordResetDetail from "scenes/farmers/Farmerpasswordresetdetail";
 import FarmerRejectDetail from "scenes/farmers/Farmerrejectdetail";
@@ -101,9 +105,12 @@ function App() {
           <Route path="farmers/reject" element={<Farmersreject />} />
           <Route path="farmers/pending" element={<Farmerspending />} />
           <Route path="farmers/detail" element={<FarmerDetail />} />
+          <Route path="farmers/maps" element={<Maps />} />
+          <Route path="farmers/add" element={<FarmerAdd />} />
           <Route path="farmers/approvedetail" element={<FarmerApproveDetail />} />
           <Route path="farmers/passwordresetdetail" element={<FarmerPasswordResetDetail />} />
           <Route path="farmers/rejectdetail" element={<FarmerRejectDetail />} />
+          <Route path="farmergroup/map" element={<Farmergroupmap />} />
           <Route path="farmergroup" element={<Farmergroup />} />
           <Route path="businessgroup" element={<BusinessGroup />} />
           <Route path="herbals" element={<Herbals />} />
@@ -131,6 +138,7 @@ function App() {
           <Route path="soilherbals" element={<SoilHerbals />} />
           <Route path="form" element={<Form />} />
           <Route path="collaborativefarm" element={<Collaborativefarm />} />
+          <Route path="disasterforcast" element={<Disasterforcast />} />
         </Route>
         <Route element={<SecureRoute allowedRoles={[ROLES.Admin]} /> }>
          {/* Admin here */}

@@ -223,8 +223,10 @@ export const server = {
   ENTREPRENEURHERBAL_URL: `entrepreneurherbal`,
   ENTREPRENEURTHAITRADITIONALMEDICAL_URL: `entrepreneurthaitraditionalmedical`,
   REGISTER_URL: `register`,
-  FARMER_ADD_URL: `farmer/add`,
+  // FARMER_ADD_URL: `farmer/add`,
   DASHBOARD_URL: `dashboard`,
+  GOOGLEMAPS_API: `AIzaSyD7iNHrERF7hcsidIGcFwlnPR_dl8kIiGc`,
+  GOOGLEMAPS_ID: `a4b04a455d06a2fe`,
 }
 
 export const ROLES =   {
