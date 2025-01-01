@@ -60,6 +60,7 @@ import UsersList from "scenes/users/list";
 import UsersAdd from "scenes/users/add";
 import UsersEdit from "scenes/users/edit";
 import FarmerDetail from "scenes/farmers/detail";
+import FarmerEdit from "scenes/farmers/edit";
 import FarmerAdd from "scenes/farmers/add";
 import Maps from "scenes/farmers/maps";
 import FarmerApproveDetail from "scenes/farmers/Farmerapprovedetail";
@@ -106,6 +107,7 @@ function App() {
           <Route path="farmers/pending" element={<Farmerspending />} />
           <Route path="farmers/detail" element={<FarmerDetail />} />
           <Route path="farmers/maps" element={<Maps />} />
+          <Route path="farmers/edit" element={<FarmerEdit />} />
           <Route path="farmers/add" element={<FarmerAdd />} />
           <Route path="farmers/approvedetail" element={<FarmerApproveDetail />} />
           <Route path="farmers/passwordresetdetail" element={<FarmerPasswordResetDetail />} />

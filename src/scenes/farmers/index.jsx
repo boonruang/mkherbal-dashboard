@@ -26,8 +26,6 @@ const Farmers = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-
-    const [farmer, setFarmer] = useState([])
     const [farmerId, setFarmerId] = useState([])
     const [open, setOpen] = useState(false)
 
@@ -48,7 +46,7 @@ const Farmers = () => {
         //
     }
 
-    const DeleteClick = () => {
+    const DeleteFunction = () => {
         dispatch(deleteFarmer(farmerId))
         setOpen(false)
     }
@@ -210,7 +208,7 @@ const Farmers = () => {
 
             { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
                 ? <Button
-                  onClick={handleClick}
+                onClick={() => (navigate('/farmers/edit',  { state: { row: params.row }} ))}
                   variant="outlined"
                   color="warning"
                   sx={{ ml: 1 }}            
@@ -328,7 +326,7 @@ const Farmers = () => {
             <ConfirmBox 
                 open={open}
                 closeDialog={() => setOpen(false)}
-                deleteFunction={() => DeleteClick()}
+                deleteFunction={() => DeleteFunction()}
                 title={farmerId}
             />
         </Box>

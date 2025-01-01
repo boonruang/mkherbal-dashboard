@@ -718,46 +718,45 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                         }}                    
                     >
                       
-
-                      <Box display="flex" justifyContent="start"
-                        sx={{
-                          gridColumn: "span 2"
-                      }}                    
-                    >
-                        <Button  
-                            type='submit'
-                            disabled={!(dirty && isValid)}
-                            // disabled={isSubmitting}
-                            // disabled={true}
+                        <Box display="flex" justifyContent="start"
                             sx={{
-                                backgroundColor: colors.greenAccent[600],
-                                color: colors.grey[100],
-                                fontSize: "14px",
-                                fontWeight: "bold",
-                                padding: "10px 20px",
-                                mr: "20px",
-                                mb: "10px",
-                                '&:hover': {backgroundColor: colors.blueAccent[700]}
-                            }}
+                            gridColumn: "span 2"
+                            }}                    
                         >
-                            บันทึก
-                        </Button>
-                          <Button  
-                              onClick={handleCancelButtonClick}
-                              type='button'
-                              sx={{
-                                  backgroundColor: colors.greenAccent[600],
-                                  color: colors.grey[100],
-                                  fontSize: "14px",
-                                  fontWeight: "bold",
-                                  padding: "10px 20px",
-                                  mr: "10px",
-                                  mb: "10px",
-                                  '&:hover': {backgroundColor: colors.blueAccent[700]}
-                              }}
-                          >
-                              ยกเลิก
-                          </Button>    
+                                <Button  
+                                    type='submit'
+                                    disabled={!(dirty && isValid)}
+                                    // disabled={isSubmitting}
+                                    // disabled={true}
+                                    sx={{
+                                        backgroundColor: colors.greenAccent[600],
+                                        color: colors.grey[100],
+                                        fontSize: "14px",
+                                        fontWeight: "bold",
+                                        padding: "10px 20px",
+                                        mr: "20px",
+                                        mb: "10px",
+                                        '&:hover': {backgroundColor: colors.greenAccent[800]}
+                                    }}
+                                >
+                                    บันทึก
+                                </Button>
+                                <Button  
+                                    onClick={handleCancelButtonClick}
+                                    type='button'
+                                    sx={{
+                                        backgroundColor: colors.greenAccent[600],
+                                        color: colors.grey[100],
+                                        fontSize: "14px",
+                                        fontWeight: "bold",
+                                        padding: "10px 20px",
+                                        mr: "10px",
+                                        mb: "10px",
+                                        '&:hover': {backgroundColor: colors.greenAccent[800]}
+                                    }}
+                                >
+                                    ยกเลิก
+                                </Button>    
                         </Box>    
                   </Box>   
                 </Form>

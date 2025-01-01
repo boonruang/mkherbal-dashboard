@@ -39,7 +39,7 @@ const userSchema = yup.object().shape({
     role: yup.string().required("required"),
 })
 
-const FarmerDetail = () => {
+const FarmerEdit = () => {
 
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)     
@@ -58,7 +58,7 @@ const FarmerDetail = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)")
 
     return <Box m="20px">
-        <Header title="ข้อมูลเกษตรกร" subtitle="รายละเอียดข้อมูลเกษตรกร" />
+        <Header title="แก้ไขข้อมูลเกษตรกร" subtitle="รายละเอียดข้อมูลเกษตรกร" />
 
                 <form >
                 <Box>
@@ -88,7 +88,6 @@ const FarmerDetail = () => {
                             name="id"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />
                         <TextField
                             fullWidth
@@ -99,7 +98,6 @@ const FarmerDetail = () => {
                             name="username"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />                          
                         <TextField
                             fullWidth
@@ -110,7 +108,6 @@ const FarmerDetail = () => {
                             name="firstname"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />
                         <TextField
                             fullWidth
@@ -121,7 +118,6 @@ const FarmerDetail = () => {
                             name="lastname"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />   
 
                         {/* ROW 2 */}
@@ -135,7 +131,6 @@ const FarmerDetail = () => {
                             name="hno"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />
                         <TextField
                             fullWidth
@@ -146,7 +141,6 @@ const FarmerDetail = () => {
                             name="moo"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />
 
                         <TextField
@@ -158,7 +152,6 @@ const FarmerDetail = () => {
                             name="tambon"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />                          
                         <TextField
                             fullWidth
@@ -169,7 +162,6 @@ const FarmerDetail = () => {
                             name="amphoe"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />
                      
 
@@ -184,7 +176,6 @@ const FarmerDetail = () => {
                             name="province"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />  
                         <TextField
                             fullWidth
@@ -195,7 +186,6 @@ const FarmerDetail = () => {
                             name="tel"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />                          
                         <TextField
                             fullWidth
@@ -206,7 +196,6 @@ const FarmerDetail = () => {
                             name="cid"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />
                         <TextField
                             fullWidth
@@ -217,7 +206,6 @@ const FarmerDetail = () => {
                             name="cert"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         /> 
 
                         {/* ROW 3 */}        
@@ -231,7 +219,6 @@ const FarmerDetail = () => {
                             name="cert_date"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />                                         
 
                         <TextField
@@ -243,7 +230,6 @@ const FarmerDetail = () => {
                             name="cert_expire_date"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />         
 
                         <TextField
@@ -255,7 +241,6 @@ const FarmerDetail = () => {
                             name="latitude"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />                                         
 
                         <TextField
@@ -267,7 +252,6 @@ const FarmerDetail = () => {
                             name="longitude"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />  
 
                     </Box>
@@ -300,7 +284,6 @@ const FarmerDetail = () => {
                             name="area"
                             sx={{ gridColumn: "span 1" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />
 
                         <TextField
@@ -312,7 +295,6 @@ const FarmerDetail = () => {
                             name="herbal"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />
 
                         <TextField
@@ -324,7 +306,6 @@ const FarmerDetail = () => {
                             name="output"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />  
                       </Box>  
                     </Box>                  
@@ -356,7 +337,6 @@ const FarmerDetail = () => {
                             name="farmergroupId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />                                         
 
                         <TextField
@@ -368,12 +348,11 @@ const FarmerDetail = () => {
                             name="collaborativefarmId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                            disabled
                         />                                                         
 
                       </Box>  
                     </Box>                  
-                    <Box display="flex" justifyContent="end" mt='10px'>
+                    {/* <Box display="flex" justifyContent="end" mt='10px'>
                     <Button  
                         // type='submit'
                         onClick={() => (navigate(-1))}
@@ -385,15 +364,64 @@ const FarmerDetail = () => {
                             padding: "10px 20px",
                             mr: "10px",
                             mb: "10px",
-                            '&:hover': {backgroundColor: colors.greenAccent[800]}
+                            '&:hover': {backgroundColor: colors.blueAccent[700]}
                         }}
                     >
                         กลับ
                     </Button>
-                  </Box>  
+                    </Box>   */}
+                    <Box 
+                        display="grid"
+                        gap="30px"
+                        gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                        mt="20px"
+                        sx={{
+                            "& > div": { gridColumn: isNonMobile ? undefined : "span 4" }
+                        }}                    
+                    >
+
+                        <Box display="flex" justifyContent="start"
+                            sx={{
+                            gridColumn: "span 2"
+                            }}                    
+                        >
+                                <Button  
+                                    type='submit'
+                                    // disabled={!(dirty && isValid)}
+                                    sx={{
+                                        backgroundColor: colors.greenAccent[600],
+                                        color: colors.grey[100],
+                                        fontSize: "14px",
+                                        fontWeight: "bold",
+                                        padding: "10px 20px",
+                                        mr: "20px",
+                                        mb: "10px",
+                                        '&:hover': {backgroundColor: colors.greenAccent[800]}
+                                    }}
+                                >
+                                    บันทึก
+                                </Button>
+                                <Button  
+                                    onClick={() => (navigate(-1))}
+                                    type='button'
+                                    sx={{
+                                        backgroundColor: colors.greenAccent[600],
+                                        color: colors.grey[100],
+                                        fontSize: "14px",
+                                        fontWeight: "bold",
+                                        padding: "10px 20px",
+                                        mr: "10px",
+                                        mb: "10px",
+                                        '&:hover': {backgroundColor: colors.greenAccent[800]}
+                                    }}
+                                >
+                                    ยกเลิก
+                                </Button>    
+                        </Box>
+                    </Box>
                 </Box>                
                 </form>
     </Box >
 }
 
-export default FarmerDetail
+export default FarmerEdit
