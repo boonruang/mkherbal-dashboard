@@ -9,7 +9,7 @@ import {
     MenuItem,
     Typography
   } from '@mui/material'
-import { Formik, Form } from 'formik'
+import { Formik } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Header from "../../components/Header"
@@ -27,7 +27,7 @@ const initialValues = {
     firstname: "",
     lastname: "",
     status: true,
-    // role: 1,
+    role: 1,
 }
 
 const userSchema = yup.object().shape({
@@ -38,17 +38,6 @@ const userSchema = yup.object().shape({
     status: yup.boolean().required("required"),
     role: yup.string().required("required"),
 })
-
-const onSubmit = async (values, { setSubmitting }) => {
-    if (values) {
-        console.log('Form data', values)
-    }
-    // console.log('submitProps', submitProps)
-    // submitProps.setSubmitting(false)
-    // submitProps.resetForm()
-    // dispatch(editFarmer(navigate, values))
-    setSubmitting(false)
-}
 
 const FarmerEdit = () => {
 
@@ -62,46 +51,16 @@ const FarmerEdit = () => {
   const location = useLocation()
 
   // console.log('farmer id', location.state.id)
-//   console.log('farmer row', location.state.row)
+  console.log('farmer row', location.state.row)
 
   const { result } = useSelector((state) => state.app.roleReducer)
 
   const isNonMobile = useMediaQuery("(min-width:600px)")
 
-  const [formValues, setFormValues] = useState(null)
-
-  useEffect(() => {
-      setFormValues(location.state.row)
-  })
-
-
-//   if (formValues) {
-//     console.log('formValues', formValues)
-//   }
-
-
-const handleSubmitClick = () => {
-    navigate(-1)
-}
-
     return <Box m="20px">
         <Header title="แก้ไขข้อมูลเกษตรกร" subtitle="รายละเอียดข้อมูลเกษตรกร" />
 
-        <Formik
-            // onSubmit={onSubmit}
-            onSubmit={async (values, { setSubmitting }) => {
-            console.log('Edit form values: ',values)
-            // setSubmitting(false)
-            }}
-
-            initialValues={formValues || initialValues}
-            validationSchema={userSchema}        
-            enableReinitialize
-        >
-
-        {({ values, errors, touched, isValid, dirty, handleBlur, handleChange, handleSubmit }) => (
-        // console.log('Formik props', formik)
-            <Form onSubmit={handleSubmit}>
+                <form >
                 <Box>
                     <Box >
                       <Box sx={{ m: '5px'}} >
@@ -118,17 +77,15 @@ const handleSubmitClick = () => {
                         }}
                     >
 
+                        {/* ROW 1 */}
+
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="ลำดับ"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.id}
+                            value={location.state.row.id}
                             name="id"
-                            error={!!touched.id && !!errors.id}
-                            helperText={touched.id && errors.id}                            
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />
@@ -137,12 +94,8 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="รหัส"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.username}
+                            value={location.state.row.username}
                             name="username"
-                            error={!!touched.username && !!errors.username}
-                            helperText={touched.username && errors.username}                               
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />                          
@@ -151,12 +104,8 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="ชื่อ"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.firstname}
+                            value={location.state.row.firstname}
                             name="firstname"
-                            error={!!touched.firstname && !!errors.firstname}
-                            helperText={touched.firstname && errors.firstname}                              
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />
@@ -165,27 +114,21 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="นามสกุล"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.lastname}
+                            value={location.state.row.lastname}
                             name="lastname"
-                            error={!!touched.lastname && !!errors.lastname}
-                            helperText={touched.lastname && errors.lastname}                                
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />   
 
-                    <TextField
+                        {/* ROW 2 */}
+
+                        <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="บ้านเลขที่"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.hno}
+                            value={location.state.row.hno}
                             name="hno"
-                            error={!!touched.hno && !!errors.hno}
-                            helperText={touched.hno && errors.hno}                                   
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />
@@ -194,12 +137,8 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="หมู่"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.moo}
+                            value={location.state.row.moo}
                             name="moo"
-                            error={!!touched.moo && !!errors.moo}
-                            helperText={touched.moo && errors.moo}                                   
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />
@@ -209,12 +148,8 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="ตำบล"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.tambon}
+                            value={location.state.row.tambon}
                             name="tambon"
-                            error={!!touched.tambon && !!errors.tambon}
-                            helperText={touched.tambon && errors.tambon}                                   
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />                          
@@ -223,27 +158,22 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="อำเภอ"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.amphoe}
+                            value={location.state.row.amphoe}
                             name="amphoe"
-                            error={!!touched.amphoe && !!errors.amphoe}
-                            helperText={touched.amphoe && errors.amphoe}                                   
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />
+                     
+
+                        {/* ROW 3 */}
 
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="จังหวัด"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.province}
+                            value={location.state.row.province}
                             name="province"
-                            error={!!touched.province && !!errors.province}
-                            helperText={touched.province && errors.province}                                   
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />  
@@ -252,12 +182,8 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="เบอร์โทร"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.tel}
+                            value={location.state.row.tel}
                             name="tel"
-                            error={!!touched.tel && !!errors.tel}
-                            helperText={touched.tel && errors.tel}                                   
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />                          
@@ -266,12 +192,8 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="รหัสบัตรประชาชน"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.cid}
+                            value={location.state.row.cid}
                             name="cid"
-                            error={!!touched.cid && !!errors.cid}
-                            helperText={touched.cid && errors.cid}                                   
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />
@@ -280,22 +202,20 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="ใบรับรอง"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.cert}
+                            value={ (location.state.row.cert && location.state.row.cert.length > 0) ? location.state.row.cert : 'ไม่ระบุ'}
                             name="cert"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         /> 
+
+                        {/* ROW 3 */}        
 
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="วันที่ได้รับ"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.cert_date}
+                            value={(location.state.row.cert_date && location.state.row.cert_date.length > 0) ? location.state.row.cert_date : 'ไม่ระบุ'}
                             name="cert_date"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -306,9 +226,7 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="วันหมดอายุ"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.cert_expire_date}
+                            value={(location.state.row.cert_expire_date && location.state.row.cert_expire_date.length > 0) ? location.state.row.cert_expire_date : 'ไม่ระบุ'}
                             name="cert_expire_date"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -319,9 +237,7 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="ละติจูด"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.latitude}
+                            value={location.state.row.latitude ?? 'ไม่ระบุ'}
                             name="latitude"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -332,19 +248,17 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="ลองจิจูด"
-                            onBlur={handleBlur}
-                            onChange={handleChange}                            
-                            value={values.longitude}
+                            value={location.state.row.longitude ?? 'ไม่ระบุ'}
                             name="longitude"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
-                        />   
+                        />  
 
-                    </Box> 
+                    </Box>
 
-                </Box> 
+                </Box>
 
-                <Box mt='40px'>
+                  <Box mt='40px'>
                     <Box sx={{ m: '5px'}} >
                       <Typography>
                         สมุนไพร
@@ -359,15 +273,14 @@ const handleSubmitClick = () => {
                         }}
                     >
 
+                        {/* ROW 1 */}
 
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="พื้นที่ในการปลูกสมุนไพร(ไร่)"
-                            onBlur={handleBlur}
-                            onChange={handleChange}   
-                            value={values.area}
+                            value={(location.state.row.area && location.state.row.area.length > 0) ? location.state.row.area : 'ไม่ระบุ'}
                             name="area"
                             sx={{ gridColumn: "span 1" }}
                             InputLabelProps={{ shrink: true }}
@@ -378,9 +291,7 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="สมุนไพรที่ปลูก"
-                            onBlur={handleBlur}
-                            onChange={handleChange}   
-                            value={values.herbal}
+                            value={(location.state.row.herbal && location.state.row.herbal.length > 0) ? location.state.row.herbal : 'ไม่ระบุ'}
                             name="herbal"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -391,15 +302,13 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="ปริมาณการผลิต(กก./ปี)"
-                            onBlur={handleBlur}
-                            onChange={handleChange}   
-                            value={values.output}
+                            value={(location.state.row.output && location.state.row.output.length > 0 )? location.state.row.output : 'ไม่ระบุ'}
                             name="output"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                         />  
                       </Box>  
-                    </Box>                   
+                    </Box>                  
 
                 <Box mt='40px'>
                   <Box sx={{ m: '5px'}} >
@@ -416,15 +325,15 @@ const handleSubmitClick = () => {
                         }}
                     >
 
+                        {/* ROW 1 */}
+
 
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="กลุ่มเกษตรกร"
-                            onBlur={handleBlur}
-                            onChange={handleChange}   
-                            value={values.farmergroupId}
+                            value={(location.state.row.farmergroupId && location.state.row.farmergroupId.length > 0) ? location.state.row.farmergroupId : 'ไม่ระบุ'}
                             name="farmergroupId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -435,9 +344,7 @@ const handleSubmitClick = () => {
                             variant="filled"
                             type="text"
                             label="กลุ่มเกษตรกรแปลงใหญ่"
-                            onBlur={handleBlur}
-                            onChange={handleChange}   
-                            value={values.collaborativefarmId}
+                            value={(location.state.row.collaborativefarmId && location.state.row.collaborativefarmId.length > 0) ? location.state.row.collaborativefarmId : 'ไม่ระบุ'}
                             name="collaborativefarmId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -445,7 +352,24 @@ const handleSubmitClick = () => {
 
                       </Box>  
                     </Box>                  
-                    
+                    {/* <Box display="flex" justifyContent="end" mt='10px'>
+                    <Button  
+                        // type='submit'
+                        onClick={() => (navigate(-1))}
+                        sx={{
+                            backgroundColor: colors.greenAccent[600],
+                            color: colors.grey[100],
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                            padding: "10px 20px",
+                            mr: "10px",
+                            mb: "10px",
+                            '&:hover': {backgroundColor: colors.blueAccent[700]}
+                        }}
+                    >
+                        กลับ
+                    </Button>
+                    </Box>   */}
                     <Box 
                         display="grid"
                         gap="30px"
@@ -464,8 +388,6 @@ const handleSubmitClick = () => {
                                 <Button  
                                     type='submit'
                                     // disabled={!(dirty && isValid)}
-                                    // disabled={}
-                                    onClick={handleSubmitClick}
                                     sx={{
                                         backgroundColor: colors.greenAccent[600],
                                         color: colors.grey[100],
@@ -498,10 +420,7 @@ const handleSubmitClick = () => {
                         </Box>
                     </Box>
                 </Box>                
-            </Form>
-            )
-        }                
-        </Formik>
+                </form>
     </Box >
 }
 
