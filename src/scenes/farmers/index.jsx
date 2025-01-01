@@ -8,7 +8,7 @@ import {
 import { tokens } from "../../theme"
 // import { mockDataFarmers } from "../../data/mockDataFarmers"
 import AddIcon from '@mui/icons-material/Add';
-import { getFarmers } from '../../actions/farmer.action'
+import { getFarmers, deleteFarmer } from '../../actions/farmer.action'
 
 import Header from "../../components/Header"
 import { useDispatch, useSelector } from "react-redux";
@@ -17,15 +17,19 @@ import { Link, useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import * as XLSX from 'xlsx'
 import IosShareIcon from '@mui/icons-material/IosShare';
+import ConfirmBox from 'components/ConfirmBox'
 
 const Farmers = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
     const dispatch = useDispatch()
-
     const navigate = useNavigate()
 
+
+    const [farmer, setFarmer] = useState([])
+    const [farmerId, setFarmerId] = useState([])
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         dispatch(getFarmers())
@@ -42,6 +46,19 @@ const Farmers = () => {
 
     const handleClick = () => {
         //
+    }
+
+    const DeleteClick = () => {
+        dispatch(deleteFarmer(farmerId))
+        setOpen(false)
+    }
+
+    const handleDeleteClick = ({state}) => {
+        // console.log('state',state)
+        console.log('row.id',state.row.id)
+        setFarmerId(state.row.id)
+        setOpen(true)
+        // dispatch(deleteFarmer(state.row.id))
     }
 
     const handleAddButton = () => {
@@ -183,7 +200,7 @@ const Farmers = () => {
 
             { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
                 ? <Button
-                  onClick={handleClick}
+                  onClick={() => handleDeleteClick({ state: { row: params.row }})}
                   variant="outlined"
                   color="error"
                   sx={{ ml: 1 }} 
@@ -248,7 +265,7 @@ const Farmers = () => {
                                 padding: "10px 20px",
                                 mr: "10px",
                                 mb: "10px",
-                                '&:hover': {backgroundColor: colors.blueAccent[700]}
+                                '&:hover': {backgroundColor: colors.greenAccent[800]}
                             }}
                         >
                             <AddIcon sx={{ mr: "10px" }} />
@@ -308,6 +325,12 @@ const Farmers = () => {
                           }}    
                     /> : undefined}
             </Box>
+            <ConfirmBox 
+                open={open}
+                closeDialog={() => setOpen(false)}
+                deleteFunction={() => DeleteClick()}
+                title={farmerId}
+            />
         </Box>
     )
 }

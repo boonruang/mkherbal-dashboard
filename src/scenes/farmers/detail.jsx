@@ -251,7 +251,7 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="ละติจูด"
-                            value={(location.state.row.latitude && location.state.row.latitude.length > 0) ? location.state.row.latitude : 'ไม่ระบุ'}
+                            value={location.state.row.latitude ?? 'ไม่ระบุ'}
                             name="latitude"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -263,7 +263,7 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="ลองจิจูด"
-                            value={(location.state.row.longitude && location.state.row.longitude.length > 0) ? location.state.row.longitude : 'ไม่ระบุ'}
+                            value={location.state.row.longitude ?? 'ไม่ระบุ'}
                             name="longitude"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}

@@ -77,7 +77,7 @@ export const deleteFarmer = (id) => {
   return async (dispatch) => {
     dispatch(setStateFarmerToFetching());
     await httpClient.delete(`${server.FARMER_URL}/${id}`);
-    await doGetFarmers(dispatch);
+    doGetFarmers(dispatch);
   };
 };
 
@@ -115,3 +115,4 @@ export const addFarmer = (navigate, formData) => {
     }
   }
 }
+
