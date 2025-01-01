@@ -246,7 +246,7 @@ const Sidebar = () => {
                                 setSelected={setSelected}
                             /> : undefined  }                              
 
-                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                        {/* { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
                                 title="Google Maps Test"
                                 to="/farmers/maps"
@@ -254,6 +254,8 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }                              
+                             */}
+                             
                          </SubMenu>      
 
                          <SubMenu title="2.แหล่งแปรรูปขั้นต้น" icon={<WarehouseIcon />}>

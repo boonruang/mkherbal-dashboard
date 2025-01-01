@@ -158,6 +158,31 @@ const Farmersreset = () => {
                         rows={result}
                         columns={columns}
                         components={{ Toolbar: GridToolbar }}
+                        componentsProps={{
+                            toolbar: {
+                              csvOptions: { disableToolbarButton: true },
+                              printOptions: {
+                                disableToolbarButton: false,
+                                hideFooter: true,
+                                hideToolbar: true, // ซ่อน headers column, filters, exports ตอนพิมพ์
+                                fields: [
+                                    'id',
+                                    'username',
+                                    'firstname',
+                                    'lastname',
+                                    'cid',
+                                    'hno',                                    
+                                    'moo',
+                                    'tambon',
+                                    'amphoe',
+                                    'province',
+                                    'postcode',
+                                    'tel',
+                                    'status',
+                                ],
+                              },
+                            },
+                        }} 
                         // onSelectionModelChange={(ids) => {
                         //     const selectedIDs = new Set(ids)
                         //     const selectedRowData = result.filter((row) => 

@@ -54,8 +54,6 @@ const FarmerApproveDetail = () => {
   // console.log('farmer id', location.state.id)
   console.log('farmer row', location.state.row)
 
-  const { result } = useSelector((state) => state.app.roleReducer)
-
   const isNonMobile = useMediaQuery("(min-width:600px)")
 
   const handleApprovalClick = () => {
@@ -184,7 +182,6 @@ const FarmerApproveDetail = () => {
                             InputLabelProps={{ shrink: true }}
                             disabled
                         />
-                     
 
                         {/* ROW 3 */}
 
@@ -232,27 +229,15 @@ const FarmerApproveDetail = () => {
                             InputLabelProps={{ shrink: true }}
                             disabled
                         />
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="ใบรับรอง"
-                            value={location.state.row.cert}
-                            name="cert"
-                            sx={{ gridColumn: "span 2" }}
-                            InputLabelProps={{ shrink: true }}
-                            disabled
-                        /> 
-
-                        {/* ROW 3 */}        
+                                        
 
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="วันที่ได้รับ"
-                            value={location.state.row.cert_date}
-                            name="cert_date"
+                            label="ละติจูด"
+                            value={location.state.row.latitude}
+                            name="latitude"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
@@ -262,75 +247,17 @@ const FarmerApproveDetail = () => {
                             fullWidth
                             variant="filled"
                             type="text"
-                            label="วันหมดอายุ"
-                            value={location.state.row.cert_expire_date}
-                            name="cert_expire_date"
+                            label="ลองจิจูด"
+                            value={location.state.row.longitude}
+                            name="longitude"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
-                        />                                         
+                        />
 
                     </Box>
 
                 </Box>
-
-                  <Box mt='40px'>
-                    <Box sx={{ m: '5px'}} >
-                      <Typography>
-                        สมุนไพร
-                      </Typography>
-                    </Box>
-                    <Box
-                        display="grid"
-                        gap="30px"
-                        gridTemplateColumns="repeat(5, minmax(0, 1fr))"
-                        sx={{
-                            "& > div": { gridColumn: isNonMobile ? undefined : "span 4" }
-                        }}
-                    >
-
-                        {/* ROW 1 */}
-
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="พื้นที่ในการปลูกสมุนไพร(ไร่)"
-                            // value={location.state.row.cert}
-                            value='0.5'
-                            name="farmerGroup"
-                            sx={{ gridColumn: "span 1" }}
-                            InputLabelProps={{ shrink: true }}
-                            disabled
-                        />
-
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="สมุนไพรที่ปลูก"
-                            // value={location.state.row.cert}
-                            value='1.ขมิ้นชัน 2.ขมิ้นอ้อย 3.กระเจี๊ยบ'
-                            name="farmerGroup"
-                            sx={{ gridColumn: "span 2" }}
-                            InputLabelProps={{ shrink: true }}
-                            disabled
-                        />
-
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="ปริมาณการผลิต(กก./ปี)"
-                            // value={location.state.row.cert}
-                            value='250'
-                            name="BigfarmerGroup"
-                            sx={{ gridColumn: "span 2" }}
-                            InputLabelProps={{ shrink: true }}
-                            disabled
-                        />  
-                      </Box>  
-                    </Box>                  
 
                 <Box mt='40px'>
                   <Box sx={{ m: '5px'}} >
@@ -346,33 +273,55 @@ const FarmerApproveDetail = () => {
                             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" }
                         }}
                     >
-
-                        {/* ROW 1 */}
-
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="กลุ่มเกษตรกร"
-                            // value={location.state.row.cert}
-                            value='วิสาหกิจชุมชนไร่สดใส'
-                            name="farmerGroup"
+                            value={location.state.row.farmergroupId}
+                            name="farmergroupId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
-                        />
+                        />                                         
+
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="กลุ่มเกษตรกรแปลงใหญ่"
-                            // value={location.state.row.cert}
-                            value='วิสาหกิจชุมชนไร่สดใส'
-                            name="BigfarmerGroup"
+                            value={location.state.row.collaborativefarmId}
+                            name="collaborativefarmId"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />   
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ผู้ประกอบการผลิตภัณฑ์สมุนไพร"
+                            value={location.state.row.entrepreneurherbalId}
+                            name="entrepreneurherbalId"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />                   
+
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ผู้ประกอบการด้านการแพทย์ฯ/สมุนไพร"
+                            value={location.state.row.entrepreneurtraditionalmedicineId}
+                            name="entrepreneurtraditionalmedicineId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
                         />  
+
                       </Box>  
                     </Box>                  
                     <Box display="flex" justifyContent="start" mt="15px"

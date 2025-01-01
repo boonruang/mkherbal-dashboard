@@ -187,12 +187,36 @@ const Farmerspending = () => {
                         rows={result}
                         columns={columns}
                         components={{ Toolbar: GridToolbar }}
+                        componentsProps={{
+                            toolbar: {
+                              csvOptions: { disableToolbarButton: true },
+                              printOptions: {
+                                disableToolbarButton: false,
+                                hideFooter: true,
+                                hideToolbar: true, // ซ่อน headers column, filters, exports ตอนพิมพ์
+                                fields: [
+                                    'id',
+                                    'username',
+                                    'firstname',
+                                    'lastname',
+                                    'cid',
+                                    'hno',                                    
+                                    'moo',
+                                    'tambon',
+                                    'amphoe',
+                                    'province',
+                                    'postcode',
+                                    'tel',
+                                    'status',                                    
+                                ],
+                              },
+                            },
+                        }}                        
                         sx={{
                             "& .MuiDataGrid-root": {
                                 fontsize: 2.25,
                             }
                         }}
-
                         // onSelectionModelChange={(idx) => {
                         //     let [id] = idx
                         //     console.log('idx => ', id)
