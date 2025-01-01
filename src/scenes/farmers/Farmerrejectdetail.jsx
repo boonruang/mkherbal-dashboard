@@ -268,64 +268,6 @@ const FarmerRejectDetail = () => {
 
                 </Box>
 
-                  <Box mt='40px'>
-                    <Box sx={{ m: '5px'}} >
-                      <Typography>
-                        สมุนไพร
-                      </Typography>
-                    </Box>
-                    <Box
-                        display="grid"
-                        gap="30px"
-                        gridTemplateColumns="repeat(5, minmax(0, 1fr))"
-                        sx={{
-                            "& > div": { gridColumn: isNonMobile ? undefined : "span 4" }
-                        }}
-                    >
-
-                        {/* ROW 1 */}
-
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="พื้นที่ในการปลูกสมุนไพร(ไร่)"
-                            // value={location.state.row.cert}
-                            value='0.5'
-                            name="farmerGroup"
-                            sx={{ gridColumn: "span 1" }}
-                            InputLabelProps={{ shrink: true }}
-                            disabled
-                        />
-
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="สมุนไพรที่ปลูก"
-                            // value={location.state.row.cert}
-                            value='1.ขมิ้นชัน 2.ขมิ้นอ้อย 3.กระเจี๊ยบ'
-                            name="farmerGroup"
-                            sx={{ gridColumn: "span 2" }}
-                            InputLabelProps={{ shrink: true }}
-                            disabled
-                        />
-
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="ปริมาณการผลิต(กก./ปี)"
-                            // value={location.state.row.cert}
-                            value='250'
-                            name="BigfarmerGroup"
-                            sx={{ gridColumn: "span 2" }}
-                            InputLabelProps={{ shrink: true }}
-                            disabled
-                        />  
-                      </Box>  
-                    </Box>                  
-
                 <Box mt='40px'>
                   <Box sx={{ m: '5px'}} >
                     <Typography>
@@ -348,25 +290,48 @@ const FarmerRejectDetail = () => {
                             variant="filled"
                             type="text"
                             label="กลุ่มเกษตรกร"
-                            // value={location.state.row.cert}
-                            value='วิสาหกิจชุมชนไร่สดใส'
-                            name="farmerGroup"
+                            value={location.state.row.farmergroupId ?? 'ไม่ระบุ'}
+                            name="farmergroupId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
-                        />
+                        />                                         
+
                         <TextField
                             fullWidth
                             variant="filled"
                             type="text"
                             label="กลุ่มเกษตรกรแปลงใหญ่"
-                            // value={location.state.row.cert}
-                            value='วิสาหกิจชุมชนไร่สดใส'
-                            name="BigfarmerGroup"
+                            value={location.state.row.collaborativefarmId ?? 'ไม่ระบุ'}
+                            name="collaborativefarmId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
-                        />  
+                        />   
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ผู้ประกอบการผลิตภัณฑ์สมุนไพร"
+                            value={location.state.row.entrepreneurherbalId ?? 'ไม่ระบุ'}
+                            name="entrepreneurherbalId"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />                   
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="ผู้ประกอบการด้านการแพทย์ฯ/สมุนไพร"
+                            value={location.state.row.entrepreneurtraditionalmedicineId ?? 'ไม่ระบุ'}
+                            name="entrepreneurtraditionalmedicineId"
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                            disabled
+                        />
                       </Box>  
                     </Box>                  
                     <Box display="flex" justifyContent="start" mt="15px"

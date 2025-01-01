@@ -29,8 +29,6 @@ const Farmerspending = () => {
 
     const { result, isFetching } = useSelector((state) => state.app.registerReducer)
 
-    const loginReducer = useSelector((state) => state.app.loginReducer)
-
 
     const columns = [
         { field: 'id', headerName: 'ลำดับ', headerAlign: 'center', align: 'center'},

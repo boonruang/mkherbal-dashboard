@@ -213,7 +213,7 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="ใบรับรอง"
-                            value={location.state.row.cert}
+                            value={ (location.state.row.cert && location.state.row.cert.length > 0) ? location.state.row.cert : 'ไม่ระบุ'}
                             name="cert"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -227,7 +227,7 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="วันที่ได้รับ"
-                            value={location.state.row.cert_date}
+                            value={(location.state.row.cert_date && location.state.row.cert_date.length > 0) ? location.state.row.cert_date : 'ไม่ระบุ'}
                             name="cert_date"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -239,7 +239,7 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="วันหมดอายุ"
-                            value={location.state.row.cert_expire_date}
+                            value={(location.state.row.cert_expire_date && location.state.row.cert_expire_date.length > 0) ? location.state.row.cert_expire_date : 'ไม่ระบุ'}
                             name="cert_expire_date"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -251,7 +251,7 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="ละติจูด"
-                            value={location.state.row.latitude}
+                            value={(location.state.row.latitude && location.state.row.latitude.length > 0) ? location.state.row.latitude : 'ไม่ระบุ'}
                             name="latitude"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -263,7 +263,7 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="ลองจิจูด"
-                            value={location.state.row.longitude}
+                            value={(location.state.row.longitude && location.state.row.longitude.length > 0) ? location.state.row.longitude : 'ไม่ระบุ'}
                             name="longitude"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -296,9 +296,8 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="พื้นที่ในการปลูกสมุนไพร(ไร่)"
-                            // value={location.state.row.cert}
-                            value='0.5'
-                            name="farmerGroup"
+                            value={(location.state.row.area && location.state.row.area.length > 0) ? location.state.row.area : 'ไม่ระบุ'}
+                            name="area"
                             sx={{ gridColumn: "span 1" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
@@ -309,9 +308,8 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="สมุนไพรที่ปลูก"
-                            // value={location.state.row.cert}
-                            value='1.ขมิ้นชัน 2.ขมิ้นอ้อย 3.กระเจี๊ยบ'
-                            name="farmerGroup"
+                            value={(location.state.row.herbal && location.state.row.herbal.length > 0) ? location.state.row.herbal : 'ไม่ระบุ'}
+                            name="herbal"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
@@ -322,9 +320,8 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="ปริมาณการผลิต(กก./ปี)"
-                            // value={location.state.row.cert}
-                            value='250'
-                            name="BigfarmerGroup"
+                            value={(location.state.row.output && location.state.row.output.length > 0 )? location.state.row.output : 'ไม่ระบุ'}
+                            name="output"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
                             disabled
@@ -355,7 +352,7 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="กลุ่มเกษตรกร"
-                            value={location.state.row.farmergroupId}
+                            value={(location.state.row.farmergroupId && location.state.row.farmergroupId.length > 0) ? location.state.row.farmergroupId : 'ไม่ระบุ'}
                             name="farmergroupId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
@@ -367,7 +364,7 @@ const FarmerDetail = () => {
                             variant="filled"
                             type="text"
                             label="กลุ่มเกษตรกรแปลงใหญ่"
-                            value={location.state.row.collaborativefarmId}
+                            value={(location.state.row.collaborativefarmId && location.state.row.collaborativefarmId.length > 0) ? location.state.row.collaborativefarmId : 'ไม่ระบุ'}
                             name="collaborativefarmId"
                             sx={{ gridColumn: "span 2" }}
                             InputLabelProps={{ shrink: true }}
