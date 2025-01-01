@@ -78,11 +78,13 @@ const Farmerspending = () => {
             field: 'tel',
             headerName: 'เบอร์ติดต่อ',
             flex: 1,
+            cellClassName: "name-column--cell"
         },
         {
             field: 'register_type',
             headerName: 'ประเภทการลงทะเบียน',
             flex: 1,
+            cellClassName: "name-column--cell",
             renderCell: (params) => {
                 // console.log('params',params.row.status);
                 if (params.row.register_type == 1) {
@@ -102,6 +104,9 @@ const Farmerspending = () => {
             field: 'status',
             headerName: 'สถานะ',
             flex: 1,
+            cellClassName: "name-column--cell",
+            headerAlign: 'center',
+            align: 'center',
             renderCell: (params) => {
                 // console.log('params',params.row.status);
                 if (params.row.status == true) {

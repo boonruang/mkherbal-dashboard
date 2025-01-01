@@ -340,7 +340,7 @@ const FarmerApproveDetail = () => {
                                 padding: "10px 20px",
                                 mr: "20px",
                                 mb: "10px",
-                                '&:hover': {backgroundColor: colors.blueAccent[700]}
+                                '&:hover': {backgroundColor: colors.greenAccent[800]}
                             }}
                         >
                             อนุมัติ
@@ -355,7 +355,7 @@ const FarmerApproveDetail = () => {
                                 padding: "10px 20px",
                                 mr: "20px",
                                 mb: "10px",
-                                '&:hover': {backgroundColor: colors.blueAccent[700]}
+                                '&:hover': {backgroundColor: colors.greenAccent[800]}
                             }}
                         >
                             ไม่อนุมัติ
@@ -370,10 +370,10 @@ const FarmerApproveDetail = () => {
                                 padding: "10px 20px",
                                 mr: "10px",
                                 mb: "10px",
-                                '&:hover': {backgroundColor: colors.blueAccent[700]}
+                                '&:hover': {backgroundColor: colors.greenAccent[800]}
                             }}
                         >
-                            ยกเลิก
+                            กลับ
                         </Button> 
 
                     

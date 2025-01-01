@@ -77,11 +77,14 @@ const Farmersreject = () => {
             field: 'tel',
             headerName: 'เบอร์ติดต่อ',
             flex: 1,
+            cellClassName: "name-column--cell"
         },
         {
             field: 'status',
             headerName: 'สถานะ',
             flex: 1,
+            headerAlign: 'center',
+            align: 'center',
             renderCell: (params) => {
                 console.log('params',params.row.reject);
                 if (params.row.reject == true) {

@@ -558,14 +558,14 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  }  
-                            { result?.roles?.find((role) => [ROLES.Admin].includes(role))
+                            {/* { result?.roles?.find((role) => [ROLES.Admin].includes(role))
                             ? <Item
                                     title="ขอรีเซ็ตรหัส"
                                     to="/farmers/reset"
                                     icon={<LockResetIcon />}
                                     selected={selected}
                                     setSelected={setSelected}
-                                /> : undefined  }  
+                                /> : undefined  }   */}
                             { result?.roles?.find((role) => [ROLES.Admin].includes(role))
                             ? <Item
                                     title="ไม่อนุมัติ"
