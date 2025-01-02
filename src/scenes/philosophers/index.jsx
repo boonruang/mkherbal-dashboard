@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, useTheme,Button } from "@mui/material"
 import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import { tokens } from "../../theme"
@@ -11,6 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { ROLES } from '../../constants'
 import { Link, useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
+import * as XLSX from 'xlsx'
+import IosShareIcon from '@mui/icons-material/IosShare';
+import ConfirmBox from 'components/ConfirmBox'
 
 const Philosophers = () => {
     const theme = useTheme()
@@ -19,6 +22,11 @@ const Philosophers = () => {
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
+
+    const [open, setOpen] = useState(false)
+    const [Id, setId] = useState(null)
+
+    const message = 'กรุณายืนยันการลบข้อมูล'    
 
     useEffect(() => {
         dispatch(getPhilosophers())
@@ -37,6 +45,34 @@ const Philosophers = () => {
         //
     }
 
+    const DeleteFunction = () => {
+        // dispatch(deletePhilosopher(Id))
+        setOpen(false)
+    }
+
+    const handleDeleteClick = ({state}) => {
+        // console.log('state',state)
+        // console.log('row.id',state.row.id)
+        setId(state.row.id)
+        setOpen(true)
+        // dispatch(deleteFarmer(state.row.id))
+    }
+
+    const handleAddButton = () => {
+        navigate('/philosophers/add')
+      };
+
+    const ExportExcelButton = () => {
+    // console.log('Data to export: ',result)
+    var wb = XLSX.utils.book_new(),
+    ws = XLSX.utils.json_to_sheet(result)
+
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1")
+    XLSX.writeFile(wb, "philosopher.xlsx")
+
+    };
+      
+    
     const handleButtonDetail = (p) => {
         // console.log('params',params)
         console.log('params',p)
@@ -51,52 +87,70 @@ const Philosophers = () => {
 
 
     const columns = [
-        { field: 'id', headerName: 'ลำดับ', headerAlign: 'center', align: 'center'},
-        // { field: 'username', headerName: 'Username' },
-        {
-            field: 'name',
-            headerName: 'ชื่อ',
-            flex: 1,
+        { 
+            field: 'id',
+            headerName: 'ลำดับ',
+            headerAlign: 'center',
+            align: 'center',
+            flex: 0.4,
             cellClassName: "name-column--cell"
         },
         {
-            field: 'baan',
-            headerName: 'หมู่บ้าน',
-            flex: 1,
+            field: 'firstname',
+            headerName: 'ชื่อ',
+            headerAlign: 'center',
+            align: 'center',            
+            flex: 0.6,
+            cellClassName: "name-column--cell"
+        },
+        {
+            field: 'lastname',
+            headerName: 'นามสกุล',
+            headerAlign: 'center',
+            align: 'center',            
+            flex: 0.6,
             cellClassName: "name-column--cell"
         },              
         {
             field: 'hno',
             headerName: 'เลขที่',
-            type: "number",
-            headerAlign: "left",
-            align: "left",
+            headerAlign: 'center',
+            align: 'center',
+            flex: 0.4,
+            cellClassName: "name-column--cell"
         },
         {
             field: 'moo',
             headerName: 'หมู่',
-            type: "number",
-            headerAlign: "left",
-            align: "left",
+            headerAlign: 'center',
+            align: 'center',
+            flex: 0.4,
+            cellClassName: "name-column--cell"
         },        
         {
             field: 'tambon',
             headerName: 'ตำบล',
-            flex: 1,
+            headerAlign: 'center',
+            align: 'center',
+            flex: 0.6,
             cellClassName: "name-column--cell"
         },  
         {
             field: 'amphoe',
             headerName: 'อำเภอ',
-            flex: 1,
+            headerAlign: 'center',
+            align: 'center',
+            flex: 0.6,
             cellClassName: "name-column--cell"
         },          
         {
             field: 'province',
             headerName: 'จังหวัด',
-            flex: 1,
+            headerAlign: 'center',
+            align: 'center',
+            flex: 0.6,
             cellClassName: "name-column--cell"
-        },                  
+        }, 
         // {
         //     field: 'tel',
         //     headerName: 'เบอร์ติดต่อ',
@@ -121,7 +175,7 @@ const Philosophers = () => {
 
             { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
                 ? <Button
-                  onClick={handleClick}
+                onClick={() => handleDeleteClick({ state: { row: params.row }})}
                   variant="outlined"
                   color="error"
                   sx={{ ml: 1 }} 
@@ -173,25 +227,47 @@ const Philosophers = () => {
                     color: `${colors.grey[100]} !important`
                 }
             }}>
-                { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role))
-                ? <Box display="flex" justifyContent="end">
-                    <Button  
-                        sx={{
-                            // backgroundColor: colors.blueAccent[600],
-                            backgroundColor: colors.greenAccent[600],
-                            color: colors.grey[100],
-                            fontSize: "14px",
-                            fontWeight: "bold",
-                            padding: "10px 20px",
-                            mr: "10px",
-                            mb: "10px",
-                            '&:hover': {backgroundColor: colors.blueAccent[700]}
-                        }}
-                    >
-                        <AddIcon sx={{ mr: "10px" }} />
-                        เพิ่มข้อมูล
-                    </Button>
-                </Box> : undefined }
+                <Box display="flex" justifyContent="end">
+                    { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role)) && result
+                    ? <Box display="flex" justifyContent="end" onClick={handleAddButton}>
+                        <Button  
+                            sx={{
+                                // backgroundColor: colors.blueAccent[600],
+                                backgroundColor: colors.greenAccent[600],
+                                color: colors.grey[100],
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                padding: "10px 20px",
+                                mr: "10px",
+                                mb: "10px",
+                                '&:hover': {backgroundColor: colors.greenAccent[800]}
+                            }}
+                        >
+                            <AddIcon sx={{ mr: "10px" }} />
+                            เพิ่มข้อมูล
+                        </Button>
+                    </Box> : undefined }
+
+                    { loginReducer?.result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor].includes(role)) && result
+                    ? <Box display="flex" justifyContent="end" onClick={ExportExcelButton}>
+                        <Button  
+                            sx={{
+                                backgroundColor: colors.blueAccent[700],
+                                // backgroundColor: colors.greenAccent[600],
+                                color: colors.grey[100],
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                padding: "10px 20px",
+                                mr: "10px",
+                                mb: "10px",
+                                '&:hover': {backgroundColor: colors.blueAccent[800]}
+                            }}
+                        >
+                            <IosShareIcon sx={{ mr: "10px" }} />
+                            ส่งออกไฟล์ Excel
+                        </Button>
+                    </Box> : undefined }                
+                </Box>
                 
                     { isFetching && <Box height="65vh" sx={{ display: 'flex', justifyContent: "center", alignItems: 'center'}}><CircularProgress /></Box>}
                     { result ?
@@ -199,16 +275,38 @@ const Philosophers = () => {
                         rows={result}
                         columns={columns}
                         components={{ Toolbar: GridToolbar }}
-                        // onSelectionModelChange={(ids) => {
-                        //     const selectedIDs = new Set(ids)
-                        //     const selectedRowData = result.filter((row) => 
-                        //         selectedIDs.has(row.id.toString())
-                        //     )
-                        //     console.log(selectedRowData)
-                        // }}
-                        // onRowClick={handleRowClick}
+                        componentsProps={{
+                            toolbar: {
+                              csvOptions: { disableToolbarButton: true },
+                              printOptions: {
+                                disableToolbarButton: false,
+                                hideFooter: true,
+                                hideToolbar: true, // ซ่อน headers column, filters, exports ตอนพิมพ์
+                                fields: [
+                                    'id',
+                                    'firstname',
+                                    'lastname',
+                                    'baan',
+                                    'hno',                                    
+                                    'moo',
+                                    'tambon',
+                                    'amphoe',
+                                    'province',
+                                    'postcode',
+                                ],
+                                fileName: 'farmers', // not work!
+                                },
+                            },
+                          }}  
                     /> : undefined}
             </Box>
+            <ConfirmBox
+                open={open}
+                closeDialog={() => setOpen(false)}
+                deleteFunction={() => DeleteFunction()}
+                message={message}
+                title={Id}
+            />            
         </Box>
     )
 }

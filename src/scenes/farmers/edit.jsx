@@ -18,7 +18,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
-import { updateFarmer } from '../../actions/farmer.action'
+import { updateFarmer, getFarmerById } from '../../actions/farmer.action'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ConfirmBox from 'components/ConfirmBox'
 
@@ -107,9 +107,22 @@ const FarmerEdit = () => {
   const message = 'กรุณายืนยันการปรับปรุงข้อมูล'
 
   useEffect(() => {
-      setFormValues(location.state.row)
-      setFarmerId(location.state.row.id)
-  })
+    dispatch(getFarmerById(location.state.row.id))
+  },[dispatch, location.state.row.id])
+
+
+  const farmerReducer = useSelector((state) => state.app.farmerReducer)
+
+    if (farmerReducer?.result) {
+        console.log('location.state.row.id', location.state.row.id)
+        console.log('farmerReducer?.result', farmerReducer?.result)
+      }
+
+
+//   useEffect(() => {
+//       setFormValues(location.state.row)
+//       setFarmerId(location.state.row.id)
+//   })
 
 
 //   if (formValues) {
