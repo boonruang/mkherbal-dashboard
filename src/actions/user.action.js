@@ -94,7 +94,7 @@ export const editUser = (navigate, formData) => {
       navigate('/users/list')
     } catch (error) {
       // failed
-      console.log('addUser formData Error: ', error.toString())
+      console.log('editUser formData Error: ', error.toString())
     }
   }
 }

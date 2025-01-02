@@ -16,7 +16,7 @@ const Transition = forwardRef(function Transition(props, ref) {
     return <Fade ref={ref} {...props} />
 })
 
-function ConfirmBox({ open, closeDialog, title, deleteFunction }){
+function ConfirmBox({ open, closeDialog, title, deleteFunction, message }){
 
 const theme = useTheme()
 const colors = tokens(theme.palette.mode)
@@ -39,13 +39,13 @@ const colors = tokens(theme.palette.mode)
                         <Grid item xs={12}>
                             <Box
                             sx={{
-                                mb: 3,
+                                mt: 3,
                                 display: "flex",
                                 justifyContent: "flex-start",
                                 flexDirection: "column",
                             }}
                             >
-                            <Typography variant="h5" textAlign="center" >กรุณายืนยันการลบข้อมูล {title}</Typography>
+                            <Typography variant="h5" textAlign="center" >{message} {title && title}</Typography>
 
                             </Box>
                         </Grid>

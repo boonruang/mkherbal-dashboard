@@ -116,3 +116,18 @@ export const addFarmer = (navigate, formData) => {
   }
 }
 
+export const updateFarmer = (navigate, formData) => {
+  console.log('navigate action',navigate)
+  console.log('formData action',formData)
+  return async (dispatch) => {
+    try {
+      // success
+      let result = await httpClient.put(server.FARMER_URL, formData)
+      console.log('updated Farmer formData successfully: ', result)
+      navigate('/farmers')
+    } catch (error) {
+      // failed
+      console.log('updated Farmer formData Error: ', error.toString())
+    }
+  }
+}

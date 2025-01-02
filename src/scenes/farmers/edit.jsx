@@ -18,8 +18,9 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { tokens } from 'theme';
 import { useDispatch, useSelector } from 'react-redux'
-import { addUser } from '../../actions/user.action'
+import { updateFarmer } from '../../actions/farmer.action'
 import { useNavigate, useLocation } from 'react-router-dom'
+import ConfirmBox from 'components/ConfirmBox'
 
 const initialValues = {
     username: "",
@@ -40,15 +41,46 @@ const userSchema = yup.object().shape({
 })
 
 const onSubmit = async (values, { setSubmitting }) => {
-    if (values) {
-        console.log('Form data', values)
-    }
-    // console.log('submitProps', submitProps)
-    // submitProps.setSubmitting(false)
-    // submitProps.resetForm()
-    // dispatch(editFarmer(navigate, values))
+    let formData = new FormData()
+    formData.append('id', values.id)
+    formData.append('firstname', values.firstname)
+    formData.append('lastname', values.lastname)
+    formData.append('cid', values.cid)
+    formData.append('username', values.cid)
+    formData.append('password', values.password)
+    formData.append('hno', values.hno)
+    formData.append('moo', values.moo)
+    formData.append('tambon', values.tambon)
+    formData.append('amphoe', values.amphoe)
+    formData.append('province', values.province)
+    formData.append('postcode', values.postcode)
+    formData.append('tel', values.tel)
+    formData.append('status', 'true')
+    formData.append('reject', 'false')
+    formData.append('latitude', values.latitude)
+    formData.append('longitude', values.longitude)
+    // เลือกประเภทการลงทะเบียน 1 เกตรกร 2 ผู้ประกอบการ 3 ปราชญ์
+    formData.append('register_type',values.register_type)
+    // ใช้เก็บข้อมูลปราชญ์
+    formData.append('register_data',values.register_data) 
+    // เก็บข้อมูลการลงทะเบียน เกษตรกร 
+    formData.append('farmer_type',values.farmer_type)              
+    formData.append('collaborativefarmId',values.collaborativefarmId)
+    // เก็บข้อมูลการลงกลุ่มเกษตร
+    formData.append('farmergroupId',values.farmergroupId)
+    // เก็บข้อมูลการลงทะเบียน ผู้ประกอบการ
+    formData.append('entrepreneur_type',values.entrepreneur_type)
+    formData.append('entrepreneurherbal_data',values.entrepreneurherbal)
+    formData.append('entrepreneurtraditionalmedicine_data',values.entrepreneurtraditionalmedicine)
+
+    console.log('Edit form values: ',values)
+//   dispatch(updateFarmer(navigate, formData))
     setSubmitting(false)
 }
+
+            // onSubmit={async (values, { setSubmitting }) => {
+
+            // }}
 
 const FarmerEdit = () => {
 
@@ -69,9 +101,14 @@ const FarmerEdit = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)")
 
   const [formValues, setFormValues] = useState(null)
+  const [open, setOpen] = useState(false)
+  const [farmerId, setFarmerId] = useState(null)
+
+  const message = 'กรุณายืนยันการปรับปรุงข้อมูล'
 
   useEffect(() => {
       setFormValues(location.state.row)
+      setFarmerId(location.state.row.id)
   })
 
 
@@ -80,22 +117,18 @@ const FarmerEdit = () => {
 //   }
 
 
+
 const handleSubmitClick = () => {
-    navigate(-1)
+    setOpen(true)
 }
 
     return <Box m="20px">
         <Header title="แก้ไขข้อมูลเกษตรกร" subtitle="รายละเอียดข้อมูลเกษตรกร" />
 
         <Formik
-            // onSubmit={onSubmit}
-            onSubmit={async (values, { setSubmitting }) => {
-            console.log('Edit form values: ',values)
-            // setSubmitting(false)
-            }}
-
+            onSubmit={onSubmit}
             initialValues={formValues || initialValues}
-            validationSchema={userSchema}        
+            // validationSchema={userSchema}        
             enableReinitialize
         >
 
@@ -340,6 +373,23 @@ const handleSubmitClick = () => {
                             InputLabelProps={{ shrink: true }}
                         />   
 
+
+                        <TextField
+                            fullWidth
+                            variant="filled"
+                            type="text"
+                            label="รหัสไปรษณีย์"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.postcode}
+                            name="postcode"     
+                            disabled                      
+                            error={!!touched.postcode && !!errors.postcode}
+                            helperText={touched.postcode && errors.postcode}
+                            sx={{ gridColumn: "span 2" }}
+                            InputLabelProps={{ shrink: true }}
+                        />                         
+
                     </Box> 
 
                 </Box> 
@@ -465,7 +515,7 @@ const handleSubmitClick = () => {
                                     type='submit'
                                     // disabled={!(dirty && isValid)}
                                     // disabled={}
-                                    onClick={handleSubmitClick}
+                                    // onClick={handleSubmitClick}
                                     sx={{
                                         backgroundColor: colors.greenAccent[600],
                                         color: colors.grey[100],
@@ -502,6 +552,12 @@ const handleSubmitClick = () => {
             )
         }                
         </Formik>
+        <ConfirmBox
+        open={open}
+        closeDialog={() => setOpen(false)}
+        message={message}
+        title={farmerId}
+        />
     </Box >
 }
 

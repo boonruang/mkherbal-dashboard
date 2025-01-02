@@ -29,6 +29,8 @@ const Farmers = () => {
     const [farmerId, setFarmerId] = useState([])
     const [open, setOpen] = useState(false)
 
+    const message = 'กรุณายืนยันการลบข้อมูล'
+
     useEffect(() => {
         dispatch(getFarmers())
     },[dispatch])
@@ -327,6 +329,7 @@ const Farmers = () => {
                 open={open}
                 closeDialog={() => setOpen(false)}
                 deleteFunction={() => DeleteFunction()}
+                message={message}
                 title={farmerId}
             />
         </Box>

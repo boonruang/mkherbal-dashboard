@@ -40,7 +40,7 @@ import { getEntrepreneurherbals } from '../../actions/entrepreneurherbal.action'
 import { getEntrepreneurthaitraditionalmedicals } from '../../actions/entrepreneurthaitraditionalmedical.action'
 import { useNavigate } from 'react-router-dom'
 import Header from "../../components/Header"
-import { ConstructionOutlined } from '@mui/icons-material';
+import { ConstructionOutlined, TroubleshootOutlined } from '@mui/icons-material';
 
 import { server } from '../../constants/index'
 import {
@@ -51,6 +51,7 @@ import {
     Pin,
     InfoWindow
 } from '@vis.gl/react-google-maps'
+import ConfirmBox from 'components/ConfirmBox';
 
 const initialValues = {
     firstname: "",
@@ -96,7 +97,6 @@ const userSchema = yup.object().shape({
     // postcode: yup.string().required("ต้องใส่"),
 })
 
-
 const FamerAdd = () => {
 
   const theme = useTheme()
@@ -106,6 +106,10 @@ const FamerAdd = () => {
 
   const navigate = useNavigate()
 
+    const [open, setOpen] = useState(false)
+    const [farmerId, setFarmerId] = useState(null)
+
+    const message = 'กรุณายืนยันการเพิ่มข้อมูล'
 
 
 //   const [latitude, setLatitude] = useState(16.1850896);
@@ -149,8 +153,6 @@ const FamerAdd = () => {
         border: 1,
         borderColor: colors.grey[100],
   };
-
-
 
 
   useEffect(() => {
@@ -212,6 +214,10 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
 //   console.log('collaborativefarmReducer list result',collaborativefarmReducer.result)
 // }
 
+    const handleSubmitButtonClick = () => {
+        setOpen(true)
+   }
+
     const handleCancelButtonClick = () => {
     navigate(-1)
    }
@@ -223,6 +229,43 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
     // get province or all 
     setProvincetargetfag(v)
    }
+
+   const handleFormSubmit = async (values, { setSubmitting }) => {
+    let formData = new FormData()
+    formData.append('firstname', values.firstname)
+    formData.append('lastname', values.lastname)
+    formData.append('cid', values.cid)
+    formData.append('username', values.cid)
+    formData.append('password', values.password)
+    formData.append('hno', values.hno)
+    formData.append('moo', values.moo)
+    formData.append('tambon', tambon1)
+    formData.append('amphoe', amphure1)
+    formData.append('province', province1)
+    formData.append('postcode', zipcode1)
+    formData.append('tel', values.tel)
+    formData.append('status', 'true')
+    formData.append('reject', 'false')
+    formData.append('latitude', center.lat)
+    formData.append('longitude', center.lng)
+    // เลือกประเภทการลงทะเบียน 1 เกตรกร 2 ผู้ประกอบการ 3 ปราชญ์
+    formData.append('register_type',values.register_type)
+      // ใช้เก็บข้อมูลปราชญ์
+    formData.append('register_data',values.register_data) 
+    // เก็บข้อมูลการลงทะเบียน เกษตรกร 
+    formData.append('farmer_type',values.farmer_type)              
+    formData.append('collaborativefarmId',values.collaborativefarmId)
+    // เก็บข้อมูลการลงกลุ่มเกษตร
+    formData.append('farmergroupId',values.farmergroupId)
+    // เก็บข้อมูลการลงทะเบียน ผู้ประกอบการ
+    formData.append('entrepreneur_type',values.entrepreneur_type)
+    formData.append('entrepreneurherbal_data',values.entrepreneurherbal)
+    formData.append('entrepreneurtraditionalmedicine_data',values.entrepreneurtraditionalmedicine)
+
+    console.log('Registration form values: ',values)
+    dispatch(addFarmer(navigate, formData))
+    setSubmitting(false)
+}   
 
 
   const DropdownList = ({
@@ -316,51 +359,13 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
     );
   };
 
-
     const isNonMobile = useMediaQuery("(min-width:600px)")
-
 
     return <Box m="20px">
         <Header title="เพิ่มเกษตรกร" />
 
         <Formik
-            // onSubmit={handleFormSubmit}
-            onSubmit={async (values, { setSubmitting }) => {
-              let formData = new FormData()
-              formData.append('firstname', values.firstname)
-              formData.append('lastname', values.lastname)
-              formData.append('cid', values.cid)
-              formData.append('username', values.cid)
-              formData.append('password', values.password)
-              formData.append('hno', values.hno)
-              formData.append('moo', values.moo)
-              formData.append('tambon', tambon1)
-              formData.append('amphoe', amphure1)
-              formData.append('province', province1)
-              formData.append('postcode', zipcode1)
-              formData.append('tel', values.tel)
-              formData.append('status', 'true')
-              formData.append('reject', 'false')
-              formData.append('latitude', center.lat)
-              formData.append('longitude', center.lng)
-              // เลือกประเภทการลงทะเบียน 1 เกตรกร 2 ผู้ประกอบการ 3 ปราชญ์
-              formData.append('register_type',values.register_type)
-                // ใช้เก็บข้อมูลปราชญ์
-              formData.append('register_data',values.register_data) 
-              // เก็บข้อมูลการลงทะเบียน เกษตรกร 
-              formData.append('farmer_type',values.farmer_type)              
-              formData.append('collaborativefarmId',values.collaborativefarmId)
-              // เก็บข้อมูลการลงกลุ่มเกษตร
-              formData.append('farmergroupId',values.farmergroupId)
-              // เก็บข้อมูลการลงทะเบียน ผู้ประกอบการ
-              formData.append('entrepreneur_type',values.entrepreneur_type)
-              formData.append('entrepreneurherbal_data',values.entrepreneurherbal)
-              formData.append('entrepreneurtraditionalmedicine_data',values.entrepreneurtraditionalmedicine)
-
-              console.log('Registration form values: ',values)
-                dispatch(addFarmer(navigate, formData))
-               setSubmitting(false)
-            }}
+            onSubmit={handleFormSubmit}
             initialValues={initialValues}
             validationSchema={userSchema}
             // validateOnMount
@@ -586,7 +591,7 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                     <Box sx={{mt:"5px",  ...commonStyles, borderRadius: 1}}>
                         <Box sx={{mt:"5px"}} >
                         <Typography variant="h6" gutterBottom sx={{ display: 'block' }}>
-                            โปรดระบุพิกัดแปลง
+                            เลือกพิกัดแปลงจากแผนที่
                         </Typography>
                         <FormControl  sx={{m:"5px"}}>
                             <RadioGroup
@@ -724,6 +729,8 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                             }}                    
                         >
                                 <Button  
+                                    // onClick={handleSubmitButtonClick}
+                                    // type='button'
                                     type='submit'
                                     disabled={!(dirty && isValid)}
                                     // disabled={isSubmitting}
@@ -762,6 +769,12 @@ const entrepreneurthaitraditionalmedicalReducer = useSelector((state) => state.a
                 </Form>
             )}
         </Formik>
+        <ConfirmBox
+        open={open}
+        closeDialog={() => setOpen(false)}
+        message={message}
+        // title={farmerId}
+        />        
     </Box >
 }
 
