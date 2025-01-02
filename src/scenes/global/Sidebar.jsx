@@ -268,15 +268,25 @@ const Sidebar = () => {
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  } 
-
+                           
                         { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
                            ? <Item
-                                title=" _แหล่งแปรรูป(map)"
+                                title=" แหล่งแปรรูป(map)"
                                 to="/marketplace"
                                 icon={<StoreIcon />}
                                 selected={selected}
                                 setSelected={setSelected}
                             /> : undefined  } 
+
+
+                        { result?.roles?.find((role) => [ROLES.Admin,ROLES.Editor,ROLES.User].includes(role))
+                           ? <Item
+                                title="กลุ่มเกษตรกร(map)"
+                                to="/farmergroup/map"
+                                icon={<PeopleOutlinedIcon />}
+                                selected={selected}
+                                setSelected={setSelected}
+                            /> : undefined  }                               
                           
                         </SubMenu> 
 
